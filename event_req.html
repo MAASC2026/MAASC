@@ -6,976 +6,276 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
-<title>MAASC College Event Request</title>
-
-
-<!-- ============================================================
-     FIREBASE
-============================================================ -->
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
+<title>IT Head Dashboard</title>
 
 <style>
 
-/* ============================================================
-   RESET
-============================================================ */
-
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
     font-family:Arial,Helvetica,sans-serif;
 }
 
-
-/* ============================================================
-   BODY
-============================================================ */
-
 body{
-
-    background:#f4f7fb;
-
-    color:#1f2937;
-
-    min-height:100vh;
-
+    background:#f4f6f9;
+    color:#333;
 }
 
-
-/* ============================================================
-   HEADER
-============================================================ */
+/* ================= HEADER ================= */
 
 .header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
 
-    background:#1e3a8a;
+    height:70px;
 
-    color:white;
-
-    padding:18px 30px;
+    background:#500454;
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
 
-    box-shadow:
-        0 2px 8px rgba(0,0,0,.15);
-
-}
-
-
-.header-left h1{
-
-    font-size:22px;
-
-    margin-bottom:5px;
-
-}
-
-
-.header-left p{
-
-    font-size:13px;
-
-    opacity:.9;
-
-}
-
-
-.header-right{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:18px;
-
-}
-
-
-.staff-info{
-
-    text-align:right;
-
-}
-
-
-.staff-info strong{
-
-    display:block;
-
-    font-size:14px;
-
-}
-
-
-.staff-info span{
-
-    display:block;
-
-    font-size:12px;
-
-    margin-top:3px;
-
-    opacity:.85;
-
-}
-
-
-.logout-btn{
-
-    border:none;
-
-    background:#dc2626;
+    padding:0 25px;
 
     color:white;
 
-    padding:10px 16px;
+    box-shadow:0 2px 10px rgba(0,0,0,.3);
 
-    border-radius:7px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
+    z-index:1000;
 }
 
-
-.logout-btn:hover{
-
-    background:#b91c1c;
-
+.header h2{
+    font-size:24px;
 }
 
+.user{
+    font-size:16px;
+}
 
-/* ============================================================
-   CONTAINER
-============================================================ */
+/* ================= CONTAINER ================= */
 
 .container{
-
-    max-width:900px;
-
-    margin:35px auto;
-
-    padding:0 20px;
-
-}
-
-
-/* ============================================================
-   CARD
-============================================================ */
-
-.card{
-
-    background:white;
-
-    border-radius:12px;
-
-    box-shadow:
-        0 4px 20px rgba(0,0,0,.08);
-
-    overflow:hidden;
-
-}
-
-
-/* ============================================================
-   FORM HEADER
-============================================================ */
-
-.form-title{
-
-    padding:25px 28px;
-
-    background:#eff6ff;
-
-    border-bottom:1px solid #dbeafe;
-
-}
-
-
-.form-title h2{
-
-    color:#1e3a8a;
-
-    font-size:22px;
-
-    margin-bottom:6px;
-
-}
-
-
-.form-title p{
-
-    color:#64748b;
-
-    font-size:13px;
-
-}
-
-
-/* ============================================================
-   SECTION
-============================================================ */
-
-.form-section{
-
-    display:none;
-
-    padding:28px;
-
-}
-
-
-.form-section.active{
-
-    display:block;
-
-}
-
-
-/* ============================================================
-   SECTION HEADER
-============================================================ */
-
-.section-header{
-
-    background:#faf5fb;
-
-    border-left:5px solid #6b0875;
-
-    padding:18px 20px;
-
-    border-radius:6px;
-
-    margin-bottom:25px;
-
-}
-
-
-.section-header h3{
-
-    font-size:20px;
-
-    color:#5b0763;
-
-    margin-bottom:5px;
-
-}
-
-
-.section-header p{
-
-    font-size:13px;
-
-    color:#64748b;
-
-}
-
-
-/* ============================================================
-   PROGRESS
-============================================================ */
-
-.progress-area{
-
-    padding:20px 28px 0;
-
-}
-
-
-.progress-text{
-
     display:flex;
 
-    justify-content:space-between;
+    margin-top:70px;
 
-    font-size:13px;
-
-    color:#64748b;
-
-    margin-bottom:8px;
-
+    height:calc(100vh - 70px);
 }
 
+/* ================= SIDEBAR ================= */
 
-.progress-bar{
-
-    width:100%;
-
-    height:7px;
-
-    background:#e2e8f0;
-
-    border-radius:10px;
-
-    overflow:hidden;
-
-}
-
-
-.progress-fill{
-
-    height:100%;
-
-    width:25%;
-
-    background:#6b0875;
-
-    transition:.3s;
-
-}
-
-
-/* ============================================================
-   FORM GROUP
-============================================================ */
-
-.form-group{
-
-    margin-bottom:22px;
-
-}
-
-
-.form-row{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:20px;
-
-}
-
-
-label{
-
-    display:block;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-    color:#374151;
-
-    margin-bottom:8px;
-
-}
-
-
-.required{
-
-    color:#dc2626;
-
-}
-
-
-.auto-badge{
-
-    display:inline-block;
-
-    margin-left:7px;
-
-    padding:3px 7px;
-
-    border-radius:4px;
-
-    background:#dcfce7;
-
-    color:#166534;
-
-    font-size:10px;
-
-    font-weight:bold;
-
-}
-
-
-input,
-select,
-textarea{
-
-    width:100%;
-
-    border:1px solid #cbd5e1;
-
-    border-radius:7px;
-
-    padding:12px 13px;
-
-    font-size:14px;
-
-    outline:none;
+.sidebar{
+    width:260px;
 
     background:white;
 
-    color:#1f2937;
+    box-shadow:2px 0 8px rgba(0,0,0,.15);
 
+    overflow-y:auto;
+
+    flex-shrink:0;
 }
 
+.sidebar h3{
+    padding:20px;
 
-textarea{
+    background:#500454;
 
-    min-height:120px;
+    color:white;
 
-    resize:vertical;
-
+    text-align:center;
 }
 
+.sidebar a{
+    display:block;
 
-input:focus,
-select:focus,
-textarea:focus{
+    padding:15px 20px;
 
-    border-color:#2563eb;
+    text-decoration:none;
 
-    box-shadow:
-        0 0 0 3px
-        rgba(37,99,235,.10);
+    color:#333;
 
+    border-bottom:1px solid #eee;
+
+    font-weight:bold;
+
+    transition:.3s;
 }
 
+.sidebar a:hover{
+    background:#500454;
 
-input[readonly]{
+    color:white;
 
-    background:#f1f5f9;
-
-    color:#475569;
-
-    cursor:not-allowed;
-
+    padding-left:30px;
 }
 
+/* ================= MAIN ================= */
 
-/* ============================================================
-   DATE TIME
-============================================================ */
+.main{
+    flex:1;
 
-.datetime-row{
+    padding:25px;
 
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:20px;
-
+    overflow:auto;
 }
 
+/* ================= WELCOME CARD ================= */
 
-/* ============================================================
-   GUEST
-============================================================ */
-
-.guest-item{
-
-    background:#f8fafc;
-
-    border:1px solid #e2e8f0;
-
-    border-radius:10px;
+.card{
+    background:white;
 
     padding:20px;
 
-    margin-bottom:18px;
+    border-radius:10px;
 
+    box-shadow:0 0 10px rgba(0,0,0,.15);
+
+    margin-bottom:20px;
 }
 
+.card h2{
+    color:#500454;
 
-.guest-number{
+    margin-bottom:10px;
+}
 
-    color:#5b0763;
+.card p{
+    margin:8px 0;
+}
+
+/* ================= DASHBOARD STATS ================= */
+
+.dashboard{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-top:20px;
+}
+
+.stat{
+    background:white;
+
+    border-radius:10px;
+
+    padding:25px;
+
+    box-shadow:0 0 10px rgba(0,0,0,.15);
+
+    text-align:center;
+
+    transition:.3s;
+}
+
+.stat:hover{
+    transform:translateY(-4px);
+}
+
+.stat h1{
+    font-size:40px;
+
+    color:#500454;
+
+    margin-bottom:10px;
+}
+
+.stat p{
+    font-size:18px;
+
+    font-weight:bold;
+}
+
+/* ================= QUICK ACCESS ================= */
+
+.quick{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+
+    gap:20px;
+
+    margin-top:25px;
+}
+
+.quick button{
+    padding:20px;
 
     font-size:16px;
 
     font-weight:bold;
 
-    margin-bottom:18px;
-
-}
-
-
-.remove-guest-btn{
-
     border:none;
 
-    background:#dc2626;
+    background:#500454;
 
     color:white;
 
-    padding:8px 14px;
-
-    border-radius:6px;
+    border-radius:8px;
 
     cursor:pointer;
 
-    font-size:12px;
-
-    font-weight:bold;
-
-    margin-top:5px;
-
+    transition:.3s;
 }
 
+.quick button:hover{
+    background:#6e0a75;
 
-.remove-guest-btn:hover{
-
-    background:#b91c1c;
-
+    transform:scale(1.04);
 }
 
+/* ================= SECTION TITLE ================= */
 
-.add-guest-btn{
+.section-title{
+    color:#500454;
 
-    border:none;
-
-    background:#1e3a8a;
-
-    color:white;
-
-    padding:11px 20px;
-
-    border-radius:7px;
-
-    cursor:pointer;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-}
-
-
-.add-guest-btn:hover{
-
-    background:#172554;
-
-}
-
-
-/* ============================================================
-   NAVIGATION
-============================================================ */
-
-.navigation{
-
-    border-top:1px solid #e5e7eb;
-
-    padding:20px 28px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    background:#fff;
-
-}
-
-
-.back-btn{
-
-    border:1px solid #cbd5e1;
-
-    background:white;
-
-    color:#374151;
-
-    padding:11px 22px;
-
-    border-radius:7px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-}
-
-
-.back-btn:hover{
-
-    background:#f8fafc;
-
-}
-
-
-.next-btn,
-.submit-btn{
-
-    border:none;
-
-    background:#1e3a8a;
-
-    color:white;
-
-    padding:11px 25px;
-
-    border-radius:7px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-}
-
-
-.next-btn:hover,
-.submit-btn:hover{
-
-    background:#172554;
-
-}
-
-
-.submit-btn{
-
-    background:#15803d;
-
-}
-
-
-.submit-btn:hover{
-
-    background:#166534;
-
-}
-
-
-/* ============================================================
-   STATUS
-============================================================ */
-
-.status{
-
-    display:none;
-
-    margin:20px 28px 0;
-
-    padding:13px 15px;
-
-    border-radius:7px;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-}
-
-
-.status.success{
-
-    display:block;
-
-    background:#dcfce7;
-
-    color:#166534;
-
-    border:1px solid #86efac;
-
-}
-
-
-.status.error{
-
-    display:block;
-
-    background:#fee2e2;
-
-    color:#991b1b;
-
-    border:1px solid #fca5a5;
-
-}
-
-
-.status.loading{
-
-    display:block;
-
-    background:#eff6ff;
-
-    color:#1e40af;
-
-    border:1px solid #bfdbfe;
-
-}
-
-
-/* ============================================================
-   INFO
-============================================================ */
-
-.info-box{
-
-    background:#eff6ff;
-
-    border:1px solid #bfdbfe;
-
-    color:#1e40af;
-
-    padding:13px 15px;
-
-    border-radius:7px;
-
-    font-size:13px;
-
-    margin-bottom:25px;
-
-}
-
-
-/* ============================================================
-   LOADER
-============================================================ */
-
-.page-loader{
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-        rgba(255,255,255,.95);
-
-    z-index:99999;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    flex-direction:column;
-
-}
-
-
-.spinner{
-
-    width:45px;
-
-    height:45px;
-
-    border:4px solid #dbeafe;
-
-    border-top-color:#1e3a8a;
-
-    border-radius:50%;
-
-    animation:spin .8s linear infinite;
-
-    margin-bottom:15px;
-
-}
-
-
-@keyframes spin{
-
-    to{
-
-        transform:rotate(360deg);
-
-    }
-
-}
-
-
-.page-loader p{
-
-    font-size:14px;
-
-    color:#475569;
-
-}
-
-
-/* ============================================================
-   SUCCESS SCREEN
-============================================================ */
-
-.success-screen{
-
-    display:none;
-
-    text-align:center;
-
-    padding:60px 30px;
-
-}
-
-
-.success-icon{
-
-    width:70px;
-
-    height:70px;
-
-    border-radius:50%;
-
-    background:#dcfce7;
-
-    color:#15803d;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    margin:0 auto 20px;
-
-    font-size:36px;
-
-    font-weight:bold;
-
-}
-
-
-.success-screen h2{
-
-    color:#166534;
+    margin-top:25px;
 
     margin-bottom:10px;
 
+    font-size:22px;
 }
 
+/* ================= RESPONSIVE ================= */
 
-.success-screen p{
+@media(max-width:800px){
 
-    color:#64748b;
+    .sidebar{
+        width:210px;
+    }
 
-    font-size:14px;
+    .header h2{
+        font-size:19px;
+    }
 
-    line-height:1.7;
-
-}
-
-
-.request-id{
-
-    margin-top:20px;
-
-    display:inline-block;
-
-    background:#eff6ff;
-
-    color:#1e40af;
-
-    border:1px solid #bfdbfe;
-
-    padding:12px 18px;
-
-    border-radius:7px;
-
-    font-weight:bold;
+    .user{
+        font-size:13px;
+    }
 
 }
 
+@media(max-width:600px){
 
-/* ============================================================
-   MOBILE
-============================================================ */
+    .sidebar{
+        width:180px;
+    }
 
-@media(max-width:700px){
+    .sidebar a{
+        padding:12px 10px;
+        font-size:13px;
+    }
 
-    .header{
-
+    .main{
         padding:15px;
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-        gap:12px;
-
-    }
-
-
-    .header-right{
-
-        width:100%;
-
-        justify-content:space-between;
-
-    }
-
-
-    .container{
-
-        margin:20px auto;
-
-        padding:0 10px;
-
-    }
-
-
-    .form-section{
-
-        padding:20px;
-
-    }
-
-
-    .form-row,
-    .datetime-row{
-
-        grid-template-columns:1fr;
-
-        gap:0;
-
-    }
-
-
-    .navigation{
-
-        padding:15px 20px;
-
-    }
-
-
-}
-
-
-/* ============================================================
-   PRINT
-============================================================ */
-
-@media print{
-
-    .header,
-    .navigation,
-    .progress-area{
-
-        display:none;
-
-    }
-
-    .form-section{
-
-        display:block !important;
-
-    }
-
-    body{
-
-        background:white;
-
     }
 
 }
@@ -988,2511 +288,576 @@ input[readonly]{
 <body>
 
 
-<!-- ============================================================
-     LOADER
-============================================================ -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-<div
-    class="page-loader"
-    id="pageLoader"
->
+<div class="header">
 
-    <div class="spinner"></div>
+    <h2>
+        IT HEAD
+    </h2>
 
-    <p id="loaderText">
+    <div class="user">
 
-        Loading staff details...
+        Welcome
+        <span id="headerStaffName"></span>
 
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONTAINER
+===================================================== -->
+
+<div class="container">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+    <h3>
+        MENU
+    </h3>
+
+
+    <a href="it-head.html">
+        Dashboard
+    </a>
+
+
+    <a href="staff-details.html">
+        Personal Details
+    </a>
+
+
+    <a href="message.html">
+        Message Staff
+    </a>
+
+
+    <a href="event_req.html">
+        Event Request
+    </a>
+
+
+    <a href="substitute-approval.html">
+        Approve Substitute
+    </a>
+
+
+    <a href="leave-head.html">
+        Leave Entry
+    </a>
+
+
+    <a href="leave-approve-head.html">
+        Approve Leave
+    </a>
+
+
+    <a href="subject-assignment.html">
+        Subject Assign
+    </a>
+
+
+    <a href="timetable-assign-staff.html">
+        Staff Timetable Assign
+    </a>
+
+
+    <a href="timetable-report.html">
+        Staff Timetable Report
+    </a>
+
+
+    <a href="service-request.html">
+        Service Request
+    </a>
+
+
+    <a href="service-request-head.html">
+        Request Received
+    </a>
+
+
+    <a href="assign-worker.html">
+        Assign Workers
+    </a>
+
+
+    <a href="#" onclick="logout()">
+        🚪 Logout
+    </a>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="main">
+
+
+<!-- =====================================================
+     WELCOME
+===================================================== -->
+
+<div class="card">
+
+    <h2>
+        Welcome
+        <span id="staffName"></span>
+    </h2>
+
+    <p>
+        Staff ID :
+        <b id="staffId"></b>
+    </p>
+
+    <p>
+        Department :
+        <b id="department"></b>
     </p>
 
 </div>
 
 
-<!-- ============================================================
-     HEADER
-============================================================ -->
+<!-- =====================================================
+     DASHBOARD STATISTICS
+===================================================== -->
 
-<header class="header">
+<h2 class="section-title">
+    Department Overview
+</h2>
 
-    <div class="header-left">
 
-        <h1>
-            Staff Event Request
+<div class="dashboard">
+
+
+    <div class="stat">
+
+        <h1 id="studentCount">
+            0
         </h1>
 
         <p>
-            M.A.A.S College Event Request Portal
+            Total Students
         </p>
 
     </div>
 
 
-    <div class="header-right">
+    <div class="stat">
 
-        <div class="staff-info">
+        <h1 id="attendanceCount">
+            0
+        </h1>
 
-            <strong id="headerStaffName">
-                Loading...
-            </strong>
-
-            <span id="headerStaffDepartment">
-                Loading...
-            </span>
-
-        </div>
-
-
-        <button
-            class="logout-btn"
-            onclick="logoutStaff()"
-        >
-            Logout
-        </button>
+        <p>
+            Attendance Records
+        </p>
 
     </div>
 
-</header>
 
+    <div class="stat">
 
-<!-- ============================================================
-     MAIN
-============================================================ -->
+        <h1 id="resultCount">
+            0
+        </h1>
 
-<main class="container">
-
-    <div class="card">
-
-
-        <!-- ====================================================
-             TITLE
-        ==================================================== -->
-
-        <div class="form-title">
-
-            <h2>
-                M.A.A.S COLLEGE EVENT REQUEST FORM
-            </h2>
-
-            <p>
-                Please provide the details required for your
-                department event request.
-            </p>
-
-        </div>
-
-
-        <!-- ====================================================
-             PROGRESS
-        ==================================================== -->
-
-        <div class="progress-area">
-
-            <div class="progress-text">
-
-                <span id="progressText">
-                    Section 1 of 4
-                </span>
-
-                <span id="progressPercent">
-                    25%
-                </span>
-
-            </div>
-
-
-            <div class="progress-bar">
-
-                <div
-                    class="progress-fill"
-                    id="progressFill"
-                ></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ====================================================
-             STATUS
-        ==================================================== -->
-
-        <div
-            id="statusMessage"
-            class="status"
-        ></div>
-
-
-        <!-- ====================================================
-             SECTION 1
-        ==================================================== -->
-
-        <section
-            class="form-section active"
-            id="section1"
-        >
-
-            <div class="section-header">
-
-                <h3>
-                    Event Request Details
-                </h3>
-
-                <p>
-                    Basic details of the event request.
-                </p>
-
-            </div>
-
-
-            <div class="info-box">
-
-                Requestor Name and Requestor Department are
-                automatically fetched from your logged-in staff
-                account.
-
-            </div>
-
-
-            <!-- REQUESTOR -->
-
-            <div class="form-row">
-
-
-                <div class="form-group">
-
-                    <label>
-
-                        Requestor Name
-
-                        <span class="required">*</span>
-
-                        <span class="auto-badge">
-                            AUTO
-                        </span>
-
-                    </label>
-
-
-                    <input
-                        type="text"
-                        id="requestorName"
-                        readonly
-                        placeholder="Loading..."
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-
-                        Requestor Department
-
-                        <span class="required">*</span>
-
-                        <span class="auto-badge">
-                            AUTO
-                        </span>
-
-                    </label>
-
-
-                    <input
-                        type="text"
-                        id="requestorDepartment"
-                        readonly
-                        placeholder="Loading..."
-                    >
-
-                </div>
-
-
-            </div>
-
-
-            <!-- ROLE -->
-
-            <div class="form-group">
-
-                <label for="role">
-
-                    Role
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <select id="role">
-
-                    <option value="">
-                        Select Role
-                    </option>
-
-                    <option value="Facilitator">
-                        Facilitator
-                    </option>
-
-                    <option value="Assistant Professor">
-                        Assistant Professor
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- START -->
-
-            <div class="form-group">
-
-                <label>
-
-                    Starting Date of the Event
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <input
-                    type="date"
-                    id="startDate"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-
-                    Starting Time of the Event
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <input
-                    type="time"
-                    id="startTime"
-                >
-
-            </div>
-
-
-            <!-- END -->
-
-            <div class="form-group">
-
-                <label>
-
-                    Ending Date of the Event
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <input
-                    type="date"
-                    id="endDate"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-
-                    Ending Time of the Event
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <input
-                    type="time"
-                    id="endTime"
-                >
-
-            </div>
-
-
-            <!-- VENUE -->
-
-            <div class="form-group">
-
-                <label>
-
-                    Venue Of the Events
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <select id="venue">
-
-                    <option value="">
-                        Select Venue
-                    </option>
-
-                    <option value="Bhagawan Mahaveer Gyan Bhavan">
-                        Bhagawan Mahaveer Gyan Bhavan
-                    </option>
-
-                    <option value="Padma shri Mohanmull Chordia Indoor Stadium">
-                        Padma shri Mohanmull Chordia Indoor Stadium
-                    </option>
-
-                    <option value="Main Block Seminar Hall">
-                        Main Block Seminar Hall
-                    </option>
-
-                    <option value="Annex Seminar Hall">
-                        Annex Seminar Hall
-                    </option>
-
-                    <option value="Karmal Computer Center">
-                        Karmal Computer Center
-                    </option>
-
-                    <option value="Nalanda Library">
-                        Nalanda Library
-                    </option>
-
-                </select>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             SECTION 2
-        ==================================================== -->
-
-        <section
-            class="form-section"
-            id="section2"
-        >
-
-            <div class="section-header">
-
-                <h3>
-                    Requirement Section
-                </h3>
-
-                <p>
-                    Specify the physical and additional
-                    requirements for the event.
-                </p>
-
-            </div>
-
-
-            <!-- CHAIRS -->
-
-            <div class="form-group">
-
-                <label>
-
-                    No. of. Chair To be placed
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <input
-                    type="number"
-                    id="chairCount"
-                    min="0"
-                    placeholder="Enter number of chairs"
-                >
-
-            </div>
-
-
-            <!-- DAIS CHAIRS -->
-
-            <div class="form-group">
-
-                <label>
-
-                    No .of.Chair To be placed on the Diears
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <input
-                    type="number"
-                    id="daisChairCount"
-                    min="0"
-                    placeholder="Enter number of chairs"
-                >
-
-            </div>
-
-
-            <!-- BENCH -->
-
-            <div class="form-group">
-
-                <label>
-
-                    No .of. Bench Needed
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <input
-                    type="number"
-                    id="benchCount"
-                    min="0"
-                    placeholder="Enter number of benches"
-                >
-
-            </div>
-
-
-            <!-- ADDITIONAL -->
-
-            <div class="form-group">
-
-                <label>
-
-                    Additional Requirements
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <textarea
-                    id="additionalRequirements"
-                    placeholder="Enter additional requirements"
-                ></textarea>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             SECTION 3
-        ==================================================== -->
-
-        <section
-            class="form-section"
-            id="section3"
-        >
-
-            <div class="section-header">
-
-                <h3>
-                    Event Summary
-                </h3>
-
-                <p>
-                    Provide the summary and purpose of the event.
-                </p>
-
-            </div>
-
-
-            <!-- EVENT NAME -->
-
-            <div class="form-group">
-
-                <label>
-
-                    Event Name
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <input
-                    type="text"
-                    id="eventName"
-                    placeholder="Enter event name"
-                >
-
-            </div>
-
-
-            <!-- MOTIVE -->
-
-            <div class="form-group">
-
-                <label>
-
-                    Motive Of the Event
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <input
-                    type="text"
-                    id="eventMotive"
-                    placeholder="Enter motive of the event"
-                >
-
-            </div>
-
-
-            <!-- SUMMARY -->
-
-            <div class="form-group">
-
-                <label>
-
-                    Brief Summary of the Event
-
-                    <span class="required">*</span>
-
-                </label>
-
-
-                <textarea
-                    id="eventSummary"
-                    placeholder="Enter brief summary of the event"
-                ></textarea>
-
-            </div>
-
-        </section>
-
-
-        <!-- ====================================================
-             SECTION 4
-        ==================================================== -->
-
-        <section
-            class="form-section"
-            id="section4"
-        >
-
-            <div class="section-header">
-
-                <h3>
-                    Guest Sections
-                </h3>
-
-                <p>
-                    Add the details of guests participating in
-                    the event.
-                </p>
-
-            </div>
-
-
-            <div id="guestContainer">
-
-
-                <!-- =================================================
-                     GUEST 1
-                ================================================= -->
-
-                <div
-                    class="guest-item"
-                    data-guest="1"
-                >
-
-                    <div class="guest-number">
-
-                        Guest 1
-
-                    </div>
-
-
-                    <div class="form-row">
-
-
-                        <div class="form-group">
-
-                            <label>
-
-                                Guest Name 1
-
-                                <span class="required">*</span>
-
-                            </label>
-
-
-                            <input
-                                type="text"
-                                class="guest-name"
-                                name="guestName1"
-                                placeholder="Enter guest name"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-
-                                Guest 1 Profile
-
-                                <span class="required">*</span>
-
-                            </label>
-
-
-                            <input
-                                type="text"
-                                class="guest-profile"
-                                name="guestProfile1"
-                                placeholder="Enter guest profile"
-                            >
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ADD GUEST -->
-
-            <button
-                type="button"
-                class="add-guest-btn"
-                onclick="addGuest()"
-            >
-
-                + Add Guest
-
-            </button>
-
-        </section>
-
-
-        <!-- ====================================================
-             SUCCESS
-        ==================================================== -->
-
-        <div
-            class="success-screen"
-            id="successScreen"
-        >
-
-            <div class="success-icon">
-                ✓
-            </div>
-
-
-            <h2>
-                Event Request Submitted
-            </h2>
-
-
-            <p>
-
-                Your event request has been successfully
-                submitted.
-
-                <br>
-
-                The request has been sent for approval.
-
-            </p>
-
-
-            <div
-                class="request-id"
-                id="successRequestId"
-            ></div>
-
-        </div>
-
-
-        <!-- ====================================================
-             NAVIGATION
-        ==================================================== -->
-
-        <div
-            class="navigation"
-            id="navigation"
-        >
-
-            <button
-                type="button"
-                class="back-btn"
-                id="backBtn"
-                onclick="previousSection()"
-            >
-                Back
-            </button>
-
-
-            <button
-                type="button"
-                class="next-btn"
-                id="nextBtn"
-                onclick="nextSection()"
-            >
-                Next
-            </button>
-
-
-            <button
-                type="button"
-                class="submit-btn"
-                id="submitBtn"
-                onclick="submitEventRequest()"
-                style="display:none"
-            >
-                Submit Request
-            </button>
-
-        </div>
-
+        <p>
+            Result Records
+        </p>
 
     </div>
 
-</main>
+
+    <div class="stat">
+
+        <h1 id="materialCount">
+            0
+        </h1>
+
+        <p>
+            Study Materials
+        </p>
+
+    </div>
 
 
-<script>
+</div>
 
-/* ============================================================
-   FIREBASE CONFIGURATION
 
-   USE YOUR EXISTING MAASC FIREBASE CONFIGURATION.
-============================================================ */
+<!-- =====================================================
+     QUICK ACCESS
+===================================================== -->
 
-const firebaseConfig = {
+<h2 class="section-title">
+    Quick Access
+</h2>
 
-    apiKey: "YOUR_API_KEY",
 
-    authDomain: "maasc-2026.firebaseapp.com",
+<div class="quick">
 
-    projectId: "maasc-2026",
 
-    storageBucket: "maasc-2026.firebasestorage.app",
+    <button onclick="openPage('message.html')">
+        💬 Message Staff
+    </button>
 
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
 
-    appId: "YOUR_APP_ID"
+    <button onclick="openPage('event_req.html')">
+        📅 Event Request
+    </button>
+
+
+    <button onclick="openPage('substitute-approval.html')">
+        👥 Substitute Approval
+    </button>
+
+
+    <button onclick="openPage('leave-approve-head.html')">
+        📝 Leave Approval
+    </button>
+
+
+    <button onclick="openPage('subject-assignment.html')">
+        📚 Subject Assignment
+    </button>
+
+
+    <button onclick="openPage('timetable-assign-staff.html')">
+        🕒 Staff Timetable
+    </button>
+
+
+    <button onclick="openPage('timetable-report.html')">
+        📊 Timetable Report
+    </button>
+
+
+    <button onclick="openPage('service-request-head.html')">
+        🔧 Service Requests
+    </button>
+
+
+    <button onclick="openPage('assign-worker.html')">
+        👷 Assign Workers
+    </button>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE SCRIPT
+===================================================== -->
+
+<script type="module">
+
+import { db } from "./firebase-config.js";
+
+import {
+    collection,
+    query,
+    where,
+    getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =====================================================
+   CHECK STAFF LOGIN
+===================================================== */
+
+const staffId =
+    sessionStorage.getItem("staffId");
+
+const staffName =
+    sessionStorage.getItem("staffName");
+
+const department =
+    sessionStorage.getItem("department");
+
+
+if(!staffId){
+
+    alert("Please Login");
+
+    window.location.href="login.html";
+
+}
+
+
+/* =====================================================
+   DISPLAY STAFF DETAILS
+===================================================== */
+
+document.getElementById("staffId").textContent =
+    staffId || "";
+
+document.getElementById("staffName").textContent =
+    staffName || "";
+
+document.getElementById("headerStaffName").textContent =
+    staffName || "";
+
+document.getElementById("department").textContent =
+    department || "";
+
+
+/* =====================================================
+   LOAD TOTAL STUDENTS
+===================================================== */
+
+async function loadStudents(){
+
+    try{
+
+        const q = query(
+
+            collection(db,"students"),
+
+            where(
+                "department",
+                "==",
+                department
+            )
+
+        );
+
+        const snap = await getDocs(q);
+
+
+        document.getElementById(
+            "studentCount"
+        ).textContent = snap.size;
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Student loading error:",
+            error
+        );
+
+        document.getElementById(
+            "studentCount"
+        ).textContent = "0";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD ATTENDANCE COUNT
+===================================================== */
+
+async function loadAttendance(){
+
+    try{
+
+        const q = query(
+
+            collection(db,"attendance"),
+
+            where(
+                "department",
+                "==",
+                department
+            )
+
+        );
+
+        const snap = await getDocs(q);
+
+
+        document.getElementById(
+            "attendanceCount"
+        ).textContent = snap.size;
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Attendance loading error:",
+            error
+        );
+
+        document.getElementById(
+            "attendanceCount"
+        ).textContent = "0";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD RESULT COUNT
+===================================================== */
+
+async function loadResults(){
+
+    try{
+
+        const q = query(
+
+            collection(db,"results"),
+
+            where(
+                "department",
+                "==",
+                department
+            )
+
+        );
+
+        const snap = await getDocs(q);
+
+
+        document.getElementById(
+            "resultCount"
+        ).textContent = snap.size;
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Result loading error:",
+            error
+        );
+
+        document.getElementById(
+            "resultCount"
+        ).textContent = "0";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD MATERIAL COUNT
+===================================================== */
+
+async function loadMaterials(){
+
+    try{
+
+        const q = query(
+
+            collection(db,"materials"),
+
+            where(
+                "department",
+                "==",
+                department
+            )
+
+        );
+
+        const snap = await getDocs(q);
+
+
+        document.getElementById(
+            "materialCount"
+        ).textContent = snap.size;
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Material loading error:",
+            error
+        );
+
+        document.getElementById(
+            "materialCount"
+        ).textContent = "0";
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN PAGE
+===================================================== */
+
+window.openPage = function(page){
+
+    window.location.href = page;
 
 };
 
 
-/* ============================================================
-   FIREBASE INITIALIZATION
-============================================================ */
+/* =====================================================
+   LOAD DASHBOARD
+===================================================== */
 
-if(!firebase.apps.length){
+loadStudents();
 
-    firebase.initializeApp(
-        firebaseConfig
-    );
+loadAttendance();
 
-}
+loadResults();
 
+loadMaterials();
 
-const auth =
-    firebase.auth();
 
+/* =====================================================
+   AUTO REFRESH
+===================================================== */
 
-const db =
-    firebase.firestore();
+setInterval(() => {
 
+    loadStudents();
 
-/* ============================================================
-   GLOBAL VARIABLES
-============================================================ */
+    loadAttendance();
 
-let currentUser = null;
+    loadResults();
 
-let currentStaff = null;
+    loadMaterials();
 
-let currentSection = 1;
+},30000);
 
-const totalSections = 4;
 
-let guestCount = 1;
-
-
-/* ============================================================
-   ELEMENTS
-============================================================ */
-
-const pageLoader =
-    document.getElementById(
-        "pageLoader"
-    );
-
-
-const loaderText =
-    document.getElementById(
-        "loaderText"
-    );
-
-
-const statusMessage =
-    document.getElementById(
-        "statusMessage"
-    );
-
-
-const requestorName =
-    document.getElementById(
-        "requestorName"
-    );
-
-
-const requestorDepartment =
-    document.getElementById(
-        "requestorDepartment"
-    );
-
-
-const headerStaffName =
-    document.getElementById(
-        "headerStaffName"
-    );
-
-
-const headerStaffDepartment =
-    document.getElementById(
-        "headerStaffDepartment"
-    );
-
-
-/* ============================================================
-   STATUS
-============================================================ */
-
-function showStatus(
-    message,
-    type
-){
-
-    statusMessage.textContent =
-        message;
-
-    statusMessage.className =
-        "status " + type;
-
-}
-
-
-function hideStatus(){
-
-    statusMessage.textContent =
-        "";
-
-    statusMessage.className =
-        "status";
-
-}
-
-
-/* ============================================================
-   HIDE LOADER
-============================================================ */
-
-function hideLoader(){
-
-    pageLoader.style.display =
-        "none";
-
-}
-
-
-/* ============================================================
-   STAFF DETAILS
-============================================================ */
-
-async function loadStaffDetails(user){
-
-    try{
-
-        currentUser =
-            user;
-
-
-        let staffDoc =
-            await db
-                .collection("staff")
-                .doc(user.uid)
-                .get();
-
-
-        /* ====================================================
-           FALLBACK - EMAIL
-        ==================================================== */
-
-        if(!staffDoc.exists){
-
-            const email =
-                (
-                    user.email || ""
-                )
-                .toLowerCase()
-                .trim();
-
-
-            if(email){
-
-                const result =
-                    await db
-                        .collection("staff")
-                        .where(
-                            "email",
-                            "==",
-                            email
-                        )
-                        .limit(1)
-                        .get();
-
-
-                if(!result.empty){
-
-                    staffDoc =
-                        result.docs[0];
-
-                }
-
-            }
-
-        }
-
-
-        /* ====================================================
-           FALLBACK - MAIL
-        ==================================================== */
-
-        if(!staffDoc.exists){
-
-            const email =
-                (
-                    user.email || ""
-                )
-                .toLowerCase()
-                .trim();
-
-
-            if(email){
-
-                const result =
-                    await db
-                        .collection("staff")
-                        .where(
-                            "mail",
-                            "==",
-                            email
-                        )
-                        .limit(1)
-                        .get();
-
-
-                if(!result.empty){
-
-                    staffDoc =
-                        result.docs[0];
-
-                }
-
-            }
-
-        }
-
-
-        if(!staffDoc.exists){
-
-            throw new Error(
-                "Staff profile not found."
-            );
-
-        }
-
-
-        const data =
-            staffDoc.data();
-
-
-        currentStaff = {
-
-            id:staffDoc.id,
-
-            ...data
-
-        };
-
-
-        /* ====================================================
-           STAFF NAME
-        ==================================================== */
-
-        const staffName =
-
-            data.name ||
-
-            data.staffName ||
-
-            data.fullName ||
-
-            data.displayName ||
-
-            data.staff_name ||
-
-            data.Name ||
-
-            "";
-
-
-        /* ====================================================
-           DEPARTMENT
-        ==================================================== */
-
-        const department =
-
-            data.department ||
-
-            data.dept ||
-
-            data.Department ||
-
-            data.dep ||
-
-            data.staffDepartment ||
-
-            "";
-
-
-        if(!staffName){
-
-            throw new Error(
-                "Staff name is missing."
-            );
-
-        }
-
-
-        if(!department){
-
-            throw new Error(
-                "Staff department is missing."
-            );
-
-        }
-
-
-        /* ====================================================
-           DISPLAY
-        ==================================================== */
-
-        requestorName.value =
-            staffName;
-
-
-        requestorDepartment.value =
-            department;
-
-
-        headerStaffName.textContent =
-            staffName;
-
-
-        headerStaffDepartment.textContent =
-            department;
-
-
-        hideLoader();
-
-    }
-    catch(error){
-
-        console.error(
-            "STAFF LOAD ERROR:",
-            error
-        );
-
-
-        loaderText.textContent =
-            error.message;
-
-
-        setTimeout(
-            function(){
-
-                hideLoader();
-
-                showStatus(
-                    error.message,
-                    "error"
-                );
-
-            },
-            500
-        );
-
-    }
-
-}
-
-
-/* ============================================================
-   AUTH
-============================================================ */
-
-auth.onAuthStateChanged(
-    async function(user){
-
-        if(!user){
-
-            window.location.href =
-                "login.html";
-
-            return;
-
-        }
-
-
-        await loadStaffDetails(
-            user
-        );
-
-    }
-);
-
-
-/* ============================================================
-   UPDATE SECTION
-============================================================ */
-
-function updateSection(){
-
-    document
-        .querySelectorAll(
-            ".form-section"
-        )
-        .forEach(
-            function(section){
-
-                section.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    const activeSection =
-        document.getElementById(
-            "section" + currentSection
-        );
-
-
-    if(activeSection){
-
-        activeSection.classList.add(
-            "active"
-        );
-
-    }
-
-
-    /* ========================================================
-       PROGRESS
-    ======================================================== */
-
-    const percentage =
-        Math.round(
-            (
-                currentSection /
-                totalSections
-            ) * 100
-        );
-
-
-    document.getElementById(
-        "progressText"
-    ).textContent =
-        "Section " +
-        currentSection +
-        " of " +
-        totalSections;
-
-
-    document.getElementById(
-        "progressPercent"
-    ).textContent =
-        percentage + "%";
-
-
-    document.getElementById(
-        "progressFill"
-    ).style.width =
-        percentage + "%";
-
-
-    /* ========================================================
-       BACK
-    ======================================================== */
-
-    const backBtn =
-        document.getElementById(
-            "backBtn"
-        );
-
-
-    if(currentSection === 1){
-
-        backBtn.style.visibility =
-            "hidden";
-
-    }
-    else{
-
-        backBtn.style.visibility =
-            "visible";
-
-    }
-
-
-    /* ========================================================
-       NEXT / SUBMIT
-    ======================================================== */
-
-    const nextBtn =
-        document.getElementById(
-            "nextBtn"
-        );
-
-
-    const submitBtn =
-        document.getElementById(
-            "submitBtn"
-        );
-
-
-    if(currentSection === totalSections){
-
-        nextBtn.style.display =
-            "none";
-
-        submitBtn.style.display =
-            "block";
-
-    }
-    else{
-
-        nextBtn.style.display =
-            "block";
-
-        submitBtn.style.display =
-            "none";
-
-    }
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* ============================================================
-   NEXT SECTION
-============================================================ */
-
-function nextSection(){
-
-    hideStatus();
-
-
-    if(!validateSection(
-        currentSection
-    )){
-
-        return;
-
-    }
-
-
-    if(
-        currentSection <
-        totalSections
-    ){
-
-        currentSection++;
-
-        updateSection();
-
-    }
-
-}
-
-
-/* ============================================================
-   PREVIOUS SECTION
-============================================================ */
-
-function previousSection(){
-
-    hideStatus();
-
-
-    if(currentSection > 1){
-
-        currentSection--;
-
-        updateSection();
-
-    }
-
-}
-
-
-/* ============================================================
-   VALIDATE SECTION
-============================================================ */
-
-function validateSection(
-    sectionNumber
-){
-
-    /* ========================================================
-       SECTION 1
-    ======================================================== */
-
-    if(sectionNumber === 1){
-
-        if(!requestorName.value){
-
-            showStatus(
-                "Requestor name is not loaded.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(!requestorDepartment.value){
-
-            showStatus(
-                "Requestor department is not loaded.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        const role =
-            document.getElementById(
-                "role"
-            ).value;
-
-
-        const startDate =
-            document.getElementById(
-                "startDate"
-            ).value;
-
-
-        const startTime =
-            document.getElementById(
-                "startTime"
-            ).value;
-
-
-        const endDate =
-            document.getElementById(
-                "endDate"
-            ).value;
-
-
-        const endTime =
-            document.getElementById(
-                "endTime"
-            ).value;
-
-
-        const venue =
-            document.getElementById(
-                "venue"
-            ).value;
-
-
-        if(!role){
-
-            showStatus(
-                "Please select your role.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(!startDate){
-
-            showStatus(
-                "Please select the starting date.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(!startTime){
-
-            showStatus(
-                "Please select the starting time.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(!endDate){
-
-            showStatus(
-                "Please select the ending date.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(!endTime){
-
-            showStatus(
-                "Please select the ending time.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(!venue){
-
-            showStatus(
-                "Please select the venue.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        const start =
-            new Date(
-                startDate +
-                "T" +
-                startTime
-            );
-
-
-        const end =
-            new Date(
-                endDate +
-                "T" +
-                endTime
-            );
-
-
-        if(end <= start){
-
-            showStatus(
-                "Ending date/time must be later than starting date/time.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-    /* ========================================================
-       SECTION 2
-    ======================================================== */
-
-    if(sectionNumber === 2){
-
-        const chairCount =
-            document.getElementById(
-                "chairCount"
-            ).value;
-
-
-        const daisChairCount =
-            document.getElementById(
-                "daisChairCount"
-            ).value;
-
-
-        const benchCount =
-            document.getElementById(
-                "benchCount"
-            ).value;
-
-
-        const additional =
-            document.getElementById(
-                "additionalRequirements"
-            ).value.trim();
-
-
-        if(chairCount === ""){
-
-            showStatus(
-                "Please enter the number of chairs to be placed.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(daisChairCount === ""){
-
-            showStatus(
-                "Please enter the number of chairs to be placed on the dais.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(benchCount === ""){
-
-            showStatus(
-                "Please enter the number of benches needed.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(!additional){
-
-            showStatus(
-                "Please enter the additional requirements.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-    /* ========================================================
-       SECTION 3
-    ======================================================== */
-
-    if(sectionNumber === 3){
-
-        const eventName =
-            document.getElementById(
-                "eventName"
-            ).value.trim();
-
-
-        const motive =
-            document.getElementById(
-                "eventMotive"
-            ).value.trim();
-
-
-        const summary =
-            document.getElementById(
-                "eventSummary"
-            ).value.trim();
-
-
-        if(!eventName){
-
-            showStatus(
-                "Please enter the event name.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(!motive){
-
-            showStatus(
-                "Please enter the motive of the event.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        if(!summary){
-
-            showStatus(
-                "Please enter the brief summary of the event.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-    /* ========================================================
-       SECTION 4
-    ======================================================== */
-
-    if(sectionNumber === 4){
-
-        const guests =
-            document.querySelectorAll(
-                "#guestContainer .guest-item"
-            );
-
-
-        if(guests.length === 0){
-
-            showStatus(
-                "At least one guest is required.",
-                "error"
-            );
-
-            return false;
-
-        }
-
-
-        for(
-            let i=0;
-            i<guests.length;
-            i++
-        ){
-
-            const name =
-                guests[i]
-                    .querySelector(
-                        ".guest-name"
-                    )
-                    .value
-                    .trim();
-
-
-            const profile =
-                guests[i]
-                    .querySelector(
-                        ".guest-profile"
-                    )
-                    .value
-                    .trim();
-
-
-            if(!name){
-
-                showStatus(
-                    "Please enter Guest " +
-                    (i+1) +
-                    " name.",
-                    "error"
-                );
-
-                return false;
-
-            }
-
-
-            if(!profile){
-
-                showStatus(
-                    "Please enter Guest " +
-                    (i+1) +
-                    " profile.",
-                    "error"
-                );
-
-                return false;
-
-            }
-
-        }
-
-
-        return true;
-
-    }
-
-
-    return true;
-
-}
-
-
-/* ============================================================
-   ADD GUEST
-============================================================ */
-
-function addGuest(){
-
-    guestCount++;
-
-
-    const container =
-        document.getElementById(
-            "guestContainer"
-        );
-
-
-    const guest =
-        document.createElement(
-            "div"
-        );
-
-
-    guest.className =
-        "guest-item";
-
-
-    guest.setAttribute(
-        "data-guest",
-        guestCount
-    );
-
-
-    guest.innerHTML = `
-
-        <div class="guest-number">
-
-            Guest ${guestCount}
-
-        </div>
-
-
-        <div class="form-row">
-
-
-            <div class="form-group">
-
-                <label>
-
-                    Guest Name ${guestCount}
-
-                </label>
-
-
-                <input
-
-                    type="text"
-
-                    class="guest-name"
-
-                    name="guestName${guestCount}"
-
-                    placeholder="Enter guest name"
-
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-
-                    Guest ${guestCount} Profile
-
-                </label>
-
-
-                <input
-
-                    type="text"
-
-                    class="guest-profile"
-
-                    name="guestProfile${guestCount}"
-
-                    placeholder="Enter guest profile"
-
-                >
-
-            </div>
-
-
-        </div>
-
-
-        <button
-
-            type="button"
-
-            class="remove-guest-btn"
-
-            onclick="removeGuest(this)"
-
-        >
-
-            Remove Guest
-
-        </button>
-
-    `;
-
-
-    container.appendChild(
-        guest
-    );
-
-
-    window.scrollTo({
-        top:document.body.scrollHeight,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* ============================================================
-   REMOVE GUEST
-============================================================ */
-
-function removeGuest(button){
-
-    const guest =
-        button.closest(
-            ".guest-item"
-        );
-
-
-    if(guest){
-
-        guest.remove();
-
-        renumberGuests();
-
-    }
-
-}
-
-
-/* ============================================================
-   RENUMBER GUESTS
-============================================================ */
-
-function renumberGuests(){
-
-    const guests =
-        document.querySelectorAll(
-            "#guestContainer .guest-item"
-        );
-
-
-    guests.forEach(
-        function(guest,index){
-
-            const number =
-                index + 1;
-
-
-            guest.querySelector(
-                ".guest-number"
-            ).textContent =
-                "Guest " + number;
-
-
-            const nameInput =
-                guest.querySelector(
-                    ".guest-name"
-                );
-
-
-            const profileInput =
-                guest.querySelector(
-                    ".guest-profile"
-                );
-
-
-            nameInput.name =
-                "guestName" + number;
-
-
-            profileInput.name =
-                "guestProfile" + number;
-
-
-            const labels =
-                guest.querySelectorAll(
-                    "label"
-                );
-
-
-            if(labels[0]){
-
-                labels[0].textContent =
-                    "Guest Name " +
-                    number;
-
-            }
-
-
-            if(labels[1]){
-
-                labels[1].textContent =
-                    "Guest " +
-                    number +
-                    " Profile";
-
-            }
-
-        }
-    );
-
-
-    guestCount =
-        guests.length;
-
-}
-
-
-/* ============================================================
-   COLLECT GUESTS
-============================================================ */
-
-function collectGuests(){
-
-    const guestElements =
-        document.querySelectorAll(
-            "#guestContainer .guest-item"
-        );
-
-
-    const guests = [];
-
-
-    guestElements.forEach(
-        function(guest){
-
-            const name =
-                guest
-                    .querySelector(
-                        ".guest-name"
-                    )
-                    .value
-                    .trim();
-
-
-            const profile =
-                guest
-                    .querySelector(
-                        ".guest-profile"
-                    )
-                    .value
-                    .trim();
-
-
-            guests.push({
-
-                guestNumber:
-                    guests.length + 1,
-
-                name:
-                    name,
-
-                profile:
-                    profile
-
-            });
-
-        }
-    );
-
-
-    return guests;
-
-}
-
-
-/* ============================================================
-   SUBMIT
-============================================================ */
-
-async function submitEventRequest(){
-
-    hideStatus();
-
-
-    if(!validateSection(4)){
-
-        return;
-
-    }
-
-
-    if(!currentUser){
-
-        showStatus(
-            "Login session not found. Please login again.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    if(!currentStaff){
-
-        showStatus(
-            "Staff details are not loaded.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const submitBtn =
-        document.getElementById(
-            "submitBtn"
-        );
-
-
-    try{
-
-        submitBtn.disabled =
-            true;
-
-
-        submitBtn.textContent =
-            "Submitting...";
-
-
-        /* ====================================================
-           GET VALUES
-        ==================================================== */
-
-        const role =
-            document.getElementById(
-                "role"
-            ).value;
-
-
-        const startDate =
-            document.getElementById(
-                "startDate"
-            ).value;
-
-
-        const startTime =
-            document.getElementById(
-                "startTime"
-            ).value;
-
-
-        const endDate =
-            document.getElementById(
-                "endDate"
-            ).value;
-
-
-        const endTime =
-            document.getElementById(
-                "endTime"
-            ).value;
-
-
-        const venue =
-            document.getElementById(
-                "venue"
-            ).value;
-
-
-        const chairCount =
-            document.getElementById(
-                "chairCount"
-            ).value;
-
-
-        const daisChairCount =
-            document.getElementById(
-                "daisChairCount"
-            ).value;
-
-
-        const benchCount =
-            document.getElementById(
-                "benchCount"
-            ).value;
-
-
-        const additionalRequirements =
-            document.getElementById(
-                "additionalRequirements"
-            ).value.trim();
-
-
-        const eventName =
-            document.getElementById(
-                "eventName"
-            ).value.trim();
-
-
-        const eventMotive =
-            document.getElementById(
-                "eventMotive"
-            ).value.trim();
-
-
-        const eventSummary =
-            document.getElementById(
-                "eventSummary"
-            ).value.trim();
-
-
-        const guests =
-            collectGuests();
-
-
-        /* ====================================================
-           REQUEST REFERENCE
-        ==================================================== */
-
-        const requestRef =
-            db
-                .collection(
-                    "eventRequests"
-                )
-                .doc();
-
-
-        /* ====================================================
-           FIRESTORE DATA
-        ==================================================== */
-
-        const eventRequest = {
-
-            requestId:
-                requestRef.id,
-
-
-            /* =========================
-               STAFF
-            ========================= */
-
-            requestorUid:
-                currentUser.uid,
-
-            requestorEmail:
-                currentUser.email || "",
-
-            requestorName:
-                requestorName.value.trim(),
-
-            requestorDepartment:
-                requestorDepartment.value.trim(),
-
-
-            /* =========================
-               BASIC EVENT DETAILS
-            ========================= */
-
-            role:
-                role,
-
-            startDate:
-                startDate,
-
-            startTime:
-                startTime,
-
-            startDateTime:
-                startDate +
-                " " +
-                startTime,
-
-            endDate:
-                endDate,
-
-            endTime:
-                endTime,
-
-            endDateTime:
-                endDate +
-                " " +
-                endTime,
-
-            venue:
-                venue,
-
-
-            /* =========================
-               REQUIREMENTS
-            ========================= */
-
-            requirements:{
-
-                chairCount:
-                    Number(chairCount),
-
-                daisChairCount:
-                    Number(daisChairCount),
-
-                benchCount:
-                    Number(benchCount),
-
-                additionalRequirements:
-                    additionalRequirements
-
-            },
-
-
-            /* =========================
-               EVENT SUMMARY
-            ========================= */
-
-            event:{
-
-                eventName:
-                    eventName,
-
-                motive:
-                    eventMotive,
-
-                summary:
-                    eventSummary
-
-            },
-
-
-            /* =========================
-               GUESTS
-            ========================= */
-
-            guests:
-                guests,
-
-
-            /* =========================
-               WORKFLOW
-            ========================= */
-
-            status:
-                "Pending",
-
-            approvalStatus:
-                "Pending",
-
-            departmentHeadStatus:
-                "Pending",
-
-
-            /* =========================
-               TIMESTAMP
-            ========================= */
-
-            submittedAt:
-                firebase.firestore
-                    .FieldValue
-                    .serverTimestamp(),
-
-            updatedAt:
-                firebase.firestore
-                    .FieldValue
-                    .serverTimestamp()
-
-        };
-
-
-        /* ====================================================
-           SAVE
-        ==================================================== */
-
-        await requestRef.set(
-            eventRequest
-        );
-
-
-        /* ====================================================
-           SUCCESS
-        ==================================================== */
-
-        document
-            .querySelectorAll(
-                ".form-section"
-            )
-            .forEach(
-                function(section){
-
-                    section.style.display =
-                        "none";
-
-                }
-            );
-
-
-        document.getElementById(
-            "navigation"
-        ).style.display =
-            "none";
-
-
-        document.getElementById(
-            "progressText"
-        ).textContent =
-            "Request Submitted";
-
-
-        document.getElementById(
-            "progressPercent"
-        ).textContent =
-            "100%";
-
-
-        document.getElementById(
-            "progressFill"
-        ).style.width =
-            "100%";
-
-
-        document.getElementById(
-            "successScreen"
-        ).style.display =
-            "block";
-
-
-        document.getElementById(
-            "successRequestId"
-        ).textContent =
-            "Request ID: " +
-            requestRef.id;
-
-
-        hideStatus();
-
-
-        window.scrollTo({
-            top:0,
-            behavior:"smooth"
-        });
-
-
-    }
-    catch(error){
-
-        console.error(
-            "EVENT REQUEST ERROR:",
-            error
-        );
-
-
-        showStatus(
-            "Unable to submit request: " +
-            error.message,
-            "error"
-        );
-
-
-        submitBtn.disabled =
-            false;
-
-
-        submitBtn.textContent =
-            "Submit Request";
-
-    }
-
-}
-
-
-/* ============================================================
+/* =====================================================
    LOGOUT
-============================================================ */
+===================================================== */
 
-async function logoutStaff(){
+window.logout = function(){
 
-    try{
+    if(confirm("Logout ?")){
 
-        await auth.signOut();
+        sessionStorage.clear();
 
         window.location.href =
             "login.html";
 
     }
-    catch(error){
 
-        console.error(
-            "LOGOUT ERROR:",
-            error
-        );
-
-    }
-
-}
-
-
-/* ============================================================
-   INITIAL SECTION
-============================================================ */
-
-updateSection();
+};
 
 </script>
+
 
 </body>
 
