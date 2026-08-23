@@ -1,152 +1,416 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Exam Assignment Portal</title>
 
 <style>
 
+/* ==================================================
+   RESET
+================================================== */
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
 }
+
+
+/* ==================================================
+   BODY
+================================================== */
 
 body{
-background:#f4f6f9;
-padding:20px;
+    background:#f4f6f9;
+    padding:20px;
+    color:#1f2937;
 }
+
+
+/* ==================================================
+   MAIN CONTAINER
+================================================== */
 
 .container{
-max-width:1400px;
-margin:auto;
-background:#fff;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,.1);
+    max-width:1400px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
 }
+
+
+/* ==================================================
+   TITLE
+================================================== */
 
 h2{
-text-align:center;
-margin-bottom:20px;
-color:#1565c0;
+    text-align:center;
+    margin-bottom:20px;
+    color:#1565c0;
 }
 
+
+/* ==================================================
+   FORM
+================================================== */
+
 .form-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin-bottom:20px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-bottom:20px;
 }
+
 
 .form-grid input,
 .form-grid select,
 .form-grid textarea{
 
-width:100%;
-padding:10px;
-border:1px solid #ccc;
-border-radius:5px;
-font-size:15px;
+    width:100%;
+
+    padding:10px;
+
+    border:1px solid #ccc;
+
+    border-radius:5px;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus{
+
+    border-color:#1565c0;
+
+    box-shadow:0 0 0 2px rgba(21,101,192,.1);
 
 }
+
 
 .form-grid textarea{
 
-grid-column:1/3;
-resize:vertical;
+    grid-column:1/3;
+
+    resize:vertical;
 
 }
+
+
+/* ==================================================
+   BUTTON AREA
+================================================== */
 
 .button-area{
 
-grid-column:1/3;
-display:flex;
-gap:10px;
+    grid-column:1/3;
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
 
 }
+
 
 button{
 
-padding:10px 20px;
-border:none;
-border-radius:5px;
-cursor:pointer;
-font-size:15px;
+    padding:10px 20px;
+
+    border:none;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    transition:.2s;
 
 }
+
+
+button:hover{
+
+    opacity:.9;
+
+    transform:translateY(-1px);
+
+}
+
 
 #saveBtn{
-background:#1565c0;
-color:white;
+
+    background:#1565c0;
+
+    color:white;
+
 }
+
 
 #clearBtn{
-background:#757575;
-color:white;
+
+    background:#757575;
+
+    color:white;
+
 }
 
+
 #updateBtn{
-background:#2e7d32;
-color:white;
-display:none;
+
+    background:#2e7d32;
+
+    color:white;
+
+    display:none;
+
 }
+
+
+/* ==================================================
+   TABLE WRAPPER
+================================================== */
 
 .table-wrapper{
 
-overflow:auto;
-margin-top:20px;
+    overflow:auto;
+
+    margin-top:20px;
 
 }
+
+
+/* ==================================================
+   TABLE
+================================================== */
 
 table{
 
-width:100%;
-border-collapse:collapse;
-min-width:1300px;
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:1300px;
 
 }
+
 
 table th{
 
-background:#1565c0;
-color:white;
-padding:10px;
+    background:#1565c0;
+
+    color:white;
+
+    padding:10px;
+
+    border:1px solid #1259a5;
 
 }
+
 
 table td{
 
-padding:10px;
-border:1px solid #ddd;
-text-align:center;
+    padding:10px;
+
+    border:1px solid #ddd;
+
+    text-align:center;
+
+    vertical-align:middle;
 
 }
+
+
+/* ==================================================
+   ACTION BUTTONS
+================================================== */
 
 .action-btn{
 
-padding:6px 10px;
-margin:2px;
-border:none;
-border-radius:4px;
-cursor:pointer;
-color:white;
+    padding:6px 10px;
+
+    margin:2px;
+
+    border:none;
+
+    border-radius:4px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:13px;
 
 }
+
 
 .edit{
 
-background:#2e7d32;
+    background:#2e7d32;
 
 }
 
+
 .delete{
 
-background:#d32f2f;
+    background:#d32f2f;
+
+}
+
+
+.complete{
+
+    background:#00897b;
+
+}
+
+
+.action-btn:hover{
+
+    opacity:.85;
+
+}
+
+
+/* ==================================================
+   COMPLETED SECTION
+================================================== */
+
+.completed-section{
+
+    margin-top:45px;
+
+    border-top:3px solid #e0e0e0;
+
+    padding-top:25px;
+
+}
+
+
+.completed-title{
+
+    color:#2e7d32;
+
+    margin-bottom:15px;
+
+    font-size:22px;
+
+    border-left:5px solid #2e7d32;
+
+    padding-left:10px;
+
+}
+
+
+.completed-table{
+
+    min-width:1400px;
+
+}
+
+
+.completed-table th{
+
+    background:#2e7d32;
+
+    border-color:#256b29;
+
+}
+
+
+/* ==================================================
+   COMPLETED STATUS
+================================================== */
+
+.status-completed{
+
+    display:inline-block;
+
+    padding:5px 10px;
+
+    border-radius:4px;
+
+    background:#e8f5e9;
+
+    color:#2e7d32;
+
+    font-weight:bold;
+
+}
+
+
+/* ==================================================
+   NO DATA
+================================================== */
+
+.no-data{
+
+    text-align:center;
+
+    padding:20px !important;
+
+    color:#777;
+
+    font-weight:bold;
+
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media(max-width:800px){
+
+    body{
+
+        padding:10px;
+
+    }
+
+
+    .container{
+
+        padding:15px;
+
+    }
+
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .form-grid textarea{
+
+        grid-column:1;
+
+    }
+
+
+    .button-area{
+
+        grid-column:1;
+
+    }
 
 }
 
@@ -154,743 +418,1962 @@ background:#d32f2f;
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-<h2>Exam Assignment Portal</h2>
+
+<h2>
+    Exam Assignment Portal
+</h2>
+
+
+<!-- ==================================================
+     EXAM ASSIGNMENT FORM
+================================================== -->
 
 <div class="form-grid">
 
+
+<!-- DEPARTMENT -->
+
 <select id="department">
 
+<option value="">
+    Select Department
+</option>
 
-<option value="">Select Department</option>
 
-<option value="B.Com General">B.Com General</option>
-<option value="B.Com BM">B.Com BM</option>
-<option value="B.Com MM">B.Com MM</option>
-<option value="B.Com CS">B.Com CS</option>
-<option value="B.Com A&F">B.Com A&F</option>
-<option value="B.Com ISM">B.Com ISM</option>
-<option value="B.Com CA">B.Com CA</option>
-<option value="B.Com BUS.AD">B.Com BUS.AD</option>
+<option value="B.Com General">
+    B.Com General
+</option>
 
-<option value="B.A DEFENCE">B.A DEFENCE</option>
-<option value="B.A PUB.AD">B.A PUB.AD</option>
-<option value="B.A TAMIL">B.A TAMIL</option>
-<option value="B.A TOURISM">B.A TOURISM</option>
+<option value="B.Com BM">
+    B.Com BM
+</option>
 
-<option value="B.Sc CS">B.Sc CS</option>
-<option value="B.Sc CS WITH AI">B.Sc CS WITH AI</option>
-<option value="B.Sc CRIMINOLOGY">B.Sc CRIMINOLOGY</option>
-<option value="B.Sc SA">B.Sc SA</option>
-<option value="B.Sc PHYS WITH CA">B.Sc PHYS WITH CA</option>
-<option value="B.Sc MATHS WITH CA">B.Sc MATHS WITH CA</option>
-<option value="B.Sc ELECTRONICS WITH AI">B.Sc ELECTRONICS WITH AI</option>
-<option value="B.Sc VISCOM">B.Sc VISCOM</option>
-<option value="B.Sc ELECTRONIC MEDIA">B.Sc ELECTRONIC MEDIA</option>
-<option value="B.Sc IDD">B.Sc IDD</option>
-<option value="B.Sc PHYSICS">B.Sc PHYSICS</option>
+<option value="B.Com MM">
+    B.Com MM
+</option>
 
-<option value="BCA COMPUTER APPLICATION">BCA COMPUTER APPLICATION</option>
+<option value="B.Com CS">
+    B.Com CS
+</option>
 
+<option value="B.Com A&F">
+    B.Com A&F
+</option>
+
+<option value="B.Com ISM">
+    B.Com ISM
+</option>
+
+<option value="B.Com CA">
+    B.Com CA
+</option>
+
+<option value="B.Com BUS.AD">
+    B.Com BUS.AD
+</option>
+
+
+<option value="B.A DEFENCE">
+    B.A DEFENCE
+</option>
+
+<option value="B.A PUB.AD">
+    B.A PUB.AD
+</option>
+
+<option value="B.A TAMIL">
+    B.A TAMIL
+</option>
+
+<option value="B.A TOURISM">
+    B.A TOURISM
+</option>
+
+
+<option value="B.Sc CS">
+    B.Sc CS
+</option>
+
+<option value="B.Sc CS WITH AI">
+    B.Sc CS WITH AI
+</option>
+
+<option value="B.Sc CRIMINOLOGY">
+    B.Sc CRIMINOLOGY
+</option>
+
+<option value="B.Sc SA">
+    B.Sc SA
+</option>
+
+<option value="B.Sc PHYS WITH CA">
+    B.Sc PHYS WITH CA
+</option>
+
+<option value="B.Sc MATHS WITH CA">
+    B.Sc MATHS WITH CA
+</option>
+
+<option value="B.Sc ELECTRONICS WITH AI">
+    B.Sc ELECTRONICS WITH AI
+</option>
+
+<option value="B.Sc VISCOM">
+    B.Sc VISCOM
+</option>
+
+<option value="B.Sc ELECTRONIC MEDIA">
+    B.Sc ELECTRONIC MEDIA
+</option>
+
+<option value="B.Sc IDD">
+    B.Sc IDD
+</option>
+
+<option value="B.Sc PHYSICS">
+    B.Sc PHYSICS
+</option>
+
+
+<option value="BCA COMPUTER APPLICATION">
+    BCA COMPUTER APPLICATION
+</option>
 
 </select>
+
+
+<!-- YEAR -->
 
 <select id="year">
 
-<option value="">Year</option>
+<option value="">
+    Year
+</option>
 
-<option>I Year</option>
-<option>II Year</option>
-<option>III Year</option>
+<option>
+    I Year
+</option>
+
+<option>
+    II Year
+</option>
+
+<option>
+    III Year
+</option>
 
 </select>
+
+
+<!-- SECTION -->
 
 <select id="section">
 
-<option value="">Section</option>
+<option value="">
+    Section
+</option>
 
-<option>A</option>
-<option>B</option>
-<option>C</option>
-<option>D</option>
+<option>
+    A
+</option>
+
+<option>
+    B
+</option>
+
+<option>
+    C
+</option>
+
+<option>
+    D
+</option>
 
 </select>
+
+
+<!-- SEMESTER -->
 
 <select id="semester">
 
-<option value="">Semester</option>
+<option value="">
+    Semester
+</option>
 
-<option>I</option>
-<option>II</option>
-<option>III</option>
-<option>IV</option>
-<option>V</option>
-<option>VI</option>
+<option>
+    I
+</option>
+
+<option>
+    II
+</option>
+
+<option>
+    III
+</option>
+
+<option>
+    IV
+</option>
+
+<option>
+    V
+</option>
+
+<option>
+    VI
+</option>
 
 </select>
+
+
+<!-- FACULTY -->
+
 <select id="faculty">
 
-    <option value="Select Staff">Select Staff</option>
+<option value="">
+    Select Staff
+</option>
 
-    <option value="SUDANDIRA DEVI">SUDANDIRA DEVI</option>
-    <option value="TAMATAM NARENDAR REDDY">TAMATAM NARENDAR REDDY</option>
-    <option value="PREETHIGA">PREETHIGA</option>
-    <option value="AKASH">AKASH</option>
-    <option value="RAMESHVAR">RAMESHVAR</option>
-    <option value="PAVITHRA">PAVITHRA</option>
-    <option value="SOUNDHAR">SOUNDHAR</option>
-    <option value="HARISH">HARISH</option>
-    <option value="DHINESH S">DHINESH S</option>
-    <option value="MURALIKRISHNAN R">MURALIKRISHNAN R</option>
-    <option value="DINESH U">DINESH U</option>
-    <option value="LOGESHWARRAN">LOGESHWARRAN</option>
+<option value="SUDANDIRA DEVI">
+    SUDANDIRA DEVI
+</option>
+
+<option value="TAMATAM NARENDAR REDDY">
+    TAMATAM NARENDAR REDDY
+</option>
+
+<option value="PREETHIGA">
+    PREETHIGA
+</option>
+
+<option value="AKASH">
+    AKASH
+</option>
+
+<option value="RAMESHVAR">
+    RAMESHVAR
+</option>
+
+<option value="PAVITHRA">
+    PAVITHRA
+</option>
+
+<option value="SOUNDHAR">
+    SOUNDHAR
+</option>
+
+<option value="HARISH">
+    HARISH
+</option>
+
+<option value="DHINESH S">
+    DHINESH S
+</option>
+
+<option value="MURALIKRISHNAN R">
+    MURALIKRISHNAN R
+</option>
+
+<option value="DINESH U">
+    DINESH U
+</option>
+
+<option value="LOGESHWARRAN">
+    LOGESHWARRAN
+</option>
 
 </select>
+
+
+<!-- SUBJECT -->
+
 <input
 type="text"
 id="subject"
 placeholder="Subject Name">
 
 
-
+<!-- EXAM TYPE -->
 
 <select id="examType">
 
+<option value="">
+    Exam Type
+</option>
 
-<option value="">Exam Type</option>
+<option>
+    CIA I
+</option>
 
-<option>CIA I</option>
-<option>CIA II</option>
-<option>MODEL</option>
-<option>UNIVERSITY</option>
+<option>
+    CIA II
+</option>
+
+<option>
+    MODEL
+</option>
+
+<option>
+    UNIVERSITY
+</option>
 
 </select>
+
+
+<!-- DATE -->
 
 <input
 type="date"
 id="examDate">
 
+
+<!-- TIME -->
+
 <input
 type="time"
 id="examTime">
+
+
+<!-- MAX MARKS -->
 
 <input
 type="number"
 id="maxMarks"
 placeholder="Maximum Marks">
 
+
+<!-- PORTION -->
+
 <textarea
 id="portion"
 rows="6"
 placeholder="Enter Exam Portion"></textarea>
 
+
+<!-- BUTTONS -->
+
 <div class="button-area">
 
 <button id="saveBtn">
-
-Assign Exam
-
+    Assign Exam
 </button>
+
 
 <button id="updateBtn">
-
-Update Exam
-
+    Update Exam
 </button>
+
 
 <button id="clearBtn">
-
-Clear
-
+    Clear
 </button>
 
 </div>
 
+
 </div>
+
 
 <hr>
 
+
+<!-- ==================================================
+     ACTIVE EXAMS
+================================================== -->
+
 <div class="table-wrapper">
 
+
 <table>
+
 
 <thead>
 
 <tr>
 
-<th>Department</th>
-<th>Year</th>
-<th>Section</th>
-<th>Semester</th>
-<th>Subject</th>
-<th>Faculty Assigned</th>
-<th>Exam</th>
-<th>Date</th>
-<th>Time</th>
-<th>Marks</th>
-<th>Portion</th>
-<th>Action</th>
+<th>
+    Department
+</th>
+
+<th>
+    Year
+</th>
+
+<th>
+    Section
+</th>
+
+<th>
+    Semester
+</th>
+
+<th>
+    Subject
+</th>
+
+<th>
+    Faculty Assigned
+</th>
+
+<th>
+    Exam
+</th>
+
+<th>
+    Date
+</th>
+
+<th>
+    Time
+</th>
+
+<th>
+    Marks
+</th>
+
+<th>
+    Portion
+</th>
+
+<th>
+    Action
+</th>
 
 </tr>
 
 </thead>
 
+
 <tbody id="examTable">
 
 </tbody>
+
 
 </table>
 
 </div>
 
+
+<!-- ==================================================
+     COMPLETED EXAMS
+================================================== -->
+
+<div class="completed-section">
+
+
+<h3 class="completed-title">
+
+    Completed Exams
+
+</h3>
+
+
+<div class="table-wrapper">
+
+
+<table class="completed-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+    Department
+</th>
+
+<th>
+    Year
+</th>
+
+<th>
+    Section
+</th>
+
+<th>
+    Semester
+</th>
+
+<th>
+    Subject
+</th>
+
+<th>
+    Faculty Assigned
+</th>
+
+<th>
+    Exam
+</th>
+
+<th>
+    Date
+</th>
+
+<th>
+    Time
+</th>
+
+<th>
+    Marks
+</th>
+
+<th>
+    Portion
+</th>
+
+<th>
+    Status
+</th>
+
+<th>
+    Action
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="completedExamTable">
+
+</tbody>
+
+
+</table>
+
 </div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- ==================================================
+     FIREBASE
+================================================== -->
+
 <script type="module">
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import{
-getFirestore,
-collection,
-addDoc,
-getDocs,
-doc,
-deleteDoc,
-updateDoc,
-getDoc,
-query,
-orderBy
+
+// ==================================================
+// FIREBASE IMPORTS
+// ==================================================
+
+import {
+    initializeApp
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
-//==================================================
+import {
+
+    getFirestore,
+
+    collection,
+
+    addDoc,
+
+    getDocs,
+
+    doc,
+
+    deleteDoc,
+
+    updateDoc,
+
+    getDoc,
+
+    query,
+
+    orderBy
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+// ==================================================
 // FIREBASE CONFIG
-//==================================================
+// ==================================================
 
 const firebaseConfig={
 
-apiKey:"AIzaSyAIv3091VM-gkmdwEAn7OhXWd9Cm2zh2bo",
-authDomain:"maasc-2026.firebaseapp.com",
-projectId:"maasc-2026",
-storageBucket:"maasc-2026.appspot.com",
-messagingSenderId:"585813001586",
-appId:"1:585813001586:web:664e0e90ff0725d2e849eb"
+    apiKey:
+    "AIzaSyAIv3091VM-gkmdwEAn7OhXWd9Cm2zh2bo",
+
+    authDomain:
+    "maasc-2026.firebaseapp.com",
+
+    projectId:
+    "maasc-2026",
+
+    storageBucket:
+    "maasc-2026.appspot.com",
+
+    messagingSenderId:
+    "585813001586",
+
+    appId:
+    "1:585813001586:web:664e0e90ff0725d2e849eb"
 
 };
 
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
 
-//==================================================
-// VARIABLES
-//==================================================
+// ==================================================
+// INITIALIZE
+// ==================================================
+
+const app=
+initializeApp(firebaseConfig);
+
+
+const db=
+getFirestore(app);
+
+
+// ==================================================
+// GLOBAL EDIT ID
+// ==================================================
 
 let editID=null;
 
-//==================================================
+
+// ==================================================
 // PAGE LOAD
-//==================================================
-window.onload = async () => {
+// ==================================================
+
+window.onload=async function(){
 
     await loadExams();
 
 };
 
-//==================================================
-// LOAD FACULTY DROPDOWN
-//==================================================
+
+// ==================================================
+// LOAD FACULTY FROM FIRESTORE
+// ==================================================
 
 async function loadFaculty(){
 
-const faculty=document.getElementById("faculty");
+    const faculty=
+    document.getElementById("faculty");
 
-faculty.innerHTML="<option value=''>Select staff</option>";
 
-try{
+    faculty.innerHTML=
+    "<option value=''>Select staff</option>";
 
-const q=query(
-collection(db,"staff"),
-orderBy("staffName")
-);
 
-const snap=await getDocs(q);
+    try{
 
-snap.forEach((d)=>{
 
-const s=d.data();
+        const q=query(
 
-faculty.innerHTML+=`
-<option value="${s.staffName}">
-${s.staffName}
-</option>
-`;
+            collection(
+                db,
+                "staff"
+            ),
 
-});
+            orderBy(
+                "staffName"
+            )
+
+        );
+
+
+        const snap=
+        await getDocs(q);
+
+
+        snap.forEach((d)=>{
+
+            const s=d.data();
+
+
+            if(
+                s.staffName &&
+                s.staffName.trim()!=""
+            ){
+
+                faculty.innerHTML+=`
+
+                    <option value="${escapeHtml(
+                        s.staffName
+                    )}">
+
+                        ${escapeHtml(
+                            s.staffName
+                        )}
+
+                    </option>
+
+                `;
+
+            }
+
+        });
+
+
+    }
+
+    catch(err){
+
+        console.log(
+            "Faculty loading error:",
+            err
+        );
+
+    }
 
 }
-catch(err){
 
-console.log(err);
-alert("Unable to load faculty list");
+
+// ==================================================
+// ESCAPE HTML
+// ==================================================
+
+function escapeHtml(value){
+
+    if(value===null ||
+       value===undefined){
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
 
 }
 
-}
 
-//==================================================
+// ==================================================
 // SAVE BUTTON
-//==================================================
+// ==================================================
 
 document
 .getElementById("saveBtn")
-.addEventListener("click",saveExam);
+.addEventListener(
+    "click",
+    saveExam
+);
 
-//==================================================
+
+// ==================================================
 // SAVE EXAM
-//==================================================
+// ==================================================
 
 async function saveExam(){
 
-let exam={
 
-department:
-document.getElementById("department").value,
+    const exam={
 
-year:
-document.getElementById("year").value,
+        department:
+        document
+        .getElementById("department")
+        .value,
 
-section:
-document.getElementById("section").value,
+        year:
+        document
+        .getElementById("year")
+        .value,
 
-semester:
-document.getElementById("semester").value,
+        section:
+        document
+        .getElementById("section")
+        .value,
 
-subject:
-document.getElementById("subject").value,
-faculty:
-document.getElementById("faculty").value,
-examType:
-document.getElementById("examType").value,
+        semester:
+        document
+        .getElementById("semester")
+        .value,
 
-examDate:
-document.getElementById("examDate").value,
+        subject:
+        document
+        .getElementById("subject")
+        .value
+        .trim(),
 
-examTime:
-document.getElementById("examTime").value,
+        faculty:
+        document
+        .getElementById("faculty")
+        .value,
 
-maxMarks:
-document.getElementById("maxMarks").value,
+        examType:
+        document
+        .getElementById("examType")
+        .value,
 
-portion:
-document.getElementById("portion").value,
+        examDate:
+        document
+        .getElementById("examDate")
+        .value,
 
-createdAt:new Date()
+        examTime:
+        document
+        .getElementById("examTime")
+        .value,
 
-};
+        maxMarks:
+        document
+        .getElementById("maxMarks")
+        .value,
 
-//==================================================
-// VALIDATION
-//==================================================
+        portion:
+        document
+        .getElementById("portion")
+        .value
+        .trim(),
 
-if(
+        createdAt:
+        new Date(),
 
-exam.department=="" ||
-exam.year=="" ||
-exam.section=="" ||
-exam.semester=="" ||
-exam.subject=="" ||
-exam.faculty=="" ||
-exam.examType=="" ||
-exam.examDate=="" ||
-exam.examTime=="" ||
-exam.maxMarks==""
+        completed:
+        false
 
-){
+    };
 
-alert("Please fill all required fields.");
-return;
+
+    // ==================================================
+    // VALIDATION
+    // ==================================================
+
+    if(
+
+        exam.department==="" ||
+
+        exam.year==="" ||
+
+        exam.section==="" ||
+
+        exam.semester==="" ||
+
+        exam.subject==="" ||
+
+        exam.faculty==="" ||
+
+        exam.examType==="" ||
+
+        exam.examDate==="" ||
+
+        exam.examTime==="" ||
+
+        exam.maxMarks===""
+
+    ){
+
+        alert(
+            "Please fill all required fields."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+
+        await addDoc(
+
+            collection(
+                db,
+                "examAssignments"
+            ),
+
+            exam
+
+        );
+
+
+        alert(
+            "Exam Assigned Successfully."
+        );
+
+
+        clearForm();
+
+
+        await loadExams();
+
+
+    }
+
+    catch(err){
+
+        console.error(
+            "Save exam error:",
+            err
+        );
+
+
+        alert(
+            err.message
+        );
+
+    }
 
 }
 
-try{
 
-await addDoc(
-
-collection(db,"examAssignments"),
-exam
-
-);
-
-alert("Exam Assigned Successfully.");
-
-clearForm();
-
-await loadExams();
-
-}
-catch(err){
-
-console.log(err);
-alert(err.message);
-
-}
-
-}
-//==================================================
-// LOAD ALL EXAMS
-//==================================================
+// ==================================================
+// LOAD EXAMS
+// ==================================================
 
 async function loadExams(){
 
-const table=document.getElementById("examTable");
 
-table.innerHTML="";
+    const table=
+    document.getElementById(
+        "examTable"
+    );
 
-try{
 
-const q=query(
-collection(db,"examAssignments"),
-orderBy("createdAt","desc")
-);
+    const completedTable=
+    document.getElementById(
+        "completedExamTable"
+    );
 
-const snap=await getDocs(q);
 
-if(snap.empty){
+    table.innerHTML="";
 
-table.innerHTML=`
-<tr>
-<td colspan="12">No Exam Assignments Found</td>
-</tr>
-`;
+    completedTable.innerHTML="";
 
-return;
+
+    try{
+
+
+        const q=query(
+
+            collection(
+                db,
+                "examAssignments"
+            ),
+
+            orderBy(
+                "createdAt",
+                "desc"
+            )
+
+        );
+
+
+        const snap=
+        await getDocs(q);
+
+
+        // ==================================================
+        // NO RECORDS
+        // ==================================================
+
+        if(snap.empty){
+
+            table.innerHTML=`
+
+                <tr>
+
+                    <td
+                    colspan="12"
+                    class="no-data">
+
+                        No Exam Assignments Found
+
+                    </td>
+
+                </tr>
+
+            `;
+
+
+            completedTable.innerHTML=`
+
+                <tr>
+
+                    <td
+                    colspan="13"
+                    class="no-data">
+
+                        No Completed Exams
+
+                    </td>
+
+                </tr>
+
+            `;
+
+
+            return;
+
+        }
+
+
+        let activeCount=0;
+
+        let completedCount=0;
+
+
+        // ==================================================
+        // PROCESS EVERY RECORD
+        // ==================================================
+
+        snap.forEach((item)=>{
+
+
+            const e=
+            item.data();
+
+
+            /*
+             * IMPORTANT
+             *
+             * Only completed:true is considered
+             * completed.
+             *
+             * Existing records that do not contain
+             * completed will remain active.
+             */
+
+
+            const isCompleted=
+            e.completed===true;
+
+
+            // ==================================================
+            // COMPLETED
+            // ==================================================
+
+            if(isCompleted){
+
+                completedCount++;
+
+
+                completedTable.innerHTML+=`
+
+                    <tr>
+
+                        <td>
+                            ${escapeHtml(
+                                e.department
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.year
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.section
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.semester
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.subject
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.faculty
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.examType
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.examDate
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.examTime
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.maxMarks
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                e.portion
+                            )}
+                        </td>
+
+                        <td>
+
+                            <span
+                            class="status-completed">
+
+                                Completed
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                            class="action-btn delete"
+                            onclick="deleteExam('${item.id}')">
+
+                                Delete
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                return;
+
+            }
+
+
+            // ==================================================
+            // ACTIVE
+            // ==================================================
+
+            activeCount++;
+
+
+            table.innerHTML+=`
+
+                <tr>
+
+                    <td>
+                        ${escapeHtml(
+                            e.department
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.year
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.section
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.semester
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.subject
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.faculty
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.examType
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.examDate
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.examTime
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.maxMarks
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            e.portion
+                        )}
+                    </td>
+
+                    <td>
+
+
+                        <button
+                        class="action-btn complete"
+                        onclick="markExamComplete('${item.id}')">
+
+                            Mark as Complete
+
+                        </button>
+
+
+                        <button
+                        class="action-btn edit"
+                        onclick="editExam('${item.id}')">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                        class="action-btn delete"
+                        onclick="deleteExam('${item.id}')">
+
+                            Delete
+
+                        </button>
+
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+
+        // ==================================================
+        // NO ACTIVE
+        // ==================================================
+
+        if(activeCount===0){
+
+            table.innerHTML=`
+
+                <tr>
+
+                    <td
+                    colspan="12"
+                    class="no-data">
+
+                        No Active Exam Assignments
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+
+        // ==================================================
+        // NO COMPLETED
+        // ==================================================
+
+        if(completedCount===0){
+
+            completedTable.innerHTML=`
+
+                <tr>
+
+                    <td
+                    colspan="13"
+                    class="no-data">
+
+                        No Completed Exams
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+
+    }
+
+    catch(err){
+
+        console.error(
+            "Load exams error:",
+            err
+        );
+
+
+        table.innerHTML=`
+
+            <tr>
+
+                <td
+                colspan="12"
+                class="no-data">
+
+                    Unable to load exam assignments
+
+                </td>
+
+            </tr>
+
+        `;
+
+
+        completedTable.innerHTML=`
+
+            <tr>
+
+                <td
+                colspan="13"
+                class="no-data">
+
+                    Unable to load completed exams
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
 
 }
 
-let sno=1;
 
-snap.forEach((item)=>{
+// ==================================================
+// MARK AS COMPLETE
+// ==================================================
 
-const e=item.data();
+window.markExamComplete=
+async function(id){
 
-table.innerHTML+=`
 
-<tr>
+    const ok=
+    confirm(
+        "Are you sure you want to mark this exam as completed?"
+    );
 
-<td>${e.department ?? ""}</td>
 
-<td>${e.year ?? ""}</td>
+    if(!ok){
 
-<td>${e.section ?? ""}</td>
+        return;
 
-<td>${e.semester ?? ""}</td>
+    }
 
-<td>${e.subject ?? ""}</td>
 
-<td>${e.faculty ?? ""}</td>
+    try{
 
-<td>${e.examType ?? ""}</td>
 
-<td>${e.examDate ?? ""}</td>
+        const ref=
+        doc(
+            db,
+            "examAssignments",
+            id
+        );
 
-<td>${e.examTime ?? ""}</td>
 
-<td>${e.maxMarks ?? ""}</td>
+        await updateDoc(
 
-<td>${e.portion ?? ""}</td>
+            ref,
 
-<td>
+            {
 
-<button
-class="action-btn edit"
-onclick="editExam('${item.id}')">
+                completed:true,
 
-Edit
+                completedAt:
+                new Date()
 
-</button>
+            }
 
-<button
-class="action-btn delete"
-onclick="deleteExam('${item.id}')">
+        );
 
-Delete
 
-</button>
+        alert(
+            "Exam marked as completed successfully."
+        );
 
-</td>
 
-</tr>
+        await loadExams();
 
-`;
 
-});
+    }
 
-}
-catch(err){
+    catch(err){
 
-console.log(err);
+        console.error(
+            "Complete exam error:",
+            err
+        );
 
-table.innerHTML=`
-<tr>
-<td colspan="12">
-Unable to load data
-</td>
-</tr>
-`;
 
-}
+        alert(
+            err.message
+        );
 
-}
+    }
 
-//==================================================
+};
+
+
+// ==================================================
 // DELETE EXAM
-//==================================================
+// ==================================================
 
-window.deleteExam=async function(id){
+window.deleteExam=
+async function(id){
 
-const ok=confirm("Delete this exam assignment?");
 
-if(!ok) return;
+    const ok=
+    confirm(
+        "Delete this exam assignment?"
+    );
 
-try{
 
-await deleteDoc(
-doc(db,"examAssignments",id)
-);
+    if(!ok){
 
-alert("Deleted Successfully");
+        return;
 
-await loadExams();
+    }
 
-}
-catch(err){
 
-console.log(err);
+    try{
 
-alert(err.message);
 
-}
+        await deleteDoc(
+
+            doc(
+                db,
+                "examAssignments",
+                id
+            )
+
+        );
+
+
+        alert(
+            "Deleted Successfully"
+        );
+
+
+        await loadExams();
+
+
+    }
+
+    catch(err){
+
+        console.error(
+            "Delete exam error:",
+            err
+        );
+
+
+        alert(
+            err.message
+        );
+
+    }
 
 };
 
-//==================================================
+
+// ==================================================
 // EDIT EXAM
-//==================================================
+// ==================================================
 
-window.editExam = async function(id){
+window.editExam=
+async function(id){
 
-try{
 
-const ref = doc(db,"examAssignments",id);
+    try{
 
-const snap = await getDoc(ref);
 
-if(!snap.exists()){
+        const ref=
+        doc(
+            db,
+            "examAssignments",
+            id
+        );
 
-alert("Exam record not found.");
-return;
 
-}
+        const snap=
+        await getDoc(ref);
 
-const e = snap.data();
 
-document.getElementById("department").value = e.department || "";
+        if(!snap.exists()){
 
-document.getElementById("year").value = e.year || "";
+            alert(
+                "Exam record not found."
+            );
 
-document.getElementById("section").value = e.section || "";
+            return;
 
-document.getElementById("semester").value = e.semester || "";
+        }
 
-document.getElementById("subject").value = e.subject || "";
 
-document.getElementById("faculty").value = e.faculty;
+        const e=
+        snap.data();
 
-document.getElementById("examType").value = e.examType || "";
 
-document.getElementById("examDate").value = e.examDate || "";
+        // ==================================================
+        // LOAD FORM
+        // ==================================================
 
-document.getElementById("examTime").value = e.examTime || "";
+        document
+        .getElementById("department")
+        .value=
+        e.department || "";
 
-document.getElementById("maxMarks").value = e.maxMarks || "";
 
-document.getElementById("portion").value = e.portion || "";
+        document
+        .getElementById("year")
+        .value=
+        e.year || "";
 
-editID = id;
 
-// Change Buttons
+        document
+        .getElementById("section")
+        .value=
+        e.section || "";
 
-document.getElementById("saveBtn").style.display="none";
 
-document.getElementById("updateBtn").style.display="inline-block";
+        document
+        .getElementById("semester")
+        .value=
+        e.semester || "";
 
-window.scrollTo({
 
-top:0,
-behavior:"smooth"
+        document
+        .getElementById("subject")
+        .value=
+        e.subject || "";
 
-});
 
-}
-catch(err){
+        document
+        .getElementById("faculty")
+        .value=
+        e.faculty || "";
 
-console.log(err);
 
-alert(err.message);
+        document
+        .getElementById("examType")
+        .value=
+        e.examType || "";
 
-}
+
+        document
+        .getElementById("examDate")
+        .value=
+        e.examDate || "";
+
+
+        document
+        .getElementById("examTime")
+        .value=
+        e.examTime || "";
+
+
+        document
+        .getElementById("maxMarks")
+        .value=
+        e.maxMarks || "";
+
+
+        document
+        .getElementById("portion")
+        .value=
+        e.portion || "";
+
+
+        editID=id;
+
+
+        // ==================================================
+        // BUTTON STATE
+        // ==================================================
+
+        document
+        .getElementById("saveBtn")
+        .style.display=
+        "none";
+
+
+        document
+        .getElementById("updateBtn")
+        .style.display=
+        "inline-block";
+
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    }
+
+    catch(err){
+
+        console.error(
+            "Edit exam error:",
+            err
+        );
+
+
+        alert(
+            err.message
+        );
+
+    }
 
 };
-//==================================================
+
+
+// ==================================================
 // UPDATE BUTTON
-//==================================================
+// ==================================================
 
 document
 .getElementById("updateBtn")
-.addEventListener("click", updateExam);
+.addEventListener(
+    "click",
+    updateExam
+);
 
-//==================================================
+
+// ==================================================
 // UPDATE EXAM
-//==================================================
+// ==================================================
 
 async function updateExam(){
 
-if(editID==null){
 
-alert("Please select a record to update.");
-return;
+    if(editID===null){
+
+        alert(
+            "Please select a record to update."
+        );
+
+        return;
+
+    }
+
+
+    const updated={
+
+        department:
+        document
+        .getElementById("department")
+        .value,
+
+        year:
+        document
+        .getElementById("year")
+        .value,
+
+        section:
+        document
+        .getElementById("section")
+        .value,
+
+        semester:
+        document
+        .getElementById("semester")
+        .value,
+
+        subject:
+        document
+        .getElementById("subject")
+        .value
+        .trim(),
+
+        faculty:
+        document
+        .getElementById("faculty")
+        .value,
+
+        examType:
+        document
+        .getElementById("examType")
+        .value,
+
+        examDate:
+        document
+        .getElementById("examDate")
+        .value,
+
+        examTime:
+        document
+        .getElementById("examTime")
+        .value,
+
+        maxMarks:
+        document
+        .getElementById("maxMarks")
+        .value,
+
+        portion:
+        document
+        .getElementById("portion")
+        .value
+        .trim()
+
+    };
+
+
+    // ==================================================
+    // VALIDATION
+    // ==================================================
+
+    if(
+
+        updated.department==="" ||
+
+        updated.year==="" ||
+
+        updated.section==="" ||
+
+        updated.semester==="" ||
+
+        updated.subject==="" ||
+
+        updated.faculty==="" ||
+
+        updated.examType==="" ||
+
+        updated.examDate==="" ||
+
+        updated.examTime==="" ||
+
+        updated.maxMarks===""
+
+    ){
+
+        alert(
+            "Please fill all required fields."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+
+        /*
+         * IMPORTANT:
+         *
+         * We are NOT changing the existing
+         * completed field here.
+         *
+         * Therefore:
+         *
+         * completed exam stays completed.
+         *
+         * active exam stays active.
+         */
+
+
+        await updateDoc(
+
+            doc(
+                db,
+                "examAssignments",
+                editID
+            ),
+
+            updated
+
+        );
+
+
+        alert(
+            "Exam Updated Successfully."
+        );
+
+
+        editID=null;
+
+
+        document
+        .getElementById("saveBtn")
+        .style.display=
+        "inline-block";
+
+
+        document
+        .getElementById("updateBtn")
+        .style.display=
+        "none";
+
+
+        clearForm();
+
+
+        await loadExams();
+
+
+    }
+
+    catch(err){
+
+        console.error(
+            "Update exam error:",
+            err
+        );
+
+
+        alert(
+            err.message
+        );
+
+    }
 
 }
 
-const updated={
 
-department:
-document.getElementById("department").value,
-
-year:
-document.getElementById("year").value,
-
-section:
-document.getElementById("section").value,
-
-semester:
-document.getElementById("semester").value,
-
-subject:
-document.getElementById("subject").value,
-
-faculty:
-document.getElementById("faculty").value,
-
-examType:
-document.getElementById("examType").value,
-
-examDate:
-document.getElementById("examDate").value,
-
-examTime:
-document.getElementById("examTime").value,
-
-maxMarks:
-document.getElementById("maxMarks").value,
-
-portion:
-document.getElementById("portion").value
-
-};
-
-// Validation
-
-if(
-
-updated.department=="" ||
-updated.year=="" ||
-updated.section=="" ||
-updated.semester=="" ||
-updated.subject=="" ||
-updated.faculty=="" ||
-updated.examType=="" ||
-updated.examDate=="" ||
-updated.examTime=="" ||
-updated.maxMarks==""
-
-){
-
-alert("Please fill all required fields.");
-return;
-
-}
-
-try{
-
-await updateDoc(
-
-doc(db,"examAssignments",editID),
-
-updated
-
-);
-
-alert("Exam Updated Successfully.");
-
-editID=null;
-
-document.getElementById("saveBtn").style.display="inline-block";
-
-document.getElementById("updateBtn").style.display="none";
-
-clearForm();
-
-await loadExams();
-
-}
-catch(err){
-
-console.log(err);
-
-alert(err.message);
-
-}
-
-}
-
-//==================================================
+// ==================================================
 // CLEAR BUTTON
-//==================================================
+// ==================================================
 
 document
 .getElementById("clearBtn")
-.addEventListener("click", clearForm);
+.addEventListener(
+    "click",
+    clearForm
+);
 
-//==================================================
+
+// ==================================================
 // CLEAR FORM
-//==================================================
+// ==================================================
 
 function clearForm(){
 
-document.getElementById("department").selectedIndex=0;
-document.getElementById("year").selectedIndex=0;
-document.getElementById("section").selectedIndex=0;
-document.getElementById("semester").selectedIndex=0;
-document.getElementById("faculty").selectedIndex=0;
-document.getElementById("examType").selectedIndex=0;
 
-document.getElementById("subject").value="";
-document.getElementById("examDate").value="";
-document.getElementById("examTime").value="";
-document.getElementById("maxMarks").value="";
-document.getElementById("portion").value="";
+    document
+    .getElementById("department")
+    .selectedIndex=0;
 
-editID=null;
 
-document.getElementById("saveBtn").style.display="inline-block";
-document.getElementById("updateBtn").style.display="none";
+    document
+    .getElementById("year")
+    .selectedIndex=0;
+
+
+    document
+    .getElementById("section")
+    .selectedIndex=0;
+
+
+    document
+    .getElementById("semester")
+    .selectedIndex=0;
+
+
+    document
+    .getElementById("faculty")
+    .selectedIndex=0;
+
+
+    document
+    .getElementById("examType")
+    .selectedIndex=0;
+
+
+    document
+    .getElementById("subject")
+    .value="";
+
+
+    document
+    .getElementById("examDate")
+    .value="";
+
+
+    document
+    .getElementById("examTime")
+    .value="";
+
+
+    document
+    .getElementById("maxMarks")
+    .value="";
+
+
+    document
+    .getElementById("portion")
+    .value="";
+
+
+    editID=null;
+
+
+    document
+    .getElementById("saveBtn")
+    .style.display=
+    "inline-block";
+
+
+    document
+    .getElementById("updateBtn")
+    .style.display=
+    "none";
 
 }
+
+
 </script>
 
+
 </body>
+
 </html>
+```
