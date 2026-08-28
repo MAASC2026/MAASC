@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width,initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>Student Attendance</title>
 
@@ -22,10 +22,10 @@
 
 body{
     background:#f4f7fb;
-    color:#1f2937;
+    color:#222;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 .header{
     background:#500454;
@@ -55,7 +55,6 @@ body{
 
 .staff-name{
     font-weight:bold;
-    font-size:15px;
 }
 
 .staff-id{
@@ -64,7 +63,8 @@ body{
     opacity:.85;
 }
 
-/* ================= MAIN ================= */
+
+/* MAIN */
 
 .main{
     max-width:1250px;
@@ -80,12 +80,13 @@ body{
     margin-bottom:20px;
 }
 
-/* ================= BUTTON ================= */
+
+/* BACK */
 
 .back-btn{
     border:none;
-    background:#f3f4f6;
-    color:#374151;
+    background:#f1f1f1;
+    color:#444;
     padding:9px 15px;
     border-radius:7px;
     cursor:pointer;
@@ -94,8 +95,11 @@ body{
 }
 
 .back-btn:hover{
-    background:#e5e7eb;
+    background:#e5e5e5;
 }
+
+
+/* TITLE */
 
 .title{
     color:#500454;
@@ -109,7 +113,8 @@ body{
     margin-top:5px;
 }
 
-/* ================= ERROR ================= */
+
+/* ERROR */
 
 .error{
     display:none;
@@ -118,10 +123,11 @@ body{
     border:1px solid #fecaca;
     padding:14px;
     border-radius:8px;
-    margin-bottom:15px;
+    margin-top:15px;
 }
 
-/* ================= DETAILS ================= */
+
+/* DETAILS */
 
 .details{
     display:grid;
@@ -151,7 +157,8 @@ body{
     font-weight:bold;
 }
 
-/* ================= DATE ================= */
+
+/* DATE */
 
 .date-row{
     display:flex;
@@ -181,11 +188,6 @@ body{
     font-size:14px;
 }
 
-.date-group input:focus{
-    outline:none;
-    border-color:#500454;
-}
-
 .load-btn{
     height:42px;
     border:none;
@@ -201,7 +203,8 @@ body{
     background:#3b033e;
 }
 
-/* ================= SUBJECT ================= */
+
+/* SUBJECT */
 
 .subject{
     margin-top:15px;
@@ -210,7 +213,8 @@ body{
     font-weight:bold;
 }
 
-/* ================= SUMMARY ================= */
+
+/* SUMMARY */
 
 .summary{
     display:grid;
@@ -250,7 +254,8 @@ body{
     color:#dc2626;
 }
 
-/* ================= INSTRUCTION ================= */
+
+/* INSTRUCTION */
 
 .instruction{
     background:#fff7ed;
@@ -262,7 +267,8 @@ body{
     margin-bottom:15px;
 }
 
-/* ================= TABLE ================= */
+
+/* TABLE */
 
 .table-wrapper{
     width:100%;
@@ -274,7 +280,7 @@ body{
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:850px;
+    min-width:700px;
 }
 
 thead th{
@@ -282,19 +288,17 @@ thead th{
     color:white;
     padding:12px;
     font-size:13px;
-    border:1px solid rgba(255,255,255,.2);
     text-align:left;
 }
 
 tbody td{
-    padding:11px 12px;
+    padding:12px;
     border:1px solid #ddd;
     font-size:13px;
 }
 
 .student-row{
     cursor:pointer;
-    transition:.15s;
     background:white;
 }
 
@@ -319,7 +323,8 @@ tbody td{
     font-weight:bold;
 }
 
-/* ================= STATUS ================= */
+
+/* STATUS */
 
 .status{
     display:inline-block;
@@ -341,7 +346,8 @@ tbody td{
     color:#991b1b;
 }
 
-/* ================= SAVE ================= */
+
+/* SAVE */
 
 .save-area{
     display:flex;
@@ -368,7 +374,8 @@ tbody td{
     cursor:not-allowed;
 }
 
-/* ================= LOADING ================= */
+
+/* LOADING */
 
 .loading{
     text-align:center;
@@ -388,14 +395,13 @@ tbody td{
 }
 
 @keyframes spin{
-
     to{
         transform:rotate(360deg);
     }
-
 }
 
-/* ================= EMPTY ================= */
+
+/* EMPTY */
 
 .empty{
     text-align:center;
@@ -403,7 +409,8 @@ tbody td{
     color:#777;
 }
 
-/* ================= RESPONSIVE ================= */
+
+/* RESPONSIVE */
 
 @media(max-width:900px){
 
@@ -445,9 +452,13 @@ tbody td{
 
 </head>
 
+
 <body>
 
-<!-- ================= HEADER ================= -->
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <div class="header">
 
@@ -463,12 +474,13 @@ tbody td{
 
     </div>
 
+
     <div class="staff-box">
 
         <div
             class="staff-name"
             id="staffName">
-            -
+            Staff
         </div>
 
         <div
@@ -482,20 +494,26 @@ tbody td{
 </div>
 
 
-<!-- ================= MAIN ================= -->
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <div class="main">
 
 
-<!-- ================= CLASS INFORMATION ================= -->
+<!-- =====================================================
+     CLASS DETAILS
+===================================================== -->
 
 <div class="card">
+
 
     <button
         class="back-btn"
         id="backBtn">
 
-        ← Back to Timetable
+        ← Back to Attendance
 
     </button>
 
@@ -504,8 +522,12 @@ tbody td{
         Student Attendance
     </div>
 
+
     <div class="subtitle">
-        Click a student's name to mark that student absent.
+
+        Click a student to change
+        PRESENT / ABSENT.
+
     </div>
 
 
@@ -517,9 +539,7 @@ tbody td{
 
     <!-- DETAILS -->
 
-    <div
-        class="details"
-        id="details">
+    <div class="details">
 
 
         <div class="detail">
@@ -627,6 +647,7 @@ tbody td{
 
     <div class="date-row">
 
+
         <div class="date-group">
 
             <label>
@@ -653,22 +674,25 @@ tbody td{
 </div>
 
 
-<!-- ================= STUDENTS ================= -->
+
+<!-- =====================================================
+     STUDENT LIST
+===================================================== -->
 
 <div class="card">
 
 
     <div class="instruction">
 
-        <strong>Attendance:</strong>
-
-        All students are initially marked as
+        <strong>Default:</strong>
+        All students are marked
         <strong>PRESENT</strong>.
 
-        Click the student's name or row to mark
-        the student as <strong>ABSENT</strong>.
+        Click the row to mark
+        <strong>ABSENT</strong>.
 
-        Click again to change back to PRESENT.
+        Click again to mark
+        <strong>PRESENT</strong>.
 
     </div>
 
@@ -745,7 +769,7 @@ tbody td{
         </h3>
 
         <p>
-            No students were found for this class.
+            Check Department, Year and Section.
         </p>
 
     </div>
@@ -773,10 +797,6 @@ tbody td{
                     </th>
 
                     <th>
-                        Register No
-                    </th>
-
-                    <th>
                         Student Name
                     </th>
 
@@ -789,8 +809,8 @@ tbody td{
             </thead>
 
 
-            <tbody id="studentTable">
-
+            <tbody
+                id="studentTable">
             </tbody>
 
         </table>
@@ -817,11 +837,17 @@ tbody td{
 </div>
 
 
-<!-- ================= FIREBASE SCRIPT ================= -->
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
 
 <script type="module">
 
-import { db } from "./firebase-config.js";
+
+import { db }
+from "./firebase-config.js";
+
 
 import {
 
@@ -837,9 +863,10 @@ from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* =========================================================
+
+/* =====================================================
    GLOBAL VARIABLES
-========================================================= */
+===================================================== */
 
 let attendancePeriod = null;
 
@@ -848,9 +875,10 @@ let students = [];
 let attendance = {};
 
 
-/* =========================================================
-   HELPER FUNCTIONS
-========================================================= */
+
+/* =====================================================
+   CLEAN
+===================================================== */
 
 function clean(value){
 
@@ -863,68 +891,79 @@ function clean(value){
 function upper(value){
 
     return clean(value)
-        .toUpperCase();
+        .toUpperCase()
+        .replace(/\s+/g," ");
 
 }
 
 
-/*
- * IMPORTANT
- *
- * Converts all BCA department names to the
- * exact Firestore value:
- *
- * BCA COMPUTER APPLICATION
- */
+
+/* =====================================================
+   DEPARTMENT NORMALIZATION
+===================================================== */
 
 function normalizeDepartment(value){
 
     let dept =
-        upper(value)
+        upper(value);
+
+    dept =
+        dept
+        .replace(/\./g,"")
         .replace(/\s+/g," ")
         .trim();
 
 
-    const departmentMap = {
+    /*
+     * ALL BCA VARIATIONS
+     * become:
+     *
+     * BCA COMPUTER APPLICATION
+     */
 
-        "BCA COMPUTER APPLICATION":
-            "BCA COMPUTER APPLICATION",
+    if(
 
-        "BCA COMPUTER APPLICATIONS":
-            "BCA COMPUTER APPLICATION",
+        dept ===
+        "BCA COMPUTER APPLICATION"
 
-        "B.C.A COMPUTER APPLICATION":
-            "BCA COMPUTER APPLICATION",
+        ||
 
-        "B.C.A COMPUTER APPLICATIONS":
-            "BCA COMPUTER APPLICATION"
+        dept ===
+        "BCA COMPUTER APPLICATIONS"
 
-    };
+        ||
+
+        dept ===
+        "BCACOMPUTERAPPLICATION"
+
+        ||
+
+        dept ===
+        "BCACOMPUTERAPPLICATIONS"
+
+    ){
+
+        return
+            "BCA COMPUTER APPLICATION";
+
+    }
 
 
-    return (
-        departmentMap[dept] ||
-        dept
-    );
+    return dept;
 
 }
 
 
-function escapeHtml(value){
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+/* =====================================================
+   DATE
+===================================================== */
 
-}
+function getToday(){
 
+    const d =
+        new Date();
 
-function today(){
-
-    const d = new Date();
 
     return (
 
@@ -947,11 +986,30 @@ function today(){
 }
 
 
-/* =========================================================
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+
+/* =====================================================
    LOAD PERIOD
-========================================================= */
+===================================================== */
 
 function loadPeriod(){
+
 
     const raw =
         sessionStorage.getItem(
@@ -962,7 +1020,9 @@ function loadPeriod(){
     if(!raw){
 
         throw new Error(
-            "Attendance class information was not found."
+
+            "Attendance information not found."
+
         );
 
     }
@@ -973,7 +1033,7 @@ function loadPeriod(){
 
 
     console.log(
-        "Attendance Period:",
+        "ATTENDANCE PERIOD:",
         attendancePeriod
     );
 
@@ -981,6 +1041,7 @@ function loadPeriod(){
     document.getElementById(
         "staffName"
     ).textContent =
+
         attendancePeriod.staffName ||
         "Staff";
 
@@ -988,6 +1049,7 @@ function loadPeriod(){
     document.getElementById(
         "staffId"
     ).textContent =
+
         attendancePeriod.staffId ||
         "-";
 
@@ -995,6 +1057,7 @@ function loadPeriod(){
     document.getElementById(
         "day"
     ).textContent =
+
         attendancePeriod.day ||
         "-";
 
@@ -1002,6 +1065,7 @@ function loadPeriod(){
     document.getElementById(
         "session"
     ).textContent =
+
         attendancePeriod.session ||
         "-";
 
@@ -1009,7 +1073,9 @@ function loadPeriod(){
     document.getElementById(
         "hour"
     ).textContent =
+
         "Hour " +
+
         (
             attendancePeriod.hour ||
             "-"
@@ -1019,6 +1085,7 @@ function loadPeriod(){
     document.getElementById(
         "department"
     ).textContent =
+
         attendancePeriod.department ||
         "-";
 
@@ -1047,6 +1114,7 @@ function loadPeriod(){
     document.getElementById(
         "room"
     ).textContent =
+
         attendancePeriod.room ||
         "-";
 
@@ -1058,8 +1126,12 @@ function loadPeriod(){
         (
             attendancePeriod.subjectCode
             ?
-            attendancePeriod.subjectCode + " - "
+
+            attendancePeriod.subjectCode +
+            " - "
+
             :
+
             ""
         )
 
@@ -1074,16 +1146,18 @@ function loadPeriod(){
     document.getElementById(
         "attendanceDate"
     ).value =
-        today();
+        getToday();
 
 }
 
 
-/* =========================================================
+
+/* =====================================================
    LOAD STUDENTS
-========================================================= */
+===================================================== */
 
 async function loadStudents(){
+
 
     const loading =
         document.getElementById(
@@ -1091,7 +1165,7 @@ async function loadStudents(){
         );
 
 
-    const wrapper =
+    const tableWrapper =
         document.getElementById(
             "tableWrapper"
         );
@@ -1103,15 +1177,25 @@ async function loadStudents(){
         );
 
 
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+
     loading.style.display =
         "block";
 
 
-    wrapper.style.display =
+    tableWrapper.style.display =
         "none";
 
 
     empty.style.display =
+        "none";
+
+
+    errorBox.style.display =
         "none";
 
 
@@ -1123,26 +1207,48 @@ async function loadStudents(){
     try{
 
 
-        /* ================================================
+        /* =================================================
            GET ALL STUDENTS
-        ================================================ */
+        ================================================= */
 
         const snapshot =
             await getDocs(
+
                 collection(
                     db,
                     "students"
                 )
+
             );
 
 
-        /*
-         * Normalize selected values
-         */
+        console.log(
+            "TOTAL STUDENTS IN FIRESTORE:",
+            snapshot.size
+        );
+
+
+        if(snapshot.empty){
+
+            throw new Error(
+
+                "No documents found in students collection."
+
+            );
+
+        }
+
+
+
+        /* =================================================
+           TARGET
+        ================================================= */
 
         const targetDepartment =
             normalizeDepartment(
+
                 attendancePeriod.department
+
             );
 
 
@@ -1159,39 +1265,30 @@ async function loadStudents(){
 
 
         console.log(
-            "================================"
-        );
-
-        console.log(
             "TARGET DEPARTMENT:",
             targetDepartment
         );
+
 
         console.log(
             "TARGET YEAR:",
             targetYear
         );
 
+
         console.log(
             "TARGET SECTION:",
             targetSection
         );
 
-        console.log(
-            "TOTAL FIRESTORE STUDENTS:",
-            snapshot.size
-        );
-
-        console.log(
-            "================================"
-        );
 
 
-        /* ================================================
-           CHECK EVERY STUDENT
-        ================================================ */
+        /* =================================================
+           MATCH STUDENTS
+        ================================================= */
 
         snapshot.forEach(
+
             studentDoc => {
 
 
@@ -1201,59 +1298,65 @@ async function loadStudents(){
 
 
                 /*
-                 * YOUR FIRESTORE FIELD:
-                 *
-                 * department
+                 * EXACT FIRESTORE FIELDS
                  */
 
                 const department =
                     normalizeDepartment(
-                        data.department ||
-                        ""
+                        data.department
                     );
 
-
-                /*
-                 * YOUR FIRESTORE FIELD:
-                 *
-                 * year
-                 */
 
                 const year =
                     upper(
-                        data.year ||
-                        ""
+                        data.year
                     );
 
 
-                /*
-                 * YOUR FIRESTORE FIELD:
-                 *
-                 * section
-                 */
-
                 const section =
                     upper(
-                        data.section ||
-                        ""
+                        data.section
+                    );
+
+
+                const rollNo =
+                    clean(
+                        data.rollNo
+                    );
+
+
+                const studentName =
+                    clean(
+                        data.studentName
+                    );
+
+
+                const registerNo =
+                    clean(
+                        data.registerNo
                     );
 
 
                 console.log(
-                    "Checking:",
-                    data.studentName,
+
+                    "CHECK:",
+                    studentName,
                     "|",
                     department,
                     "|",
                     year,
                     "|",
-                    section
+                    section,
+                    "|",
+                    rollNo
+
                 );
 
 
-                /* ========================================
+
+                /* =================================================
                    MATCH
-                ======================================== */
+                ================================================= */
 
                 if(
 
@@ -1274,63 +1377,24 @@ async function loadStudents(){
 
 
                     /*
-                     * YOUR FIRESTORE FIELD:
+                     * Register number is NOT required.
                      *
-                     * rollNo
-                     */
-
-                    const rollNo =
-                        clean(
-                            data.rollNo ||
-                            ""
-                        );
-
-
-                    /*
-                     * Roll number is required
+                     * Roll number is the student identifier.
                      */
 
                     if(!rollNo){
 
                         console.warn(
-                            "Student skipped - Roll No empty:",
-                            data.studentName
+
+                            "Skipped student without rollNo:",
+                            studentName
+
                         );
 
                         return;
 
                     }
 
-
-                    /*
-                     * YOUR FIRESTORE FIELD:
-                     *
-                     * studentName
-                     */
-
-                    const studentName =
-                        clean(
-                            data.studentName ||
-                            ""
-                        );
-
-
-                    /*
-                     * YOUR FIRESTORE FIELD:
-                     *
-                     * registerNo
-                     */
-
-                    const registerNo =
-                        clean(
-                            data.registerNo ||
-                            ""
-                        );
-
-
-                    /*
-                     * ADD STUDENT
-                     */
 
                     students.push({
 
@@ -1349,19 +1413,17 @@ async function loadStudents(){
                     });
 
 
-                    /*
-                     * DEFAULT PRESENT
-                     */
-
                     attendance[
                         rollNo
                     ] = "P";
 
 
                     console.log(
-                        "MATCHED STUDENT:",
+
+                        "MATCHED >>>",
                         rollNo,
                         studentName
+
                     );
 
                 }
@@ -1371,9 +1433,10 @@ async function loadStudents(){
         );
 
 
-        /* ================================================
+
+        /* =================================================
            SORT
-        ================================================ */
+        ================================================= */
 
         students.sort(
 
@@ -1398,53 +1461,66 @@ async function loadStudents(){
         );
 
 
-        console.log(
-            "================================"
-        );
 
         console.log(
-            "MATCHED STUDENTS:",
+            "FINAL STUDENT COUNT:",
             students.length
         );
 
-        console.log(
-            students
-        );
-
-        console.log(
-            "================================"
-        );
 
 
-        /* ================================================
-           LOAD EXISTING ATTENDANCE
-        ================================================ */
+        /* =================================================
+           LOAD EXISTING
+        ================================================= */
 
-        await loadExistingAttendance();
+        if(students.length > 0){
+
+            await loadExistingAttendance();
+
+        }
 
 
-        /* ================================================
+
+        /* =================================================
            RENDER
-        ================================================ */
+        ================================================= */
 
         renderStudents();
 
+
+
+        if(students.length === 0){
+
+            showError(
+
+                "No students found for " +
+
+                targetDepartment +
+
+                " / " +
+
+                targetYear +
+
+                " / Section " +
+
+                targetSection
+
+            );
+
+        }
 
     }
 
     catch(error){
 
         console.error(
-            "Student loading error:",
+            "LOAD ERROR:",
             error
         );
 
 
         showError(
-
-            "Unable to load students: " +
             error.message
-
         );
 
     }
@@ -1459,9 +1535,10 @@ async function loadStudents(){
 }
 
 
-/* =========================================================
+
+/* =====================================================
    ATTENDANCE DOCUMENT ID
-========================================================= */
+===================================================== */
 
 function attendanceDocumentId(
     date,
@@ -1479,28 +1556,41 @@ function attendanceDocumentId(
 }
 
 
-/* =========================================================
+
+/* =====================================================
    PERIOD KEY
-========================================================= */
+===================================================== */
 
 function periodKey(){
 
     return (
 
-        attendancePeriod.session +
-        "_" +
-        attendancePeriod.hour
+        clean(
+            attendancePeriod.session
+        )
+
+        +
+
+        "_"
+
+        +
+
+        clean(
+            attendancePeriod.hour
+        )
 
     );
 
 }
 
 
-/* =========================================================
+
+/* =====================================================
    LOAD EXISTING ATTENDANCE
-========================================================= */
+===================================================== */
 
 async function loadExistingAttendance(){
+
 
     const date =
         document.getElementById(
@@ -1524,23 +1614,22 @@ async function loadExistingAttendance(){
         of students
     ){
 
-
-        const ref =
-            doc(
-
-                db,
-
-                "attendance",
-
-                attendanceDocumentId(
-                    date,
-                    student.rollNo
-                )
-
-            );
-
-
         try{
+
+
+            const ref =
+                doc(
+
+                    db,
+
+                    "attendance",
+
+                    attendanceDocumentId(
+                        date,
+                        student.rollNo
+                    )
+
+                );
 
 
             const snap =
@@ -1566,55 +1655,11 @@ async function loadExistingAttendance(){
                 {};
 
 
-            /*
-             * New format
-             */
-
-            let status =
-                saved[key] ||
-                "";
-
-
-            /*
-             * Old FN format
-             */
-
-            if(
-
-                !status &&
-
-                attendancePeriod.session ===
-                "FN"
-
-            ){
-
-                status =
-                    saved[
-                        String(
-                            attendancePeriod.hour
-                        )
-                    ] ||
-                    "";
-
-            }
-
-
-            status =
-                upper(status);
-
-
-            if(
-
-                status === "P" ||
-                status === "PRESENT"
-
-            ){
-
-                attendance[
-                    student.rollNo
-                ] = "P";
-
-            }
+            const status =
+                upper(
+                    saved[key] ||
+                    ""
+                );
 
 
             if(
@@ -1630,12 +1675,26 @@ async function loadExistingAttendance(){
 
             }
 
+
+            else if(
+
+                status === "P" ||
+                status === "PRESENT"
+
+            ){
+
+                attendance[
+                    student.rollNo
+                ] = "P";
+
+            }
+
         }
 
         catch(error){
 
             console.warn(
-                "Existing attendance not loaded:",
+                "Existing attendance error:",
                 error
             );
 
@@ -1646,11 +1705,13 @@ async function loadExistingAttendance(){
 }
 
 
-/* =========================================================
+
+/* =====================================================
    RENDER STUDENTS
-========================================================= */
+===================================================== */
 
 function renderStudents(){
+
 
     const table =
         document.getElementById(
@@ -1662,7 +1723,7 @@ function renderStudents(){
         "";
 
 
-    if(!students.length){
+    if(students.length === 0){
 
         document.getElementById(
             "empty"
@@ -1670,11 +1731,18 @@ function renderStudents(){
             "block";
 
 
+        document.getElementById(
+            "tableWrapper"
+        ).style.display =
+            "none";
+
+
         updateSummary();
 
         return;
 
     }
+
 
 
     students.forEach(
@@ -1711,17 +1779,9 @@ function renderStudents(){
                     )}
                 </td>
 
-                <td>
-                    ${escapeHtml(
-                        student.registerNo ||
-                        "-"
-                    )}
-                </td>
-
                 <td class="student-name">
                     ${escapeHtml(
-                        student.name ||
-                        "-"
+                        student.name
                     )}
                 </td>
 
@@ -1736,12 +1796,10 @@ function renderStudents(){
             `;
 
 
-            /*
-             * WHOLE ROW CLICKABLE
-             */
-
             row.addEventListener(
+
                 "click",
+
                 function(){
 
                     toggleStudent(
@@ -1749,6 +1807,7 @@ function renderStudents(){
                     );
 
                 }
+
             );
 
 
@@ -1772,38 +1831,39 @@ function renderStudents(){
         "block";
 
 
+    document.getElementById(
+        "empty"
+    ).style.display =
+        "none";
+
+
     updateSummary();
 
 }
 
 
-/* =========================================================
-   TOGGLE STUDENT
-========================================================= */
+
+/* =====================================================
+   TOGGLE
+===================================================== */
 
 function toggleStudent(
     rollNo
 ){
 
     if(
-
-        attendance[
-            rollNo
-        ] === "A"
-
+        attendance[rollNo] === "A"
     ){
 
-        attendance[
-            rollNo
-        ] = "P";
+        attendance[rollNo] =
+            "P";
 
     }
 
     else{
 
-        attendance[
-            rollNo
-        ] = "A";
+        attendance[rollNo] =
+            "A";
 
     }
 
@@ -1818,37 +1878,21 @@ function toggleStudent(
 }
 
 
-/* =========================================================
-   UPDATE STUDENT ROW
-========================================================= */
+
+/* =====================================================
+   UPDATE ROW
+===================================================== */
 
 function updateStudentRow(
     rollNo
 ){
 
-    const rows =
-        document.querySelectorAll(
-            "tr[data-roll]"
+    const row =
+        document.querySelector(
+
+            `tr[data-roll="${CSS.escape(rollNo)}"]`
+
         );
-
-
-    let row = null;
-
-
-    rows.forEach(
-        item => {
-
-            if(
-                item.dataset.roll ===
-                rollNo
-            ){
-
-                row = item;
-
-            }
-
-        }
-    );
 
 
     if(!row){
@@ -1859,9 +1903,7 @@ function updateStudentRow(
 
 
     const status =
-        attendance[
-            rollNo
-        ] ||
+        attendance[rollNo] ||
         "P";
 
 
@@ -1912,11 +1954,13 @@ function updateStudentRow(
 }
 
 
-/* =========================================================
+
+/* =====================================================
    SUMMARY
-========================================================= */
+===================================================== */
 
 function updateSummary(){
+
 
     const total =
         students.length;
@@ -1972,16 +2016,18 @@ function updateSummary(){
 }
 
 
-/* =========================================================
+
+/* =====================================================
    SAVE ATTENDANCE
-========================================================= */
+===================================================== */
 
 async function saveAttendance(){
+
 
     if(!attendancePeriod){
 
         alert(
-            "Attendance period not found."
+            "Attendance information not found."
         );
 
         return;
@@ -2009,7 +2055,7 @@ async function saveAttendance(){
     if(!students.length){
 
         alert(
-            "No students found."
+            "No students to save."
         );
 
         return;
@@ -2017,17 +2063,17 @@ async function saveAttendance(){
     }
 
 
-    const saveButton =
+    const button =
         document.getElementById(
             "saveBtn"
         );
 
 
-    saveButton.disabled =
+    button.disabled =
         true;
 
 
-    saveButton.textContent =
+    button.textContent =
         "Saving...";
 
 
@@ -2044,10 +2090,6 @@ async function saveAttendance(){
         ){
 
 
-            const rollNo =
-                student.rollNo;
-
-
             const ref =
                 doc(
 
@@ -2057,15 +2099,11 @@ async function saveAttendance(){
 
                     attendanceDocumentId(
                         date,
-                        rollNo
+                        student.rollNo
                     )
 
                 );
 
-
-            /*
-             * Read existing document
-             */
 
             const existing =
                 await getDoc(
@@ -2088,11 +2126,7 @@ async function saveAttendance(){
             }
 
 
-            /*
-             * Keep previous attendance periods
-             */
-
-            const existingAttendance =
+            const oldAttendance =
 
                 existingData.attendance &&
 
@@ -2111,20 +2145,14 @@ async function saveAttendance(){
                 {};
 
 
-            /*
-             * Save this period
-             */
+            oldAttendance[key] =
 
-            existingAttendance[key] =
                 attendance[
-                    rollNo
+                    student.rollNo
                 ] ||
+
                 "P";
 
-
-            /*
-             * SAVE
-             */
 
             await setDoc(
 
@@ -2133,7 +2161,7 @@ async function saveAttendance(){
                 {
 
                     rollNo:
-                        rollNo,
+                        student.rollNo,
 
                     registerNo:
                         student.registerNo ||
@@ -2155,6 +2183,10 @@ async function saveAttendance(){
                         attendancePeriod.section ||
                         "",
 
+                    academicYear:
+                        attendancePeriod.academicYear ||
+                        "",
+
                     date:
                         date,
 
@@ -2168,7 +2200,8 @@ async function saveAttendance(){
 
                     hour:
                         Number(
-                            attendancePeriod.hour
+                            attendancePeriod.hour ||
+                            0
                         ),
 
                     time:
@@ -2188,7 +2221,7 @@ async function saveAttendance(){
                         "",
 
                     attendance:
-                        existingAttendance,
+                        oldAttendance,
 
                     markedByStaffId:
                         attendancePeriod.staffId ||
@@ -2216,13 +2249,12 @@ async function saveAttendance(){
             "Attendance saved successfully."
         );
 
-
     }
 
     catch(error){
 
         console.error(
-            "Attendance save error:",
+            "SAVE ERROR:",
             error
         );
 
@@ -2238,11 +2270,11 @@ async function saveAttendance(){
 
     finally{
 
-        saveButton.disabled =
+        button.disabled =
             false;
 
 
-        saveButton.textContent =
+        button.textContent =
             "SAVE ATTENDANCE";
 
     }
@@ -2250,9 +2282,10 @@ async function saveAttendance(){
 }
 
 
-/* =========================================================
-   LOAD BUTTON
-========================================================= */
+
+/* =====================================================
+   BUTTON EVENTS
+===================================================== */
 
 document.getElementById(
     "loadBtn"
@@ -2269,10 +2302,6 @@ document.getElementById(
 );
 
 
-/* =========================================================
-   DATE CHANGE
-========================================================= */
-
 document.getElementById(
     "attendanceDate"
 ).addEventListener(
@@ -2281,20 +2310,12 @@ document.getElementById(
 
     async function(){
 
-        if(attendancePeriod){
-
-            await loadStudents();
-
-        }
+        await loadStudents();
 
     }
 
 );
 
-
-/* =========================================================
-   SAVE BUTTON
-========================================================= */
 
 document.getElementById(
     "saveBtn"
@@ -2310,10 +2331,6 @@ document.getElementById(
 
 );
 
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
 
 document.getElementById(
     "backBtn"
@@ -2331,9 +2348,10 @@ document.getElementById(
 );
 
 
-/* =========================================================
+
+/* =====================================================
    ERROR
-========================================================= */
+===================================================== */
 
 function showError(message){
 
@@ -2353,9 +2371,10 @@ function showError(message){
 }
 
 
-/* =========================================================
+
+/* =====================================================
    START
-========================================================= */
+===================================================== */
 
 async function start(){
 
@@ -2370,6 +2389,7 @@ async function start(){
     catch(error){
 
         console.error(
+            "START ERROR:",
             error
         );
 
@@ -2385,9 +2405,10 @@ async function start(){
 
 start();
 
+
 </script>
 
 </body>
 
 </html>
-
+```
