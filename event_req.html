@@ -1,10 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Event Request</title>
 
@@ -22,21 +25,29 @@ body{
     color:#333;
 }
 
-/* ================= HEADER ================= */
+/* =====================================================
+   HEADER
+===================================================== */
 
 .header{
     position:fixed;
     top:0;
     left:0;
     right:0;
+
     height:70px;
+
     background:#500454;
+    color:white;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     padding:0 30px;
-    color:white;
+
     box-shadow:0 2px 10px rgba(0,0,0,.25);
+
     z-index:1000;
 }
 
@@ -48,252 +59,568 @@ body{
     font-size:15px;
 }
 
-/* ================= MAIN ================= */
+
+/* =====================================================
+   MAIN
+===================================================== */
 
 .main{
-    max-width:1100px;
-    margin:100px auto 50px;
-    padding:20px;
+
+    margin-top:70px;
+
+    padding:30px;
+
+    max-width:1400px;
+
+    margin-left:auto;
+    margin-right:auto;
+
 }
 
-/* ================= CARD ================= */
+
+/* =====================================================
+   CARD
+===================================================== */
 
 .card{
+
     background:white;
-    border-radius:12px;
+
     padding:25px;
+
+    border-radius:10px;
+
+    box-shadow:
+        0 0 10px rgba(0,0,0,.12);
+
     margin-bottom:25px;
-    box-shadow:0 3px 15px rgba(0,0,0,.08);
+
 }
 
-.card h3{
-    margin-bottom:20px;
+.card h2{
+
     color:#500454;
-    border-bottom:1px solid #eee;
-    padding-bottom:12px;
+
+    margin-bottom:22px;
+
+    font-size:23px;
+
 }
 
-/* ================= FORM ================= */
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(250px,1fr));
+
+    gap:20px;
+
+}
 
 .form-group{
-    margin-bottom:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
 }
 
-.form-group label{
-    display:block;
+.form-group.full{
+
+    grid-column:1/-1;
+
+}
+
+label{
+
     font-weight:bold;
+
     margin-bottom:7px;
+
+    color:#444;
+
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea{
+input,
+select,
+textarea{
+
     width:100%;
-    padding:11px 12px;
+
+    padding:12px;
+
     border:1px solid #ccc;
-    border-radius:7px;
-    font-size:14px;
+
+    border-radius:6px;
+
+    font-size:15px;
+
     outline:none;
+
+    background:white;
+
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
+input:focus,
+select:focus,
+textarea:focus{
+
     border-color:#500454;
+
+    box-shadow:
+        0 0 0 2px rgba(80,4,84,.08);
+
 }
 
-.form-group textarea{
+textarea{
+
+    min-height:100px;
+
     resize:vertical;
-    min-height:90px;
+
 }
 
-/* ================= DEPARTMENT BOX ================= */
+
+/* =====================================================
+   MULTIPLE DEPARTMENT DISPLAY
+===================================================== */
 
 .department-box{
-    border:1px solid #ddd;
-    border-radius:8px;
-    padding:12px;
+
+    width:100%;
+
+    min-height:50px;
+
+    padding:10px;
+
+    border:1px solid #ccc;
+
+    border-radius:6px;
+
     background:#fafafa;
+
 }
 
-.department-item{
+.department-title{
+
+    font-size:12px;
+
+    color:#777;
+
+    margin-bottom:7px;
+
+}
+
+.department-list{
+
     display:flex;
-    align-items:center;
-    gap:10px;
-    padding:9px 5px;
-    border-bottom:1px solid #eee;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
 }
 
-.department-item:last-child{
-    border-bottom:none;
-}
+.department-tag{
 
-.department-item input{
-    width:auto;
-}
+    display:inline-block;
 
-.department-name{
-    font-weight:600;
-}
+    background:#500454;
 
-.department-info{
-    margin-top:8px;
-    color:#666;
+    color:white;
+
+    padding:7px 12px;
+
+    border-radius:18px;
+
     font-size:13px;
+
+    font-weight:bold;
+
 }
 
-/* ================= GUEST ================= */
+.department-loading{
+
+    color:#777;
+
+    padding:5px;
+
+}
+
+.department-error{
+
+    color:#c62828;
+
+    font-weight:bold;
+
+    padding:5px;
+
+}
+
+
+/* =====================================================
+   GUEST
+===================================================== */
+
+.guest-section{
+
+    margin-top:30px;
+
+    padding:20px;
+
+    border:1px solid #e2e2e2;
+
+    border-radius:8px;
+
+    background:#fafafa;
+
+}
+
+.guest-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.guest-header h3{
+
+    color:#500454;
+
+    font-size:19px;
+
+}
+
+.add-btn{
+
+    border:none;
+
+    background:#500454;
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+.add-btn:hover{
+
+    background:#6e0a75;
+
+}
 
 .guest-row{
+
     display:grid;
-    grid-template-columns:1fr 1fr auto;
-    gap:10px;
-    margin-bottom:10px;
+
+    grid-template-columns:
+        1fr 1fr 1fr 50px;
+
+    gap:12px;
+
+    margin-bottom:12px;
+
+    align-items:end;
+
 }
 
-.guest-row button{
-    background:#dc3545;
-    color:white;
+.remove-btn{
+
+    height:42px;
+
     border:none;
-    padding:10px 15px;
-    border-radius:6px;
-    cursor:pointer;
-}
 
-.add-guest{
-    background:#198754;
+    background:#dc2626;
+
     color:white;
-    border:none;
-    padding:10px 16px;
+
     border-radius:6px;
+
     cursor:pointer;
+
+    font-size:20px;
+
+    font-weight:bold;
+
 }
 
-/* ================= BUTTON ================= */
+.remove-btn:hover{
+
+    background:#b91c1c;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.submit-area{
+
+    margin-top:25px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+}
 
 .submit-btn{
-    width:100%;
+
     background:#500454;
+
     color:white;
+
     border:none;
-    padding:14px;
-    border-radius:8px;
+
+    padding:14px 28px;
+
+    border-radius:7px;
+
     font-size:16px;
+
     font-weight:bold;
+
     cursor:pointer;
+
 }
 
 .submit-btn:hover{
-    background:#3d033f;
+
+    background:#6e0a75;
+
 }
 
 .submit-btn:disabled{
+
     opacity:.6;
+
     cursor:not-allowed;
+
 }
 
-/* ================= TABLE ================= */
+.clear-btn{
 
-.table-wrapper{
+    background:#6b7280;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 25px;
+
+    border-radius:7px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-wrap{
+
+    width:100%;
+
     overflow-x:auto;
+
 }
 
 table{
+
     width:100%;
+
     border-collapse:collapse;
-    min-width:900px;
+
 }
 
 th,
 td{
+
     padding:12px;
-    border-bottom:1px solid #eee;
+
+    border:1px solid #ddd;
+
     text-align:left;
-    vertical-align:top;
+
+    white-space:nowrap;
+
 }
 
 th{
+
     background:#500454;
+
     color:white;
+
 }
 
-tr:hover{
+tr:nth-child(even){
+
     background:#fafafa;
+
 }
 
-/* ================= STATUS ================= */
+
+/* =====================================================
+   STATUS
+===================================================== */
 
 .status{
+
     display:inline-block;
-    padding:5px 10px;
-    border-radius:15px;
+
+    padding:6px 11px;
+
+    border-radius:20px;
+
     font-size:12px;
+
     font-weight:bold;
+
 }
 
-.pending{
+.status.pending{
+
     background:#fff3cd;
+
     color:#856404;
+
 }
 
-.approved{
-    background:#d1e7dd;
-    color:#0f5132;
+.status.approved{
+
+    background:#d1fae5;
+
+    color:#065f46;
+
 }
 
-.rejected{
-    background:#f8d7da;
-    color:#842029;
+.status.rejected{
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
 }
 
-.forwarded{
-    background:#cfe2ff;
-    color:#084298;
+.status.forwarded{
+
+    background:#dbeafe;
+
+    color:#1e40af;
+
 }
 
-/* ================= LOADING ================= */
+
+/* =====================================================
+   LOADING
+===================================================== */
 
 .loading{
-    text-align:center;
-    padding:20px;
-    color:#666;
-}
 
-/* ================= EMPTY ================= */
+    text-align:center;
+
+    padding:20px;
+
+    color:#500454;
+
+    font-weight:bold;
+
+}
 
 .empty{
+
     text-align:center;
-    padding:30px;
+
+    padding:25px;
+
     color:#777;
+
 }
 
-/* ================= MOBILE ================= */
 
-@media(max-width:700px){
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
-    .header{
-        padding:0 15px;
+@media(max-width:850px){
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
     }
 
-    .header h2{
-        font-size:18px;
-    }
+    .form-group.full{
 
-    .user{
-        font-size:12px;
-    }
+        grid-column:auto;
 
-    .main{
-        margin-top:90px;
-        padding:10px;
-    }
-
-    .card{
-        padding:15px;
     }
 
     .guest-row{
+
         grid-template-columns:1fr;
+
+    }
+
+    .remove-btn{
+
+        width:100%;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .header{
+
+        padding:0 15px;
+
+    }
+
+    .header h2{
+
+        font-size:18px;
+
+    }
+
+    .user{
+
+        font-size:12px;
+
+    }
+
+    .main{
+
+        padding:15px;
+
     }
 
 }
@@ -302,7 +629,9 @@ tr:hover{
 
 </head>
 
+
 <body>
+
 
 <!-- =====================================================
      HEADER
@@ -310,10 +639,15 @@ tr:hover{
 
 <div class="header">
 
-    <h2>Event Request</h2>
+    <h2>
+        EVENT REQUEST
+    </h2>
 
     <div class="user">
-        <span id="userName">Loading...</span>
+
+        Welcome
+        <span id="staffName"></span>
+
     </div>
 
 </div>
@@ -327,325 +661,416 @@ tr:hover{
 
 
 <!-- =====================================================
-     EVENT FORM
+     EVENT REQUEST FORM
 ===================================================== -->
 
 <div class="card">
 
-    <h3>Create Event Request</h3>
+    <h2>
+        📅 Event Request
+    </h2>
+
 
     <form id="eventForm">
 
 
-        <!-- ================= EVENT NAME ================= -->
-
-        <div class="form-group">
-
-            <label>
-                Event Name
-            </label>
-
-            <input
-                type="text"
-                id="eventName"
-                required
-                placeholder="Enter event name"
-            >
-
-        </div>
+        <div class="form-grid">
 
 
-        <!-- ================= EVENT TYPE ================= -->
+            <!-- =================================================
+                 EVENT NAME
+            ================================================== -->
 
-        <div class="form-group">
+            <div class="form-group full">
 
-            <label>
-                Event Type
-            </label>
+                <label>
+                    Event Name *
+                </label>
 
-            <select
-                id="eventType"
-                required
-            >
+                <input
+                    type="text"
+                    id="eventName"
+                    placeholder="Enter event name"
+                    required
+                >
 
-                <option value="">
-                    Select Event Type
-                </option>
-
-                <option value="Academic">
-                    Academic
-                </option>
-
-                <option value="Cultural">
-                    Cultural
-                </option>
-
-                <option value="Sports">
-                    Sports
-                </option>
-
-                <option value="Workshop">
-                    Workshop
-                </option>
-
-                <option value="Seminar">
-                    Seminar
-                </option>
-
-                <option value="Conference">
-                    Conference
-                </option>
-
-                <option value="Other">
-                    Other
-                </option>
-
-            </select>
-
-        </div>
+            </div>
 
 
-        <!-- =================================================
-             ORGANISING DEPARTMENTS
-        ================================================== -->
+            <!-- =================================================
+                 EVENT TYPE
+            ================================================== -->
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label>
-                Organising Department(s)
-            </label>
+                <label>
+                    Event Type *
+                </label>
 
-            <div
-                id="departmentContainer"
-                class="department-box"
-            >
+                <select
+                    id="eventType"
+                    required
+                >
 
-                <div class="loading">
-                    Loading departments...
+                    <option value="">
+                        Select Event Type
+                    </option>
+
+                    <option value="Academic">
+                        Academic
+                    </option>
+
+                    <option value="Cultural">
+                        Cultural
+                    </option>
+
+                    <option value="Technical">
+                        Technical
+                    </option>
+
+                    <option value="Workshop">
+                        Workshop
+                    </option>
+
+                    <option value="Seminar">
+                        Seminar
+                    </option>
+
+                    <option value="Conference">
+                        Conference
+                    </option>
+
+                    <option value="Sports">
+                        Sports
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                 ORGANISING DEPARTMENTS
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label>
+                    Organising Department(s)
+                </label>
+
+                <div
+                    id="departmentBox"
+                    class="department-box"
+                >
+
+                    <div class="department-loading">
+                        Loading Head departments...
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="department-info">
-                Select all departments for which this event
-                is being organised.
+
+            <!-- =================================================
+                 EVENT DATE
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label>
+                    Event Date *
+                </label>
+
+                <input
+                    type="date"
+                    id="eventDate"
+                    required
+                >
+
             </div>
 
-        </div>
+
+            <!-- =================================================
+                 START TIME
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label>
+                    Start Time *
+                </label>
+
+                <input
+                    type="time"
+                    id="startTime"
+                    required
+                >
+
+            </div>
 
 
-        <!-- ================= EVENT DATE ================= -->
+            <!-- =================================================
+                 END TIME
+            ================================================== -->
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label>
-                Event Date
-            </label>
+                <label>
+                    End Time *
+                </label>
 
-            <input
-                type="date"
-                id="eventDate"
-                required
-            >
+                <input
+                    type="time"
+                    id="endTime"
+                    required
+                >
 
-        </div>
-
-
-        <!-- ================= START TIME ================= -->
-
-        <div class="form-group">
-
-            <label>
-                Start Time
-            </label>
-
-            <input
-                type="time"
-                id="startTime"
-                required
-            >
-
-        </div>
+            </div>
 
 
-        <!-- ================= END TIME ================= -->
+            <!-- =================================================
+                 VENUE
+            ================================================== -->
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label>
-                End Time
-            </label>
+                <label>
+                    Venue *
+                </label>
 
-            <input
-                type="time"
-                id="endTime"
-                required
-            >
+                <input
+                    type="text"
+                    id="venue"
+                    placeholder="Enter venue"
+                    required
+                >
 
-        </div>
-
-
-        <!-- ================= VENUE ================= -->
-
-        <div class="form-group">
-
-            <label>
-                Venue
-            </label>
-
-            <input
-                type="text"
-                id="venue"
-                required
-                placeholder="Enter venue"
-            >
-
-        </div>
+            </div>
 
 
-        <!-- ================= PARTICIPANTS ================= -->
+            <!-- =================================================
+                 PARTICIPANTS
+            ================================================== -->
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label>
-                Number of Participants
-            </label>
+                <label>
+                    Expected Participants *
+                </label>
 
-            <input
-                type="number"
-                id="participants"
-                min="1"
-                required
-                placeholder="Enter number of participants"
-            >
+                <input
+                    type="number"
+                    id="participants"
+                    min="1"
+                    placeholder="Enter number"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 FORWARD DEPARTMENT
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label>
+                    Department to be Forwarded
+                </label>
+
+                <input
+                    type="text"
+                    id="targetDepartment"
+                    placeholder="Dean will decide"
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 DESCRIPTION
+            ================================================== -->
+
+            <div class="form-group full">
+
+                <label>
+                    Event Description *
+                </label>
+
+                <textarea
+                    id="description"
+                    placeholder="Enter event description"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- =================================================
+                 PURPOSE
+            ================================================== -->
+
+            <div class="form-group full">
+
+                <label>
+                    Purpose / Objective *
+                </label>
+
+                <textarea
+                    id="purpose"
+                    placeholder="Enter purpose / objective"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- =================================================
+                 REQUIREMENTS
+            ================================================== -->
+
+            <div class="form-group full">
+
+                <label>
+                    Facilities / Requirements
+                </label>
+
+                <textarea
+                    id="requirements"
+                    placeholder="Projector, microphone, chairs, transport, refreshments, etc."
+                ></textarea>
+
+            </div>
+
 
         </div>
 
 
         <!-- =================================================
-             FORWARD DEPARTMENT
+             GUEST SECTION
         ================================================== -->
 
-        <div class="form-group">
+        <div class="guest-section">
 
-            <label>
-                Department to be Forwarded
-            </label>
+            <div class="guest-header">
 
-            <input
-                type="text"
-                id="targetDepartment"
-                placeholder="Dean will decide"
-            >
+                <h3>
+                    👤 Guest Details
+                </h3>
 
-        </div>
+                <button
+                    type="button"
+                    class="add-btn"
+                    onclick="addGuest()"
+                >
+                    + Add Guest
+                </button>
 
+            </div>
 
-        <!-- ================= DESCRIPTION ================= -->
-
-        <div class="form-group">
-
-            <label>
-                Description
-            </label>
-
-            <textarea
-                id="description"
-                placeholder="Enter event description"
-            ></textarea>
-
-        </div>
-
-
-        <!-- ================= PURPOSE ================= -->
-
-        <div class="form-group">
-
-            <label>
-                Purpose
-            </label>
-
-            <textarea
-                id="purpose"
-                placeholder="Enter purpose of the event"
-            ></textarea>
-
-        </div>
-
-
-        <!-- ================= REQUIREMENTS ================= -->
-
-        <div class="form-group">
-
-            <label>
-                Requirements
-            </label>
-
-            <textarea
-                id="requirements"
-                placeholder="Enter requirements"
-            ></textarea>
-
-        </div>
-
-
-        <!-- =================================================
-             GUESTS
-        ================================================== -->
-
-        <div class="form-group">
-
-            <label>
-                Guests
-            </label>
 
             <div id="guestContainer">
 
+
                 <div class="guest-row">
 
-                    <input
-                        type="text"
-                        class="guest-name"
-                        placeholder="Guest Name"
-                    >
 
-                    <input
-                        type="text"
-                        class="guest-designation"
-                        placeholder="Designation / Organisation"
-                    >
+                    <div class="form-group">
+
+                        <label>
+                            Guest Name
+                        </label>
+
+                        <input
+                            type="text"
+                            class="guestName"
+                            placeholder="Guest name"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Designation
+                        </label>
+
+                        <input
+                            type="text"
+                            class="guestDesignation"
+                            placeholder="Designation"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Organisation
+                        </label>
+
+                        <input
+                            type="text"
+                            class="guestOrganisation"
+                            placeholder="Organisation"
+                        >
+
+                    </div>
+
 
                     <button
                         type="button"
+                        class="remove-btn"
                         onclick="removeGuest(this)"
                     >
-                        Remove
+                        ×
                     </button>
+
 
                 </div>
 
-            </div>
 
-            <button
-                type="button"
-                class="add-guest"
-                onclick="addGuest()"
-            >
-                + Add Guest
-            </button>
+            </div>
 
         </div>
 
 
-        <!-- ================= SUBMIT ================= -->
+        <!-- =================================================
+             BUTTONS
+        ================================================== -->
 
-        <button
-            type="submit"
-            class="submit-btn"
-            id="submitBtn"
-        >
-            Submit Event Request
-        </button>
+        <div class="submit-area">
+
+
+            <button
+                type="button"
+                class="clear-btn"
+                onclick="clearForm()"
+            >
+                Clear
+            </button>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+                id="submitBtn"
+            >
+                Submit Event Request
+            </button>
+
+
+        </div>
+
 
     </form>
 
@@ -658,7 +1083,10 @@ tr:hover{
 
 <div class="card">
 
-    <h3>My Event Requests</h3>
+    <h2>
+        📋 My Event Requests
+    </h2>
+
 
     <div
         id="requestLoading"
@@ -668,7 +1096,8 @@ tr:hover{
         Loading requests...
     </div>
 
-    <div class="table-wrapper">
+
+    <div class="table-wrap">
 
         <table>
 
@@ -678,6 +1107,10 @@ tr:hover{
 
                     <th>
                         Event
+                    </th>
+
+                    <th>
+                        Type
                     </th>
 
                     <th>
@@ -693,6 +1126,10 @@ tr:hover{
                     </th>
 
                     <th>
+                        Guests
+                    </th>
+
+                    <th>
                         Status
                     </th>
 
@@ -700,13 +1137,10 @@ tr:hover{
                         Dean Remarks
                     </th>
 
-                    <th>
-                        Forwarded Department
-                    </th>
-
                 </tr>
 
             </thead>
+
 
             <tbody id="requestTable">
 
@@ -728,17 +1162,32 @@ tr:hover{
 
 <script type="module">
 
+
 import { db } from "./firebase-config.js";
 
+
 import {
+
     collection,
+
     addDoc,
+
     query,
+
     where,
+
     getDocs,
+
+    getDoc,
+
+    doc,
+
     serverTimestamp
+
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 /* =====================================================
@@ -746,292 +1195,46 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 ===================================================== */
 
 const staffId =
-    sessionStorage.getItem("staffId");
-
-const staffName =
-    sessionStorage.getItem("staffName");
-
-
-/*
-=========================================================
-IMPORTANT
-
-A Head may now have MULTIPLE departments.
-
-Supported sessionStorage formats:
-
-1.
-departments = ["IT","Computer Science"]
-
-2.
-departments = '["IT","Computer Science"]'
-
-3.
-departments = "IT,Computer Science"
-
-4.
-department = "IT,Computer Science"
-
-5.
-department = "IT"
-
-The code below supports all of them.
-=========================================================
-*/
-
-
-let headDepartments = [];
-
-
-/* =====================================================
-   NORMALISE DEPARTMENT
-===================================================== */
-
-function normaliseDepartment(value){
-
-    if(value === null || value === undefined){
-        return "";
-    }
-
-    return String(value)
-        .trim()
-        .replace(/\s+/g," ");
-
-}
-
-
-/* =====================================================
-   ADD UNIQUE DEPARTMENT
-===================================================== */
-
-function addUniqueDepartment(value){
-
-    const department =
-        normaliseDepartment(value);
-
-    if(!department){
-        return;
-    }
-
-    const exists =
-        headDepartments.some(
-            d =>
-                d.toLowerCase() ===
-                department.toLowerCase()
-        );
-
-    if(!exists){
-
-        headDepartments.push(
-            department
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   READ MULTIPLE DEPARTMENTS
-===================================================== */
-
-function readDepartmentValue(value){
-
-    if(
-        value === null ||
-        value === undefined ||
-        value === ""
-    ){
-
-        return;
-
-    }
-
-
-    /*
-       JSON ARRAY
-    */
-
-    if(typeof value === "string"){
-
-        const trimmed =
-            value.trim();
-
-        if(
-            trimmed.startsWith("[") &&
-            trimmed.endsWith("]")
-        ){
-
-            try{
-
-                const parsed =
-                    JSON.parse(trimmed);
-
-                if(Array.isArray(parsed)){
-
-                    parsed.forEach(
-                        item =>
-                            addUniqueDepartment(item)
-                    );
-
-                    return;
-
-                }
-
-            }
-            catch(error){
-
-                console.warn(
-                    "Unable to parse department JSON",
-                    error
-                );
-
-            }
-
-        }
-
-    }
-
-
-    /*
-       REAL ARRAY
-    */
-
-    if(Array.isArray(value)){
-
-        value.forEach(
-            item =>
-                addUniqueDepartment(item)
-        );
-
-        return;
-
-    }
-
-
-    /*
-       COMMA / PIPE SEPARATED
-    */
-
-    if(typeof value === "string"){
-
-        const parts =
-            value.split(/[,\|]/);
-
-        parts.forEach(
-            part =>
-                addUniqueDepartment(part)
-        );
-
-        return;
-
-    }
-
-
-    /*
-       SINGLE VALUE
-    */
-
-    addUniqueDepartment(value);
-
-}
-
-
-/* =====================================================
-   LOAD DEPARTMENTS FROM SESSION
-===================================================== */
-
-function loadDepartmentsFromSession(){
-
-    headDepartments = [];
-
-
-    /*
-       Preferred:
-       departments
-    */
-
-    const departments =
-        sessionStorage.getItem(
-            "departments"
-        );
-
-
-    if(departments){
-
-        readDepartmentValue(
-            departments
-        );
-
-    }
-
-
-    /*
-       Backward compatibility:
-       department
-    */
-
-    const department =
-        sessionStorage.getItem(
-            "department"
-        );
-
-
-    if(department){
-
-        readDepartmentValue(
-            department
-        );
-
-    }
-
-
-    /*
-       Additional possible key:
-       headDepartments
-    */
-
-    const storedHeadDepartments =
-        sessionStorage.getItem(
-            "headDepartments"
-        );
-
-
-    if(storedHeadDepartments){
-
-        readDepartmentValue(
-            storedHeadDepartments
-        );
-
-    }
-
-
-    /*
-       Remove duplicate departments
-    */
-
-    headDepartments =
-        [...new Set(
-            headDepartments
-        )];
-
-
-    console.log(
-        "HEAD DEPARTMENTS:",
-        headDepartments
+    sessionStorage.getItem(
+        "staffId"
     );
 
-}
+
+const sessionStaffName =
+    sessionStorage.getItem(
+        "staffName"
+    );
 
 
 /* =====================================================
-   DISPLAY USER
+   GLOBAL
 ===================================================== */
 
-document.getElementById(
-    "userName"
-).textContent =
-    staffName || staffId || "Staff";
+/*
+    IMPORTANT:
+
+    Do NOT take the department from:
+
+        sessionStorage.department
+
+    anymore.
+
+    The Assign Department Head page stores:
+
+        headDepartments: [...]
+
+    inside:
+
+        staff/{staffId}
+
+    Therefore this page reads the actual
+    Firestore staff document.
+*/
+
+let staffName =
+    sessionStaffName || "";
+
+let headDepartments = [];
 
 
 /* =====================================================
@@ -1048,166 +1251,451 @@ if(!staffId){
         "login.html";
 
     throw new Error(
-        "No staff ID found"
+        "No staff ID found."
     );
 
 }
 
 
 /* =====================================================
-   LOAD DEPARTMENTS
+   DISPLAY STAFF NAME
 ===================================================== */
 
-loadDepartmentsFromSession();
+document.getElementById(
+    "staffName"
+).textContent =
+    staffName;
 
 
 /* =====================================================
-   DISPLAY DEPARTMENTS
+   NORMALISE DEPARTMENT
 ===================================================== */
 
-function displayDepartments(){
+function normaliseDepartment(
+    value
+){
 
-    const container =
+    return String(
+        value ?? ""
+    )
+    .trim()
+    .replace(
+        /\s+/g,
+        " "
+    );
+
+}
+
+
+/* =====================================================
+   REMOVE DUPLICATES
+===================================================== */
+
+function uniqueDepartments(
+    departments
+){
+
+    const result = [];
+
+
+    departments.forEach(
+        department => {
+
+            const value =
+                normaliseDepartment(
+                    department
+                );
+
+
+            if(!value){
+                return;
+            }
+
+
+            const exists =
+                result.some(
+                    item =>
+                        item.toLowerCase() ===
+                        value.toLowerCase()
+                );
+
+
+            if(!exists){
+
+                result.push(
+                    value
+                );
+
+            }
+
+        }
+    );
+
+
+    return result;
+
+}
+
+
+/* =====================================================
+   LOAD LOGGED-IN STAFF
+===================================================== */
+
+async function loadLoggedInStaff(){
+
+    const box =
         document.getElementById(
-            "departmentContainer"
+            "departmentBox"
         );
 
 
-    container.innerHTML = "";
+    box.innerHTML = `
+
+        <div class="department-loading">
+            Loading Head departments...
+        </div>
+
+    `;
 
 
-    if(headDepartments.length === 0){
+    try{
 
-        container.innerHTML = `
 
-            <div
-                style="
-                    color:#dc3545;
-                    padding:10px;
-                    font-weight:bold;
-                "
-            >
-                No department assigned to this Head.
-                Please check the Head department assignment.
+        /*
+            IMPORTANT:
+
+            The staff document ID in your
+            Assign Department Head page is:
+
+                staffId
+
+            because it uses:
+
+                doc(db,"staff",staffId)
+
+            and saves:
+
+                headDepartments:[...]
+        */
+
+        const staffRef =
+            doc(
+                db,
+                "staff",
+                staffId
+            );
+
+
+        const staffSnap =
+            await getDoc(
+                staffRef
+            );
+
+
+        if(!staffSnap.exists()){
+
+            throw new Error(
+                "Staff record not found for Staff ID: " +
+                staffId
+            );
+
+        }
+
+
+        const data =
+            staffSnap.data();
+
+
+        console.log(
+            "LOGGED-IN STAFF DATA:",
+            data
+        );
+
+
+        /*
+            Get actual staff name
+        */
+
+        staffName =
+            String(
+                data.staffName ||
+                data.name ||
+                sessionStaffName ||
+                ""
+            ).trim();
+
+
+        document.getElementById(
+            "staffName"
+        ).textContent =
+            staffName;
+
+
+        /*
+            ==========================================
+            PRIMARY FORMAT
+            ==========================================
+
+            headDepartments:
+            [
+                "IT",
+                "Computer Science"
+            ]
+        */
+
+        if(
+            Array.isArray(
+                data.headDepartments
+            )
+        ){
+
+            headDepartments =
+                data.headDepartments;
+
+        }
+        else{
+
+            headDepartments = [];
+
+        }
+
+
+        /*
+            ==========================================
+            BACKWARD COMPATIBILITY
+            ==========================================
+
+            If an old record only has:
+
+                department: "IT"
+
+            use that as one department.
+        */
+
+        if(
+            headDepartments.length === 0 &&
+            data.department
+        ){
+
+            headDepartments = [
+                data.department
+            ];
+
+        }
+
+
+        /*
+            Clean duplicates
+        */
+
+        headDepartments =
+            uniqueDepartments(
+                headDepartments
+            );
+
+
+        console.log(
+            "HEAD DEPARTMENTS:",
+            headDepartments
+        );
+
+
+        /*
+            Check Head role
+        */
+
+        const role =
+            String(
+                data.role || ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        if(
+            role !== "department head" &&
+            headDepartments.length === 0
+        ){
+
+            box.innerHTML = `
+
+                <div class="department-error">
+
+                    This staff member is not assigned
+                    as a Department Head.
+
+                </div>
+
+            `;
+
+            document.getElementById(
+                "submitBtn"
+            ).disabled = true;
+
+            return;
+
+        }
+
+
+        /*
+            Must have at least one department.
+        */
+
+        if(
+            headDepartments.length === 0
+        ){
+
+            box.innerHTML = `
+
+                <div class="department-error">
+
+                    No department is assigned to
+                    this Department Head.
+
+                    <br><br>
+
+                    Please use the Assign Department Head
+                    page to assign a department.
+
+                </div>
+
+            `;
+
+
+            document.getElementById(
+                "submitBtn"
+            ).disabled = true;
+
+
+            return;
+
+        }
+
+
+        /*
+            Display all departments.
+        */
+
+        displayHeadDepartments();
+
+
+    }
+    catch(error){
+
+        console.error(
+            "LOAD HEAD DEPARTMENT ERROR:",
+            error
+        );
+
+
+        box.innerHTML = `
+
+            <div class="department-error">
+
+                Unable to load Head departments.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
             </div>
 
         `;
 
-        return;
+
+        document.getElementById(
+            "submitBtn"
+        ).disabled = true;
 
     }
 
+}
+
+
+/* =====================================================
+   DISPLAY HEAD DEPARTMENTS
+===================================================== */
+
+function displayHeadDepartments(){
+
+    const box =
+        document.getElementById(
+            "departmentBox"
+        );
+
+
+    box.innerHTML = "";
+
+
+    const title =
+        document.createElement(
+            "div"
+        );
+
+
+    title.className =
+        "department-title";
+
+
+    title.textContent =
+        "This event will be organised for:";
+
+
+    box.appendChild(
+        title
+    );
+
+
+    const list =
+        document.createElement(
+            "div"
+        );
+
+
+    list.className =
+        "department-list";
+
 
     headDepartments.forEach(
-        (department,index) => {
+        department => {
 
-            const wrapper =
-                document.createElement(
-                    "label"
-                );
-
-            wrapper.className =
-                "department-item";
-
-
-            const checkbox =
-                document.createElement(
-                    "input"
-                );
-
-            checkbox.type =
-                "checkbox";
-
-            checkbox.className =
-                "department-checkbox";
-
-            checkbox.value =
-                department;
-
-
-            /*
-               If only one department,
-               select automatically.
-            */
-
-            if(headDepartments.length === 1){
-
-                checkbox.checked =
-                    true;
-
-            }
-
-
-            const text =
+            const tag =
                 document.createElement(
                     "span"
                 );
 
-            text.className =
-                "department-name";
 
-            text.textContent =
+            tag.className =
+                "department-tag";
+
+
+            tag.textContent =
                 department;
 
 
-            wrapper.appendChild(
-                checkbox
-            );
-
-            wrapper.appendChild(
-                text
-            );
-
-            container.appendChild(
-                wrapper
+            list.appendChild(
+                tag
             );
 
         }
     );
 
-}
 
-
-/* =====================================================
-   DISPLAY
-===================================================== */
-
-displayDepartments();
-
-
-/* =====================================================
-   GET SELECTED DEPARTMENTS
-===================================================== */
-
-function getSelectedDepartments(){
-
-    const checkboxes =
-        document.querySelectorAll(
-            ".department-checkbox:checked"
-        );
-
-
-    return Array.from(
-        checkboxes
-    )
-    .map(
-        checkbox =>
-            normaliseDepartment(
-                checkbox.value
-            )
-    )
-    .filter(
-        value => value !== ""
+    box.appendChild(
+        list
     );
 
 }
 
 
 /* =====================================================
-   GUEST
+   ADD GUEST
 ===================================================== */
 
-window.addGuest = function(){
+window.addGuest =
+function(){
 
     const container =
         document.getElementById(
@@ -1220,29 +1708,64 @@ window.addGuest = function(){
             "div"
         );
 
+
     row.className =
         "guest-row";
 
 
     row.innerHTML = `
 
-        <input
-            type="text"
-            class="guest-name"
-            placeholder="Guest Name"
-        >
+        <div class="form-group">
 
-        <input
-            type="text"
-            class="guest-designation"
-            placeholder="Designation / Organisation"
-        >
+            <label>
+                Guest Name
+            </label>
+
+            <input
+                type="text"
+                class="guestName"
+                placeholder="Guest name"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Designation
+            </label>
+
+            <input
+                type="text"
+                class="guestDesignation"
+                placeholder="Designation"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Organisation
+            </label>
+
+            <input
+                type="text"
+                class="guestOrganisation"
+                placeholder="Organisation"
+            >
+
+        </div>
+
 
         <button
             type="button"
+            class="remove-btn"
             onclick="removeGuest(this)"
         >
-            Remove
+            ×
         </button>
 
     `;
@@ -1255,35 +1778,26 @@ window.addGuest = function(){
 };
 
 
-window.removeGuest = function(button){
+/* =====================================================
+   REMOVE GUEST
+===================================================== */
 
-    const container =
-        document.getElementById(
-            "guestContainer"
-        );
-
+window.removeGuest =
+function(button){
 
     const rows =
-        container.querySelectorAll(
+        document.querySelectorAll(
             ".guest-row"
         );
 
 
-    /*
-       Keep at least one row.
-    */
+    if(
+        rows.length <= 1
+    ){
 
-    if(rows.length <= 1){
-
-        rows[0]
-            .querySelector(
-                ".guest-name"
-            ).value = "";
-
-        rows[0]
-            .querySelector(
-                ".guest-designation"
-            ).value = "";
+        alert(
+            "At least one guest row must remain."
+        );
 
         return;
 
@@ -1291,7 +1805,9 @@ window.removeGuest = function(button){
 
 
     button
-        .closest(".guest-row")
+        .closest(
+            ".guest-row"
+        )
         .remove();
 
 };
@@ -1303,49 +1819,73 @@ window.removeGuest = function(button){
 
 function getGuests(){
 
-    const rows =
+    const names =
         document.querySelectorAll(
-            ".guest-row"
+            ".guestName"
+        );
+
+
+    const designations =
+        document.querySelectorAll(
+            ".guestDesignation"
+        );
+
+
+    const organisations =
+        document.querySelectorAll(
+            ".guestOrganisation"
         );
 
 
     const guests = [];
 
 
-    rows.forEach(
-        row => {
+    for(
+        let i = 0;
+        i < names.length;
+        i++
+    ){
 
-            const name =
-                row.querySelector(
-                    ".guest-name"
-                )?.value.trim() || "";
-
-
-            const designation =
-                row.querySelector(
-                    ".guest-designation"
-                )?.value.trim() || "";
+        const name =
+            names[i]
+                .value
+                .trim();
 
 
-            if(
-                name ||
-                designation
-            ){
+        const designation =
+            designations[i]
+                .value
+                .trim();
 
-                guests.push({
 
-                    name:
-                        name,
+        const organisation =
+            organisations[i]
+                .value
+                .trim();
 
-                    designation:
-                        designation
 
-                });
+        if(
+            name ||
+            designation ||
+            organisation
+        ){
 
-            }
+            guests.push({
+
+                name:
+                    name,
+
+                designation:
+                    designation,
+
+                organisation:
+                    organisation
+
+            });
 
         }
-    );
+
+    }
 
 
     return guests;
@@ -1354,7 +1894,7 @@ function getGuests(){
 
 
 /* =====================================================
-   SUBMIT EVENT
+   SUBMIT
 ===================================================== */
 
 document.getElementById(
@@ -1362,25 +1902,28 @@ document.getElementById(
 )
 .addEventListener(
     "submit",
-    async function(event){
+    async function(e){
 
-        event.preventDefault();
+        e.preventDefault();
 
 
-        /* ================================
-           GET DEPARTMENTS
-        ================================= */
+        /*
+            ==========================================
+            VERY IMPORTANT
+            ==========================================
 
-        const selectedDepartments =
-            getSelectedDepartments();
+            The event departments come from the
+            logged-in Head's Firestore record.
 
+            They are NOT taken from sessionStorage.
+        */
 
         if(
-            selectedDepartments.length === 0
+            headDepartments.length === 0
         ){
 
             alert(
-                "Please select at least one Organising Department."
+                "No Department Head department is assigned."
             );
 
             return;
@@ -1388,85 +1931,100 @@ document.getElementById(
         }
 
 
-        /* ================================
-           GET FORM VALUES
-        ================================= */
-
         const eventName =
             document.getElementById(
                 "eventName"
-            ).value.trim();
+            )
+            .value
+            .trim();
 
 
         const eventType =
             document.getElementById(
                 "eventType"
-            ).value;
+            )
+            .value;
 
 
         const eventDate =
             document.getElementById(
                 "eventDate"
-            ).value;
+            )
+            .value;
 
 
         const startTime =
             document.getElementById(
                 "startTime"
-            ).value;
+            )
+            .value;
 
 
         const endTime =
             document.getElementById(
                 "endTime"
-            ).value;
+            )
+            .value;
 
 
         const venue =
             document.getElementById(
                 "venue"
-            ).value.trim();
+            )
+            .value
+            .trim();
 
 
         const participants =
             document.getElementById(
                 "participants"
-            ).value;
+            )
+            .value;
 
 
         const targetDepartment =
             document.getElementById(
                 "targetDepartment"
-            ).value.trim();
+            )
+            .value
+            .trim();
 
 
         const description =
             document.getElementById(
                 "description"
-            ).value.trim();
+            )
+            .value
+            .trim();
 
 
         const purpose =
             document.getElementById(
                 "purpose"
-            ).value.trim();
+            )
+            .value
+            .trim();
 
 
         const requirements =
             document.getElementById(
                 "requirements"
-            ).value.trim();
+            )
+            .value
+            .trim();
 
 
         const guests =
             getGuests();
 
 
-        /* ================================
+        /* =================================================
            TIME CHECK
-        ================================= */
+        ================================================== */
 
-        if(startTime >= endTime){
+        if(
+            startTime >= endTime
+        ){
 
             alert(
                 "End time must be later than start time."
@@ -1477,9 +2035,9 @@ document.getElementById(
         }
 
 
-        /* ================================
+        /* =================================================
            BUTTON
-        ================================= */
+        ================================================== */
 
         const submitBtn =
             document.getElementById(
@@ -1498,18 +2056,32 @@ document.getElementById(
         try{
 
 
-            /* =========================================
-               FIRESTORE
+            /*
+                =================================================
+                SAVE EVENT
+                =================================================
 
-               NEW:
-               organisingDepartments = array
+                Example:
 
-               OLD:
-               organisingDepartment = first department
+                headDepartments =
 
-               This keeps compatibility with
-               existing records.
-            ========================================= */
+                [
+                    "IT",
+                    "Computer Science"
+                ]
+
+                Therefore Firestore gets:
+
+                organisingDepartments:
+                [
+                    "IT",
+                    "Computer Science"
+                ]
+
+                This means the SAME event belongs
+                to BOTH departments.
+            */
+
 
             await addDoc(
 
@@ -1520,7 +2092,9 @@ document.getElementById(
 
                 {
 
-                    /* ================= EVENT ================= */
+                    /* ===============================
+                       EVENT DETAILS
+                    =============================== */
 
                     eventName:
                         eventName,
@@ -1541,45 +2115,56 @@ document.getElementById(
                         venue,
 
                     participants:
-                        Number(participants),
+                        Number(
+                            participants
+                        ),
 
 
-                    /* =========================================
-                       MULTIPLE ORGANISING DEPARTMENTS
-                    ========================================= */
+                    /* ===============================
+                       MULTIPLE HEAD DEPARTMENTS
+                    =============================== */
 
                     organisingDepartments:
-                        selectedDepartments,
+                        [
+                            ...headDepartments
+                        ],
 
 
                     /*
-                       Backward compatibility.
+                        BACKWARD COMPATIBILITY
 
-                       For an event belonging to multiple
-                       departments, this contains the first
-                       department.
+                        Existing pages may still look for
+                        organisingDepartment.
+
+                        Keep first department here.
                     */
 
                     organisingDepartment:
-                        selectedDepartments[0],
+                        headDepartments[0],
 
 
-                    /* ================= REQUESTER ================= */
+                    /* ===============================
+                       REQUESTER
+                    =============================== */
 
                     requestedByStaffId:
                         staffId,
 
                     requestedByStaffName:
-                        staffName || "",
+                        staffName,
 
 
-                    /* ================= FORWARD ================= */
+                    /* ===============================
+                       FORWARD
+                    =============================== */
 
                     targetDepartment:
                         targetDepartment,
 
 
-                    /* ================= DETAILS ================= */
+                    /* ===============================
+                       DETAILS
+                    =============================== */
 
                     description:
                         description,
@@ -1594,7 +2179,9 @@ document.getElementById(
                         guests,
 
 
-                    /* ================= WORKFLOW ================= */
+                    /* ===============================
+                       WORKFLOW
+                    =============================== */
 
                     status:
                         "Pending Dean Approval",
@@ -1609,7 +2196,9 @@ document.getElementById(
                         "",
 
 
-                    /* ================= FORWARD STATUS ================= */
+                    /* ===============================
+                       DEAN FORWARD
+                    =============================== */
 
                     forwardedByDean:
                         false,
@@ -1621,7 +2210,9 @@ document.getElementById(
                         null,
 
 
-                    /* ================= TIMESTAMP ================= */
+                    /* ===============================
+                       TIMESTAMPS
+                    =============================== */
 
                     submittedAt:
                         serverTimestamp(),
@@ -1638,9 +2229,11 @@ document.getElementById(
 
                 "Event Request submitted successfully.\n\n" +
 
-                "Organising Department(s): " +
+                "Organising Department(s):\n" +
 
-                selectedDepartments.join(", ") +
+                headDepartments.join(
+                    ", "
+                ) +
 
                 "\n\nSent to Dean for approval."
 
@@ -1650,14 +2243,14 @@ document.getElementById(
             clearForm();
 
 
-            loadMyRequests();
+            await loadMyRequests();
 
 
         }
         catch(error){
 
             console.error(
-                "Event request error:",
+                "EVENT REQUEST ERROR:",
                 error
             );
 
@@ -1689,43 +2282,27 @@ document.getElementById(
    CLEAR FORM
 ===================================================== */
 
-window.clearForm = function(){
+window.clearForm =
+function(){
 
     document.getElementById(
         "eventForm"
-    ).reset();
+    )
+    .reset();
 
 
     /*
-       Re-select all departments
-       after form reset.
+        Department display is NOT reset.
+
+        It always comes from the logged-in
+        Department Head record.
     */
 
-    document.querySelectorAll(
-        ".department-checkbox"
-    )
-    .forEach(
-        checkbox => {
-
-            if(headDepartments.length === 1){
-
-                checkbox.checked =
-                    true;
-
-            }
-            else{
-
-                checkbox.checked =
-                    false;
-
-            }
-
-        }
-    );
+    displayHeadDepartments();
 
 
     /*
-       Reset guests
+        Reset guests
     */
 
     document.getElementById(
@@ -1734,24 +2311,60 @@ window.clearForm = function(){
 
         <div class="guest-row">
 
-            <input
-                type="text"
-                class="guest-name"
-                placeholder="Guest Name"
-            >
 
-            <input
-                type="text"
-                class="guest-designation"
-                placeholder="Designation / Organisation"
-            >
+            <div class="form-group">
+
+                <label>
+                    Guest Name
+                </label>
+
+                <input
+                    type="text"
+                    class="guestName"
+                    placeholder="Guest name"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Designation
+                </label>
+
+                <input
+                    type="text"
+                    class="guestDesignation"
+                    placeholder="Designation"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Organisation
+                </label>
+
+                <input
+                    type="text"
+                    class="guestOrganisation"
+                    placeholder="Organisation"
+                >
+
+            </div>
+
 
             <button
                 type="button"
+                class="remove-btn"
                 onclick="removeGuest(this)"
             >
-                Remove
+                ×
             </button>
+
 
         </div>
 
@@ -1788,6 +2401,7 @@ async function loadMyRequests(){
 
     try{
 
+
         const q =
             query(
 
@@ -1806,24 +2420,28 @@ async function loadMyRequests(){
 
 
         const snap =
-            await getDocs(q);
+            await getDocs(
+                q
+            );
 
 
         loading.style.display =
             "none";
 
 
-        if(snap.empty){
+        if(
+            snap.empty
+        ){
 
             table.innerHTML = `
 
                 <tr>
 
                     <td
-                        colspan="7"
+                        colspan="8"
                         class="empty"
                     >
-                        No event requests found.
+                        No Event Requests found.
                     </td>
 
                 </tr>
@@ -1835,38 +2453,43 @@ async function loadMyRequests(){
         }
 
 
-        const requests = [];
-
-
-        snap.forEach(
-            doc => {
-
-                requests.push({
+        const requests =
+            snap.docs.map(
+                item => ({
 
                     id:
-                        doc.id,
+                        item.id,
 
-                    data:
-                        doc.data()
+                    ...item.data()
 
-                });
-
-            }
-        );
+                })
+            );
 
 
         /*
-           Newest first.
+            Newest first.
         */
 
         requests.sort(
             (a,b) => {
 
                 const aTime =
-                    a.data.submittedAt?.seconds || 0;
+                    a.submittedAt &&
+                    a.submittedAt.toMillis
+                    ?
+                    a.submittedAt.toMillis()
+                    :
+                    0;
+
 
                 const bTime =
-                    b.data.submittedAt?.seconds || 0;
+                    b.submittedAt &&
+                    b.submittedAt.toMillis
+                    ?
+                    b.submittedAt.toMillis()
+                    :
+                    0;
+
 
                 return bTime - aTime;
 
@@ -1875,17 +2498,23 @@ async function loadMyRequests(){
 
 
         requests.forEach(
-            item => {
+            request => {
 
-                const data =
-                    item.data;
+
+                const tr =
+                    document.createElement(
+                        "tr"
+                    );
 
 
                 /*
-                   NEW records use array.
+                    New format:
 
-                   OLD records use single
-                   organisingDepartment.
+                    organisingDepartments:[...]
+
+                    Old format:
+
+                    organisingDepartment:"IT"
                 */
 
                 let departments = [];
@@ -1893,20 +2522,22 @@ async function loadMyRequests(){
 
                 if(
                     Array.isArray(
-                        data.organisingDepartments
+                        request.organisingDepartments
                     )
                 ){
 
                     departments =
-                        data.organisingDepartments;
+                        request.organisingDepartments;
 
                 }
                 else if(
-                    data.organisingDepartment
+                    request.organisingDepartment
                 ){
 
                     departments = [
-                        data.organisingDepartment
+
+                        request.organisingDepartment
+
                     ];
 
                 }
@@ -1914,119 +2545,128 @@ async function loadMyRequests(){
 
                 const departmentText =
                     departments.length
-                        ? departments.join(", ")
-                        : "-";
+                    ?
+                    departments.join(
+                        ", "
+                    )
+                    :
+                    "-";
 
 
-                let statusClass =
-                    "pending";
+                const guests =
+                    Array.isArray(
+                        request.guests
+                    )
+                    ?
+                    request.guests
+                    :
+                    [];
+
+
+                const guestText =
+                    guests.length
+                    ?
+                    guests
+                        .map(
+                            g =>
+                                g.name || ""
+                        )
+                        .filter(
+                            Boolean
+                        )
+                        .join(
+                            ", "
+                        )
+                    :
+                    "No Guest";
 
 
                 const status =
-                    data.status ||
-                    "Pending";
+                    request.status ||
+                    "Pending Dean Approval";
 
 
-                const statusLower =
-                    String(status)
-                        .toLowerCase();
-
-
-                if(
-                    statusLower.includes(
-                        "approved"
-                    )
-                ){
-
-                    statusClass =
-                        "approved";
-
-                }
-
-
-                if(
-                    statusLower.includes(
-                        "rejected"
-                    )
-                ){
-
-                    statusClass =
-                        "rejected";
-
-                }
-
-
-                if(
-                    statusLower.includes(
-                        "forward"
-                    )
-                ){
-
-                    statusClass =
-                        "forwarded";
-
-                }
-
-
-                const row =
-                    document.createElement(
-                        "tr"
+                const statusClass =
+                    getStatusClass(
+                        status
                     );
 
 
-                row.innerHTML = `
+                tr.innerHTML = `
 
                     <td>
 
-                        <strong>
-                            ${escapeHtml(
-                                data.eventName || "-"
-                            )}
-                        </strong>
-
-                        <br>
-
-                        <small>
-                            ${escapeHtml(
-                                data.eventType || "-"
-                            )}
-                        </small>
+                        ${escapeHtml(
+                            request.eventName ||
+                            "-"
+                        )}
 
                     </td>
 
 
                     <td>
+
+                        ${escapeHtml(
+                            request.eventType ||
+                            "-"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
                         ${escapeHtml(
                             departmentText
                         )}
+
                     </td>
 
 
                     <td>
+
                         ${escapeHtml(
-                            data.eventDate || "-"
+                            request.eventDate ||
+                            "-"
                         )}
+
                         <br>
+
                         <small>
-                            ${
-                                escapeHtml(
-                                    data.startTime || ""
-                                )
-                            }
+
+                            ${escapeHtml(
+                                request.startTime ||
+                                ""
+                            )}
+
                             -
-                            ${
-                                escapeHtml(
-                                    data.endTime || ""
-                                )
-                            }
+
+                            ${escapeHtml(
+                                request.endTime ||
+                                ""
+                            )}
+
                         </small>
+
                     </td>
 
 
                     <td>
+
                         ${escapeHtml(
-                            data.venue || "-"
+                            request.venue ||
+                            "-"
                         )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHtml(
+                            guestText
+                        )}
+
                     </td>
 
 
@@ -2035,32 +2675,30 @@ async function loadMyRequests(){
                         <span
                             class="status ${statusClass}"
                         >
+
                             ${escapeHtml(
                                 status
                             )}
+
                         </span>
 
                     </td>
 
 
                     <td>
-                        ${escapeHtml(
-                            data.deanRemarks || "-"
-                        )}
-                    </td>
 
-
-                    <td>
                         ${escapeHtml(
-                            data.forwardedToDepartment || "-"
+                            request.deanRemarks ||
+                            "-"
                         )}
+
                     </td>
 
                 `;
 
 
                 table.appendChild(
-                    row
+                    tr
                 );
 
             }
@@ -2071,7 +2709,7 @@ async function loadMyRequests(){
     catch(error){
 
         console.error(
-            "Load requests error:",
+            "LOAD REQUESTS ERROR:",
             error
         );
 
@@ -2085,11 +2723,11 @@ async function loadMyRequests(){
             <tr>
 
                 <td
-                    colspan="7"
+                    colspan="8"
                     class="empty"
                 >
 
-                    Unable to load event requests.
+                    Unable to load Event Requests.
 
                     <br><br>
 
@@ -2109,32 +2747,94 @@ async function loadMyRequests(){
 
 
 /* =====================================================
+   STATUS CLASS
+===================================================== */
+
+function getStatusClass(
+    status
+){
+
+    const value =
+        String(
+            status
+        )
+        .toLowerCase();
+
+
+    if(
+        value.includes(
+            "approved"
+        )
+    ){
+
+        return "approved";
+
+    }
+
+
+    if(
+        value.includes(
+            "rejected"
+        )
+    ){
+
+        return "rejected";
+
+    }
+
+
+    if(
+        value.includes(
+            "forwarded"
+        )
+    ){
+
+        return "forwarded";
+
+    }
+
+
+    return "pending";
+
+}
+
+
+/* =====================================================
    ESCAPE HTML
 ===================================================== */
 
-function escapeHtml(value){
+function escapeHtml(
+    value
+){
 
-    return String(value ?? "")
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    return String(
+        value ?? ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
 
 }
 
@@ -2143,9 +2843,22 @@ function escapeHtml(value){
    INITIAL LOAD
 ===================================================== */
 
-loadMyRequests();
+await loadLoggedInStaff();
+
+await loadMyRequests();
+
+
+/* =====================================================
+   AUTO REFRESH
+===================================================== */
+
+setInterval(
+    loadMyRequests,
+    30000
+);
 
 </script>
+
 
 </body>
 
