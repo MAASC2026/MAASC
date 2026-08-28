@@ -4,9 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Event Request</title>
 
@@ -27,29 +25,18 @@ body{
 /* ================= HEADER ================= */
 
 .header{
-
     position:fixed;
-
     top:0;
     left:0;
     right:0;
-
     height:70px;
-
     background:#500454;
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     padding:0 30px;
-
     color:white;
-
     box-shadow:0 2px 10px rgba(0,0,0,.25);
-
     z-index:1000;
 }
 
@@ -64,409 +51,249 @@ body{
 /* ================= MAIN ================= */
 
 .main{
-
-    margin-top:70px;
-
-    padding:30px;
-
-    max-width:1400px;
-
-    margin-left:auto;
-
-    margin-right:auto;
+    max-width:1100px;
+    margin:100px auto 50px;
+    padding:20px;
 }
 
 /* ================= CARD ================= */
 
 .card{
-
     background:white;
-
+    border-radius:12px;
     padding:25px;
-
-    border-radius:10px;
-
-    box-shadow:0 0 10px rgba(0,0,0,.12);
-
     margin-bottom:25px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
 }
 
-.card h2{
-
+.card h3{
+    margin-bottom:20px;
     color:#500454;
-
-    margin-bottom:22px;
-
-    font-size:23px;
+    border-bottom:1px solid #eee;
+    padding-bottom:12px;
 }
 
 /* ================= FORM ================= */
 
-.form-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(2,minmax(250px,1fr));
-
-    gap:20px;
-}
-
 .form-group{
-
-    display:flex;
-
-    flex-direction:column;
+    margin-bottom:18px;
 }
 
-.form-group.full{
-
-    grid-column:1/-1;
-}
-
-label{
-
+.form-group label{
+    display:block;
     font-weight:bold;
-
     margin-bottom:7px;
-
-    color:#444;
 }
 
-input,
-select,
-textarea{
-
+.form-group input,
+.form-group select,
+.form-group textarea{
     width:100%;
-
-    padding:12px;
-
+    padding:11px 12px;
     border:1px solid #ccc;
-
-    border-radius:6px;
-
-    font-size:15px;
-
+    border-radius:7px;
+    font-size:14px;
     outline:none;
-
-    background:white;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
     border-color:#500454;
-
-    box-shadow:
-    0 0 0 2px rgba(80,4,84,.08);
 }
 
-textarea{
-
-    min-height:100px;
-
+.form-group textarea{
     resize:vertical;
+    min-height:90px;
+}
+
+/* ================= DEPARTMENT BOX ================= */
+
+.department-box{
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:12px;
+    background:#fafafa;
+}
+
+.department-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 5px;
+    border-bottom:1px solid #eee;
+}
+
+.department-item:last-child{
+    border-bottom:none;
+}
+
+.department-item input{
+    width:auto;
+}
+
+.department-name{
+    font-weight:600;
+}
+
+.department-info{
+    margin-top:8px;
+    color:#666;
+    font-size:13px;
 }
 
 /* ================= GUEST ================= */
 
-.guest-section{
-
-    margin-top:30px;
-
-    padding:20px;
-
-    border:1px solid #e2e2e2;
-
-    border-radius:8px;
-
-    background:#fafafa;
-}
-
-.guest-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:18px;
-}
-
-.guest-header h3{
-
-    color:#500454;
-
-    font-size:19px;
-}
-
-.add-btn{
-
-    border:none;
-
-    background:#500454;
-
-    color:white;
-
-    padding:10px 18px;
-
-    border-radius:6px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-}
-
-.add-btn:hover{
-
-    background:#6e0a75;
-}
-
 .guest-row{
-
     display:grid;
-
-    grid-template-columns:
-    1fr 1fr 1fr 50px;
-
-    gap:12px;
-
-    margin-bottom:12px;
-
-    align-items:end;
+    grid-template-columns:1fr 1fr auto;
+    gap:10px;
+    margin-bottom:10px;
 }
 
-.remove-btn{
-
-    height:42px;
-
-    border:none;
-
-    background:#dc2626;
-
+.guest-row button{
+    background:#dc3545;
     color:white;
-
+    border:none;
+    padding:10px 15px;
     border-radius:6px;
-
     cursor:pointer;
-
-    font-size:20px;
-
-    font-weight:bold;
 }
 
-.remove-btn:hover{
-
-    background:#b91c1c;
+.add-guest{
+    background:#198754;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:6px;
+    cursor:pointer;
 }
 
-/* ================= BUTTONS ================= */
-
-.submit-area{
-
-    margin-top:25px;
-
-    display:flex;
-
-    justify-content:flex-end;
-
-    gap:12px;
-}
+/* ================= BUTTON ================= */
 
 .submit-btn{
-
+    width:100%;
     background:#500454;
-
     color:white;
-
     border:none;
-
-    padding:14px 28px;
-
-    border-radius:7px;
-
+    padding:14px;
+    border-radius:8px;
     font-size:16px;
-
     font-weight:bold;
-
     cursor:pointer;
 }
 
 .submit-btn:hover{
-
-    background:#6e0a75;
+    background:#3d033f;
 }
 
-.clear-btn{
-
-    background:#6b7280;
-
-    color:white;
-
-    border:none;
-
-    padding:14px 25px;
-
-    border-radius:7px;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
+.submit-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 /* ================= TABLE ================= */
 
-.table-wrap{
-
-    width:100%;
-
+.table-wrapper{
     overflow-x:auto;
 }
 
 table{
-
     width:100%;
-
     border-collapse:collapse;
+    min-width:900px;
 }
 
 th,
 td{
-
     padding:12px;
-
-    border:1px solid #ddd;
-
+    border-bottom:1px solid #eee;
     text-align:left;
-
-    white-space:nowrap;
+    vertical-align:top;
 }
 
 th{
-
     background:#500454;
-
     color:white;
 }
 
-tr:nth-child(even){
-
+tr:hover{
     background:#fafafa;
 }
 
 /* ================= STATUS ================= */
 
 .status{
-
     display:inline-block;
-
-    padding:6px 11px;
-
-    border-radius:20px;
-
+    padding:5px 10px;
+    border-radius:15px;
     font-size:12px;
-
     font-weight:bold;
 }
 
-.status.pending{
-
+.pending{
     background:#fff3cd;
-
     color:#856404;
 }
 
-.status.approved{
-
-    background:#d1fae5;
-
-    color:#065f46;
+.approved{
+    background:#d1e7dd;
+    color:#0f5132;
 }
 
-.status.rejected{
-
-    background:#fee2e2;
-
-    color:#991b1b;
+.rejected{
+    background:#f8d7da;
+    color:#842029;
 }
 
-.status.forwarded{
-
-    background:#dbeafe;
-
-    color:#1e40af;
+.forwarded{
+    background:#cfe2ff;
+    color:#084298;
 }
+
+/* ================= LOADING ================= */
 
 .loading{
-
     text-align:center;
-
     padding:20px;
-
-    color:#500454;
-
-    font-weight:bold;
+    color:#666;
 }
 
+/* ================= EMPTY ================= */
+
 .empty{
-
     text-align:center;
-
-    padding:25px;
-
+    padding:30px;
     color:#777;
 }
 
-/* ================= RESPONSIVE ================= */
+/* ================= MOBILE ================= */
 
-@media(max-width:850px){
-
-    .form-grid{
-
-        grid-template-columns:1fr;
-    }
-
-    .form-group.full{
-
-        grid-column:auto;
-    }
-
-    .guest-row{
-
-        grid-template-columns:1fr;
-    }
-
-    .remove-btn{
-
-        width:100%;
-    }
-
-}
-
-@media(max-width:600px){
+@media(max-width:700px){
 
     .header{
-
         padding:0 15px;
     }
 
     .header h2{
-
         font-size:18px;
     }
 
     .user{
-
         font-size:12px;
     }
 
     .main{
+        margin-top:90px;
+        padding:10px;
+    }
 
+    .card{
         padding:15px;
+    }
+
+    .guest-row{
+        grid-template-columns:1fr;
     }
 
 }
@@ -475,9 +302,7 @@ tr:nth-child(even){
 
 </head>
 
-
 <body>
-
 
 <!-- =====================================================
      HEADER
@@ -485,15 +310,10 @@ tr:nth-child(even){
 
 <div class="header">
 
-    <h2>
-        EVENT REQUEST
-    </h2>
+    <h2>Event Request</h2>
 
     <div class="user">
-
-        Welcome
-        <span id="staffName"></span>
-
+        <span id="userName">Loading...</span>
     </div>
 
 </div>
@@ -507,381 +327,325 @@ tr:nth-child(even){
 
 
 <!-- =====================================================
-     EVENT REQUEST FORM
+     EVENT FORM
 ===================================================== -->
 
 <div class="card">
 
-    <h2>
-        📅 Event Request
-    </h2>
-
+    <h3>Create Event Request</h3>
 
     <form id="eventForm">
 
 
-        <div class="form-grid">
+        <!-- ================= EVENT NAME ================= -->
 
+        <div class="form-group">
 
-            <!-- EVENT NAME -->
+            <label>
+                Event Name
+            </label>
 
-            <div class="form-group full">
+            <input
+                type="text"
+                id="eventName"
+                required
+                placeholder="Enter event name"
+            >
 
-                <label>
-                    Event Name *
-                </label>
+        </div>
 
-                <input
-                    type="text"
-                    id="eventName"
-                    placeholder="Enter event name"
-                    required
-                >
 
-            </div>
+        <!-- ================= EVENT TYPE ================= -->
 
+        <div class="form-group">
 
-            <!-- EVENT TYPE -->
+            <label>
+                Event Type
+            </label>
 
-            <div class="form-group">
+            <select
+                id="eventType"
+                required
+            >
 
-                <label>
-                    Event Type *
-                </label>
+                <option value="">
+                    Select Event Type
+                </option>
 
-                <select
-                    id="eventType"
-                    required
-                >
+                <option value="Academic">
+                    Academic
+                </option>
 
-                    <option value="">
-                        Select Event Type
-                    </option>
+                <option value="Cultural">
+                    Cultural
+                </option>
 
-                    <option value="Academic">
-                        Academic
-                    </option>
+                <option value="Sports">
+                    Sports
+                </option>
 
-                    <option value="Cultural">
-                        Cultural
-                    </option>
+                <option value="Workshop">
+                    Workshop
+                </option>
 
-                    <option value="Technical">
-                        Technical
-                    </option>
+                <option value="Seminar">
+                    Seminar
+                </option>
 
-                    <option value="Workshop">
-                        Workshop
-                    </option>
+                <option value="Conference">
+                    Conference
+                </option>
 
-                    <option value="Seminar">
-                        Seminar
-                    </option>
+                <option value="Other">
+                    Other
+                </option>
 
-                    <option value="Conference">
-                        Conference
-                    </option>
-
-                    <option value="Sports">
-                        Sports
-                    </option>
-
-                    <option value="Other">
-                        Other
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- DEPARTMENT -->
-
-            <div class="form-group">
-
-                <label>
-                    Organising Department
-                </label>
-
-                <input
-                    type="text"
-                    id="department"
-                    readonly
-                >
-
-            </div>
-
-
-            <!-- DATE -->
-
-            <div class="form-group">
-
-                <label>
-                    Event Date *
-                </label>
-
-                <input
-                    type="date"
-                    id="eventDate"
-                    required
-                >
-
-            </div>
-
-
-            <!-- START TIME -->
-
-            <div class="form-group">
-
-                <label>
-                    Start Time *
-                </label>
-
-                <input
-                    type="time"
-                    id="startTime"
-                    required
-                >
-
-            </div>
-
-
-            <!-- END TIME -->
-
-            <div class="form-group">
-
-                <label>
-                    End Time *
-                </label>
-
-                <input
-                    type="time"
-                    id="endTime"
-                    required
-                >
-
-            </div>
-
-
-            <!-- VENUE -->
-
-            <div class="form-group">
-
-                <label>
-                    Venue *
-                </label>
-
-                <input
-                    type="text"
-                    id="venue"
-                    placeholder="Enter venue"
-                    required
-                >
-
-            </div>
-
-
-            <!-- PARTICIPANTS -->
-
-            <div class="form-group">
-
-                <label>
-                    Expected Participants *
-                </label>
-
-                <input
-                    type="number"
-                    id="participants"
-                    min="1"
-                    placeholder="Enter number"
-                    required
-                >
-
-            </div>
-
-
-            <!-- FORWARD DEPARTMENT -->
-
-            <div class="form-group">
-
-                <label>
-                    Department to be Forwarded
-                </label>
-
-                <input
-                    type="text"
-                    id="targetDepartment"
-                    placeholder="Dean will decide"
-                >
-
-            </div>
-
-
-            <!-- DESCRIPTION -->
-
-            <div class="form-group full">
-
-                <label>
-                    Event Description *
-                </label>
-
-                <textarea
-                    id="description"
-                    placeholder="Enter event description"
-                    required
-                ></textarea>
-
-            </div>
-
-
-            <!-- PURPOSE -->
-
-            <div class="form-group full">
-
-                <label>
-                    Purpose / Objective *
-                </label>
-
-                <textarea
-                    id="purpose"
-                    placeholder="Enter purpose / objective"
-                    required
-                ></textarea>
-
-            </div>
-
-
-            <!-- REQUIREMENTS -->
-
-            <div class="form-group full">
-
-                <label>
-                    Facilities / Requirements
-                </label>
-
-                <textarea
-                    id="requirements"
-                    placeholder="Projector, microphone, chairs, transport, refreshments, etc."
-                ></textarea>
-
-            </div>
-
+            </select>
 
         </div>
 
 
         <!-- =================================================
-             GUEST SECTION
+             ORGANISING DEPARTMENTS
         ================================================== -->
 
-        <div class="guest-section">
+        <div class="form-group">
 
-            <div class="guest-header">
+            <label>
+                Organising Department(s)
+            </label>
 
-                <h3>
-                    👤 Guest Details
-                </h3>
+            <div
+                id="departmentContainer"
+                class="department-box"
+            >
 
-                <button
-                    type="button"
-                    class="add-btn"
-                    onclick="addGuest()"
-                >
-                    + Add Guest
-                </button>
+                <div class="loading">
+                    Loading departments...
+                </div>
 
             </div>
 
+            <div class="department-info">
+                Select all departments for which this event
+                is being organised.
+            </div>
+
+        </div>
+
+
+        <!-- ================= EVENT DATE ================= -->
+
+        <div class="form-group">
+
+            <label>
+                Event Date
+            </label>
+
+            <input
+                type="date"
+                id="eventDate"
+                required
+            >
+
+        </div>
+
+
+        <!-- ================= START TIME ================= -->
+
+        <div class="form-group">
+
+            <label>
+                Start Time
+            </label>
+
+            <input
+                type="time"
+                id="startTime"
+                required
+            >
+
+        </div>
+
+
+        <!-- ================= END TIME ================= -->
+
+        <div class="form-group">
+
+            <label>
+                End Time
+            </label>
+
+            <input
+                type="time"
+                id="endTime"
+                required
+            >
+
+        </div>
+
+
+        <!-- ================= VENUE ================= -->
+
+        <div class="form-group">
+
+            <label>
+                Venue
+            </label>
+
+            <input
+                type="text"
+                id="venue"
+                required
+                placeholder="Enter venue"
+            >
+
+        </div>
+
+
+        <!-- ================= PARTICIPANTS ================= -->
+
+        <div class="form-group">
+
+            <label>
+                Number of Participants
+            </label>
+
+            <input
+                type="number"
+                id="participants"
+                min="1"
+                required
+                placeholder="Enter number of participants"
+            >
+
+        </div>
+
+
+        <!-- =================================================
+             FORWARD DEPARTMENT
+        ================================================== -->
+
+        <div class="form-group">
+
+            <label>
+                Department to be Forwarded
+            </label>
+
+            <input
+                type="text"
+                id="targetDepartment"
+                placeholder="Dean will decide"
+            >
+
+        </div>
+
+
+        <!-- ================= DESCRIPTION ================= -->
+
+        <div class="form-group">
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="description"
+                placeholder="Enter event description"
+            ></textarea>
+
+        </div>
+
+
+        <!-- ================= PURPOSE ================= -->
+
+        <div class="form-group">
+
+            <label>
+                Purpose
+            </label>
+
+            <textarea
+                id="purpose"
+                placeholder="Enter purpose of the event"
+            ></textarea>
+
+        </div>
+
+
+        <!-- ================= REQUIREMENTS ================= -->
+
+        <div class="form-group">
+
+            <label>
+                Requirements
+            </label>
+
+            <textarea
+                id="requirements"
+                placeholder="Enter requirements"
+            ></textarea>
+
+        </div>
+
+
+        <!-- =================================================
+             GUESTS
+        ================================================== -->
+
+        <div class="form-group">
+
+            <label>
+                Guests
+            </label>
 
             <div id="guestContainer">
 
                 <div class="guest-row">
 
-                    <div class="form-group">
+                    <input
+                        type="text"
+                        class="guest-name"
+                        placeholder="Guest Name"
+                    >
 
-                        <label>
-                            Guest Name
-                        </label>
-
-                        <input
-                            type="text"
-                            class="guestName"
-                            placeholder="Guest name"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Designation
-                        </label>
-
-                        <input
-                            type="text"
-                            class="guestDesignation"
-                            placeholder="Designation"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Organisation
-                        </label>
-
-                        <input
-                            type="text"
-                            class="guestOrganisation"
-                            placeholder="Organisation"
-                        >
-
-                    </div>
-
+                    <input
+                        type="text"
+                        class="guest-designation"
+                        placeholder="Designation / Organisation"
+                    >
 
                     <button
                         type="button"
-                        class="remove-btn"
                         onclick="removeGuest(this)"
                     >
-                        ×
+                        Remove
                     </button>
 
                 </div>
 
             </div>
 
-        </div>
-
-
-        <!-- =================================================
-             BUTTONS
-        ================================================== -->
-
-        <div class="submit-area">
-
             <button
                 type="button"
-                class="clear-btn"
-                onclick="clearForm()"
+                class="add-guest"
+                onclick="addGuest()"
             >
-                Clear
-            </button>
-
-
-            <button
-                type="submit"
-                class="submit-btn"
-                id="submitBtn"
-            >
-                Submit Event Request
+                + Add Guest
             </button>
 
         </div>
 
+
+        <!-- ================= SUBMIT ================= -->
+
+        <button
+            type="submit"
+            class="submit-btn"
+            id="submitBtn"
+        >
+            Submit Event Request
+        </button>
 
     </form>
 
@@ -894,20 +658,17 @@ tr:nth-child(even){
 
 <div class="card">
 
-    <h2>
-        📋 My Event Requests
-    </h2>
-
+    <h3>My Event Requests</h3>
 
     <div
         id="requestLoading"
         class="loading"
+        style="display:none;"
     >
         Loading requests...
     </div>
 
-
-    <div class="table-wrap">
+    <div class="table-wrapper">
 
         <table>
 
@@ -920,7 +681,7 @@ tr:nth-child(even){
                     </th>
 
                     <th>
-                        Type
+                        Organising Department(s)
                     </th>
 
                     <th>
@@ -932,10 +693,6 @@ tr:nth-child(even){
                     </th>
 
                     <th>
-                        Guests
-                    </th>
-
-                    <th>
                         Status
                     </th>
 
@@ -943,10 +700,13 @@ tr:nth-child(even){
                         Dean Remarks
                     </th>
 
+                    <th>
+                        Forwarded Department
+                    </th>
+
                 </tr>
 
             </thead>
-
 
             <tbody id="requestTable">
 
@@ -971,14 +731,12 @@ tr:nth-child(even){
 import { db } from "./firebase-config.js";
 
 import {
-
     collection,
     addDoc,
     query,
     where,
     getDocs,
     serverTimestamp
-
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -993,8 +751,287 @@ const staffId =
 const staffName =
     sessionStorage.getItem("staffName");
 
-const department =
-    sessionStorage.getItem("department");
+
+/*
+=========================================================
+IMPORTANT
+
+A Head may now have MULTIPLE departments.
+
+Supported sessionStorage formats:
+
+1.
+departments = ["IT","Computer Science"]
+
+2.
+departments = '["IT","Computer Science"]'
+
+3.
+departments = "IT,Computer Science"
+
+4.
+department = "IT,Computer Science"
+
+5.
+department = "IT"
+
+The code below supports all of them.
+=========================================================
+*/
+
+
+let headDepartments = [];
+
+
+/* =====================================================
+   NORMALISE DEPARTMENT
+===================================================== */
+
+function normaliseDepartment(value){
+
+    if(value === null || value === undefined){
+        return "";
+    }
+
+    return String(value)
+        .trim()
+        .replace(/\s+/g," ");
+
+}
+
+
+/* =====================================================
+   ADD UNIQUE DEPARTMENT
+===================================================== */
+
+function addUniqueDepartment(value){
+
+    const department =
+        normaliseDepartment(value);
+
+    if(!department){
+        return;
+    }
+
+    const exists =
+        headDepartments.some(
+            d =>
+                d.toLowerCase() ===
+                department.toLowerCase()
+        );
+
+    if(!exists){
+
+        headDepartments.push(
+            department
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   READ MULTIPLE DEPARTMENTS
+===================================================== */
+
+function readDepartmentValue(value){
+
+    if(
+        value === null ||
+        value === undefined ||
+        value === ""
+    ){
+
+        return;
+
+    }
+
+
+    /*
+       JSON ARRAY
+    */
+
+    if(typeof value === "string"){
+
+        const trimmed =
+            value.trim();
+
+        if(
+            trimmed.startsWith("[") &&
+            trimmed.endsWith("]")
+        ){
+
+            try{
+
+                const parsed =
+                    JSON.parse(trimmed);
+
+                if(Array.isArray(parsed)){
+
+                    parsed.forEach(
+                        item =>
+                            addUniqueDepartment(item)
+                    );
+
+                    return;
+
+                }
+
+            }
+            catch(error){
+
+                console.warn(
+                    "Unable to parse department JSON",
+                    error
+                );
+
+            }
+
+        }
+
+    }
+
+
+    /*
+       REAL ARRAY
+    */
+
+    if(Array.isArray(value)){
+
+        value.forEach(
+            item =>
+                addUniqueDepartment(item)
+        );
+
+        return;
+
+    }
+
+
+    /*
+       COMMA / PIPE SEPARATED
+    */
+
+    if(typeof value === "string"){
+
+        const parts =
+            value.split(/[,\|]/);
+
+        parts.forEach(
+            part =>
+                addUniqueDepartment(part)
+        );
+
+        return;
+
+    }
+
+
+    /*
+       SINGLE VALUE
+    */
+
+    addUniqueDepartment(value);
+
+}
+
+
+/* =====================================================
+   LOAD DEPARTMENTS FROM SESSION
+===================================================== */
+
+function loadDepartmentsFromSession(){
+
+    headDepartments = [];
+
+
+    /*
+       Preferred:
+       departments
+    */
+
+    const departments =
+        sessionStorage.getItem(
+            "departments"
+        );
+
+
+    if(departments){
+
+        readDepartmentValue(
+            departments
+        );
+
+    }
+
+
+    /*
+       Backward compatibility:
+       department
+    */
+
+    const department =
+        sessionStorage.getItem(
+            "department"
+        );
+
+
+    if(department){
+
+        readDepartmentValue(
+            department
+        );
+
+    }
+
+
+    /*
+       Additional possible key:
+       headDepartments
+    */
+
+    const storedHeadDepartments =
+        sessionStorage.getItem(
+            "headDepartments"
+        );
+
+
+    if(storedHeadDepartments){
+
+        readDepartmentValue(
+            storedHeadDepartments
+        );
+
+    }
+
+
+    /*
+       Remove duplicate departments
+    */
+
+    headDepartments =
+        [...new Set(
+            headDepartments
+        )];
+
+
+    console.log(
+        "HEAD DEPARTMENTS:",
+        headDepartments
+    );
+
+}
+
+
+/* =====================================================
+   DISPLAY USER
+===================================================== */
+
+document.getElementById(
+    "userName"
+).textContent =
+    staffName || staffId || "Staff";
 
 
 /* =====================================================
@@ -1003,31 +1040,171 @@ const department =
 
 if(!staffId){
 
-    alert("Please Login");
+    alert(
+        "Please Login"
+    );
 
     window.location.href =
         "login.html";
+
+    throw new Error(
+        "No staff ID found"
+    );
 
 }
 
 
 /* =====================================================
-   DISPLAY STAFF
+   LOAD DEPARTMENTS
 ===================================================== */
 
-document.getElementById(
-    "staffName"
-).textContent =
-    staffName || "";
-
-document.getElementById(
-    "department"
-).value =
-    department || "";
+loadDepartmentsFromSession();
 
 
 /* =====================================================
-   ADD GUEST
+   DISPLAY DEPARTMENTS
+===================================================== */
+
+function displayDepartments(){
+
+    const container =
+        document.getElementById(
+            "departmentContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if(headDepartments.length === 0){
+
+        container.innerHTML = `
+
+            <div
+                style="
+                    color:#dc3545;
+                    padding:10px;
+                    font-weight:bold;
+                "
+            >
+                No department assigned to this Head.
+                Please check the Head department assignment.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    headDepartments.forEach(
+        (department,index) => {
+
+            const wrapper =
+                document.createElement(
+                    "label"
+                );
+
+            wrapper.className =
+                "department-item";
+
+
+            const checkbox =
+                document.createElement(
+                    "input"
+                );
+
+            checkbox.type =
+                "checkbox";
+
+            checkbox.className =
+                "department-checkbox";
+
+            checkbox.value =
+                department;
+
+
+            /*
+               If only one department,
+               select automatically.
+            */
+
+            if(headDepartments.length === 1){
+
+                checkbox.checked =
+                    true;
+
+            }
+
+
+            const text =
+                document.createElement(
+                    "span"
+                );
+
+            text.className =
+                "department-name";
+
+            text.textContent =
+                department;
+
+
+            wrapper.appendChild(
+                checkbox
+            );
+
+            wrapper.appendChild(
+                text
+            );
+
+            container.appendChild(
+                wrapper
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   DISPLAY
+===================================================== */
+
+displayDepartments();
+
+
+/* =====================================================
+   GET SELECTED DEPARTMENTS
+===================================================== */
+
+function getSelectedDepartments(){
+
+    const checkboxes =
+        document.querySelectorAll(
+            ".department-checkbox:checked"
+        );
+
+
+    return Array.from(
+        checkboxes
+    )
+    .map(
+        checkbox =>
+            normaliseDepartment(
+                checkbox.value
+            )
+    )
+    .filter(
+        value => value !== ""
+    );
+
+}
+
+
+/* =====================================================
+   GUEST
 ===================================================== */
 
 window.addGuest = function(){
@@ -1039,7 +1216,9 @@ window.addGuest = function(){
 
 
     const row =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     row.className =
         "guest-row";
@@ -1047,84 +1226,64 @@ window.addGuest = function(){
 
     row.innerHTML = `
 
-        <div class="form-group">
+        <input
+            type="text"
+            class="guest-name"
+            placeholder="Guest Name"
+        >
 
-            <label>
-                Guest Name
-            </label>
-
-            <input
-                type="text"
-                class="guestName"
-                placeholder="Guest name"
-            >
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label>
-                Designation
-            </label>
-
-            <input
-                type="text"
-                class="guestDesignation"
-                placeholder="Designation"
-            >
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label>
-                Organisation
-            </label>
-
-            <input
-                type="text"
-                class="guestOrganisation"
-                placeholder="Organisation"
-            >
-
-        </div>
-
+        <input
+            type="text"
+            class="guest-designation"
+            placeholder="Designation / Organisation"
+        >
 
         <button
             type="button"
-            class="remove-btn"
             onclick="removeGuest(this)"
         >
-            ×
+            Remove
         </button>
 
     `;
 
 
-    container.appendChild(row);
+    container.appendChild(
+        row
+    );
 
 };
 
 
-/* =====================================================
-   REMOVE GUEST
-===================================================== */
-
 window.removeGuest = function(button){
 
+    const container =
+        document.getElementById(
+            "guestContainer"
+        );
+
+
     const rows =
-        document.querySelectorAll(
+        container.querySelectorAll(
             ".guest-row"
         );
 
 
+    /*
+       Keep at least one row.
+    */
+
     if(rows.length <= 1){
 
-        alert(
-            "At least one guest row must remain."
-        );
+        rows[0]
+            .querySelector(
+                ".guest-name"
+            ).value = "";
+
+        rows[0]
+            .querySelector(
+                ".guest-designation"
+            ).value = "";
 
         return;
 
@@ -1144,60 +1303,49 @@ window.removeGuest = function(button){
 
 function getGuests(){
 
-    const names =
+    const rows =
         document.querySelectorAll(
-            ".guestName"
-        );
-
-    const designations =
-        document.querySelectorAll(
-            ".guestDesignation"
-        );
-
-    const organisations =
-        document.querySelectorAll(
-            ".guestOrganisation"
+            ".guest-row"
         );
 
 
     const guests = [];
 
 
-    for(
-        let i = 0;
-        i < names.length;
-        i++
-    ){
+    rows.forEach(
+        row => {
 
-        const name =
-            names[i].value.trim();
-
-        const designation =
-            designations[i].value.trim();
-
-        const organisation =
-            organisations[i].value.trim();
+            const name =
+                row.querySelector(
+                    ".guest-name"
+                )?.value.trim() || "";
 
 
-        if(
-            name ||
-            designation ||
-            organisation
-        ){
+            const designation =
+                row.querySelector(
+                    ".guest-designation"
+                )?.value.trim() || "";
 
-            guests.push({
 
-                name:name,
+            if(
+                name ||
+                designation
+            ){
 
-                designation:designation,
+                guests.push({
 
-                organisation:organisation
+                    name:
+                        name,
 
-            });
+                    designation:
+                        designation
+
+                });
+
+            }
 
         }
-
-    }
+    );
 
 
     return guests;
@@ -1206,17 +1354,43 @@ function getGuests(){
 
 
 /* =====================================================
-   SUBMIT
+   SUBMIT EVENT
 ===================================================== */
 
 document.getElementById(
     "eventForm"
-).addEventListener(
+)
+.addEventListener(
     "submit",
-    async function(e){
+    async function(event){
 
-        e.preventDefault();
+        event.preventDefault();
 
+
+        /* ================================
+           GET DEPARTMENTS
+        ================================= */
+
+        const selectedDepartments =
+            getSelectedDepartments();
+
+
+        if(
+            selectedDepartments.length === 0
+        ){
+
+            alert(
+                "Please select at least one Organising Department."
+            );
+
+            return;
+
+        }
+
+
+        /* ================================
+           GET FORM VALUES
+        ================================= */
 
         const eventName =
             document.getElementById(
@@ -1288,9 +1462,9 @@ document.getElementById(
             getGuests();
 
 
-        /* ===============================
+        /* ================================
            TIME CHECK
-        =============================== */
+        ================================= */
 
         if(startTime >= endTime){
 
@@ -1303,19 +1477,39 @@ document.getElementById(
         }
 
 
+        /* ================================
+           BUTTON
+        ================================= */
+
         const submitBtn =
             document.getElementById(
                 "submitBtn"
             );
 
 
-        submitBtn.disabled = true;
+        submitBtn.disabled =
+            true;
+
 
         submitBtn.textContent =
             "Submitting...";
 
 
         try{
+
+
+            /* =========================================
+               FIRESTORE
+
+               NEW:
+               organisingDepartments = array
+
+               OLD:
+               organisingDepartment = first department
+
+               This keeps compatibility with
+               existing records.
+            ========================================= */
 
             await addDoc(
 
@@ -1326,32 +1520,66 @@ document.getElementById(
 
                 {
 
-                    eventName:eventName,
+                    /* ================= EVENT ================= */
 
-                    eventType:eventType,
+                    eventName:
+                        eventName,
 
-                    eventDate:eventDate,
+                    eventType:
+                        eventType,
 
-                    startTime:startTime,
+                    eventDate:
+                        eventDate,
 
-                    endTime:endTime,
+                    startTime:
+                        startTime,
 
-                    venue:venue,
+                    endTime:
+                        endTime,
+
+                    venue:
+                        venue,
 
                     participants:
                         Number(participants),
 
+
+                    /* =========================================
+                       MULTIPLE ORGANISING DEPARTMENTS
+                    ========================================= */
+
+                    organisingDepartments:
+                        selectedDepartments,
+
+
+                    /*
+                       Backward compatibility.
+
+                       For an event belonging to multiple
+                       departments, this contains the first
+                       department.
+                    */
+
                     organisingDepartment:
-                        department,
+                        selectedDepartments[0],
+
+
+                    /* ================= REQUESTER ================= */
 
                     requestedByStaffId:
                         staffId,
 
                     requestedByStaffName:
-                        staffName,
+                        staffName || "",
+
+
+                    /* ================= FORWARD ================= */
 
                     targetDepartment:
                         targetDepartment,
+
+
+                    /* ================= DETAILS ================= */
 
                     description:
                         description,
@@ -1366,7 +1594,7 @@ document.getElementById(
                         guests,
 
 
-                    /* WORKFLOW */
+                    /* ================= WORKFLOW ================= */
 
                     status:
                         "Pending Dean Approval",
@@ -1380,6 +1608,9 @@ document.getElementById(
                     deanRemarks:
                         "",
 
+
+                    /* ================= FORWARD STATUS ================= */
+
                     forwardedByDean:
                         false,
 
@@ -1388,6 +1619,9 @@ document.getElementById(
 
                     forwardedAt:
                         null,
+
+
+                    /* ================= TIMESTAMP ================= */
 
                     submittedAt:
                         serverTimestamp(),
@@ -1401,13 +1635,23 @@ document.getElementById(
 
 
             alert(
-                "Event Request submitted successfully.\n\nSent to Dean for approval."
+
+                "Event Request submitted successfully.\n\n" +
+
+                "Organising Department(s): " +
+
+                selectedDepartments.join(", ") +
+
+                "\n\nSent to Dean for approval."
+
             );
 
 
             clearForm();
 
+
             loadMyRequests();
+
 
         }
         catch(error){
@@ -1419,8 +1663,11 @@ document.getElementById(
 
 
             alert(
+
                 "Unable to submit Event Request.\n\n" +
+
                 error.message
+
             );
 
         }
@@ -1449,11 +1696,37 @@ window.clearForm = function(){
     ).reset();
 
 
-    document.getElementById(
-        "department"
-    ).value =
-        department || "";
+    /*
+       Re-select all departments
+       after form reset.
+    */
 
+    document.querySelectorAll(
+        ".department-checkbox"
+    )
+    .forEach(
+        checkbox => {
+
+            if(headDepartments.length === 1){
+
+                checkbox.checked =
+                    true;
+
+            }
+            else{
+
+                checkbox.checked =
+                    false;
+
+            }
+
+        }
+    );
+
+
+    /*
+       Reset guests
+    */
 
     document.getElementById(
         "guestContainer"
@@ -1461,57 +1734,23 @@ window.clearForm = function(){
 
         <div class="guest-row">
 
-            <div class="form-group">
+            <input
+                type="text"
+                class="guest-name"
+                placeholder="Guest Name"
+            >
 
-                <label>
-                    Guest Name
-                </label>
-
-                <input
-                    type="text"
-                    class="guestName"
-                    placeholder="Guest name"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Designation
-                </label>
-
-                <input
-                    type="text"
-                    class="guestDesignation"
-                    placeholder="Designation"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Organisation
-                </label>
-
-                <input
-                    type="text"
-                    class="guestOrganisation"
-                    placeholder="Organisation"
-                >
-
-            </div>
-
+            <input
+                type="text"
+                class="guest-designation"
+                placeholder="Designation / Organisation"
+            >
 
             <button
                 type="button"
-                class="remove-btn"
                 onclick="removeGuest(this)"
             >
-                ×
+                Remove
             </button>
 
         </div>
@@ -1532,6 +1771,7 @@ async function loadMyRequests(){
             "requestLoading"
         );
 
+
     const table =
         document.getElementById(
             "requestTable"
@@ -1542,25 +1782,27 @@ async function loadMyRequests(){
         "block";
 
 
-    table.innerHTML = "";
+    table.innerHTML =
+        "";
 
 
     try{
 
-        const q = query(
+        const q =
+            query(
 
-            collection(
-                db,
-                "eventRequests"
-            ),
+                collection(
+                    db,
+                    "eventRequests"
+                ),
 
-            where(
-                "requestedByStaffId",
-                "==",
-                staffId
-            )
+                where(
+                    "requestedByStaffId",
+                    "==",
+                    staffId
+                )
 
-        );
+            );
 
 
         const snap =
@@ -1581,7 +1823,7 @@ async function loadMyRequests(){
                         colspan="7"
                         class="empty"
                     >
-                        No Event Requests found.
+                        No event requests found.
                     </td>
 
                 </tr>
@@ -1593,29 +1835,38 @@ async function loadMyRequests(){
         }
 
 
-        const requests =
-            snap.docs.map(
-                doc => ({
-                    id:doc.id,
-                    ...doc.data()
-                })
-            );
+        const requests = [];
 
+
+        snap.forEach(
+            doc => {
+
+                requests.push({
+
+                    id:
+                        doc.id,
+
+                    data:
+                        doc.data()
+
+                });
+
+            }
+        );
+
+
+        /*
+           Newest first.
+        */
 
         requests.sort(
             (a,b) => {
 
                 const aTime =
-                    a.submittedAt &&
-                    a.submittedAt.toMillis
-                    ? a.submittedAt.toMillis()
-                    : 0;
+                    a.data.submittedAt?.seconds || 0;
 
                 const bTime =
-                    b.submittedAt &&
-                    b.submittedAt.toMillis
-                    ? b.submittedAt.toMillis()
-                    : 0;
+                    b.data.submittedAt?.seconds || 0;
 
                 return bTime - aTime;
 
@@ -1624,103 +1875,197 @@ async function loadMyRequests(){
 
 
         requests.forEach(
-            request => {
+            item => {
 
-                const tr =
+                const data =
+                    item.data;
+
+
+                /*
+                   NEW records use array.
+
+                   OLD records use single
+                   organisingDepartment.
+                */
+
+                let departments = [];
+
+
+                if(
+                    Array.isArray(
+                        data.organisingDepartments
+                    )
+                ){
+
+                    departments =
+                        data.organisingDepartments;
+
+                }
+                else if(
+                    data.organisingDepartment
+                ){
+
+                    departments = [
+                        data.organisingDepartment
+                    ];
+
+                }
+
+
+                const departmentText =
+                    departments.length
+                        ? departments.join(", ")
+                        : "-";
+
+
+                let statusClass =
+                    "pending";
+
+
+                const status =
+                    data.status ||
+                    "Pending";
+
+
+                const statusLower =
+                    String(status)
+                        .toLowerCase();
+
+
+                if(
+                    statusLower.includes(
+                        "approved"
+                    )
+                ){
+
+                    statusClass =
+                        "approved";
+
+                }
+
+
+                if(
+                    statusLower.includes(
+                        "rejected"
+                    )
+                ){
+
+                    statusClass =
+                        "rejected";
+
+                }
+
+
+                if(
+                    statusLower.includes(
+                        "forward"
+                    )
+                ){
+
+                    statusClass =
+                        "forwarded";
+
+                }
+
+
+                const row =
                     document.createElement(
                         "tr"
                     );
 
 
-                const guests =
-                    Array.isArray(
-                        request.guests
-                    )
-                    ? request.guests
-                    : [];
+                row.innerHTML = `
 
+                    <td>
 
-                const guestText =
-                    guests.length
-                    ? guests
-                        .map(
-                            g => g.name || ""
-                        )
-                        .filter(Boolean)
-                        .join(", ")
-                    : "No Guest";
+                        <strong>
+                            ${escapeHtml(
+                                data.eventName || "-"
+                            )}
+                        </strong>
 
+                        <br>
 
-                const status =
-                    request.status ||
-                    "Pending Dean Approval";
+                        <small>
+                            ${escapeHtml(
+                                data.eventType || "-"
+                            )}
+                        </small>
 
+                    </td>
 
-                const statusClass =
-                    getStatusClass(
-                        status
-                    );
-
-
-                tr.innerHTML = `
 
                     <td>
                         ${escapeHtml(
-                            request.eventName || "-"
+                            departmentText
                         )}
                     </td>
 
-                    <td>
-                        ${escapeHtml(
-                            request.eventType || "-"
-                        )}
-                    </td>
 
                     <td>
                         ${escapeHtml(
-                            request.eventDate || "-"
+                            data.eventDate || "-"
                         )}
+                        <br>
+                        <small>
+                            ${
+                                escapeHtml(
+                                    data.startTime || ""
+                                )
+                            }
+                            -
+                            ${
+                                escapeHtml(
+                                    data.endTime || ""
+                                )
+                            }
+                        </small>
                     </td>
+
 
                     <td>
                         ${escapeHtml(
-                            request.venue || "-"
+                            data.venue || "-"
                         )}
                     </td>
 
-                    <td>
-                        ${escapeHtml(
-                            guestText
-                        )}
-                    </td>
 
                     <td>
 
                         <span
                             class="status ${statusClass}"
                         >
-
                             ${escapeHtml(
                                 status
                             )}
-
                         </span>
 
                     </td>
 
+
                     <td>
                         ${escapeHtml(
-                            request.deanRemarks || "-"
+                            data.deanRemarks || "-"
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            data.forwardedToDepartment || "-"
                         )}
                     </td>
 
                 `;
 
 
-                table.appendChild(tr);
+                table.appendChild(
+                    row
+                );
 
             }
         );
+
 
     }
     catch(error){
@@ -1743,7 +2088,15 @@ async function loadMyRequests(){
                     colspan="7"
                     class="empty"
                 >
-                    Unable to load Event Requests.
+
+                    Unable to load event requests.
+
+                    <br><br>
+
+                    ${escapeHtml(
+                        error.message
+                    )}
+
                 </td>
 
             </tr>
@@ -1756,78 +2109,30 @@ async function loadMyRequests(){
 
 
 /* =====================================================
-   STATUS CLASS
-===================================================== */
-
-function getStatusClass(status){
-
-    const value =
-        String(status)
-        .toLowerCase();
-
-
-    if(
-        value.includes("approved")
-    ){
-
-        return "approved";
-
-    }
-
-
-    if(
-        value.includes("rejected")
-    ){
-
-        return "rejected";
-
-    }
-
-
-    if(
-        value.includes("forwarded")
-    ){
-
-        return "forwarded";
-
-    }
-
-
-    return "pending";
-
-}
-
-
-/* =====================================================
    ESCAPE HTML
 ===================================================== */
 
 function escapeHtml(value){
 
     return String(value ?? "")
-
-        .replaceAll(
-            "&",
+        .replace(
+            /&/g,
             "&amp;"
         )
-
-        .replaceAll(
-            "<",
+        .replace(
+            /</g,
             "&lt;"
         )
-
-        .replaceAll(
-            ">",
+        .replace(
+            />/g,
             "&gt;"
         )
-
-        .replaceAll(
-            '"',
+        .replace(
+            /"/g,
             "&quot;"
         )
-
-        .replaceAll(
-            "'",
+        .replace(
+            /'/g,
             "&#039;"
         );
 
@@ -1840,18 +2145,7 @@ function escapeHtml(value){
 
 loadMyRequests();
 
-
-/* =====================================================
-   AUTO REFRESH
-===================================================== */
-
-setInterval(
-    loadMyRequests,
-    30000
-);
-
 </script>
-
 
 </body>
 
