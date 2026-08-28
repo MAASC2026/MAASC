@@ -1,65 +1,221 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0">
 
 <title>Student Reports</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+      href="https://maasc2026.github.io/MAASC/style.css">
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <style>
 
 .tabs{
-
-display:flex;
-
-gap:10px;
-
-margin-bottom:20px;
-
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
 }
 
 .tabBtn{
-
-padding:12px 20px;
-
-border:none;
-
-background:#1976d2;
-
-color:white;
-
-cursor:pointer;
-
-border-radius:6px;
-
-font-size:15px;
-
+    padding:12px 20px;
+    border:none;
+    background:#1976d2;
+    color:white;
+    cursor:pointer;
+    border-radius:6px;
+    font-size:15px;
 }
 
 .tabBtn.active{
-
-background:#0d47a1;
-
+    background:#0d47a1;
 }
 
 .tabContent{
-
-display:none;
-
+    display:none;
 }
 
 .tabContent.active{
+    display:block;
+}
 
-display:block;
+.form-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(4,minmax(180px,1fr));
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:14px;
+    background:white;
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.action-btn{
+    border:none;
+    padding:12px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+}
+
+.load-btn{
+    background:#1976d2;
+}
+
+.print-btn{
+    background:#500454;
+}
+
+.excel-btn{
+    background:#15803d;
+}
+
+.action-btn:hover{
+    opacity:.9;
+}
+
+.total-box{
+    background:#f8f4f9;
+    border:1px solid #ead9ec;
+    border-radius:8px;
+    padding:15px;
+    margin-bottom:20px;
+    color:#500454;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:left;
+}
+
+th{
+    background:#500454;
+    color:white;
+}
+
+tbody tr:nth-child(even){
+    background:#fafafa;
+}
+
+.loading{
+    text-align:center;
+    padding:30px;
+    color:#500454;
+    font-weight:bold;
+}
+
+.empty{
+    text-align:center;
+    padding:30px;
+    color:#777;
+}
+
+.error{
+    display:none;
+    background:#fee2e2;
+    color:#991b1b;
+    border:1px solid #fecaca;
+    padding:14px;
+    border-radius:7px;
+    margin-bottom:15px;
+}
+
+@media(max-width:900px){
+
+    .form-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    .action-btn{
+        width:100%;
+    }
+
+}
+
+@media print{
+
+    .sidebar,
+    .tabs,
+    .buttons,
+    .form-grid,
+    header p{
+        display:none !important;
+    }
+
+    .main{
+        margin:0 !important;
+        padding:0 !important;
+    }
+
+    .container{
+        box-shadow:none !important;
+    }
+
+    table{
+        font-size:12px;
+    }
 
 }
 
@@ -67,198 +223,354 @@ display:block;
 
 </head>
 
+
 <body>
 
-<!-- Sidebar -->
+
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
-<div class="logo">
+    <div class="logo">
 
-<h2>MAASC</h2>
+        <h2>MAASC</h2>
 
-<p>Student Management</p>
+        <p>Student Management</p>
+
+    </div>
+
+
+    <ul>
+
+        <li>
+            <a href="student.html">
+                <i class="fa fa-home"></i>
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="upload.html">
+                <i class="fa fa-upload"></i>
+                Upload Students
+            </a>
+        </li>
+
+        <li>
+            <a href="register.html">
+                <i class="fa fa-id-card"></i>
+                Register Numbers
+            </a>
+        </li>
+
+        <li>
+            <a href="records.html">
+                <i class="fa fa-users"></i>
+                Student Records
+            </a>
+        </li>
+
+        <li class="active">
+            <a href="reports.html">
+                <i class="fa fa-chart-bar"></i>
+                Reports
+            </a>
+        </li>
+
+        <li>
+            <a href="export.html">
+                <i class="fa fa-file-excel"></i>
+                Export
+            </a>
+        </li>
+
+    </ul>
 
 </div>
 
-<ul>
 
-<li><a href="student.html"><i class="fa fa-home"></i> Dashboard</a></li>
-
-<li><a href="upload.html"><i class="fa fa-upload"></i> Upload Students</a></li>
-
-<li><a href="register.html"><i class="fa fa-id-card"></i> Register Numbers</a></li>
-
-<li><a href="records.html"><i class="fa fa-users"></i> Student Records</a></li>
-
-<li class="active"><a href="reports.html"><i class="fa fa-chart-bar"></i> Reports</a></li>
-
-<li><a href="export.html"><i class="fa fa-file-excel"></i> Export</a></li>
-
-</ul>
-
-</div>
-
-<!-- Main -->
+<!-- MAIN -->
 
 <div class="main">
 
+
 <header>
 
-<h1>Reports</h1>
+    <h1>Reports</h1>
 
-<p>Generate Class Reports</p>
+    <p>
+        Generate Class Reports
+    </p>
 
 </header>
 
+
 <div class="container">
+
+
+<!-- TABS -->
 
 <div class="tabs">
 
-<button class="tabBtn active" data-tab="classList">
+    <button
+        class="tabBtn active"
+        data-tab="classList"
+    >
+        Class List
+    </button>
 
-Class List
 
-</button>
+    <button
+        class="tabBtn"
+        data-tab="attendance"
+    >
+        Attendance Sheet
+    </button>
 
-<button class="tabBtn" data-tab="attendance">
 
-Attendance Sheet
+    <button
+        class="tabBtn"
+        data-tab="nominal"
+    >
+        Nominal Roll
+    </button>
 
-</button>
 
-<button class="tabBtn" data-tab="nominal">
-
-Nominal Roll
-
-</button>
-
-<button class="tabBtn" data-tab="register">
-
-Register List
-
-</button>
+    <button
+        class="tabBtn"
+        data-tab="register"
+    >
+        Register List
+    </button>
 
 </div>
 
-<!-- CLASS LIST -->
-
-<div id="classList" class="tabContent active">
-
-<label>Academic Year</label>
-
-<select id="academicYear">
-
-<option value="">Select Academic Year</option>
 
 
-<option>2026-2029</option>
-<option>2025-2028</option>
-<option>2024-2027</option>
+<!-- =====================================================
+     CLASS LIST
+===================================================== -->
+
+<div
+    id="classList"
+    class="tabContent active"
+>
 
 
-</select>
+<div class="form-grid">
 
-<label>Department</label>
 
-<select id="department">
+    <!-- ACADEMIC YEAR -->
 
-<option value="">Select Department</option>
+    <div class="form-group">
 
-<option>B.Com General</option>
-<option>B.Com BM</option>
-<option>B.Com MM</option>
-<option>B.Com CS</option>
-<option>B.Com A&F</option>
-<option>B.Com ISM</option>
-<option>B.Com CA</option>
-<option>B.Com BUS.AD</option>
+        <label>
+            Academic Year
+        </label>
 
-<option>B.A DEFENCE</option>
-<option>B.A PUB.AD</option>
-<option>B.A TAMIL</option>
-<option>B.A TOURISM</option>
+        <select id="academicYear">
 
-<option>B.Sc CS</option>
-<option>B.Sc CS WITH AI</option>
-<option>B.Sc CRIMINOLOGY</option>
-<option>B.Sc SA</option>
-<option>B.Sc PHYS WITH CA</option>
-<option>B.Sc MATHS WITH CA</option>
-<option>B.Sc ELECTRONICS WITH AI</option>
-<option>B.Sc VISCOM</option>
-<option>B.Sc ELECTRONIC MEDIA</option>
-<option>B.Sc IDD</option>
-<option>B.Sc PHYSICS</option>
+            <option value="">
+                Select Academic Year
+            </option>
 
-<option>BCA COMPUTER APPLICATION</option>
+            <option value="2026-2029">
+                2026-2029
+            </option>
 
-</select>
+            <option value="2025-2028">
+                2025-2028
+            </option>
 
-<label>Year</label>
+            <option value="2024-2027">
+                2024-2027
+            </option>
 
-<select id="year">
+        </select>
 
-<option value="">Select Year</option>
+    </div>
 
-<option>I</option>
-<option>II</option>
-<option>III</option>
 
-</select>
+    <!-- DEPARTMENT -->
 
-<label>Section</label>
+    <div class="form-group">
 
-<select id="section">
+        <label>
+            Department
+        </label>
 
-<option value="">Select Section</option>
+        <select id="department">
 
-<option>A</option>
-<option>B</option>
-<option>C</option>
-<option>D</option>
+            <option value="">
+                Select Department
+            </option>
 
-</select>
+            <option>B.Com General</option>
+            <option>B.Com BM</option>
+            <option>B.Com MM</option>
+            <option>B.Com CS</option>
+            <option>B.Com A&F</option>
+            <option>B.Com ISM</option>
+            <option>B.Com CA</option>
+            <option>B.Com BUS.AD</option>
 
-<br><br>
+            <option>B.A DEFENCE</option>
+            <option>B.A PUB.AD</option>
+            <option>B.A TAMIL</option>
+            <option>B.A TOURISM</option>
 
-<button id="loadClass">
+            <option>B.Sc CS</option>
+            <option>B.Sc CS WITH AI</option>
+            <option>B.Sc CRIMINOLOGY</option>
+            <option>B.Sc SA</option>
+            <option>B.Sc PHYS WITH CA</option>
+            <option>B.Sc MATHS WITH CA</option>
+            <option>B.Sc ELECTRONICS WITH AI</option>
+            <option>B.Sc VISCOM</option>
+            <option>B.Sc ELECTRONIC MEDIA</option>
+            <option>B.Sc IDD</option>
+            <option>B.Sc PHYSICS</option>
 
-<i class="fa fa-search"></i>
+            <option>BCA COMPUTER APPLICATION</option>
 
-Load Class
+        </select>
 
-</button>
+    </div>
 
-<button id="printClass">
 
-<i class="fa fa-print"></i>
+    <!-- YEAR -->
 
-Print
+    <div class="form-group">
 
-</button>
+        <label>
+            Year
+        </label>
 
-<button id="excelClass">
+        <select id="year">
 
-<i class="fa fa-file-excel"></i>
+            <option value="">
+                Select Year
+            </option>
 
-Export Excel
+            <option>I</option>
+            <option>II</option>
+            <option>III</option>
 
-</button>
+        </select>
 
-<br><br>
+    </div>
 
-<h3>
 
-Total Students :
+    <!-- SECTION -->
 
-<span id="totalStudents">
+    <div class="form-group">
 
-0
+        <label>
+            Section
+        </label>
 
-</span>
+        <select id="section">
 
-</h3>
+            <option value="">
+                Select Section
+            </option>
+
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+
+<div class="buttons">
+
+    <button
+        class="action-btn load-btn"
+        id="loadClass"
+    >
+
+        <i class="fa fa-search"></i>
+
+        Load Class
+
+    </button>
+
+
+    <button
+        class="action-btn print-btn"
+        id="printClass"
+    >
+
+        <i class="fa fa-print"></i>
+
+        Print
+
+    </button>
+
+
+    <button
+        class="action-btn excel-btn"
+        id="excelClass"
+    >
+
+        <i class="fa fa-file-excel"></i>
+
+        Export Excel
+
+    </button>
+
+</div>
+
+
+
+<div
+    class="error"
+    id="errorBox"
+></div>
+
+
+
+<div class="total-box">
+
+    Total Students :
+
+    <span id="totalStudents">
+        0
+    </span>
+
+</div>
+
+
+
+<div
+    class="loading"
+    id="loading"
+    style="display:none;"
+>
+
+    Loading students...
+
+</div>
+
+
+
+<div
+    class="empty"
+    id="empty"
+>
+
+    Select the class details and click
+    <strong>Load Class</strong>.
+
+</div>
+
+
 
 <div class="table-wrapper">
 
@@ -268,19 +580,28 @@ Total Students :
 
 <tr>
 
-<th>S.No</th>
+    <th>
+        S.No
+    </th>
 
-<th>Register No</th>
+    <th>
+        Register No
+    </th>
 
-<th>Roll No</th>
+    <th>
+        Roll No
+    </th>
 
-<th>Student Name</th>
+    <th>
+        Student Name
+    </th>
 
 </tr>
 
 </thead>
 
-<tbody>
+
+<tbody id="classTableBody">
 
 </tbody>
 
@@ -288,94 +609,909 @@ Total Students :
 
 </div>
 
-</div>
-
-<!-- Attendance -->
-
-<div id="attendance" class="tabContent">
-
-<h2>
-
-Attendance Sheet
-
-</h2>
-
-<p>
-
-Coming in Part 10C
-
-</p>
 
 </div>
 
-<!-- Nominal -->
 
-<div id="nominal" class="tabContent">
 
-<h2>
+<!-- =====================================================
+     ATTENDANCE
+===================================================== -->
 
-Nominal Roll
+<div
+    id="attendance"
+    class="tabContent"
+>
 
-</h2>
+    <h2>
+        Attendance Sheet
+    </h2>
 
-<p>
-
-Coming in Part 10D
-
-</p>
-
-</div>
-
-<!-- Register -->
-
-<div id="register" class="tabContent">
-
-<h2>
-
-University Register List
-
-</h2>
-
-<p>
-
-Coming in Part 10E
-
-</p>
+    <p>
+        Coming in Part 10C
+    </p>
 
 </div>
 
+
+
+<!-- =====================================================
+     NOMINAL
+===================================================== -->
+
+<div
+    id="nominal"
+    class="tabContent"
+>
+
+    <h2>
+        Nominal Roll
+    </h2>
+
+    <p>
+        Coming in Part 10D
+    </p>
+
+</div>
+
+
+
+<!-- =====================================================
+     REGISTER
+===================================================== -->
+
+<div
+    id="register"
+    class="tabContent"
+>
+
+    <h2>
+        University Register List
+    </h2>
+
+    <p>
+        Coming in Part 10E
+    </p>
+
+</div>
+
+
 </div>
 
 </div>
 
-<script type="module" src="reports.js"></script>
 
-<script>
 
-const buttons=document.querySelectorAll(".tabBtn");
+<script type="module">
 
-buttons.forEach(btn=>{
+import { db } from "./firebase-config.js";
 
-btn.onclick=function(){
+import {
 
-document.querySelectorAll(".tabBtn")
-.forEach(b=>b.classList.remove("active"));
+    collection,
+    getDocs
 
-document.querySelectorAll(".tabContent")
-.forEach(c=>c.classList.remove("active"));
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-btn.classList.add("active");
 
-document.getElementById(
-btn.dataset.tab
-).classList.add("active");
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+let loadedStudents = [];
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function clean(value){
+
+    return String(
+        value ?? ""
+    ).trim();
 
 }
 
-});
+
+function upper(value){
+
+    return clean(
+        value
+    ).toUpperCase();
+
+}
+
+
+function firstValue(
+    data,
+    fields
+){
+
+    for(
+        const field of fields
+    ){
+
+        if(
+            data[field] !== undefined &&
+            data[field] !== null &&
+            clean(data[field]) !== ""
+        ){
+
+            return clean(
+                data[field]
+            );
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   TAB SYSTEM
+===================================================== */
+
+document
+.querySelectorAll(".tabBtn")
+.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                document
+                .querySelectorAll(
+                    ".tabBtn"
+                )
+                .forEach(
+                    b =>
+                        b.classList
+                         .remove("active")
+                );
+
+
+                document
+                .querySelectorAll(
+                    ".tabContent"
+                )
+                .forEach(
+                    content =>
+                        content.classList
+                               .remove("active")
+                );
+
+
+                this.classList.add(
+                    "active"
+                );
+
+
+                document
+                .getElementById(
+                    this.dataset.tab
+                )
+                .classList.add(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   LOAD CLASS
+===================================================== */
+
+document
+.getElementById("loadClass")
+.addEventListener(
+    "click",
+    loadClass
+);
+
+
+async function loadClass(){
+
+    const academicYear =
+        clean(
+            document.getElementById(
+                "academicYear"
+            ).value
+        );
+
+
+    const department =
+        clean(
+            document.getElementById(
+                "department"
+            ).value
+        );
+
+
+    const year =
+        clean(
+            document.getElementById(
+                "year"
+            ).value
+        );
+
+
+    const section =
+        clean(
+            document.getElementById(
+                "section"
+            ).value
+        );
+
+
+    if(!department){
+
+        showError(
+            "Please select Department."
+        );
+
+        return;
+
+    }
+
+
+    if(!year){
+
+        showError(
+            "Please select Year."
+        );
+
+        return;
+
+    }
+
+
+    if(!section){
+
+        showError(
+            "Please select Section."
+        );
+
+        return;
+
+    }
+
+
+    hideError();
+
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+
+    const tbody =
+        document.getElementById(
+            "classTableBody"
+        );
+
+
+    loading.style.display =
+        "block";
+
+    empty.style.display =
+        "none";
+
+    tbody.innerHTML =
+        "";
+
+    loadedStudents =
+        [];
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+
+                collection(
+                    db,
+                    "students"
+                )
+
+            );
+
+
+        snapshot.forEach(
+            documentSnapshot => {
+
+                const data =
+                    documentSnapshot.data()
+                    || {};
+
+
+                /*
+                   Support the common field
+                   names used in the MAASC
+                   student records.
+                */
+
+                const studentDepartment =
+                    firstValue(
+                        data,
+                        [
+                            "department",
+                            "dept",
+                            "Department"
+                        ]
+                    );
+
+
+                const studentYear =
+                    firstValue(
+                        data,
+                        [
+                            "year",
+                            "classYear",
+                            "Year"
+                        ]
+                    );
+
+
+                const studentSection =
+                    firstValue(
+                        data,
+                        [
+                            "section",
+                            "sec",
+                            "classSection",
+                            "Section"
+                        ]
+                    );
+
+
+                const studentAcademicYear =
+                    firstValue(
+                        data,
+                        [
+                            "academicYear",
+                            "academic_year",
+                            "Academic Year"
+                        ]
+                    );
+
+
+                /*
+                   Department
+                */
+
+                if(
+                    upper(
+                        studentDepartment
+                    ) !==
+                    upper(
+                        department
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                /*
+                   Year
+                */
+
+                if(
+                    upper(
+                        studentYear
+                    ) !==
+                    upper(
+                        year
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                /*
+                   Section
+                */
+
+                if(
+                    upper(
+                        studentSection
+                    ) !==
+                    upper(
+                        section
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                /*
+                   Academic Year is checked
+                   only if the student document
+                   actually contains one.
+
+                   This prevents old student
+                   records without academicYear
+                   from disappearing.
+                */
+
+                if(
+                    academicYear &&
+                    studentAcademicYear &&
+                    upper(
+                        studentAcademicYear
+                    ) !==
+                    upper(
+                        academicYear
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                const rollNo =
+                    firstValue(
+                        data,
+                        [
+                            "rollNo",
+                            "rollno",
+                            "rollNumber",
+                            "Roll No"
+                        ]
+                    );
+
+
+                const registerNo =
+                    firstValue(
+                        data,
+                        [
+                            "registerNo",
+                            "registrationNo",
+                            "regNo",
+                            "registerNumber",
+                            "Register No"
+                        ]
+                    );
+
+
+                const name =
+                    firstValue(
+                        data,
+                        [
+                            "name",
+                            "studentName",
+                            "student_name",
+                            "Name"
+                        ]
+                    );
+
+
+                /*
+                   Do not show records
+                   without Roll No.
+                */
+
+                if(!rollNo){
+
+                    return;
+
+                }
+
+
+                loadedStudents.push({
+
+                    id:
+                        documentSnapshot.id,
+
+                    registerNo:
+                        registerNo,
+
+                    rollNo:
+                        rollNo,
+
+                    name:
+                        name
+
+                });
+
+            }
+        );
+
+
+        /*
+           Sort by Roll Number.
+        */
+
+        loadedStudents.sort(
+            (
+                a,
+                b
+            ) => {
+
+                return a.rollNo.localeCompare(
+                    b.rollNo,
+                    undefined,
+                    {
+                        numeric:true,
+                        sensitivity:"base"
+                    }
+                );
+
+            }
+        );
+
+
+        renderStudents();
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Class report error:",
+            error
+        );
+
+
+        showError(
+            "Unable to load students: " +
+            error.message
+        );
+
+    }
+    finally{
+
+        loading.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER STUDENTS
+===================================================== */
+
+function renderStudents(){
+
+    const tbody =
+        document.getElementById(
+            "classTableBody"
+        );
+
+
+    tbody.innerHTML =
+        "";
+
+
+    document.getElementById(
+        "totalStudents"
+    ).textContent =
+        loadedStudents.length;
+
+
+    if(!loadedStudents.length){
+
+        document.getElementById(
+            "empty"
+        ).style.display =
+            "block";
+
+
+        document.getElementById(
+            "empty"
+        ).innerHTML =
+
+            `
+            No students found for the
+            selected class.
+            `;
+
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "empty"
+    ).style.display =
+        "none";
+
+
+    loadedStudents.forEach(
+        (
+            student,
+            index
+        ) => {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        student.registerNo ||
+                        "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        student.rollNo
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        student.name ||
+                        "-"
+                    )}
+                </td>
+
+            `;
+
+
+            tbody.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+document
+.getElementById("printClass")
+.addEventListener(
+    "click",
+    function(){
+
+        if(
+            !loadedStudents.length
+        ){
+
+            alert(
+                "Please load a class first."
+            );
+
+            return;
+
+        }
+
+
+        window.print();
+
+    }
+);
+
+
+/* =====================================================
+   EXCEL
+===================================================== */
+
+document
+.getElementById("excelClass")
+.addEventListener(
+    "click",
+    function(){
+
+        if(
+            !loadedStudents.length
+        ){
+
+            alert(
+                "Please load a class first."
+            );
+
+            return;
+
+        }
+
+
+        const department =
+            document.getElementById(
+                "department"
+            ).value;
+
+
+        const year =
+            document.getElementById(
+                "year"
+            ).value;
+
+
+        const section =
+            document.getElementById(
+                "section"
+            ).value;
+
+
+        const rows =
+            loadedStudents.map(
+                (
+                    student,
+                    index
+                ) => ({
+
+                    "S.No":
+                        index + 1,
+
+                    "Register No":
+                        student.registerNo ||
+                        "",
+
+                    "Roll No":
+                        student.rollNo,
+
+                    "Student Name":
+                        student.name ||
+                        ""
+
+                })
+            );
+
+
+        const worksheet =
+            XLSX.utils.json_to_sheet(
+                rows
+            );
+
+
+        const workbook =
+            XLSX.utils.book_new();
+
+
+        XLSX.utils.book_append_sheet(
+            workbook,
+            worksheet,
+            "Class List"
+        );
+
+
+        const filename =
+
+            (
+                department
+                .replace(
+                    /[^a-z0-9]+/gi,
+                    "_"
+                )
+            )
+
+            +
+
+            "_"
+
+            +
+
+            year
+
+            +
+
+            "_"
+
+            +
+
+            section
+
+            +
+
+            "_Class_List.xlsx";
+
+
+        XLSX.writeFile(
+            workbook,
+            filename
+        );
+
+    }
+);
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(
+    message
+){
+
+    const box =
+        document.getElementById(
+            "errorBox"
+        );
+
+
+    box.textContent =
+        message;
+
+
+    box.style.display =
+        "block";
+
+}
+
+
+function hideError(){
+
+    document.getElementById(
+        "errorBox"
+    ).style.display =
+        "none";
+
+}
 
 </script>
 
 </body>
 
 </html>
+```
