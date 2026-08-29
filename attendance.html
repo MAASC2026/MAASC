@@ -427,7 +427,7 @@ import { db } from "./firebase-config.js";
 
 import {
     collection,
-    getDocs as firestoreGetDocs
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import {
@@ -604,164 +604,56 @@ function readStorageStaffId(){
 }
 
 /* =========================================================
-   AUTH USER
+   STAFF ID FROM STAFF DASHBOARD
+
+   IMPORTANT:
+   attendance.html is opened FROM the Staff Dashboard.
+   The dashboard already identifies the logged-in staff using:
+       sessionStorage.staffId
+       sessionStorage.staffName
+
+   Therefore this page MUST use that exact dashboard identity.
+   It must NOT try to identify another staff member through
+   Firebase Auth, localStorage, email, UID, or staff name.
 ========================================================= */
 
-function waitForAuthUser(){
-    return new Promise(resolve=>{
-        let settled = false;
-        let unsubscribe = null;
-
-        const finish = user => {
-            if(settled) return;
-            settled = true;
-            if(unsubscribe){
-                try{ unsubscribe(); }catch(e){}
-            }
-            resolve(user || null);
-        };
-
-        try{
-            unsubscribe = onAuthStateChanged(auth, user => {
-                if(user) finish(user);
-            });
-
-            setTimeout(() => {
-                finish(auth.currentUser || null);
-            }, 4000);
-        }catch(error){
-            console.error("AUTH STATE ERROR:", error);
-            finish(auth.currentUser || null);
-        }
-    });
-}
-
-/* =========================================================
-   FIND EXACT STAFF PROFILE
-
-   Priority:
-   1. Firebase UID field / document ID
-   2. Firebase email
-   3. Login-provided Staff ID, but ONLY after matching it
-      against the Firestore staff collection
-
-   A stale localStorage value can therefore NEVER silently
-   become another person's identity when Firebase Auth is active.
-========================================================= */
-
-async function findStaffProfile(user){
-    const snapshot = await firestoreGetDocs(collection(db,"staff"));
-
-    const docs = snapshot.docs;
-    let uidMatch = null;
-    let emailMatch = null;
-    let storedIdMatch = null;
-
-    const storedId = readStorageStaffId();
-    const storedNorm = normalizeStaffId(storedId);
-
-    for(const docSnap of docs){
-        const data = docSnap.data() || {};
-        const dbId = getStaffIdFromData(data, docSnap.id);
-        const dbNorm = normalizeStaffId(dbId);
-        const dbUid = getUidFromData(data);
-        const dbEmail = getEmailFromData(data);
-
-        if(user?.uid && dbUid && dbUid === user.uid){
-            uidMatch = { id:docSnap.id, data, dbId };
-        }
-
-        if(user?.uid && docSnap.id === user.uid){
-            uidMatch = { id:docSnap.id, data, dbId };
-        }
-
-        if(user?.email && dbEmail && dbEmail === user.email.toLowerCase()){
-            emailMatch = { id:docSnap.id, data, dbId };
-        }
-
-        if(storedNorm && dbNorm && dbNorm === storedNorm){
-            storedIdMatch = { id:docSnap.id, data, dbId };
-        }
-    }
-
-    /* Firebase identity always wins. */
-    const found = uidMatch || emailMatch || storedIdMatch;
-
-    if(!found) return null;
-
-    return {
-        staffId: getStaffIdFromData(found.data, found.id),
-        staffName: getStaffNameFromData(found.data) || clean(user?.displayName),
-        documentId: found.id,
-        data: found.data
-    };
-}
-
-/* =========================================================
-   LOAD CURRENT STAFF
-========================================================= */
-
-async function loadStaff(){
-    firebaseUser = await waitForAuthUser();
+function loadStaff(){
+    const dashboardStaffId = clean(sessionStorage.getItem("staffId"));
+    const dashboardStaffName = clean(sessionStorage.getItem("staffName"));
+    const dashboardDepartment = clean(sessionStorage.getItem("department"));
 
     console.log("========================================");
-    console.log("ATTENDANCE CURRENT LOGIN");
-    console.log("Firebase UID:", firebaseUser?.uid || "NONE");
-    console.log("Firebase Email:", firebaseUser?.email || "NONE");
+    console.log("ATTENDANCE STAFF DASHBOARD LOGIN");
+    console.log("Dashboard Staff ID:", dashboardStaffId || "NONE");
+    console.log("Dashboard Staff Name:", dashboardStaffName || "NONE");
+    console.log("Dashboard Department:", dashboardDepartment || "NONE");
     console.log("========================================");
 
-    /* NEVER use old storage first. */
-    if(firebaseUser){
-        staffProfile = await findStaffProfile(firebaseUser);
-    }
-
-    /* If Firebase is logged in, a matching staff profile is mandatory. */
-    if(firebaseUser && staffProfile){
-        staffId = clean(staffProfile.staffId);
-        staffName = clean(staffProfile.staffName);
-    }else if(firebaseUser && !staffProfile){
+    if(!dashboardStaffId){
         throw new Error(
-            "Firebase login is active, but this login could not be matched to a staff record. " +
-            "Please check the staff document email/UID for this account."
-        );
-    }else{
-        /* Only when there is NO Firebase user do we use the existing dashboard session. */
-        const params = new URLSearchParams(window.location.search);
-        staffId = clean(
-            params.get("staffId") ||
-            params.get("staffID") ||
-            params.get("employeeId") ||
-            readStorageStaffId()
-        );
-
-        const storedObject = readStorageObject();
-        staffName = getStaffNameFromData(storedObject);
-    }
-
-    if(!staffId){
-        throw new Error(
-            "Current staff could not be identified. Please login again from the Staff Dashboard."
+            "Staff ID not found from the Staff Dashboard. Please login again from the Staff Dashboard."
         );
     }
 
-    if(!staffName){
-        staffName = clean(firebaseUser?.displayName) || "Staff";
-    }
+    /* Use ONLY the staff identity supplied by the dashboard. */
+    staffId = dashboardStaffId;
+    staffName = dashboardStaffName || "Staff";
 
     document.getElementById("staffId").textContent = staffId;
     document.getElementById("staffName").textContent = staffName;
 
-    document.getElementById("staffInfo").innerHTML =
-        "<strong>Staff:</strong> " + escapeHtml(staffName) +
-        " &nbsp;&nbsp; | &nbsp;&nbsp; " +
-        "<strong>Staff ID:</strong> " + escapeHtml(staffId);
+    const staffInfo = document.getElementById("staffInfo");
+    if(staffInfo){
+        staffInfo.innerHTML =
+            "<strong>Staff:</strong> " + escapeHtml(staffName) +
+            " &nbsp;&nbsp; | &nbsp;&nbsp; " +
+            "<strong>Staff ID:</strong> " + escapeHtml(staffId);
+    }
 
     console.log("CURRENT STAFF USED FOR TIMETABLE:",{
-        staffId,
-        staffName,
-        authUid: firebaseUser?.uid || "NONE",
-        authEmail: firebaseUser?.email || "NONE",
-        firestoreStaffDocument: staffProfile?.documentId || "SESSION FALLBACK"
+        staffId: staffId,
+        staffName: staffName,
+        source: "STAFF DASHBOARD SESSION"
     });
 }
 
@@ -770,7 +662,22 @@ async function loadStaff(){
 ========================================================= */
 
 function getTimetableStaffId(data, documentId){
-    return getStaffIdFromData(data, documentId);
+    /* Prefer the actual staff ID stored in the timetable record.
+       Document ID is only a final fallback. */
+    return getStaffIdFromData(data, "");
+}
+
+function staffIdsMatch(a,b){
+    const left = clean(a).toUpperCase();
+    const right = clean(b).toUpperCase();
+
+    if(!left || !right) return false;
+
+    /* Exact match is the primary rule. */
+    if(left === right) return true;
+
+    /* Also tolerate accidental leading/trailing whitespace only. */
+    return left.trim() === right.trim();
 }
 
 /* =========================================================
@@ -778,8 +685,7 @@ function getTimetableStaffId(data, documentId){
 ========================================================= */
 
 async function loadTimetable(){
-    const snapshot = await firestoreGetDocs(collection(db,"staffTimetable"));
-    const currentId = normalizeStaffId(staffId);
+    const snapshot = await getDocs(collection(db,"staffTimetable"));
     timetable = [];
 
     let total = 0;
@@ -794,7 +700,7 @@ async function loadTimetable(){
         const recordStaffId = getTimetableStaffId(data, docSnap.id);
 
         if(!recordStaffId) return;
-        if(normalizeStaffId(recordStaffId) !== currentId) return;
+        if(!staffIdsMatch(recordStaffId, staffId)) return;
 
         matched++;
 
