@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -7,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-   content="width=device-width,initial-scale=1.0">
+      content="width=device-width,initial-scale=1.0">
 
 <title>Attendance Entry</title>
 
@@ -25,14 +24,18 @@ body{
     color:#1f2937;
 }
 
+/* ================= HEADER ================= */
+
 .header{
     background:#500454;
     color:white;
     min-height:70px;
     padding:0 28px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     box-shadow:0 2px 10px rgba(0,0,0,.15);
 }
 
@@ -62,6 +65,8 @@ body{
     opacity:.85;
 }
 
+/* ================= MAIN ================= */
+
 .main{
     max-width:1600px;
     margin:auto;
@@ -72,7 +77,9 @@ body{
     background:white;
     border-radius:12px;
     padding:22px;
-    box-shadow:0 3px 14px rgba(0,0,0,.08);
+
+    box-shadow:
+        0 3px 14px rgba(0,0,0,.08);
 }
 
 .page-title{
@@ -88,21 +95,68 @@ body{
     margin-bottom:22px;
 }
 
+/* ================= INFO ================= */
+
 .info{
     background:#faf5fb;
     border:1px solid #ead9ec;
     border-radius:9px;
+
     padding:14px 16px;
     margin-bottom:20px;
+
+    line-height:1.7;
 }
 
 .info strong{
     color:#500454;
 }
 
+/* ================= DEBUG ================= */
+
+.debug-box{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+
+    padding:12px;
+    margin-bottom:20px;
+
+    font-size:12px;
+    color:#555;
+
+    display:none;
+}
+
+.debug-box strong{
+    color:#500454;
+}
+
+/* ================= ERROR ================= */
+
+.error{
+    display:none;
+
+    background:#fee2e2;
+    color:#991b1b;
+
+    border:1px solid #fecaca;
+
+    padding:14px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+    line-height:1.6;
+}
+
+/* ================= TABLE ================= */
+
 .table-container{
     width:100%;
     overflow-x:auto;
+
     border:1px solid #ddd;
     border-radius:9px;
 }
@@ -110,15 +164,20 @@ body{
 table{
     width:100%;
     min-width:1450px;
+
     border-collapse:collapse;
 }
 
 thead th{
     background:#500454;
     color:white;
+
     padding:12px 8px;
+
     border:1px solid rgba(255,255,255,.25);
+
     font-size:12px;
+
     text-align:center;
 }
 
@@ -130,25 +189,34 @@ tbody td{
 .day-cell{
     width:95px;
     min-width:95px;
+
     height:125px;
+
     background:#f7eff8;
     color:#500454;
+
     font-weight:bold;
+
     text-align:center;
     vertical-align:middle;
 }
 
+/* ================= PERIOD ================= */
+
 .period{
     min-width:135px;
-    min-height:125px;
-    height:100%;
+    height:125px;
+
     padding:10px;
 }
 
 .period.class-period{
     cursor:pointer;
+
     background:#faf5fb;
+
     border-left:4px solid #500454;
+
     transition:.15s;
 }
 
@@ -159,20 +227,30 @@ tbody td{
 
 .period.free{
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     color:#aaa;
+
     background:#fafafa;
+
     font-size:12px;
     font-weight:bold;
 }
 
+/* ================= SESSION ================= */
+
 .session{
     display:inline-block;
+
     padding:4px 8px;
+
     border-radius:12px;
+
     font-size:10px;
     font-weight:bold;
+
     margin-bottom:6px;
 }
 
@@ -186,97 +264,128 @@ tbody td{
     color:#92400e;
 }
 
+/* ================= PERIOD CONTENT ================= */
+
 .hour{
     color:#777;
+
     font-size:10px;
+
     margin-bottom:5px;
 }
 
 .subject-code{
     color:#500454;
+
     font-size:13px;
+
     font-weight:bold;
 }
 
 .subject-name{
     color:#222;
+
     font-size:12px;
+
     font-weight:bold;
+
     margin-top:3px;
+
     line-height:1.3;
 }
 
 .class-name{
     color:#555;
+
     font-size:11px;
+
     margin-top:7px;
+
     line-height:1.4;
 }
 
 .room{
     color:#777;
+
     font-size:10px;
+
     margin-top:5px;
 }
 
+/* ================= LOADING ================= */
+
 .loading{
     text-align:center;
+
     padding:50px;
+
     color:#500454;
+
     font-weight:bold;
 }
 
 .spinner{
     width:28px;
     height:28px;
+
     border:3px solid #ddd;
     border-top-color:#500454;
+
     border-radius:50%;
+
     margin:0 auto 12px;
+
     animation:spin .8s linear infinite;
 }
 
 @keyframes spin{
+
     to{
         transform:rotate(360deg);
     }
+
 }
+
+/* ================= EMPTY ================= */
 
 .empty{
     text-align:center;
+
     padding:50px;
+
     color:#777;
 }
 
 .empty h3{
     color:#500454;
+
     margin-bottom:8px;
 }
 
-.error{
-    display:none;
-    background:#fee2e2;
-    color:#991b1b;
-    border:1px solid #fecaca;
-    padding:14px;
-    border-radius:8px;
-    margin-bottom:20px;
+/* ================= BUTTON ================= */
+
+.reload-btn{
+    border:none;
+
+    background:#500454;
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:7px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    margin-top:15px;
 }
 
-.debug-info{
-    display:none;
-    background:#f8fafc;
-    border:1px solid #e5e7eb;
-    color:#374151;
-    padding:12px;
-    border-radius:8px;
-    margin-bottom:20px;
-    font-size:12px;
+.reload-btn:hover{
+    background:#3d033f;
 }
 
-.debug-info strong{
-    color:#500454;
-}
+/* ================= MOBILE ================= */
 
 @media(max-width:700px){
 
@@ -302,189 +411,228 @@ tbody td{
 
 </head>
 
+
 <body>
 
-<!-- =========================================================
+
+<!-- =====================================================
      HEADER
-========================================================= -->
+===================================================== -->
 
 <div class="header">
 
-```
-<div>
+    <div>
 
-    <div class="header-title">
-        Attendance Entry
+        <div class="header-title">
+            Attendance Entry
+        </div>
+
+        <div class="header-subtitle">
+            Staff Weekly Timetable
+        </div>
+
     </div>
 
-    <div class="header-subtitle">
-        Staff Weekly Timetable
+
+    <div class="staff-box">
+
+        <div
+            class="staff-name"
+            id="staffName">
+
+            Loading...
+
+        </div>
+
+
+        <div
+            class="staff-id"
+            id="staffId">
+
+            -
+
+        </div>
+
     </div>
 
 </div>
 
 
-<div class="staff-box">
 
-    <div
-        class="staff-name"
-        id="staffName">
-
-        Loading...
-
-    </div>
-
-    <div
-        class="staff-id"
-        id="staffId">
-
-        -
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<!-- =========================================================
+<!-- =====================================================
      MAIN
-========================================================= -->
+===================================================== -->
 
 <div class="main">
 
 <div class="card">
 
-```
-<div class="page-title">
-    My Weekly Timetable
+
+    <div class="page-title">
+
+        My Weekly Timetable
+
+    </div>
+
+
+    <div class="page-subtitle">
+
+        Click the assigned class period to enter attendance.
+
+    </div>
+
+
+    <!-- STAFF INFORMATION -->
+
+    <div
+        class="info"
+        id="staffInfo">
+
+        Loading staff information...
+
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div
+        class="error"
+        id="errorBox">
+
+    </div>
+
+
+    <!-- DEBUG -->
+
+    <div
+        class="debug-box"
+        id="debugBox">
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div
+        class="loading"
+        id="loadingBox">
+
+        <div class="spinner"></div>
+
+        Loading your full weekly timetable...
+
+    </div>
+
+
+    <!-- EMPTY -->
+
+    <div
+        class="empty"
+        id="emptyBox"
+        style="display:none;">
+
+        <h3>
+            No Timetable Found
+        </h3>
+
+        <p>
+            No timetable periods were found for the current staff.
+        </p>
+
+        <button
+            class="reload-btn"
+            id="reloadBtn">
+
+            Reload Timetable
+
+        </button>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div
+        class="table-container"
+        id="tableContainer"
+        style="display:none;">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        DAY
+                    </th>
+
+                    <th>
+                        FN H1
+                    </th>
+
+                    <th>
+                        FN H2
+                    </th>
+
+                    <th>
+                        FN H3
+                    </th>
+
+                    <th>
+                        FN H4
+                    </th>
+
+                    <th>
+                        FN H5
+                    </th>
+
+                    <th>
+                        AN H1
+                    </th>
+
+                    <th>
+                        AN H2
+                    </th>
+
+                    <th>
+                        AN H3
+                    </th>
+
+                    <th>
+                        AN H4
+                    </th>
+
+                    <th>
+                        AN H5
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="timetableBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
 </div>
 
-<div class="page-subtitle">
-    Click the class period to enter attendance.
 </div>
 
 
-<!-- STAFF INFORMATION -->
 
-<div
-    class="info"
-    id="staffInfo">
-
-    Loading staff timetable...
-
-</div>
-
-
-<!-- ERROR -->
-
-<div
-    class="error"
-    id="errorBox">
-</div>
-
-
-<!-- DEBUG INFORMATION -->
-
-<div
-    class="debug-info"
-    id="debugInfo">
-
-    <strong>Timetable Status:</strong>
-    <span id="debugText"></span>
-
-</div>
-
-
-<!-- LOADING -->
-
-<div
-    class="loading"
-    id="loadingBox">
-
-    <div class="spinner"></div>
-
-    Loading your full weekly timetable...
-
-</div>
-
-
-<!-- EMPTY -->
-
-<div
-    class="empty"
-    id="emptyBox"
-    style="display:none;">
-
-    <h3>
-        No timetable found
-    </h3>
-
-    <p>
-        No timetable periods are assigned to this staff member.
-    </p>
-
-    <br>
-
-    <p>
-        Please check that the timetable's
-        <strong>staffId</strong>
-        matches the Staff ID shown above.
-    </p>
-
-</div>
-
-
-<!-- TIMETABLE -->
-
-<div
-    class="table-container"
-    id="tableContainer"
-    style="display:none;">
-
-    <table>
-
-        <thead>
-
-            <tr>
-
-                <th>DAY</th>
-
-                <th>FN H1</th>
-                <th>FN H2</th>
-                <th>FN H3</th>
-                <th>FN H4</th>
-                <th>FN H5</th>
-
-                <th>AN H1</th>
-                <th>AN H2</th>
-                <th>AN H3</th>
-                <th>AN H4</th>
-                <th>AN H5</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody id="timetableBody">
-
-        </tbody>
-
-    </table>
-
-</div>
-```
-
-</div>
-
-</div>
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
 
 <script type="module">
 
-
-/* =========================================================
-   FIREBASE
-========================================================= */
 
 import { db }
 
@@ -499,13 +647,14 @@ import {
 }
 
 from
+
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
-/* =========================================================
+/* =====================================================
    CONSTANTS
-========================================================= */
+===================================================== */
 
 const DAYS = [
 
@@ -535,13 +684,9 @@ const TIME = {
     FN:{
 
         1:"8.30 TO 9.20",
-
         2:"9.20 TO 10.10",
-
         3:"10.10 TO 11.00",
-
         4:"11.30 TO 12.20",
-
         5:"12.20 TO 01.10"
 
     },
@@ -549,13 +694,9 @@ const TIME = {
     AN:{
 
         1:"01.30 TO 02.20",
-
         2:"02.20 TO 03.10",
-
         3:"03.30 TO 04.20",
-
         4:"04.20 TO 05.10",
-
         5:"05.10 TO 06.00"
 
     }
@@ -564,9 +705,9 @@ const TIME = {
 
 
 
-/* =========================================================
-   GLOBAL VARIABLES
-========================================================= */
+/* =====================================================
+   GLOBAL
+===================================================== */
 
 let staffId = "";
 
@@ -576,9 +717,9 @@ let timetable = [];
 
 
 
-/* =========================================================
+/* =====================================================
    BASIC HELPERS
-========================================================= */
+===================================================== */
 
 function clean(value){
 
@@ -592,14 +733,11 @@ function clean(value){
 function upper(value){
 
     return clean(value)
-        .toUpperCase();
+        .toUpperCase()
+        .replace(/\s+/g," ");
 
 }
 
-
-/* =========================================================
-   STAFF ID NORMALIZATION
-========================================================= */
 
 function normalizeStaffId(value){
 
@@ -610,29 +748,22 @@ function normalizeStaffId(value){
 }
 
 
-
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
-
 function escapeHtml(value){
 
-    return String(
-        value ?? ""
-    )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 
 
-/* =========================================================
-   DAY NORMALIZATION
-========================================================= */
+/* =====================================================
+   NORMALIZE DAY
+===================================================== */
 
 function normalizeDay(value){
 
@@ -641,20 +772,9 @@ function normalizeDay(value){
 
 
     if(!v){
-
         return "";
-
     }
 
-
-    /*
-       DAY 01
-       DAY01
-       DAY 1
-       DAY1
-       1
-       01
-    */
 
     const match =
         v.match(
@@ -664,48 +784,20 @@ function normalizeDay(value){
 
     if(match){
 
-        return (
-
-            "DAY " +
-
+        return "DAY " +
             String(
                 Number(match[1])
-            ).padStart(2,"0")
-
-        );
+            ).padStart(2,"0");
 
     }
 
 
     if(
-        /^[0-6]$/.test(v)
+        /^[1-6]$/.test(v)
     ){
 
-        return (
-
-            "DAY " +
-
-            v.padStart(
-                2,
-                "0"
-            )
-
-        );
-
-    }
-
-
-    if(
-        /^0[1-6]$/.test(v)
-    ){
-
-        return (
-
-            "DAY " +
-
-            v
-
-        );
+        return "DAY " +
+            v.padStart(2,"0");
 
     }
 
@@ -716,21 +808,14 @@ function normalizeDay(value){
 
 
 
-/* =========================================================
-   SESSION NORMALIZATION
-========================================================= */
+/* =====================================================
+   NORMALIZE SESSION
+===================================================== */
 
 function normalizeSession(value){
 
     const v =
         upper(value);
-
-
-    if(!v){
-
-        return "";
-
-    }
 
 
     if(
@@ -759,9 +844,9 @@ function normalizeSession(value){
 
 
 
-/* =========================================================
+/* =====================================================
    GET STAFF ID FROM TIMETABLE RECORD
-========================================================= */
+===================================================== */
 
 function getRecordStaffId(data){
 
@@ -806,9 +891,7 @@ function getRecordStaffId(data){
     ){
 
         const value =
-            clean(
-                data[field]
-            );
+            clean(data[field]);
 
 
         if(value){
@@ -826,35 +909,27 @@ function getRecordStaffId(data){
 
 
 
-/* =========================================================
-   GET SESSION
-========================================================= */
+/* =====================================================
+   GET STAFF NAME
+===================================================== */
 
-function getRecordSession(data){
+function getRecordStaffName(data){
 
-    if(
-        !data ||
-        typeof data !== "object"
-    ){
+    if(!data){
 
         return "";
 
     }
 
 
-    return normalizeSession(
+    return clean(
 
-        data.session ??
-
-        data.Session ??
-
-        data.SESSION ??
-
-        data.periodSession ??
-
-        data.sessionName ??
-
-        data.periodType
+        data.staffName ??
+        data.staffname ??
+        data.employeeName ??
+        data.teacherName ??
+        data.facultyName ??
+        data.name
 
     );
 
@@ -862,43 +937,60 @@ function getRecordSession(data){
 
 
 
-/* =========================================================
+/* =====================================================
+   GET DAY
+===================================================== */
+
+function getRecordDay(data){
+
+    return normalizeDay(
+
+        data.day ??
+        data.dayName ??
+        data.dayNo ??
+        data.dayOrder ??
+        data.dayorder
+
+    );
+
+}
+
+
+
+/* =====================================================
+   GET SESSION
+===================================================== */
+
+function getRecordSession(data){
+
+    return normalizeSession(
+
+        data.session ??
+        data.Session ??
+        data.SESSION ??
+        data.periodSession ??
+        data.sessionName
+
+    );
+
+}
+
+
+
+/* =====================================================
    GET HOUR
-========================================================= */
+===================================================== */
 
 function getRecordHour(data){
-
-    if(
-        !data ||
-        typeof data !== "object"
-    ){
-
-        return NaN;
-
-    }
-
 
     const raw =
 
         data.hour ??
-
         data.Hour ??
-
-        data.HOUR ??
-
         data.period ??
-
         data.periodNo ??
+        data.hourNo;
 
-        data.hourNo ??
-
-        data.periodNumber;
-
-
-
-    /* =========================================
-       NUMBER
-    ========================================= */
 
     if(
         typeof raw === "number"
@@ -915,21 +1007,13 @@ function getRecordHour(data){
 
     if(!text){
 
-        return NaN;
+        return 0;
 
     }
 
 
-    /* =========================================
-       H1
-       H 1
-       HOUR 1
-       HOUR1
-       PERIOD 1
-       PERIOD1
-    ========================================= */
-
     const match =
+
         text.match(
 
             /(?:HOUR|PERIOD|H)\s*([1-5])/i
@@ -946,36 +1030,190 @@ function getRecordHour(data){
     }
 
 
-    /* =========================================
-       SIMPLE NUMBER
-    ========================================= */
-
     const number =
         Number(text);
 
 
-    if(
-        Number.isFinite(number)
-    ){
-
-        return number;
-
-    }
-
-
-    return NaN;
+    return number;
 
 }
 
 
 
-/* =========================================================
-   CURRENT STAFF FROM DASHBOARD SESSION
-========================================================= */
+/* =====================================================
+   GET CLASS DEPARTMENT
+=====================================================
+
+   IMPORTANT:
+
+   Your Firestore timetable contains:
+
+   classDepartment: "B.SC CS"
+
+   AND
+
+   department:
+   "LAB ASSISTANT - Computer Science"
+
+   For attendance we must use
+   classDepartment as the class.
+
+===================================================== */
+
+function getClassDepartment(data){
+
+    return clean(
+
+        data.classDepartment ??
+        data.classDept ??
+        data.classDepartmentName ??
+        data.classDepartmentCode ??
+        data.classDep ??
+
+        data.className ??
+
+        data.studentDepartment
+
+    );
+
+}
+
+
+
+/* =====================================================
+   GET CLASS YEAR
+===================================================== */
+
+function getClassYear(data){
+
+    return clean(
+
+        data.classYear ??
+        data.year ??
+        data.classYearName
+
+    );
+
+}
+
+
+
+/* =====================================================
+   GET CLASS SECTION
+===================================================== */
+
+function getClassSection(data){
+
+    return clean(
+
+        data.classSection ??
+        data.section ??
+        data.sec
+
+    );
+
+}
+
+
+
+/* =====================================================
+   GET ROOM
+===================================================== */
+
+function getRoom(data){
+
+    return clean(
+
+        data.labNo ??
+        data.roomNo ??
+        data.room ??
+        data.roomNumber
+
+    );
+
+}
+
+
+
+/* =====================================================
+   GET SUBJECT CODE
+===================================================== */
+
+function getSubjectCode(data){
+
+    return clean(
+
+        data.subjectCode ??
+        data.subjectId ??
+        data.code
+
+    );
+
+}
+
+
+
+/* =====================================================
+   GET SUBJECT NAME
+===================================================== */
+
+function getSubjectName(data){
+
+    return clean(
+
+        data.subjectName ??
+        data.subject ??
+        data.subjectTitle
+
+    );
+
+}
+
+
+
+/* =====================================================
+   GET TIME
+===================================================== */
+
+function getPeriodTime(
+    data,
+    session,
+    hour
+){
+
+    return clean(
+
+        data.time ??
+        data.timing ??
+        data.periodTime
+
+    )
+
+    ||
+
+    TIME[session]?.[hour]
+
+    ||
+
+    "";
+
+}
+
+
+
+/* =====================================================
+   GET DASHBOARD STAFF
+===================================================== */
 
 function getDashboardStaff(){
 
-    const id =
+    /*
+       PRIMARY SOURCE
+       ----------------
+       Staff Dashboard sessionStorage
+    */
+
+    let id =
         clean(
             sessionStorage.getItem(
                 "staffId"
@@ -983,7 +1221,7 @@ function getDashboardStaff(){
         );
 
 
-    const name =
+    let name =
         clean(
             sessionStorage.getItem(
                 "staffName"
@@ -992,37 +1230,113 @@ function getDashboardStaff(){
 
 
     console.log(
-        "========================================"
-    );
-
-    console.log(
-        "ATTENDANCE DASHBOARD STAFF"
-    );
-
-    console.log(
-        "Dashboard Staff ID:",
+        "SESSION STAFF ID:",
         id
     );
 
+
     console.log(
-        "Dashboard Staff Name:",
+        "SESSION STAFF NAME:",
         name
     );
 
-    console.log(
-        "========================================"
-    );
+
+    /*
+       BACKUP ONLY
+       -----------
+       localStorage is checked if
+       dashboard stored the staff there.
+    */
+
+    if(!id){
+
+        id =
+            clean(
+                localStorage.getItem(
+                    "staffId"
+                )
+            );
+
+    }
+
+
+    if(!name){
+
+        name =
+            clean(
+                localStorage.getItem(
+                    "staffName"
+                )
+            );
+
+    }
+
+
+    /*
+       Some dashboards use
+       currentStaff.
+    */
+
+    if(!id){
+
+        const raw =
+            sessionStorage.getItem(
+                "currentStaff"
+            );
+
+
+        if(raw){
+
+            try{
+
+                const data =
+                    JSON.parse(raw);
+
+
+                id =
+                    clean(
+
+                        data.staffId ??
+                        data.staffID ??
+                        data.employeeId ??
+                        data.id
+
+                    );
+
+
+                name =
+                    clean(
+
+                        data.staffName ??
+                        data.name ??
+                        data.employeeName
+
+                    );
+
+            }
+
+            catch(error){
+
+                console.warn(
+                    "currentStaff is not valid JSON"
+                );
+
+            }
+
+        }
+
+    }
 
 
     if(!id){
 
         throw new Error(
 
-            "Staff ID not found. " +
+            "Staff ID not found.\n\n" +
 
-            "Please open Attendance from the Staff Dashboard " +
+            "Please open Attendance from the Staff Dashboard after logging in.\n\n" +
 
-            "after login."
+            "The timetable uses the Staff ID stored in the Staff Dashboard session."
 
         );
 
@@ -1031,8 +1345,9 @@ function getDashboardStaff(){
 
     return {
 
-        id,
-        name
+        id:id,
+
+        name:name
 
     };
 
@@ -1040,9 +1355,9 @@ function getDashboardStaff(){
 
 
 
-/* =========================================================
-   LOAD CURRENT STAFF
-========================================================= */
+/* =====================================================
+   LOAD STAFF
+===================================================== */
 
 async function loadStaff(){
 
@@ -1071,61 +1386,54 @@ async function loadStaff(){
         staffName;
 
 
-    const info =
-        document.getElementById(
-            "staffInfo"
-        );
+    document.getElementById(
+        "staffInfo"
+    ).innerHTML =
 
+        "<strong>Current Staff:</strong> " +
 
-    if(info){
+        escapeHtml(staffName) +
 
-        info.innerHTML =
+        " &nbsp;&nbsp; | &nbsp;&nbsp; " +
 
-            "<strong>Staff:</strong> " +
+        "<strong>Staff ID:</strong> " +
 
-            escapeHtml(
-                staffName
-            ) +
-
-            " &nbsp;&nbsp; | &nbsp;&nbsp; " +
-
-            "<strong>Staff ID:</strong> " +
-
-            escapeHtml(
-                staffId
-            );
-
-    }
+        escapeHtml(staffId);
 
 
     console.log(
-        "CURRENT STAFF USED FOR TIMETABLE:",
-        {
+        "======================================"
+    );
 
-            staffId:
-                staffId,
 
-            normalizedStaffId:
-                normalizeStaffId(
-                    staffId
-                ),
+    console.log(
+        "CURRENT DASHBOARD STAFF"
+    );
 
-            staffName:
-                staffName,
 
-            source:
-                "STAFF DASHBOARD SESSION"
+    console.log(
+        "Staff ID:",
+        staffId
+    );
 
-        }
+
+    console.log(
+        "Staff Name:",
+        staffName
+    );
+
+
+    console.log(
+        "======================================"
     );
 
 }
 
 
 
-/* =========================================================
+/* =====================================================
    LOAD TIMETABLE
-========================================================= */
+===================================================== */
 
 async function loadTimetable(){
 
@@ -1141,52 +1449,46 @@ async function loadTimetable(){
     if(!currentId){
 
         throw new Error(
-            "Current Staff ID is missing."
+            "Current Staff ID is empty."
         );
 
     }
 
 
     console.log(
-        "========================================"
-    );
-
-    console.log(
-        "LOADING STAFF TIMETABLE"
-    );
-
-    console.log(
-        "CURRENT STAFF ID:",
+        "SEARCHING TIMETABLE FOR STAFF:",
         currentId
     );
 
-    console.log(
-        "CURRENT STAFF NAME:",
-        staffName
-    );
 
-    console.log(
-        "========================================"
-    );
+    /*
+       Get complete staffTimetable collection.
 
+       We intentionally do NOT use a Firestore
+       where() query here.
 
-    /* =========================================
-       GET ALL TIMETABLE DOCUMENTS
-    ========================================= */
+       This avoids problems caused by:
+       - field indexes
+       - spaces
+       - uppercase/lowercase
+       - old field names
+    */
+
+    const reference =
+        collection(
+            db,
+            "staffTimetable"
+        );
+
 
     const snapshot =
         await getDocs(
-
-            collection(
-                db,
-                "staffTimetable"
-            )
-
+            reference
         );
 
 
     console.log(
-        "TOTAL staffTimetable DOCUMENTS:",
+        "TOTAL TIMETABLE DOCUMENTS:",
         snapshot.size
     );
 
@@ -1204,21 +1506,24 @@ async function loadTimetable(){
     }
 
 
-    let staffRecordsChecked = 0;
-
-    let matchedRecords = 0;
-
+    let checked =
+        0;
 
 
-    /* =========================================
-       LOOP ALL TIMETABLE RECORDS
-    ========================================= */
+    let matched =
+        0;
+
 
     snapshot.forEach(
+
         docSnap => {
 
+            checked++;
+
+
             const data =
-                docSnap.data() || {};
+                docSnap.data() ||
+                {};
 
 
             const recordStaffId =
@@ -1227,42 +1532,50 @@ async function loadTimetable(){
                 );
 
 
-            const normalizedRecordStaffId =
+            const normalizedRecordId =
                 normalizeStaffId(
                     recordStaffId
                 );
 
 
-            staffRecordsChecked++;
-
-
             console.log(
+
                 "TIMETABLE CHECK:",
+
                 {
 
                     documentId:
                         docSnap.id,
 
-                    recordStaffId:
+                    staffId:
                         recordStaffId,
 
-                    normalizedRecordStaffId:
-                        normalizedRecordStaffId,
+                    normalizedStaffId:
+                        normalizedRecordId,
 
-                    currentStaffId:
+                    currentStaff:
+                        currentId,
+
+                    match:
+                        normalizedRecordId ===
                         currentId
 
                 }
+
             );
 
 
-            /* =====================================
-               STAFF MATCH
-            ===================================== */
+            /*
+               MATCH STAFF
+            */
 
             if(
-                normalizedRecordStaffId !==
+
+                !recordStaffId ||
+
+                normalizedRecordId !==
                 currentId
+
             ){
 
                 return;
@@ -1270,32 +1583,14 @@ async function loadTimetable(){
             }
 
 
-            matchedRecords++;
+            matched++;
 
-
-            /* =====================================
-               DAY
-            ===================================== */
 
             const day =
-                normalizeDay(
-
-                    data.day ??
-
-                    data.dayName ??
-
-                    data.dayNo ??
-
-                    data.dayOrder ??
-
-                    data.Day
-
+                getRecordDay(
+                    data
                 );
 
-
-            /* =====================================
-               SESSION
-            ===================================== */
 
             const session =
                 getRecordSession(
@@ -1303,55 +1598,22 @@ async function loadTimetable(){
                 );
 
 
-            /* =====================================
-               HOUR
-            ===================================== */
-
             const hour =
                 getRecordHour(
                     data
                 );
 
 
-            console.log(
-                "MATCHED STAFF TIMETABLE:",
-                {
+            /*
+               Ignore invalid timetable
+               records.
+            */
 
-                    documentId:
-                        docSnap.id,
-
-                    day:
-                        day,
-
-                    session:
-                        session,
-
-                    hour:
-                        hour,
-
-                    data:
-                        data
-
-                }
-            );
-
-
-            /* =====================================
-               VALID DAY
-            ===================================== */
-
-            if(
-                !DAYS.includes(day)
-            ){
+            if(!day){
 
                 console.warn(
-
-                    "Skipping timetable - invalid day:",
-
-                    docSnap.id,
-
-                    day
-
+                    "Skipping timetable without day:",
+                    docSnap.id
                 );
 
                 return;
@@ -1359,36 +1621,17 @@ async function loadTimetable(){
             }
 
 
-            /* =====================================
-               VALID SESSION
-            ===================================== */
-
-            if(
-
-                session !== "FN" &&
-
-                session !== "AN"
-
-            ){
+            if(!session){
 
                 console.warn(
-
-                    "Skipping timetable - invalid session:",
-
-                    docSnap.id,
-
-                    data.session
-
+                    "Skipping timetable without session:",
+                    docSnap.id
                 );
 
                 return;
 
             }
 
-
-            /* =====================================
-               VALID HOUR
-            ===================================== */
 
             if(
 
@@ -1401,13 +1644,9 @@ async function loadTimetable(){
             ){
 
                 console.warn(
-
-                    "Skipping timetable - invalid hour:",
-
+                    "Skipping timetable with invalid hour:",
                     docSnap.id,
-
                     data.hour
-
                 );
 
                 return;
@@ -1415,165 +1654,183 @@ async function loadTimetable(){
             }
 
 
-            /* =====================================
-               ADD RECORD
-            ===================================== */
+            /*
+               IMPORTANT:
+               classDepartment comes from
+               classDepartment field.
+            */
+
+            const classDepartment =
+                getClassDepartment(
+                    data
+                );
+
+
+            const classYear =
+                getClassYear(
+                    data
+                );
+
+
+            const classSection =
+                getClassSection(
+                    data
+                );
+
+
+            const room =
+                getRoom(
+                    data
+                );
+
+
+            const subjectCode =
+                getSubjectCode(
+                    data
+                );
+
+
+            const subjectName =
+                getSubjectName(
+                    data
+                );
+
+
+            const time =
+                getPeriodTime(
+                    data,
+                    session,
+                    hour
+                );
+
 
             timetable.push({
 
                 id:
                     docSnap.id,
 
-
                 day:
                     day,
-
 
                 session:
                     session,
 
-
                 hour:
-                    Number(hour),
-
+                    hour,
 
                 time:
-
-                    clean(
-
-                        data.time ??
-
-                        data.timing ??
-
-                        data.periodTime ??
-
-                        data.timeSlot
-
-                    ) ||
-
-                    TIME[session]?.[hour] ||
-
-                    "",
-
+                    time,
 
                 subjectCode:
-
-                    clean(
-
-                        data.subjectCode ??
-
-                        data.subjectId ??
-
-                        data.code ??
-
-                        data.subjectCodeName
-
-                    ),
-
+                    subjectCode,
 
                 subjectName:
-
-                    clean(
-
-                        data.subjectName ??
-
-                        data.subject ??
-
-                        data.subjectTitle ??
-
-                        data.subjectNameTitle
-
-                    ),
-
+                    subjectName,
 
                 department:
-
-                    clean(
-
-                        data.classDepartment ??
-
-                        data.department ??
-
-                        data.dep ??
-
-                        data.classDep
-
-                    ),
-
+                    classDepartment,
 
                 year:
-
-                    clean(
-
-                        data.classYear ??
-
-                        data.year ??
-
-                        data.class
-
-                    ),
-
+                    classYear,
 
                 section:
-
-                    clean(
-
-                        data.classSection ??
-
-                        data.section ??
-
-                        data.sec ??
-
-                        data.classSec
-
-                    ),
-
+                    classSection,
 
                 room:
+                    room,
 
-                    clean(
+                staffId:
+                    recordStaffId,
 
-                        data.labNo ??
-
-                        data.roomNo ??
-
-                        data.room ??
-
-                        data.roomNumber ??
-
-                        data.classRoom
-
+                staffName:
+                    getRecordStaffName(
+                        data
                     )
 
             });
-
 
         }
 
     );
 
 
+    /*
+       Remove duplicate periods.
 
-    /* =========================================
+       This prevents two Firestore documents
+       for the exact same staff/day/session/hour
+       from displaying twice.
+    */
+
+    const unique =
+        new Map();
+
+
+    timetable.forEach(
+
+        item => {
+
+            const key =
+
+                item.day +
+                "|" +
+                item.session +
+                "|" +
+                item.hour;
+
+
+            /*
+               If duplicate exists, keep
+               the first valid record.
+            */
+
+            if(
+                !unique.has(key)
+            ){
+
+                unique.set(
+                    key,
+                    item
+                );
+
+            }
+
+        }
+
+    );
+
+
+    timetable =
+        Array.from(
+            unique.values()
+        );
+
+
+    /*
        SORT
-    ========================================= */
+    */
 
     timetable.sort(
 
         (a,b) => {
 
-            const dayDiff =
+            const dayA =
+                DAYS.indexOf(
+                    a.day
+                );
 
-                DAYS.indexOf(a.day) -
 
-                DAYS.indexOf(b.day);
+            const dayB =
+                DAYS.indexOf(
+                    b.day
+                );
 
 
             if(
-                dayDiff !== 0
+                dayA !== dayB
             ){
 
-                return dayDiff;
+                return dayA - dayB;
 
             }
 
@@ -1583,139 +1840,107 @@ async function loadTimetable(){
                 b.session
             ){
 
-                return (
-
+                return
                     a.session === "FN"
-
                     ? -1
-
-                    : 1
-
-                );
+                    : 1;
 
             }
 
 
-            return (
+            return
                 a.hour -
-                b.hour
-            );
+                b.hour;
 
         }
 
     );
 
 
-
-    /* =========================================
-       FINAL DEBUG
-    ========================================= */
-
     console.log(
-        "========================================"
+        "======================================"
     );
 
-    console.log(
-        "FINAL TIMETABLE FOR CURRENT STAFF"
-    );
 
     console.log(
-        "STAFF ID:",
+        "TIMETABLE RESULT"
+    );
+
+
+    console.log(
+        "Current Staff:",
         staffId
     );
 
-    console.log(
-        "NORMALIZED STAFF ID:",
-        currentId
-    );
 
     console.log(
-        "STAFF NAME:",
-        staffName
+        "Documents Checked:",
+        checked
     );
 
-    console.log(
-        "DOCUMENTS CHECKED:",
-        staffRecordsChecked
-    );
 
     console.log(
-        "STAFF RECORDS MATCHED:",
-        matchedRecords
+        "Staff Documents Matched:",
+        matched
     );
 
+
     console.log(
-        "VALID TIMETABLE PERIODS:",
+        "Final Timetable Periods:",
         timetable.length
     );
 
-    console.log(
-        "FN:",
-        timetable.filter(
-            x =>
-                x.session === "FN"
-        ).length
-    );
-
-    console.log(
-        "AN:",
-        timetable.filter(
-            x =>
-                x.session === "AN"
-        ).length
-    );
 
     console.table(
         timetable
     );
 
+
     console.log(
-        "========================================"
+        "======================================"
     );
 
 
+    /*
+       DEBUG INFORMATION
+    */
 
-    /* =========================================
-       DEBUG BOX
-    ========================================= */
-
-    const debugInfo =
+    const debug =
         document.getElementById(
-            "debugInfo"
+            "debugBox"
         );
 
 
-    const debugText =
-        document.getElementById(
-            "debugText"
-        );
+    debug.innerHTML =
+
+        "<strong>Timetable Debug</strong><br>" +
+
+        "Dashboard Staff ID: " +
+
+        escapeHtml(staffId) +
+
+        "<br>" +
+
+        "Firestore Documents Checked: " +
+
+        checked +
+
+        "<br>" +
+
+        "Matching Staff Documents: " +
+
+        matched +
+
+        "<br>" +
+
+        "Valid Timetable Periods: " +
+
+        timetable.length;
 
 
-    if(debugInfo && debugText){
-
-        debugInfo.style.display =
-            "block";
-
-
-        debugText.textContent =
-
-            " Staff ID " +
-
-            staffId +
-
-            " → " +
-
-            timetable.length +
-
-            " valid timetable period(s) found.";
-
-    }
-
-
-
-    /* =========================================
-       RENDER
-    ========================================= */
+    /*
+       Render
+    */
 
     renderTimetable();
 
@@ -1723,9 +1948,9 @@ async function loadTimetable(){
 
 
 
-/* =========================================================
+/* =====================================================
    FIND PERIOD
-========================================================= */
+===================================================== */
 
 function findPeriod(
     day,
@@ -1742,7 +1967,7 @@ function findPeriod(
             item.session === session &&
 
             Number(item.hour) ===
-                Number(hour)
+            Number(hour)
 
     );
 
@@ -1750,184 +1975,9 @@ function findPeriod(
 
 
 
-/* =========================================================
-   RENDER TIMETABLE
-========================================================= */
-
-function renderTimetable(){
-
-    const body =
-        document.getElementById(
-            "timetableBody"
-        );
-
-
-    body.innerHTML =
-        "";
-
-
-    /* =========================================
-       NO TIMETABLE
-    ========================================= */
-
-    if(
-        !timetable.length
-    ){
-
-        document.getElementById(
-            "loadingBox"
-        ).style.display =
-            "none";
-
-
-        document.getElementById(
-            "tableContainer"
-        ).style.display =
-            "none";
-
-
-        document.getElementById(
-            "emptyBox"
-        ).style.display =
-            "block";
-
-
-        return;
-
-    }
-
-
-    /* =========================================
-       CREATE DAYS
-    ========================================= */
-
-    DAYS.forEach(
-
-        day => {
-
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            /* =====================================
-               DAY CELL
-            ===================================== */
-
-            const dayCell =
-                document.createElement(
-                    "td"
-                );
-
-
-            dayCell.className =
-                "day-cell";
-
-
-            dayCell.textContent =
-                day;
-
-
-            row.appendChild(
-                dayCell
-            );
-
-
-
-            /* =====================================
-               FN
-            ===================================== */
-
-            HOURS.forEach(
-
-                hour => {
-
-                    row.appendChild(
-
-                        createPeriod(
-
-                            day,
-
-                            "FN",
-
-                            hour
-
-                        )
-
-                    );
-
-                }
-
-            );
-
-
-
-            /* =====================================
-               AN
-            ===================================== */
-
-            HOURS.forEach(
-
-                hour => {
-
-                    row.appendChild(
-
-                        createPeriod(
-
-                            day,
-
-                            "AN",
-
-                            hour
-
-                        )
-
-                    );
-
-                }
-
-            );
-
-
-            body.appendChild(
-                row
-            );
-
-        }
-
-    );
-
-
-
-    /* =========================================
-       SHOW TABLE
-    ========================================= */
-
-    document.getElementById(
-        "loadingBox"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "emptyBox"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "tableContainer"
-    ).style.display =
-        "block";
-
-}
-
-
-
-/* =========================================================
+/* =====================================================
    CREATE PERIOD
-========================================================= */
+===================================================== */
 
 function createPeriod(
     day,
@@ -1943,13 +1993,9 @@ function createPeriod(
 
     const record =
         findPeriod(
-
             day,
-
             session,
-
             hour
-
         );
 
 
@@ -1959,9 +2005,9 @@ function createPeriod(
         );
 
 
-    /* =========================================
-       FREE PERIOD
-    ========================================= */
+    /*
+       FREE
+    */
 
     if(!record){
 
@@ -1983,10 +2029,9 @@ function createPeriod(
     }
 
 
-
-    /* =========================================
-       CLASS PERIOD
-    ========================================= */
+    /*
+       ASSIGNED CLASS
+    */
 
     div.className =
         "period class-period";
@@ -1996,8 +2041,8 @@ function createPeriod(
 
         <span class="session ${
             session === "FN"
-                ? "fn"
-                : "an"
+            ? "fn"
+            : "an"
         }">
 
             ${escapeHtml(session)}
@@ -2007,10 +2052,12 @@ function createPeriod(
 
         <div class="hour">
 
-            Hour ${escapeHtml(hour)}
+            Hour ${hour}
 
             •
-            ${escapeHtml(record.time)}
+            ${escapeHtml(
+                record.time
+            )}
 
         </div>
 
@@ -2044,6 +2091,7 @@ function createPeriod(
 
             <br>
 
+            Year:
             ${escapeHtml(
                 record.year ||
                 "-"
@@ -2051,6 +2099,7 @@ function createPeriod(
 
             -
 
+            Section:
             ${escapeHtml(
                 record.section ||
                 "-"
@@ -2072,10 +2121,9 @@ function createPeriod(
     `;
 
 
-
-    /* =========================================
+    /*
        CLICK
-    ========================================= */
+    */
 
     div.addEventListener(
 
@@ -2103,19 +2151,194 @@ function createPeriod(
 
 
 
-/* =========================================================
-   OPEN ATTENDANCE STUDENTS PAGE
-========================================================= */
+/* =====================================================
+   RENDER TIMETABLE
+===================================================== */
+
+function renderTimetable(){
+
+    const body =
+        document.getElementById(
+            "timetableBody"
+        );
+
+
+    body.innerHTML =
+        "";
+
+
+    /*
+       No timetable
+    */
+
+    if(
+        timetable.length === 0
+    ){
+
+        document.getElementById(
+            "loadingBox"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "tableContainer"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "emptyBox"
+        ).style.display =
+            "block";
+
+
+        return;
+
+    }
+
+
+    /*
+       Hide empty
+    */
+
+    document.getElementById(
+        "emptyBox"
+    ).style.display =
+        "none";
+
+
+    /*
+       Create rows
+    */
+
+    DAYS.forEach(
+
+        day => {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            /*
+               DAY
+            */
+
+            const dayCell =
+                document.createElement(
+                    "td"
+                );
+
+
+            dayCell.className =
+                "day-cell";
+
+
+            dayCell.textContent =
+                day;
+
+
+            row.appendChild(
+                dayCell
+            );
+
+
+            /*
+               FN
+            */
+
+            HOURS.forEach(
+
+                hour => {
+
+                    row.appendChild(
+
+                        createPeriod(
+
+                            day,
+                            "FN",
+                            hour
+
+                        )
+
+                    );
+
+                }
+
+            );
+
+
+            /*
+               AN
+            */
+
+            HOURS.forEach(
+
+                hour => {
+
+                    row.appendChild(
+
+                        createPeriod(
+
+                            day,
+                            "AN",
+                            hour
+
+                        )
+
+                    );
+
+                }
+
+            );
+
+
+            body.appendChild(
+                row
+            );
+
+        }
+
+    );
+
+
+    document.getElementById(
+        "loadingBox"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "tableContainer"
+    ).style.display =
+        "block";
+
+}
+
+
+
+/* =====================================================
+   OPEN ATTENDANCE STUDENTS
+===================================================== */
 
 function openAttendance(
     record
 ){
 
     console.log(
-        "OPENING ATTENDANCE FOR:",
+        "SELECTED ATTENDANCE PERIOD:",
         record
     );
 
+
+    /*
+       IMPORTANT:
+       This is exactly what
+       attendance-students.html
+       reads.
+    */
 
     const attendancePeriod = {
 
@@ -2172,7 +2395,7 @@ function openAttendance(
 
 
     console.log(
-        "ATTENDANCE PERIOD STORED:",
+        "ATTENDANCE PERIOD SAVED:",
         attendancePeriod
     );
 
@@ -2184,9 +2407,9 @@ function openAttendance(
 
 
 
-/* =========================================================
+/* =====================================================
    ERROR
-========================================================= */
+===================================================== */
 
 function showError(
     message
@@ -2198,8 +2421,15 @@ function showError(
         );
 
 
-    box.textContent =
-        message;
+    box.innerHTML =
+
+        escapeHtml(
+            message
+        )
+        .replace(
+            /\n/g,
+            "<br>"
+        );
 
 
     box.style.display =
@@ -2209,17 +2439,37 @@ function showError(
 
 
 
-/* =========================================================
+/* =====================================================
+   RELOAD
+===================================================== */
+
+document.getElementById(
+    "reloadBtn"
+).addEventListener(
+
+    "click",
+
+    async function(){
+
+        location.reload();
+
+    }
+
+);
+
+
+
+/* =====================================================
    START
-========================================================= */
+===================================================== */
 
 async function start(){
 
     try{
 
-        /* =====================================
-           HIDE OLD ERROR
-        ===================================== */
+        /*
+           Hide old errors
+        */
 
         document.getElementById(
             "errorBox"
@@ -2227,36 +2477,16 @@ async function start(){
             "none";
 
 
-        document.getElementById(
-            "emptyBox"
-        ).style.display =
-            "none";
-
-
-        document.getElementById(
-            "tableContainer"
-        ).style.display =
-            "none";
-
-
-        document.getElementById(
-            "loadingBox"
-        ).style.display =
-            "block";
-
-
-
-        /* =====================================
-           LOAD DASHBOARD STAFF
-        ===================================== */
+        /*
+           Load current staff
+        */
 
         await loadStaff();
 
 
-
-        /* =====================================
-           LOAD TIMETABLE
-        ===================================== */
+        /*
+           Load timetable
+        */
 
         await loadTimetable();
 
@@ -2285,10 +2515,6 @@ async function start(){
 
 }
 
-
-/* =========================================================
-   START APPLICATION
-========================================================= */
 
 start();
 
