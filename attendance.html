@@ -426,29 +426,32 @@ tbody td{
 import { db } from "./firebase-config.js";
 
 import {
+
     collection,
     getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {
-    getAuth,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const auth = getAuth();
 
 /* =========================================================
    CONSTANTS
 ========================================================= */
 
 const DAYS = [
-    "DAY 01", "DAY 02", "DAY 03",
-    "DAY 04", "DAY 05", "DAY 06"
+    "DAY 01",
+    "DAY 02",
+    "DAY 03",
+    "DAY 04",
+    "DAY 05",
+    "DAY 06"
 ];
 
 const HOURS = [1,2,3,4,5];
 
 const TIME = {
+
     FN:{
         1:"8.30 TO 9.20",
         2:"9.20 TO 10.10",
@@ -456,6 +459,7 @@ const TIME = {
         4:"11.30 TO 12.20",
         5:"12.20 TO 01.10"
     },
+
     AN:{
         1:"01.30 TO 02.20",
         2:"02.20 TO 03.10",
@@ -463,194 +467,167 @@ const TIME = {
         4:"04.20 TO 05.10",
         5:"05.10 TO 06.00"
     }
+
 };
+
 
 /* =========================================================
    GLOBAL
 ========================================================= */
 
 let staffId = "";
+
 let staffName = "";
+
 let timetable = [];
-let firebaseUser = null;
-let staffProfile = null;
+
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
 function clean(value){
+
     return String(value ?? "").trim();
+
 }
+
 
 function upper(value){
+
     return clean(value).toUpperCase();
+
 }
 
-function normalizeStaffId(value){
-    return clean(value).toUpperCase().replace(/[\s_-]+/g, "");
-}
 
 function escapeHtml(value){
+
     return String(value ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+
 }
+
 
 function normalizeDay(value){
-    const v = upper(value).replace(/\s+/g," ");
-    const match = v.match(/^DAY\s*0?([1-6])$/);
-    if(match) return "DAY " + String(Number(match[1])).padStart(2,"0");
-    if(/^[1-6]$/.test(v)) return "DAY " + v.padStart(2,"0");
+
+    const v = upper(value);
+
+    const match = v.match(/DAYs*0?([1-6])/);
+
+    if(match){
+
+        return "DAY " +
+            String(Number(match[1])).padStart(2,"0");
+
+    }
+
+    if(/^[1-6]$/.test(v)){
+
+        return "DAY " +
+            v.padStart(2,"0");
+
+    }
+
     return v;
+
 }
+
 
 function normalizeSession(value){
-    const v = upper(value).replace(/\s+/g," ");
-    if(v === "FN" || v.includes("FORENOON")) return "FN";
-    if(v === "AN" || v.includes("AFTERNOON")) return "AN";
+
+    const v = upper(value);
+
+    if(v === "FN" || v.includes("FORENOON")){
+        return "FN";
+    }
+
+    if(v === "AN" || v.includes("AFTERNOON")){
+        return "AN";
+    }
+
     return v;
+
 }
 
-function getField(data, keys){
+
+/* =========================================================
+   CURRENT STAFF — USE STAFF DASHBOARD SESSION ONLY
+========================================================= */
+
+function getDashboardStaff(){
+
+    const id = clean(sessionStorage.getItem("staffId"));
+    const name = clean(sessionStorage.getItem("staffName"));
+
+    console.log("========================================");
+    console.log("ATTENDANCE DASHBOARD STAFF");
+    console.log("Dashboard Staff ID:", id);
+    console.log("Dashboard Staff Name:", name);
+    console.log("========================================");
+
+    if(!id){
+        throw new Error("Staff ID not found. Please open Attendance from the Staff Dashboard after login.");
+    }
+
+    return { id, name };
+}
+
+function normalizeStaffId(value){
+    return clean(value).toUpperCase();
+}
+
+function getRecordStaffId(data){
     if(!data || typeof data !== "object") return "";
-    for(const key of keys){
-        if(data[key] !== undefined && data[key] !== null){
-            const value = clean(data[key]);
-            if(value) return value;
-        }
-    }
-    return "";
-}
 
-function getStaffIdFromData(data, documentId=""){
-    return getField(data,[
-        "staffId","staffID","staff_id","employeeId","employeeID",
-        "empId","empID","staffCode","employeeCode","employee_code",
-        "teacherId","teacherID","facultyId","facultyID","workerId",
-        "workerID","userStaffId","user_staff_id","staffNo","staffNumber"
-    ]) || clean(documentId);
-}
-
-function getStaffNameFromData(data){
-    return getField(data,[
-        "staffName","staff_name","name","fullName","full_name",
-        "displayName","employeeName","employee_name","teacherName",
-        "facultyName"
-    ]);
-}
-
-function getEmailFromData(data){
-    return getField(data,[
-        "email","emailId","emailID","mail","mailId","mailID",
-        "officialEmail","officialMail","officialMailId","officialMailID",
-        "staffEmail","staff_email","loginEmail","login_email","username"
-    ]).toLowerCase();
-}
-
-function getUidFromData(data){
-    return getField(data,[
-        "uid","userId","userID","authUid","authUID","firebaseUid",
-        "firebaseUID","authUserId","authUserID","firebaseUserId"
-    ]);
-}
-
-/* =========================================================
-   STORAGE — ONLY AS A FALLBACK
-   IMPORTANT: storage NEVER overrides Firebase identity.
-========================================================= */
-
-function readStorageObject(){
-    const keys = [
-        "currentStaff","loggedInStaff","currentUser","loggedInUser",
-        "staffData","staff","userData","profile","user"
+    const fields = [
+        "staffId",
+        "staffID",
+        "employeeId",
+        "employeeID",
+        "staffCode",
+        "employeeCode",
+        "teacherId",
+        "teacherID",
+        "facultyId",
+        "facultyID",
+        "workerId",
+        "workerID"
     ];
 
-    for(const storage of [sessionStorage, localStorage]){
-        for(const key of keys){
-            try{
-                const raw = storage.getItem(key);
-                if(!raw) continue;
-                const parsed = JSON.parse(raw);
-                if(parsed && typeof parsed === "object") return parsed;
-            }catch(e){}
-        }
+    for(const field of fields){
+        const value = clean(data[field]);
+        if(value) return value;
     }
-    return null;
-}
 
-function readStorageStaffId(){
-    const object = readStorageObject();
-    const objectId = getStaffIdFromData(object);
-    if(objectId) return objectId;
-
-    const keys = [
-        "currentStaffId","currentStaffID","loggedInStaffId","loggedInStaffID",
-        "staffId","staffID","employeeId","employeeID","staffCode","employeeCode"
-    ];
-
-    for(const storage of [sessionStorage, localStorage]){
-        for(const key of keys){
-            try{
-                const value = clean(storage.getItem(key));
-                if(value) return value;
-            }catch(e){}
-        }
-    }
     return "";
 }
 
 /* =========================================================
-   STAFF ID FROM STAFF DASHBOARD
-
-   IMPORTANT:
-   attendance.html is opened FROM the Staff Dashboard.
-   The dashboard already identifies the logged-in staff using:
-       sessionStorage.staffId
-       sessionStorage.staffName
-
-   Therefore this page MUST use that exact dashboard identity.
-   It must NOT try to identify another staff member through
-   Firebase Auth, localStorage, email, UID, or staff name.
+   LOAD CURRENT STAFF FROM DASHBOARD
 ========================================================= */
+async function loadStaff(){
 
-function loadStaff(){
-    const dashboardStaffId = clean(sessionStorage.getItem("staffId"));
-    const dashboardStaffName = clean(sessionStorage.getItem("staffName"));
-    const dashboardDepartment = clean(sessionStorage.getItem("department"));
+    const current = getDashboardStaff();
 
-    console.log("========================================");
-    console.log("ATTENDANCE STAFF DASHBOARD LOGIN");
-    console.log("Dashboard Staff ID:", dashboardStaffId || "NONE");
-    console.log("Dashboard Staff Name:", dashboardStaffName || "NONE");
-    console.log("Dashboard Department:", dashboardDepartment || "NONE");
-    console.log("========================================");
-
-    if(!dashboardStaffId){
-        throw new Error(
-            "Staff ID not found from the Staff Dashboard. Please login again from the Staff Dashboard."
-        );
-    }
-
-    /* Use ONLY the staff identity supplied by the dashboard. */
-    staffId = dashboardStaffId;
-    staffName = dashboardStaffName || "Staff";
+    staffId = current.id;
+    staffName = current.name || "Staff";
 
     document.getElementById("staffId").textContent = staffId;
     document.getElementById("staffName").textContent = staffName;
 
-    const staffInfo = document.getElementById("staffInfo");
-    if(staffInfo){
-        staffInfo.innerHTML =
+    const info = document.getElementById("staffInfo");
+    if(info){
+        info.innerHTML =
             "<strong>Staff:</strong> " + escapeHtml(staffName) +
             " &nbsp;&nbsp; | &nbsp;&nbsp; " +
             "<strong>Staff ID:</strong> " + escapeHtml(staffId);
     }
 
-    console.log("CURRENT STAFF USED FOR TIMETABLE:",{
+    console.log("CURRENT STAFF USED FOR TIMETABLE:", {
         staffId: staffId,
         staffName: staffName,
         source: "STAFF DASHBOARD SESSION"
@@ -658,120 +635,46 @@ function loadStaff(){
 }
 
 /* =========================================================
-   TIMETABLE RECORD STAFF ID
-========================================================= */
-
-function getTimetableStaffId(data, documentId){
-    /* Prefer the actual staff ID stored in the timetable record.
-       Document ID is only a final fallback. */
-    return getStaffIdFromData(data, "");
-}
-
-function staffIdsMatch(a,b){
-    const left = clean(a).toUpperCase();
-    const right = clean(b).toUpperCase();
-
-    if(!left || !right) return false;
-
-    /* Exact match is the primary rule. */
-    if(left === right) return true;
-
-    /* Also tolerate accidental leading/trailing whitespace only. */
-    return left.trim() === right.trim();
-}
-
-/* =========================================================
    LOAD TIMETABLE
 ========================================================= */
 
 async function loadTimetable(){
-    const snapshot = await getDocs(collection(db,"staffTimetable"));
-    timetable = [];
+    const snapshot=await getDocs(collection(db,"staffTimetable"));
+    timetable=[];
+    const currentId=normalizeStaffId(staffId);
 
-    let total = 0;
-    let matched = 0;
-    let fnCount = 0;
-    let anCount = 0;
+    snapshot.forEach(docSnap=>{
+        const data=docSnap.data() || {};
+        const recordStaffId=getRecordStaffId(data);
 
-    snapshot.forEach(docSnap => {
-        total++;
+        /* ONLY the staff who opened this page from the dashboard. */
+        if(!recordStaffId || normalizeStaffId(recordStaffId)!==currentId) return;
 
-        const data = docSnap.data() || {};
-        const recordStaffId = getTimetableStaffId(data, docSnap.id);
+        const day=normalizeDay(data.day ?? data.dayName ?? data.dayNo);
+        const session=normalizeSession(data.session);
+        const hour=Number(data.hour);
+        if(!day || !session || !Number.isFinite(hour)) return;
 
-        if(!recordStaffId) return;
-        if(!staffIdsMatch(recordStaffId, staffId)) return;
-
-        matched++;
-
-        const day = normalizeDay(
-            data.day ?? data.dayName ?? data.dayNo ?? data.dayOrder
-        );
-
-        const session = normalizeSession(
-            data.session ?? data.Session
-        );
-
-        let rawHour =
-            data.hour ?? data.period ?? data.periodNo ?? data.hourNo;
-
-        if(typeof rawHour === "string"){
-            const match = rawHour.match(/[1-5]/);
-            if(match) rawHour = match[0];
-        }
-
-        const hour = Number(rawHour);
-
-        if(!DAYS.includes(day)) return;
-        if(session !== "FN" && session !== "AN") return;
-        if(!HOURS.includes(hour)) return;
-
-        const record = {
-            id: docSnap.id,
+        timetable.push({
+            id:docSnap.id,
             day,
             session,
             hour,
-            time: clean(data.time) || TIME[session][hour],
-            subjectCode: clean(
-                data.subjectCode ?? data.subjectId ?? data.code ?? data.subject_code
-            ),
-            subjectName: clean(
-                data.subjectName ?? data.subject ?? data.subject_name
-            ),
-            department: clean(
-                data.classDepartment ?? data.department ?? data.dept ?? data.classDept
-            ),
-            year: clean(
-                data.classYear ?? data.year ?? data.academicYear
-            ),
-            section: clean(
-                data.classSection ?? data.section ?? data.sec
-            ),
-            room: clean(
-                data.labNo ?? data.roomNo ?? data.room ?? data.roomNumber
-            )
-        };
-
-        timetable.push(record);
-
-        if(session === "FN") fnCount++;
-        if(session === "AN") anCount++;
+            time:clean(data.time) || (TIME[session] && TIME[session][hour] ? TIME[session][hour] : ""),
+            subjectCode:clean(data.subjectCode ?? data.subjectId ?? data.code),
+            subjectName:clean(data.subjectName ?? data.subject),
+            department:clean(data.classDepartment ?? data.department),
+            year:clean(data.classYear ?? data.year),
+            section:clean(data.classSection ?? data.section ?? data.sec),
+            room:clean(data.labNo ?? data.roomNo ?? data.room)
+        });
     });
 
     timetable.sort((a,b)=>{
-        const dayDiff = DAYS.indexOf(a.day) - DAYS.indexOf(b.day);
-        if(dayDiff !== 0) return dayDiff;
-        if(a.session !== b.session) return a.session === "FN" ? -1 : 1;
-        return a.hour - b.hour;
-    });
-
-    console.log("TIMETABLE LOAD RESULT:",{
-        currentStaffId: staffId,
-        totalFirestoreRecords: total,
-        matchedStaffRecords: matched,
-        validPeriods: timetable.length,
-        fnPeriods: fnCount,
-        anPeriods: anCount
+        const dayDiff=DAYS.indexOf(a.day)-DAYS.indexOf(b.day);
+        if(dayDiff!==0) return dayDiff;
+        if(a.session!==b.session) return a.session==="FN" ? -1 : 1;
+        return a.hour-b.hour;
     });
 
     renderTimetable();
@@ -781,160 +684,347 @@ async function loadTimetable(){
    FIND PERIOD
 ========================================================= */
 
-function findPeriod(day,session,hour){
+function findPeriod(
+    day,
+    session,
+    hour
+){
+
     return timetable.find(item =>
+
         item.day === day &&
         item.session === session &&
         Number(item.hour) === Number(hour)
+
     );
+
 }
+
 
 /* =========================================================
    RENDER
 ========================================================= */
 
 function renderTimetable(){
-    const body = document.getElementById("timetableBody");
+
+    const body =
+        document.getElementById(
+            "timetableBody"
+        );
+
     body.innerHTML = "";
 
-    const emptyBox = document.getElementById("emptyBox");
-    if(emptyBox) emptyBox.style.display = timetable.length ? "none" : "block";
+
+    if(!timetable.length){
+
+        document.getElementById(
+            "emptyBox"
+        ).style.display =
+            "block";
+
+        return;
+
+    }
+
 
     DAYS.forEach(day => {
-        const row = document.createElement("tr");
 
-        const dayCell = document.createElement("td");
-        dayCell.className = "day-cell";
-        dayCell.textContent = day;
+        const row =
+            document.createElement("tr");
+
+
+        const dayCell =
+            document.createElement("td");
+
+        dayCell.className =
+            "day-cell";
+
+        dayCell.textContent =
+            day;
+
         row.appendChild(dayCell);
 
-        HOURS.forEach(hour => {
-            row.appendChild(createPeriod(day,"FN",hour));
-        });
 
         HOURS.forEach(hour => {
-            row.appendChild(createPeriod(day,"AN",hour));
+
+            row.appendChild(
+                createPeriod(
+                    day,
+                    "FN",
+                    hour
+                )
+            );
+
         });
+
+
+        HOURS.forEach(hour => {
+
+            row.appendChild(
+                createPeriod(
+                    day,
+                    "AN",
+                    hour
+                )
+            );
+
+        });
+
 
         body.appendChild(row);
+
     });
 
-    const loadingBox = document.getElementById("loadingBox");
-    const tableContainer = document.getElementById("tableContainer");
 
-    if(loadingBox) loadingBox.style.display = "none";
-    if(tableContainer) tableContainer.style.display = "block";
+    document.getElementById(
+        "loadingBox"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "tableContainer"
+    ).style.display =
+        "block";
+
 }
+
 
 /* =========================================================
    CREATE PERIOD
 ========================================================= */
 
-function createPeriod(day,session,hour){
-    const td = document.createElement("td");
-    const record = findPeriod(day,session,hour);
-    const div = document.createElement("div");
+function createPeriod(
+    day,
+    session,
+    hour
+){
+
+    const td =
+        document.createElement("td");
+
+
+    const record =
+        findPeriod(
+            day,
+            session,
+            hour
+        );
+
+
+    const div =
+        document.createElement("div");
+
 
     if(!record){
-        div.className = "period free";
-        div.textContent = "FREE";
+
+        div.className =
+            "period free";
+
+        div.textContent =
+            "FREE";
+
         td.appendChild(div);
+
         return td;
+
     }
 
-    div.className = "period class-period";
+
+    div.className =
+        "period class-period";
+
 
     div.innerHTML = `
+
         <span class="session ${session === "FN" ? "fn" : "an"}">
+
             ${escapeHtml(session)}
+
         </span>
 
         <div class="hour">
-            Hour ${hour} • ${escapeHtml(record.time)}
+
+            Hour ${hour}
+
+            • ${escapeHtml(record.time)}
+
         </div>
 
         <div class="subject-code">
-            ${escapeHtml(record.subjectCode || "-")}
+
+            ${escapeHtml(
+                record.subjectCode || "-"
+            )}
+
         </div>
 
         <div class="subject-name">
-            ${escapeHtml(record.subjectName || "-")}
+
+            ${escapeHtml(
+                record.subjectName || "-"
+            )}
+
         </div>
 
         <div class="class-name">
-            ${escapeHtml(record.department || "-")}
+
+            ${escapeHtml(
+                record.department || "-"
+            )}
+
             <br>
-            ${escapeHtml(record.year || "-")}
+
+            ${escapeHtml(
+                record.year || "-"
+            )}
+
             -
-            ${escapeHtml(record.section || "-")}
+
+            ${escapeHtml(
+                record.section || "-"
+            )}
+
         </div>
 
         <div class="room">
-            Room: ${escapeHtml(record.room || "-")}
+
+            Room:
+            ${escapeHtml(
+                record.room || "-"
+            )}
+
         </div>
+
     `;
 
-    div.addEventListener("click",()=>openAttendance(record));
+
+    div.addEventListener(
+        "click",
+        function(){
+
+            openAttendance(record);
+
+        }
+    );
+
+
     td.appendChild(div);
+
     return td;
+
 }
+
 
 /* =========================================================
    OPEN STUDENT PAGE
 ========================================================= */
 
 function openAttendance(record){
+
+    /*
+       Store selected timetable information.
+
+       The student page will read this information.
+    */
+
     const attendancePeriod = {
-        staffId,
-        staffName,
-        day: record.day,
-        session: record.session,
-        hour: Number(record.hour),
-        time: record.time,
-        subjectCode: record.subjectCode,
-        subjectName: record.subjectName,
-        department: record.department,
-        year: record.year,
-        section: record.section,
-        room: record.room
+
+        staffId:staffId,
+
+        staffName:staffName,
+
+        day:record.day,
+
+        session:record.session,
+
+        hour:Number(record.hour),
+
+        time:record.time,
+
+        subjectCode:record.subjectCode,
+
+        subjectName:record.subjectName,
+
+        department:record.department,
+
+        year:record.year,
+
+        section:record.section,
+
+        room:record.room
+
     };
+
 
     sessionStorage.setItem(
         "attendancePeriod",
-        JSON.stringify(attendancePeriod)
+        JSON.stringify(
+            attendancePeriod
+        )
     );
 
-    window.location.href = "attendance-students.html";
+
+    /*
+       Open separate page.
+    */
+
+    window.location.href =
+        "attendance-students.html";
+
 }
+
 
 /* =========================================================
    ERROR
 ========================================================= */
 
 function showError(message){
-    const box = document.getElementById("errorBox");
-    if(!box) return;
-    box.textContent = message;
-    box.style.display = "block";
+
+    const box =
+        document.getElementById(
+            "errorBox"
+        );
+
+    box.textContent =
+        message;
+
+    box.style.display =
+        "block";
+
 }
+
 
 /* =========================================================
    START
 ========================================================= */
 
 async function start(){
+
     try{
+
         await loadStaff();
+
         await loadTimetable();
-    }catch(error){
-        console.error("ATTENDANCE INITIALIZATION ERROR:",error);
 
-        const loadingBox = document.getElementById("loadingBox");
-        if(loadingBox) loadingBox.style.display = "none";
-
-        showError(error.message || "Unable to load attendance timetable.");
     }
+    catch(error){
+
+        console.error(error);
+
+        document.getElementById(
+            "loadingBox"
+        ).style.display =
+            "none";
+
+        showError(
+            error.message
+        );
+
+    }
+
 }
+
 
 start();
 
