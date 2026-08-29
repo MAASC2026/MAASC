@@ -423,17 +423,14 @@ tbody td{
 
 <script type="module">
 
-import { db, auth } from "./firebase-config.js";
+import { db } from "./firebase-config.js";
 
 import {
-    collection,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-import {
+    getAuth,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+const auth = getAuth();
 /* =========================================================
    CONSTANTS
 ========================================================= */
