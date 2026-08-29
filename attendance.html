@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -6,7 +7,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width,initial-scale=1.0">
+   content="width=device-width,initial-scale=1.0">
 
 <title>Attendance Entry</title>
 
@@ -24,14 +25,18 @@ body{
     color:#1f2937;
 }
 
+/* ================= HEADER ================= */
+
 .header{
     background:#500454;
     color:white;
     min-height:70px;
     padding:0 28px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     box-shadow:0 2px 10px rgba(0,0,0,.15);
 }
 
@@ -61,6 +66,8 @@ body{
     opacity:.85;
 }
 
+/* ================= MAIN ================= */
+
 .main{
     max-width:1600px;
     margin:auto;
@@ -71,7 +78,9 @@ body{
     background:white;
     border-radius:12px;
     padding:22px;
-    box-shadow:0 3px 14px rgba(0,0,0,.08);
+
+    box-shadow:
+        0 3px 14px rgba(0,0,0,.08);
 }
 
 .page-title{
@@ -87,175 +96,278 @@ body{
     margin-bottom:22px;
 }
 
+/* ================= INFO ================= */
+
 .info{
     background:#faf5fb;
     border:1px solid #ead9ec;
+
     border-radius:9px;
+
     padding:14px 16px;
+
     margin-bottom:20px;
+
+    font-size:13px;
 }
 
 .info strong{
     color:#500454;
 }
 
+/* ================= ERROR ================= */
+
+.error{
+    display:none;
+
+    background:#fee2e2;
+    color:#991b1b;
+
+    border:1px solid #fecaca;
+
+    padding:14px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+    font-size:13px;
+}
+
+/* ================= TABLE ================= */
+
 .table-container{
     width:100%;
+
     overflow-x:auto;
+
     border:1px solid #ddd;
+
     border-radius:9px;
 }
 
 table{
     width:100%;
+
     min-width:1450px;
+
     border-collapse:collapse;
 }
 
 thead th{
     background:#500454;
+
     color:white;
+
     padding:12px 8px;
-    border:1px solid rgba(255,255,255,.25);
+
+    border:1px solid
+        rgba(255,255,255,.25);
+
     font-size:12px;
+
     text-align:center;
 }
 
 tbody td{
     border:1px solid #ddd;
+
     padding:0;
 }
+
+/* ================= DAY ================= */
 
 .day-cell{
     width:95px;
     min-width:95px;
+
     height:125px;
+
     background:#f7eff8;
+
     color:#500454;
+
     font-weight:bold;
+
     text-align:center;
+
     vertical-align:middle;
 }
 
+/* ================= PERIOD ================= */
+
 .period{
     min-width:135px;
+
     min-height:125px;
+
     height:100%;
+
     padding:10px;
 }
 
 .period.class-period{
     cursor:pointer;
+
     background:#faf5fb;
+
     border-left:4px solid #500454;
+
     transition:.15s;
 }
 
 .period.class-period:hover{
     background:#eee1f0;
-    transform:translateY(-1px);
+
+    transform:
+        translateY(-1px);
 }
 
 .period.free{
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     color:#aaa;
+
     background:#fafafa;
+
     font-size:12px;
+
     font-weight:bold;
 }
 
+/* ================= SESSION ================= */
+
 .session{
     display:inline-block;
+
     padding:4px 8px;
+
     border-radius:12px;
+
     font-size:10px;
+
     font-weight:bold;
+
     margin-bottom:6px;
 }
 
 .fn{
     background:#dbeafe;
+
     color:#1d4ed8;
 }
 
 .an{
     background:#fef3c7;
+
     color:#92400e;
 }
 
+/* ================= PERIOD DETAILS ================= */
+
 .hour{
     color:#777;
+
     font-size:10px;
+
     margin-bottom:5px;
 }
 
 .subject-code{
     color:#500454;
+
     font-size:13px;
+
     font-weight:bold;
 }
 
 .subject-name{
     color:#222;
+
     font-size:12px;
+
     font-weight:bold;
+
     margin-top:3px;
+
     line-height:1.3;
 }
 
 .class-name{
     color:#555;
+
     font-size:11px;
+
     margin-top:7px;
+
     line-height:1.4;
 }
 
 .room{
     color:#777;
+
     font-size:10px;
+
     margin-top:5px;
 }
 
+/* ================= LOADING ================= */
+
 .loading{
     text-align:center;
+
     padding:50px;
+
     color:#500454;
+
     font-weight:bold;
 }
 
 .spinner{
     width:28px;
+
     height:28px;
+
     border:3px solid #ddd;
+
     border-top-color:#500454;
+
     border-radius:50%;
+
     margin:0 auto 12px;
+
     animation:spin .8s linear infinite;
 }
 
 @keyframes spin{
+
     to{
         transform:rotate(360deg);
     }
+
 }
+
+/* ================= EMPTY ================= */
 
 .empty{
     text-align:center;
+
     padding:50px;
+
     color:#777;
 }
 
-.error{
-    display:none;
-    background:#fee2e2;
-    color:#991b1b;
-    border:1px solid #fecaca;
-    padding:14px;
-    border-radius:8px;
-    margin-bottom:20px;
+.empty h3{
+    color:#500454;
+
+    margin-bottom:7px;
 }
+
+/* ================= MOBILE ================= */
 
 @media(max-width:700px){
 
@@ -283,147 +395,206 @@ tbody td{
 
 <body>
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <div class="header">
 
-    <div>
+```
+<div>
 
-        <div class="header-title">
-            Attendance Entry
-        </div>
-
-        <div class="header-subtitle">
-            Staff Weekly Timetable
-        </div>
-
+    <div class="header-title">
+        Attendance Entry
     </div>
 
-
-    <div class="staff-box">
-
-        <div
-            class="staff-name"
-            id="staffName"
-        >
-            Loading...
-        </div>
-
-        <div
-            class="staff-id"
-            id="staffId"
-        >
-            -
-        </div>
-
+    <div class="header-subtitle">
+        Staff Weekly Timetable
     </div>
 
 </div>
 
+<div class="staff-box">
 
+    <div
+        class="staff-name"
+        id="staffName">
+
+        Loading...
+
+    </div>
+
+    <div
+        class="staff-id"
+        id="staffId">
+
+        -
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <div class="main">
 
 <div class="card">
 
-    <div class="page-title">
-        My Weekly Timetable
-    </div>
+```
+<div class="page-title">
 
-    <div class="page-subtitle">
-        Click the class period to enter attendance.
-    </div>
+    My Weekly Timetable
 
+</div>
 
-    <div
-        class="info"
-        id="staffInfo"
-    >
-        Loading staff timetable...
-    </div>
+<div class="page-subtitle">
+
+    Click the class period to enter attendance.
+
+</div>
 
 
-    <div
-        class="error"
-        id="errorBox"
-    ></div>
+<!-- STAFF INFORMATION -->
+
+<div
+    class="info"
+    id="staffInfo">
+
+    Loading staff timetable...
+
+</div>
 
 
-    <div
-        class="loading"
-        id="loadingBox"
-    >
+<!-- ERROR -->
 
-        <div class="spinner"></div>
+<div
+    class="error"
+    id="errorBox">
 
-        Loading your full weekly timetable...
-
-    </div>
+</div>
 
 
-    <div
-        class="empty"
-        id="emptyBox"
-        style="display:none;"
-    >
+<!-- LOADING -->
 
-        <h3>
-            No timetable found
-        </h3>
+<div
+    class="loading"
+    id="loadingBox">
 
-        <p>
-            No timetable periods are assigned to this staff member.
-        </p>
+    <div class="spinner"></div>
 
-    </div>
+    Loading your full weekly timetable...
+
+</div>
 
 
-    <div
-        class="table-container"
-        id="tableContainer"
-        style="display:none;"
-    >
+<!-- EMPTY -->
 
-        <table>
+<div
+    class="empty"
+    id="emptyBox"
+    style="display:none;">
 
-            <thead>
+    <h3>
+        No timetable found
+    </h3>
 
-                <tr>
+    <p>
+        No timetable periods are assigned to this staff member.
+    </p>
 
-                    <th>DAY</th>
+</div>
 
-                    <th>FN H1</th>
-                    <th>FN H2</th>
-                    <th>FN H3</th>
-                    <th>FN H4</th>
-                    <th>FN H5</th>
 
-                    <th>AN H1</th>
-                    <th>AN H2</th>
-                    <th>AN H3</th>
-                    <th>AN H4</th>
-                    <th>AN H5</th>
+<!-- TABLE -->
 
-                </tr>
+<div
+    class="table-container"
+    id="tableContainer"
+    style="display:none;">
 
-            </thead>
+    <table>
 
-            <tbody id="timetableBody">
+        <thead>
 
-            </tbody>
+            <tr>
 
-        </table>
+                <th>
+                    DAY
+                </th>
 
-    </div>
+                <th>
+                    FN H1
+                </th>
+
+                <th>
+                    FN H2
+                </th>
+
+                <th>
+                    FN H3
+                </th>
+
+                <th>
+                    FN H4
+                </th>
+
+                <th>
+                    FN H5
+                </th>
+
+                <th>
+                    AN H1
+                </th>
+
+                <th>
+                    AN H2
+                </th>
+
+                <th>
+                    AN H3
+                </th>
+
+                <th>
+                    AN H4
+                </th>
+
+                <th>
+                    AN H5
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody
+            id="timetableBody">
+
+        </tbody>
+
+    </table>
+
+</div>
+```
 
 </div>
 
 </div>
 
-
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
 
 <script type="module">
 
-import { db } from "./firebase-config.js";
+import { db }
+
+from "./firebase-config.js";
+
 
 import {
 
@@ -431,49 +602,67 @@ import {
     getDocs
 
 }
+
 from
+
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* =========================================================
+/* =====================================================
    CONSTANTS
-========================================================= */
+===================================================== */
 
 const DAYS = [
+
     "DAY 01",
     "DAY 02",
     "DAY 03",
     "DAY 04",
     "DAY 05",
     "DAY 06"
+
 ];
 
-const HOURS = [1,2,3,4,5];
+
+const HOURS = [
+
+    1,
+    2,
+    3,
+    4,
+    5
+
+];
+
 
 const TIME = {
 
     FN:{
+
         1:"8.30 TO 9.20",
         2:"9.20 TO 10.10",
         3:"10.10 TO 11.00",
         4:"11.30 TO 12.20",
         5:"12.20 TO 01.10"
+
     },
 
     AN:{
+
         1:"01.30 TO 02.20",
         2:"02.20 TO 03.10",
         3:"03.30 TO 04.20",
         4:"04.20 TO 05.10",
         5:"05.10 TO 06.00"
+
     }
 
 };
 
 
-/* =========================================================
+/* =====================================================
    GLOBAL
-========================================================= */
+===================================================== */
 
 let staffId = "";
 
@@ -482,20 +671,31 @@ let staffName = "";
 let timetable = [];
 
 
-/* =========================================================
+/* =====================================================
    HELPERS
-========================================================= */
+===================================================== */
 
 function clean(value){
 
-    return String(value ?? "").trim();
+    return String(
+        value ?? ""
+    ).trim();
 
 }
 
 
 function upper(value){
 
-    return clean(value).toUpperCase();
+    return clean(value)
+        .toUpperCase();
+
+}
+
+
+function normalizeStaffId(value){
+
+    return clean(value)
+        .toUpperCase();
 
 }
 
@@ -512,182 +712,651 @@ function escapeHtml(value){
 }
 
 
+/* =====================================================
+   DAY NORMALIZATION
+===================================================== */
+
 function normalizeDay(value){
 
-    const v = upper(value);
+    const v =
+        upper(value);
 
-    const match = v.match(/DAY\s*0?([1-6])/);
+
+    const match =
+        v.match(
+            /DAY\s*0?([1-6])/
+        );
+
 
     if(match){
 
-        return "DAY " +
-            String(Number(match[1])).padStart(2,"0");
+        return (
+
+            "DAY " +
+
+            String(
+                Number(match[1])
+            ).padStart(2,"0")
+
+        );
 
     }
 
-    if(/^[1-6]$/.test(v)){
 
-        return "DAY " +
-            v.padStart(2,"0");
+    if(
+        /^[1-6]$/.test(v)
+    ){
+
+        return (
+
+            "DAY " +
+
+            v.padStart(2,"0")
+
+        );
 
     }
+
 
     return v;
 
 }
 
+
+/* =====================================================
+   SESSION NORMALIZATION
+===================================================== */
 
 function normalizeSession(value){
 
-    const v = upper(value);
+    const v =
+        upper(value);
 
-    if(v === "FN" || v.includes("FORENOON")){
+
+    if(
+        v === "FN" ||
+        v.includes("FORENOON")
+    ){
+
         return "FN";
+
     }
 
-    if(v === "AN" || v.includes("AFTERNOON")){
+
+    if(
+        v === "AN" ||
+        v.includes("AFTERNOON")
+    ){
+
         return "AN";
+
     }
+
 
     return v;
 
 }
 
 
-/* =========================================================
-   CURRENT STAFF — USE STAFF DASHBOARD SESSION ONLY
-========================================================= */
+/* =====================================================
+   GET CURRENT STAFF
+===================================================== */
 
 function getDashboardStaff(){
 
-    const id = clean(sessionStorage.getItem("staffId"));
-    const name = clean(sessionStorage.getItem("staffName"));
+    const id =
+        clean(
+            sessionStorage.getItem(
+                "staffId"
+            )
+        );
 
-    console.log("========================================");
-    console.log("ATTENDANCE DASHBOARD STAFF");
-    console.log("Dashboard Staff ID:", id);
-    console.log("Dashboard Staff Name:", name);
-    console.log("========================================");
+
+    const name =
+        clean(
+            sessionStorage.getItem(
+                "staffName"
+            )
+        );
+
+
+    console.log(
+        "===================================="
+    );
+
+    console.log(
+        "ATTENDANCE DASHBOARD STAFF"
+    );
+
+    console.log(
+        "Staff ID:",
+        id
+    );
+
+    console.log(
+        "Staff Name:",
+        name
+    );
+
+    console.log(
+        "===================================="
+    );
+
 
     if(!id){
-        throw new Error("Staff ID not found. Please open Attendance from the Staff Dashboard after login.");
+
+        throw new Error(
+
+            "Staff ID not found. " +
+
+            "Please open Attendance from the Staff Dashboard " +
+
+            "after login."
+
+        );
+
     }
 
-    return { id, name };
+
+    return {
+
+        id,
+        name
+
+    };
+
 }
 
-function normalizeStaffId(value){
-    return clean(value).toUpperCase();
-}
+
+/* =====================================================
+   RECORD STAFF ID
+===================================================== */
 
 function getRecordStaffId(data){
-    if(!data || typeof data !== "object") return "";
-    const fields=["staffId","staffID","staff_id","employeeId","employeeID","employee_id","staffCode","employeeCode","teacherId","teacherID","facultyId","facultyID","workerId","workerID"];
-    for(const field of fields){
-        const value=clean(data[field]);
-        if(value) return value;
+
+    if(
+        !data ||
+        typeof data !== "object"
+    ){
+
+        return "";
+
     }
+
+
+    const fields = [
+
+        "staffId",
+        "staffID",
+        "staff_id",
+
+        "employeeId",
+        "employeeID",
+        "employee_id",
+
+        "staffCode",
+        "employeeCode",
+
+        "teacherId",
+        "teacherID",
+
+        "facultyId",
+        "facultyID",
+
+        "workerId",
+        "workerID"
+
+    ];
+
+
+    for(
+        const field
+        of fields
+    ){
+
+        const value =
+            clean(
+                data[field]
+            );
+
+
+        if(value){
+
+            return value;
+
+        }
+
+    }
+
+
     return "";
+
 }
+
+
+/* =====================================================
+   RECORD SESSION
+===================================================== */
 
 function getRecordSession(data){
-    return normalizeSession(data?.session ?? data?.Session ?? data?.SESSION ?? data?.periodSession ?? data?.sessionName);
+
+    return normalizeSession(
+
+        data?.session ??
+        data?.Session ??
+        data?.SESSION ??
+        data?.periodSession ??
+        data?.sessionName
+
+    );
+
 }
+
+
+/* =====================================================
+   RECORD HOUR
+===================================================== */
 
 function getRecordHour(data){
-    const raw=data?.hour ?? data?.Hour ?? data?.period ?? data?.periodNo ?? data?.hourNo;
-    if(typeof raw === "number") return raw;
-    const text=clean(raw);
-    const match=text.match(/(?:HOUR|PERIOD|H)\s*([1-5])/i);
-    return match ? Number(match[1]) : Number(text);
-}
 
-/* =========================================================
-   LOAD CURRENT STAFF FROM DASHBOARD
-========================================================= */
-async function loadStaff(){
+    const raw =
 
-    const current = getDashboardStaff();
+        data?.hour ??
+        data?.Hour ??
+        data?.period ??
+        data?.periodNo ??
+        data?.hourNo;
 
-    staffId = current.id;
-    staffName = current.name || "Staff";
 
-    document.getElementById("staffId").textContent = staffId;
-    document.getElementById("staffName").textContent = staffName;
+    if(
+        typeof raw === "number"
+    ){
 
-    const info = document.getElementById("staffInfo");
-    if(info){
-        info.innerHTML =
-            "<strong>Staff:</strong> " + escapeHtml(staffName) +
-            " &nbsp;&nbsp; | &nbsp;&nbsp; " +
-            "<strong>Staff ID:</strong> " + escapeHtml(staffId);
+        return raw;
+
     }
 
-    console.log("CURRENT STAFF USED FOR TIMETABLE:", {
-        staffId: staffId,
-        staffName: staffName,
-        source: "STAFF DASHBOARD SESSION"
-    });
+
+    const text =
+        clean(raw);
+
+
+    const match =
+        text.match(
+            /(?:HOUR|PERIOD|H)\s*([1-5])/i
+        );
+
+
+    if(match){
+
+        return Number(
+            match[1]
+        );
+
+    }
+
+
+    return Number(
+        text
+    );
+
 }
 
-/* =========================================================
+
+/* =====================================================
+   LOAD STAFF
+===================================================== */
+
+async function loadStaff(){
+
+    const current =
+        getDashboardStaff();
+
+
+    staffId =
+        current.id;
+
+
+    staffName =
+        current.name ||
+        "Staff";
+
+
+    document.getElementById(
+        "staffId"
+    ).textContent =
+        staffId;
+
+
+    document.getElementById(
+        "staffName"
+    ).textContent =
+        staffName;
+
+
+    document.getElementById(
+        "staffInfo"
+    ).innerHTML =
+
+        "<strong>Staff:</strong> " +
+
+        escapeHtml(
+            staffName
+        )
+
+        +
+
+        " &nbsp;&nbsp; | &nbsp;&nbsp; "
+
+        +
+
+        "<strong>Staff ID:</strong> " +
+
+        escapeHtml(
+            staffId
+        );
+
+
+    console.log(
+        "CURRENT STAFF USED FOR TIMETABLE:",
+        {
+            staffId,
+            staffName,
+            source:
+                "STAFF DASHBOARD SESSION"
+        }
+    );
+
+}
+
+
+/* =====================================================
    LOAD TIMETABLE
-========================================================= */
+===================================================== */
 
 async function loadTimetable(){
-    timetable=[];
-    const currentId=normalizeStaffId(staffId);
-    if(!currentId) throw new Error("Current Staff ID is missing.");
 
-    const snapshot=await getDocs(collection(db,"staffTimetable"));
+    timetable = [];
 
-    snapshot.forEach(docSnap=>{
-        const data=docSnap.data() || {};
-        const recordStaffId=getRecordStaffId(data);
 
-        if(!recordStaffId || normalizeStaffId(recordStaffId)!==currentId) return;
+    const currentId =
+        normalizeStaffId(
+            staffId
+        );
 
-        const day=normalizeDay(data.day ?? data.dayName ?? data.dayNo ?? data.dayOrder);
-        const session=getRecordSession(data);
-        const hour=getRecordHour(data);
 
-        if(!day || !session || !Number.isInteger(hour) || hour<1 || hour>5) return;
+    if(!currentId){
 
-        timetable.push({
-            id:docSnap.id,
-            day,
-            session,
-            hour,
-            time:clean(data.time ?? data.timing ?? data.periodTime) || TIME[session]?.[hour] || "",
-            subjectCode:clean(data.subjectCode ?? data.subjectId ?? data.code),
-            subjectName:clean(data.subjectName ?? data.subject ?? data.subjectTitle),
-            department:clean(data.classDepartment ?? data.department ?? data.dep),
-            year:clean(data.classYear ?? data.year),
-            section:clean(data.classSection ?? data.section ?? data.sec),
-            room:clean(data.labNo ?? data.roomNo ?? data.room ?? data.roomNumber)
-        });
-    });
+        throw new Error(
+            "Current Staff ID is missing."
+        );
 
-    timetable.sort((a,b)=>{
-        const dayDiff=DAYS.indexOf(a.day)-DAYS.indexOf(b.day);
-        if(dayDiff!==0) return dayDiff;
-        if(a.session!==b.session) return a.session==="FN" ? -1 : 1;
-        return a.hour-b.hour;
-    });
+    }
 
-    console.log("TIMETABLE LOADED FOR CURRENT DASHBOARD STAFF:",{
-        staffId,
-        total:timetable.length,
-        FN:timetable.filter(x=>x.session==="FN").length,
-        AN:timetable.filter(x=>x.session==="AN").length
-    });
+
+    const snapshot =
+        await getDocs(
+
+            collection(
+                db,
+                "staffTimetable"
+            )
+
+        );
+
+
+    console.log(
+        "TOTAL TIMETABLE DOCUMENTS:",
+        snapshot.size
+    );
+
+
+    snapshot.forEach(
+
+        docSnap => {
+
+            const data =
+                docSnap.data() ||
+                {};
+
+
+            const recordStaffId =
+                getRecordStaffId(
+                    data
+                );
+
+
+            if(
+                !recordStaffId
+            ){
+
+                return;
+
+            }
+
+
+            if(
+
+                normalizeStaffId(
+                    recordStaffId
+                )
+
+                !==
+
+                currentId
+
+            ){
+
+                return;
+
+            }
+
+
+            const day =
+                normalizeDay(
+
+                    data.day ??
+                    data.dayName ??
+                    data.dayNo ??
+                    data.dayOrder
+
+                );
+
+
+            const session =
+                getRecordSession(
+                    data
+                );
+
+
+            const hour =
+                getRecordHour(
+                    data
+                );
+
+
+            if(
+                !day ||
+                !session ||
+                !Number.isInteger(hour) ||
+                hour < 1 ||
+                hour > 5
+            ){
+
+                console.warn(
+                    "Skipping invalid timetable:",
+                    docSnap.id,
+                    data
+                );
+
+                return;
+
+            }
+
+
+            const record = {
+
+                id:
+                    docSnap.id,
+
+                day:
+                    day,
+
+                session:
+                    session,
+
+                hour:
+                    hour,
+
+                time:
+
+                    clean(
+                        data.time ??
+                        data.timing ??
+                        data.periodTime
+                    )
+
+                    ||
+
+                    TIME[session]?.[hour]
+
+                    ||
+
+                    "",
+
+                subjectCode:
+
+                    clean(
+                        data.subjectCode ??
+                        data.subjectId ??
+                        data.code
+                    ),
+
+                subjectName:
+
+                    clean(
+                        data.subjectName ??
+                        data.subject ??
+                        data.subjectTitle
+                    ),
+
+                department:
+
+                    clean(
+                        data.classDepartment ??
+                        data.department ??
+                        data.dep
+                    ),
+
+                year:
+
+                    clean(
+                        data.classYear ??
+                        data.year
+                    ),
+
+                section:
+
+                    clean(
+                        data.classSection ??
+                        data.section ??
+                        data.sec
+                    ),
+
+                room:
+
+                    clean(
+                        data.labNo ??
+                        data.roomNo ??
+                        data.room ??
+                        data.roomNumber
+                    )
+
+            };
+
+
+            timetable.push(
+                record
+            );
+
+        }
+
+    );
+
+
+    timetable.sort(
+
+        (a,b) => {
+
+            const dayDiff =
+
+                DAYS.indexOf(a.day)
+                -
+                DAYS.indexOf(b.day);
+
+
+            if(dayDiff !== 0){
+
+                return dayDiff;
+
+            }
+
+
+            if(
+                a.session !==
+                b.session
+            ){
+
+                return
+
+                    a.session === "FN"
+                    ? -1
+                    : 1;
+
+            }
+
+
+            return (
+                a.hour -
+                b.hour
+            );
+
+        }
+
+    );
+
+
+    console.log(
+        "TIMETABLE LOADED:",
+        {
+            staffId,
+            total:
+                timetable.length,
+
+            FN:
+                timetable.filter(
+                    x =>
+                        x.session === "FN"
+                ).length,
+
+            AN:
+                timetable.filter(
+                    x =>
+                        x.session === "AN"
+                ).length
+
+        }
+    );
+
 
     renderTimetable();
+
 }
 
-/* =========================================================
+
+/* =====================================================
    FIND PERIOD
-========================================================= */
+===================================================== */
 
 function findPeriod(
     day,
@@ -695,20 +1364,190 @@ function findPeriod(
     hour
 ){
 
-    return timetable.find(item =>
+    return timetable.find(
 
-        item.day === day &&
-        item.session === session &&
-        Number(item.hour) === Number(hour)
+        item =>
+
+            item.day === day &&
+
+            item.session === session &&
+
+            Number(item.hour) ===
+            Number(hour)
 
     );
 
 }
 
 
-/* =========================================================
-   RENDER
-========================================================= */
+/* =====================================================
+   CREATE PERIOD
+===================================================== */
+
+function createPeriod(
+    day,
+    session,
+    hour
+){
+
+    const td =
+        document.createElement(
+            "td"
+        );
+
+
+    const record =
+        findPeriod(
+            day,
+            session,
+            hour
+        );
+
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    /* ================= FREE ================= */
+
+    if(!record){
+
+        div.className =
+            "period free";
+
+
+        div.textContent =
+            "FREE";
+
+
+        td.appendChild(
+            div
+        );
+
+
+        return td;
+
+    }
+
+
+    /* ================= ASSIGNED ================= */
+
+    div.className =
+        "period class-period";
+
+
+    div.innerHTML = `
+
+        <span class="session ${
+            session === "FN"
+            ? "fn"
+            : "an"
+        }">
+
+            ${escapeHtml(session)}
+
+        </span>
+
+
+        <div class="hour">
+
+            Hour ${hour}
+
+            • ${escapeHtml(
+                record.time
+            )}
+
+        </div>
+
+
+        <div class="subject-code">
+
+            ${escapeHtml(
+                record.subjectCode ||
+                "-"
+            )}
+
+        </div>
+
+
+        <div class="subject-name">
+
+            ${escapeHtml(
+                record.subjectName ||
+                "-"
+            )}
+
+        </div>
+
+
+        <div class="class-name">
+
+            ${escapeHtml(
+                record.department ||
+                "-"
+            )}
+
+            <br>
+
+            ${escapeHtml(
+                record.year ||
+                "-"
+            )}
+
+            -
+
+            ${escapeHtml(
+                record.section ||
+                "-"
+            )}
+
+        </div>
+
+
+        <div class="room">
+
+            Room:
+
+            ${escapeHtml(
+                record.room ||
+                "-"
+            )}
+
+        </div>
+
+    `;
+
+
+    div.addEventListener(
+
+        "click",
+
+        function(){
+
+            openAttendance(
+                record
+            );
+
+        }
+
+    );
+
+
+    td.appendChild(
+        div
+    );
+
+
+    return td;
+
+}
+
+
+/* =====================================================
+   RENDER TIMETABLE
+===================================================== */
 
 function renderTimetable(){
 
@@ -717,72 +1556,135 @@ function renderTimetable(){
             "timetableBody"
         );
 
+
     body.innerHTML = "";
 
 
-    if(!timetable.length){
+    if(
+        timetable.length === 0
+    ){
 
         document.getElementById(
             "emptyBox"
         ).style.display =
             "block";
 
+
+        document.getElementById(
+            "tableContainer"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "loadingBox"
+        ).style.display =
+            "none";
+
+
         return;
 
     }
 
 
-    DAYS.forEach(day => {
+    DAYS.forEach(
 
-        const row =
-            document.createElement("tr");
+        day => {
 
-
-        const dayCell =
-            document.createElement("td");
-
-        dayCell.className =
-            "day-cell";
-
-        dayCell.textContent =
-            day;
-
-        row.appendChild(dayCell);
+            const row =
+                document.createElement(
+                    "tr"
+                );
 
 
-        HOURS.forEach(hour => {
+            /* DAY CELL */
+
+            const dayCell =
+                document.createElement(
+                    "td"
+                );
+
+
+            dayCell.className =
+                "day-cell";
+
+
+            dayCell.textContent =
+                day;
+
 
             row.appendChild(
-                createPeriod(
-                    day,
-                    "FN",
-                    hour
-                )
+                dayCell
             );
 
-        });
 
+            /* FN */
 
-        HOURS.forEach(hour => {
+            HOURS.forEach(
 
-            row.appendChild(
-                createPeriod(
-                    day,
-                    "AN",
-                    hour
-                )
+                hour => {
+
+                    row.appendChild(
+
+                        createPeriod(
+
+                            day,
+
+                            "FN",
+
+                            hour
+
+                        )
+
+                    );
+
+                }
+
             );
 
-        });
+
+            /* AN */
+
+            HOURS.forEach(
+
+                hour => {
+
+                    row.appendChild(
+
+                        createPeriod(
+
+                            day,
+
+                            "AN",
+
+                            hour
+
+                        )
+
+                    );
+
+                }
+
+            );
 
 
-        body.appendChild(row);
+            body.appendChild(
+                row
+            );
 
-    });
+        }
+
+    );
 
 
     document.getElementById(
         "loadingBox"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "emptyBox"
     ).style.display =
         "none";
 
@@ -795,184 +1697,73 @@ function renderTimetable(){
 }
 
 
-/* =========================================================
-   CREATE PERIOD
-========================================================= */
+/* =====================================================
+   OPEN ATTENDANCE
+===================================================== */
 
-function createPeriod(
-    day,
-    session,
-    hour
+function openAttendance(
+    record
 ){
-
-    const td =
-        document.createElement("td");
-
-
-    const record =
-        findPeriod(
-            day,
-            session,
-            hour
-        );
-
-
-    const div =
-        document.createElement("div");
-
-
-    if(!record){
-
-        div.className =
-            "period free";
-
-        div.textContent =
-            "FREE";
-
-        td.appendChild(div);
-
-        return td;
-
-    }
-
-
-    div.className =
-        "period class-period";
-
-
-    div.innerHTML = `
-
-        <span class="session ${session === "FN" ? "fn" : "an"}">
-
-            ${escapeHtml(session)}
-
-        </span>
-
-        <div class="hour">
-
-            Hour ${hour}
-
-            • ${escapeHtml(record.time)}
-
-        </div>
-
-        <div class="subject-code">
-
-            ${escapeHtml(
-                record.subjectCode || "-"
-            )}
-
-        </div>
-
-        <div class="subject-name">
-
-            ${escapeHtml(
-                record.subjectName || "-"
-            )}
-
-        </div>
-
-        <div class="class-name">
-
-            ${escapeHtml(
-                record.department || "-"
-            )}
-
-            <br>
-
-            ${escapeHtml(
-                record.year || "-"
-            )}
-
-            -
-
-            ${escapeHtml(
-                record.section || "-"
-            )}
-
-        </div>
-
-        <div class="room">
-
-            Room:
-            ${escapeHtml(
-                record.room || "-"
-            )}
-
-        </div>
-
-    `;
-
-
-    div.addEventListener(
-        "click",
-        function(){
-
-            openAttendance(record);
-
-        }
-    );
-
-
-    td.appendChild(div);
-
-    return td;
-
-}
-
-
-/* =========================================================
-   OPEN STUDENT PAGE
-========================================================= */
-
-function openAttendance(record){
-
-    /*
-       Store selected timetable information.
-
-       The student page will read this information.
-    */
 
     const attendancePeriod = {
 
-        staffId:staffId,
+        staffId:
+            staffId,
 
-        staffName:staffName,
+        staffName:
+            staffName,
 
-        day:record.day,
+        day:
+            record.day,
 
-        session:record.session,
+        session:
+            record.session,
 
-        hour:Number(record.hour),
+        hour:
+            Number(
+                record.hour
+            ),
 
-        time:record.time,
+        time:
+            record.time,
 
-        subjectCode:record.subjectCode,
+        subjectCode:
+            record.subjectCode,
 
-        subjectName:record.subjectName,
+        subjectName:
+            record.subjectName,
 
-        department:record.department,
+        department:
+            record.department,
 
-        year:record.year,
+        year:
+            record.year,
 
-        section:record.section,
+        section:
+            record.section,
 
-        room:record.room
+        room:
+            record.room
 
     };
 
 
-    sessionStorage.setItem(
-        "attendancePeriod",
-        JSON.stringify(
-            attendancePeriod
-        )
+    console.log(
+        "SELECTED ATTENDANCE PERIOD:",
+        attendancePeriod
     );
 
 
-    /*
-       Open separate page.
-    */
+    sessionStorage.setItem(
+
+        "attendancePeriod",
+
+        JSON.stringify(
+            attendancePeriod
+        )
+
+    );
+
 
     window.location.href =
         "attendance-students.html";
@@ -980,19 +1771,23 @@ function openAttendance(record){
 }
 
 
-/* =========================================================
+/* =====================================================
    ERROR
-========================================================= */
+===================================================== */
 
-function showError(message){
+function showError(
+    message
+){
 
     const box =
         document.getElementById(
             "errorBox"
         );
 
+
     box.textContent =
         message;
+
 
     box.style.display =
         "block";
@@ -1000,9 +1795,9 @@ function showError(message){
 }
 
 
-/* =========================================================
+/* =====================================================
    START
-========================================================= */
+===================================================== */
 
 async function start(){
 
@@ -1013,17 +1808,24 @@ async function start(){
         await loadTimetable();
 
     }
+
     catch(error){
 
-        console.error(error);
+        console.error(
+            "ATTENDANCE INITIALIZATION ERROR:",
+            error
+        );
+
 
         document.getElementById(
             "loadingBox"
         ).style.display =
             "none";
 
+
         showError(
-            error.message
+            error.message ||
+            "Unable to load attendance timetable."
         );
 
     }
