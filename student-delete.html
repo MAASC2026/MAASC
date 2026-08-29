@@ -1005,166 +1005,104 @@ th:first-child{
 </div>
 
 <!-- ================= FIREBASE ================= -->
-
 <script type="module">
 
 import { db } from "./firebase-config.js";
 
 import {
-
     collection,
-
     getDocs,
-
     query,
-
     where,
-
+    doc,
     deleteDoc
-
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* ================= ELEMENTS ================= */
+const academicYear = document.getElementById("academicYear");
+const department = document.getElementById("department");
+const year = document.getElementById("year");
+const section = document.getElementById("section");
 
-const academicYear =
-    document.getElementById("academicYear");
+const loadBtn = document.getElementById("loadBtn");
+const selectAllBtn = document.getElementById("selectAllBtn");
+const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
+const deleteAllBtn = document.getElementById("deleteAllBtn");
 
-const department =
-    document.getElementById("department");
+const searchInput = document.getElementById("searchInput");
+const masterCheckbox = document.getElementById("masterCheckbox");
 
-const year =
-    document.getElementById("year");
+const tableBody = document.getElementById("studentTableBody");
+const emptyState = document.getElementById("emptyState");
 
-const section =
-    document.getElementById("section");
+const totalCount = document.getElementById("totalCount");
+const selectedCount = document.getElementById("selectedCount");
 
-const loadBtn =
-    document.getElementById("loadBtn");
+const loader = document.getElementById("loader");
+const message = document.getElementById("message");
 
-const selectAllBtn =
-    document.getElementById("selectAllBtn");
+const confirmModal = document.getElementById("confirmModal");
+const confirmText = document.getElementById("confirmText");
+const confirmBtn = document.getElementById("confirmBtn");
+const cancelBtn = document.getElementById("cancelBtn");
 
-const deleteSelectedBtn =
-    document.getElementById("deleteSelectedBtn");
-
-const deleteAllBtn =
-    document.getElementById("deleteAllBtn");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const masterCheckbox =
-    document.getElementById("masterCheckbox");
-
-const tableBody =
-    document.getElementById("studentTableBody");
-
-const emptyState =
-    document.getElementById("emptyState");
-
-const totalCount =
-    document.getElementById("totalCount");
-
-const selectedCount =
-    document.getElementById("selectedCount");
-
-const loader =
-    document.getElementById("loader");
-
-const message =
-    document.getElementById("message");
-
-const confirmModal =
-    document.getElementById("confirmModal");
-
-const confirmText =
-    document.getElementById("confirmText");
-
-const confirmBtn =
-    document.getElementById("confirmBtn");
-
-const cancelBtn =
-    document.getElementById("cancelBtn");
-
-
-/* ================= VARIABLES ================= */
 
 let students = [];
-
 let pendingDeleteAction = null;
 
 
 /* ================= MESSAGE ================= */
 
-function showMessage(text, type){
+function showMessage(text, type) {
 
     message.style.display = "block";
 
-    message.className =
-        "message " + type;
+    message.className = "message " + type;
 
     message.innerHTML = text;
-
 }
 
 
-function hideMessage(){
+function hideMessage() {
 
     message.style.display = "none";
 
 }
 
 
-/* ================= UPDATE COUNTS ================= */
+/* ================= COUNTS ================= */
 
-function updateCounts(){
+function updateCounts() {
 
-    totalCount.textContent =
-        students.length;
-
-    const selected =
-        students.filter(student =>
-            student.selected
-        ).length;
+    totalCount.textContent = students.length;
 
     selectedCount.textContent =
-        selected;
+        students.filter(s => s.selected).length;
 
 }
 
 
 /* ================= LOAD STUDENTS ================= */
 
-loadBtn.addEventListener(
-    "click",
-    loadStudents
-);
+loadBtn.addEventListener("click", loadStudents);
 
 
-async function loadStudents(){
+async function loadStudents() {
 
     hideMessage();
 
-    const ay =
-        academicYear.value;
-
-    const dep =
-        department.value;
-
-    const yr =
-        year.value;
-
-    const sec =
-        section.value;
+    const ay = academicYear.value;
+    const dep = department.value;
+    const yr = year.value;
+    const sec = section.value;
 
 
-    if(
+    if (
         ay === "" ||
         dep === "" ||
         yr === "" ||
         sec === ""
-    ){
+    ) {
 
         showMessage(
             "Please select Academic Year, Department, Year and Section.",
@@ -1172,7 +1110,6 @@ async function loadStudents(){
         );
 
         return;
-
     }
 
 
@@ -1180,92 +1117,98 @@ async function loadStudents(){
 
     tableBody.innerHTML = "";
 
-    emptyState.style.display = "none";
-
     students = [];
 
     masterCheckbox.checked = false;
 
+    emptyState.style.display = "none";
 
-    try{
 
-        const q = query(
+    try {
 
-            collection(db, "students"),
-
-            where(
-                "academicYear",
-                "==",
-                ay
-            ),
-
-            where(
-                "department",
-                "==",
-                dep
-            ),
-
-            where(
-                "year",
-                "==",
-                yr
-            ),
-
-            where(
-                "section",
-                "==",
-                sec
-            )
-
-        );
-
+        /*
+         * IMPORTANT:
+         * We load the students collection first
+         * and filter in JavaScript.
+         *
+         * This avoids Firestore composite-index
+         * problems completely.
+         */
 
         const snapshot =
-            await getDocs(q);
+            await getDocs(
+                collection(db, "students")
+            );
 
 
-        snapshot.forEach(doc => {
+        snapshot.forEach(studentDoc => {
 
-            students.push({
+            const data = studentDoc.data();
 
-                id: doc.id,
 
-                ...doc.data(),
+            if (
 
-                selected: false
+                String(data.academicYear || "") === String(ay) &&
 
-            });
+                String(data.department || "") === String(dep) &&
+
+                String(data.year || "") === String(yr) &&
+
+                String(data.section || "") === String(sec)
+
+            ) {
+
+                students.push({
+
+                    id: studentDoc.id,
+
+                    ...data,
+
+                    selected: false
+
+                });
+
+            }
 
         });
 
 
-        students.sort(
-            (a,b) =>
-                String(a.rollNo || "")
+        /*
+         * Sort by Roll Number
+         */
+
+        students.sort((a, b) => {
+
+            return String(a.rollNo || "")
                 .localeCompare(
                     String(b.rollNo || ""),
                     undefined,
                     {
-                        numeric:true,
-                        sensitivity:"base"
+                        numeric: true,
+                        sensitivity: "base"
                     }
-                )
-        );
+                );
+
+        });
 
 
         renderStudents();
 
+        updateCounts();
 
-        if(students.length === 0){
 
-            emptyState.style.display =
-                "block";
+        if (students.length === 0) {
+
+            emptyState.style.display = "block";
 
             emptyState.innerHTML = `
 
                 <i class="fa fa-user-slash"></i>
 
-                <p>No students found for the selected group.</p>
+                <p>
+                    No students found for the selected
+                    Academic Year, Department, Year and Section.
+                </p>
 
             `;
 
@@ -1274,7 +1217,7 @@ async function loadStudents(){
                 "warning"
             );
 
-        }else{
+        } else {
 
             showMessage(
                 students.length +
@@ -1285,16 +1228,17 @@ async function loadStudents(){
         }
 
 
-    }catch(error){
+    } catch (error) {
 
         console.error(
-            "LOAD STUDENTS ERROR:",
+            "STUDENT LOAD ERROR:",
             error
         );
 
 
         showMessage(
-            "Error loading students: " +
+            "Unable to load students.<br><br>" +
+            "<strong>Error:</strong> " +
             error.message,
             "error"
         );
@@ -1304,25 +1248,23 @@ async function loadStudents(){
 
     loader.style.display = "none";
 
-    updateCounts();
-
 }
 
 
-/* ================= RENDER ================= */
+/* ================= RENDER STUDENTS ================= */
 
-function renderStudents(){
+function renderStudents() {
 
     tableBody.innerHTML = "";
 
 
     const search =
         searchInput.value
-        .trim()
-        .toLowerCase();
+            .trim()
+            .toLowerCase();
 
 
-    const filtered =
+    const filteredStudents =
         students.filter(student => {
 
             const roll =
@@ -1335,7 +1277,8 @@ function renderStudents(){
                     student.studentName || ""
                 ).toLowerCase();
 
-            return(
+
+            return (
                 roll.includes(search) ||
                 name.includes(search)
             );
@@ -1343,12 +1286,11 @@ function renderStudents(){
         });
 
 
-    if(filtered.length === 0){
+    if (filteredStudents.length === 0) {
 
-        if(students.length > 0){
+        if (students.length > 0) {
 
-            emptyState.style.display =
-                "block";
+            emptyState.style.display = "block";
 
             emptyState.innerHTML = `
 
@@ -1368,14 +1310,8 @@ function renderStudents(){
     emptyState.style.display = "none";
 
 
-    filtered.forEach(
-        (student,index) => {
-
-            const actualIndex =
-                students.findIndex(
-                    item =>
-                        item.id === student.id
-                );
+    filteredStudents.forEach(
+        (student, index) => {
 
 
             const tr =
@@ -1387,93 +1323,57 @@ function renderStudents(){
                 <td>
 
                     <input
-
                         type="checkbox"
-
                         class="student-checkbox checkbox"
-
                         data-id="${student.id}"
-
                         ${student.selected ? "checked" : ""}
-
                     >
 
                 </td>
 
 
                 <td>
-
                     ${index + 1}
-
                 </td>
 
 
                 <td>
-
                     <strong>
-
-                        ${escapeHtml(
-                            student.rollNo || ""
-                        )}
-
+                        ${escapeHtml(student.rollNo || "")}
                     </strong>
-
                 </td>
 
 
                 <td>
-
-                    ${escapeHtml(
-                        student.studentName || ""
-                    )}
-
+                    ${escapeHtml(student.studentName || "")}
                 </td>
 
 
                 <td>
-
-                    ${escapeHtml(
-                        student.academicYear || ""
-                    )}
-
+                    ${escapeHtml(student.academicYear || "")}
                 </td>
 
 
                 <td>
-
-                    ${escapeHtml(
-                        student.department || ""
-                    )}
-
+                    ${escapeHtml(student.department || "")}
                 </td>
 
 
                 <td>
-
-                    ${escapeHtml(
-                        student.year || ""
-                    )}
-
+                    ${escapeHtml(student.year || "")}
                 </td>
 
 
                 <td>
-
-                    ${escapeHtml(
-                        student.section || ""
-                    )}
-
+                    ${escapeHtml(student.section || "")}
                 </td>
 
 
                 <td>
 
                     <button
-
                         class="delete-one-btn"
-
                         data-id="${student.id}"
-
                     >
 
                         <i class="fa fa-trash"></i>
@@ -1490,6 +1390,10 @@ function renderStudents(){
             tableBody.appendChild(tr);
 
 
+            /*
+             * Checkbox
+             */
+
             const checkbox =
                 tr.querySelector(
                     ".student-checkbox"
@@ -1498,12 +1402,23 @@ function renderStudents(){
 
             checkbox.addEventListener(
                 "change",
-                function(){
+                function () {
 
-                    students[
-                        actualIndex
-                    ].selected =
-                        this.checked;
+                    const target =
+                        students.find(
+                            s =>
+                                s.id ===
+                                student.id
+                        );
+
+
+                    if (target) {
+
+                        target.selected =
+                            this.checked;
+
+                    }
+
 
                     updateCounts();
 
@@ -1513,6 +1428,10 @@ function renderStudents(){
             );
 
 
+            /*
+             * Individual Delete
+             */
+
             const deleteButton =
                 tr.querySelector(
                     ".delete-one-btn"
@@ -1521,37 +1440,41 @@ function renderStudents(){
 
             deleteButton.addEventListener(
                 "click",
-                function(){
+                function () {
 
-                    const studentId =
-                        this.dataset.id;
-
-                    const student =
+                    const target =
                         students.find(
-                            item =>
-                                item.id ===
-                                studentId
+                            s =>
+                                s.id ===
+                                student.id
                         );
 
-                    if(!student) return;
+
+                    if (!target) return;
 
 
                     openConfirm(
 
-                        "Are you sure you want to delete <strong>" +
-                        escapeHtml(
-                            student.studentName || ""
-                        ) +
-                        "</strong> (" +
-                        escapeHtml(
-                            student.rollNo || ""
-                        ) +
-                        ")?",
+                        `
 
-                        function(){
+                        Are you sure you want to delete
 
-                            deleteSingleStudent(
-                                student
+                        <strong>
+                            ${escapeHtml(
+                                target.studentName || ""
+                            )}
+                        </strong>
+
+                        (${escapeHtml(
+                            target.rollNo || ""
+                        )})?
+
+                        `,
+
+                        async function () {
+
+                            await deleteSingleStudent(
+                                target
                             );
 
                         }
@@ -1582,15 +1505,27 @@ searchInput.addEventListener(
 
 selectAllBtn.addEventListener(
     "click",
-    function(){
+    function () {
+
+        if (students.length === 0) {
+
+            showMessage(
+                "No students are loaded.",
+                "warning"
+            );
+
+            return;
+
+        }
+
 
         const search =
             searchInput.value
-            .trim()
-            .toLowerCase();
+                .trim()
+                .toLowerCase();
 
 
-        const filtered =
+        const visible =
             students.filter(student => {
 
                 const roll =
@@ -1603,7 +1538,8 @@ selectAllBtn.addEventListener(
                         student.studentName || ""
                     ).toLowerCase();
 
-                return(
+
+                return (
                     roll.includes(search) ||
                     name.includes(search)
                 );
@@ -1611,40 +1547,17 @@ selectAllBtn.addEventListener(
             });
 
 
-        if(filtered.length === 0){
-
-            showMessage(
-                "There are no students to select.",
-                "warning"
-            );
-
-            return;
-
-        }
-
-
         const allSelected =
-            filtered.every(
-                student =>
-                    student.selected
+            visible.length > 0 &&
+            visible.every(
+                s => s.selected
             );
 
 
-        filtered.forEach(student => {
+        visible.forEach(student => {
 
-            const index =
-                students.findIndex(
-                    item =>
-                        item.id ===
-                        student.id
-                );
-
-            if(index !== -1){
-
-                students[index].selected =
-                    !allSelected;
-
-            }
+            student.selected =
+                !allSelected;
 
         });
 
@@ -1661,7 +1574,7 @@ selectAllBtn.addEventListener(
 
 masterCheckbox.addEventListener(
     "change",
-    function(){
+    function () {
 
         const checked =
             this.checked;
@@ -1669,8 +1582,8 @@ masterCheckbox.addEventListener(
 
         const search =
             searchInput.value
-            .trim()
-            .toLowerCase();
+                .trim()
+                .toLowerCase();
 
 
         students.forEach(student => {
@@ -1686,10 +1599,10 @@ masterCheckbox.addEventListener(
                 ).toLowerCase();
 
 
-            if(
+            if (
                 roll.includes(search) ||
                 name.includes(search)
-            ){
+            ) {
 
                 student.selected =
                     checked;
@@ -1709,12 +1622,12 @@ masterCheckbox.addEventListener(
 
 /* ================= MASTER STATE ================= */
 
-function updateMasterCheckbox(){
+function updateMasterCheckbox() {
 
     const search =
         searchInput.value
-        .trim()
-        .toLowerCase();
+            .trim()
+            .toLowerCase();
 
 
     const visible =
@@ -1730,7 +1643,8 @@ function updateMasterCheckbox(){
                     student.studentName || ""
                 ).toLowerCase();
 
-            return(
+
+            return (
                 roll.includes(search) ||
                 name.includes(search)
             );
@@ -1738,12 +1652,11 @@ function updateMasterCheckbox(){
         });
 
 
-    if(visible.length === 0){
+    if (visible.length === 0) {
 
         masterCheckbox.checked = false;
 
-        masterCheckbox.indeterminate =
-            false;
+        masterCheckbox.indeterminate = false;
 
         return;
 
@@ -1752,8 +1665,7 @@ function updateMasterCheckbox(){
 
     const selected =
         visible.filter(
-            student =>
-                student.selected
+            s => s.selected
         ).length;
 
 
@@ -1772,16 +1684,15 @@ function updateMasterCheckbox(){
 
 deleteSelectedBtn.addEventListener(
     "click",
-    function(){
+    function () {
 
         const selected =
             students.filter(
-                student =>
-                    student.selected
+                s => s.selected
             );
 
 
-        if(selected.length === 0){
+        if (selected.length === 0) {
 
             showMessage(
                 "Please select at least one student.",
@@ -1795,14 +1706,23 @@ deleteSelectedBtn.addEventListener(
 
         openConfirm(
 
-            "You are about to permanently delete <strong>" +
-            selected.length +
-            " students</strong>.<br><br>" +
-            "This action cannot be undone. Continue?",
+            `
 
-            function(){
+            You are about to delete
 
-                deleteSelectedStudents(
+            <strong>
+                ${selected.length} students
+            </strong>.
+
+            <br><br>
+
+            This action cannot be undone.
+
+            `,
+
+            async function () {
+
+                await deleteStudents(
                     selected
                 );
 
@@ -1814,16 +1734,16 @@ deleteSelectedBtn.addEventListener(
 );
 
 
-/* ================= DELETE ALL LOADED ================= */
+/* ================= DELETE ALL ================= */
 
 deleteAllBtn.addEventListener(
     "click",
-    function(){
+    function () {
 
-        if(students.length === 0){
+        if (students.length === 0) {
 
             showMessage(
-                "No students are currently loaded.",
+                "No students are loaded.",
                 "warning"
             );
 
@@ -1834,15 +1754,55 @@ deleteAllBtn.addEventListener(
 
         openConfirm(
 
-            "You are about to permanently delete <strong>" +
-            students.length +
-            " students</strong> currently loaded.<br><br>" +
-            "<strong>This will delete ALL students shown for the selected group.</strong><br><br>" +
-            "This action cannot be undone. Continue?",
+            `
 
-            function(){
+            <strong>
+                WARNING
+            </strong>
 
-                deleteAllLoadedStudents();
+            <br><br>
+
+            You are about to delete
+
+            <strong>
+                ALL ${students.length} students
+            </strong>
+
+            loaded for:
+
+            <br><br>
+
+            Academic Year:
+            <strong>${escapeHtml(academicYear.value)}</strong>
+
+            <br>
+
+            Department:
+            <strong>${escapeHtml(department.value)}</strong>
+
+            <br>
+
+            Year:
+            <strong>${escapeHtml(year.value)}</strong>
+
+            <br>
+
+            Section:
+            <strong>${escapeHtml(section.value)}</strong>
+
+            <br><br>
+
+            <strong>
+                This action cannot be undone.
+            </strong>
+
+            `,
+
+            async function () {
+
+                await deleteStudents(
+                    [...students]
+                );
 
             }
 
@@ -1854,36 +1814,28 @@ deleteAllBtn.addEventListener(
 
 /* ================= DELETE SINGLE ================= */
 
-async function deleteSingleStudent(student){
+async function deleteSingleStudent(student) {
 
     loader.style.display = "block";
 
     hideMessage();
 
 
-    try{
+    try {
 
         await deleteDoc(
-
-            collection(db,"students")
-                ? (
-                    await import(
-                        "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
-                    )
-                ).doc(
-                    db,
-                    "students",
-                    student.id
-                )
-                : null
-
+            doc(
+                db,
+                "students",
+                student.id
+            )
         );
 
 
         students =
             students.filter(
-                item =>
-                    item.id !==
+                s =>
+                    s.id !==
                     student.id
             );
 
@@ -1895,31 +1847,39 @@ async function deleteSingleStudent(student){
 
         showMessage(
 
-            "Student <strong>" +
-            escapeHtml(
-                student.studentName || ""
-            ) +
-            "</strong> (" +
-            escapeHtml(
+            `
+
+            Student
+
+            <strong>
+                ${escapeHtml(
+                    student.studentName || ""
+                )}
+            </strong>
+
+            (${escapeHtml(
                 student.rollNo || ""
-            ) +
-            ") deleted successfully.",
+            )})
+
+            deleted successfully.
+
+            `,
 
             "success"
 
         );
 
 
-    }catch(error){
+    } catch (error) {
 
         console.error(
-            "DELETE STUDENT ERROR:",
+            "DELETE ERROR:",
             error
         );
 
 
         showMessage(
-            "Error deleting student: " +
+            "Error deleting student:<br>" +
             error.message,
             "error"
         );
@@ -1932,9 +1892,9 @@ async function deleteSingleStudent(student){
 }
 
 
-/* ================= DELETE SELECTED STUDENTS ================= */
+/* ================= MASS DELETE ================= */
 
-async function deleteSelectedStudents(selected){
+async function deleteStudents(list) {
 
     loader.style.display = "block";
 
@@ -1946,79 +1906,119 @@ async function deleteSelectedStudents(selected){
     let failed = 0;
 
 
-    try{
+    for (const student of list) {
 
-        for(const student of selected){
+        try {
 
-            try{
-
-                await deleteStudentById(
+            await deleteDoc(
+                doc(
+                    db,
+                    "students",
                     student.id
-                );
+                )
+            );
 
-                deleted++;
+            deleted++;
 
-            }catch(error){
+        } catch (error) {
 
-                console.error(
-                    "FAILED:",
-                    student.id,
-                    error
-                );
+            console.error(
+                "DELETE FAILED:",
+                student,
+                error
+            );
 
-                failed++;
-
-            }
+            failed++;
 
         }
 
+    }
+
+
+    /*
+     * Remove successfully deleted students
+     */
+
+    const deletedIds =
+        new Set(
+            list.map(
+                s => s.id
+            )
+        );
+
+
+    if (failed === 0) {
 
         students =
             students.filter(
-                student =>
-                    !selected.some(
-                        item =>
-                            item.id ===
-                            student.id
+                s =>
+                    !deletedIds.has(
+                        s.id
                     )
             );
 
+    } else {
 
-        renderStudents();
+        /*
+         * Reload from Firestore if
+         * any deletion failed.
+         */
 
-        updateCounts();
+        await reloadAfterDelete();
 
+    }
+
+
+    renderStudents();
+
+    updateCounts();
+
+
+    if (failed === 0) {
 
         showMessage(
 
-            "<strong>Mass Delete Completed</strong><br><br>" +
+            `
 
-            "Deleted : " +
-            deleted +
-            "<br>" +
+            <strong>
+                Mass Delete Completed
+            </strong>
 
-            "Failed : " +
-            failed,
+            <br><br>
 
-            failed === 0
-                ? "success"
-                : "warning"
+            Deleted:
+            <strong>${deleted}</strong>
+
+            students successfully.
+
+            `,
+
+            "success"
 
         );
 
-
-    }catch(error){
-
-        console.error(
-            "MASS DELETE ERROR:",
-            error
-        );
-
+    } else {
 
         showMessage(
-            "Mass delete error: " +
-            error.message,
-            "error"
+
+            `
+
+            Mass Delete Completed
+
+            <br><br>
+
+            Deleted:
+            <strong>${deleted}</strong>
+
+            <br>
+
+            Failed:
+            <strong>${failed}</strong>
+
+            `,
+
+            "warning"
+
         );
 
     }
@@ -2029,150 +2029,66 @@ async function deleteSelectedStudents(selected){
 }
 
 
-/* ================= DELETE ALL ================= */
+/* ================= RELOAD ================= */
 
-async function deleteAllLoadedStudents(){
+async function reloadAfterDelete() {
 
-    loader.style.display = "block";
-
-    hideMessage();
-
-
-    let deleted = 0;
-
-    let failed = 0;
+    const ay = academicYear.value;
+    const dep = department.value;
+    const yr = year.value;
+    const sec = section.value;
 
 
-    const copy =
-        [...students];
+    students = [];
 
 
-    try{
+    const snapshot =
+        await getDocs(
+            collection(db, "students")
+        );
 
-        for(const student of copy){
 
-            try{
+    snapshot.forEach(studentDoc => {
 
-                await deleteStudentById(
-                    student.id
-                );
+        const data =
+            studentDoc.data();
 
-                deleted++;
 
-            }catch(error){
+        if (
 
-                console.error(
-                    "FAILED:",
-                    student.id,
-                    error
-                );
+            String(data.academicYear || "") === String(ay) &&
 
-                failed++;
+            String(data.department || "") === String(dep) &&
 
-            }
+            String(data.year || "") === String(yr) &&
+
+            String(data.section || "") === String(sec)
+
+        ) {
+
+            students.push({
+
+                id: studentDoc.id,
+
+                ...data,
+
+                selected: false
+
+            });
 
         }
 
-
-        students = [];
-
-
-        renderStudents();
-
-        updateCounts();
-
-
-        masterCheckbox.checked = false;
-
-
-        emptyState.style.display =
-            "block";
-
-
-        emptyState.innerHTML = `
-
-            <i class="fa fa-user-slash"></i>
-
-            <p>No students are currently loaded.</p>
-
-        `;
-
-
-        showMessage(
-
-            "<strong>Mass Delete Completed</strong><br><br>" +
-
-            "Deleted : " +
-            deleted +
-            "<br>" +
-
-            "Failed : " +
-            failed,
-
-            failed === 0
-                ? "success"
-                : "warning"
-
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "DELETE ALL ERROR:",
-            error
-        );
-
-
-        showMessage(
-            "Mass delete error: " +
-            error.message,
-            "error"
-        );
-
-    }
-
-
-    loader.style.display = "none";
+    });
 
 }
 
 
-/* ================= DELETE FIRESTORE DOCUMENT ================= */
-
-async function deleteStudentById(id){
-
-    const {
-
-        doc,
-        deleteDoc
-
-    } = await import(
-
-        "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
-
-    );
-
-
-    await deleteDoc(
-
-        doc(
-            db,
-            "students",
-            id
-        )
-
-    );
-
-}
-
-
-/* ================= CONFIRM MODAL ================= */
+/* ================= CONFIRM ================= */
 
 function openConfirm(
     text,
     action
-){
+) {
 
     confirmText.innerHTML =
         text;
@@ -2186,13 +2102,7 @@ function openConfirm(
 }
 
 
-cancelBtn.addEventListener(
-    "click",
-    closeConfirm
-);
-
-
-function closeConfirm(){
+function closeConfirm() {
 
     confirmModal.style.display =
         "none";
@@ -2203,9 +2113,15 @@ function closeConfirm(){
 }
 
 
+cancelBtn.addEventListener(
+    "click",
+    closeConfirm
+);
+
+
 confirmBtn.addEventListener(
     "click",
-    async function(){
+    async function () {
 
         const action =
             pendingDeleteAction;
@@ -2213,7 +2129,7 @@ confirmBtn.addEventListener(
         closeConfirm();
 
 
-        if(action){
+        if (action) {
 
             await action();
 
@@ -2225,39 +2141,22 @@ confirmBtn.addEventListener(
 
 /* ================= ESCAPE HTML ================= */
 
-function escapeHtml(value){
+function escapeHtml(value) {
 
     return String(value)
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+        .replace(/&/g, "&amp;")
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+        .replace(/</g, "&lt;")
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+        .replace(/>/g, "&gt;")
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+        .replace(/"/g, "&quot;")
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/'/g, "&#039;");
 
 }
 
-
-/* ================= INITIAL ================= */
 
 updateCounts();
 
