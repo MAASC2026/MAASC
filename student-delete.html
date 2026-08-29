@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Delete Students</title>
+
+<link rel="stylesheet" href="https://maasc2026.github.io/MAASC/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    color:#222;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:#111827;
+    color:white;
+    overflow-y:auto;
+}
+
+.logo{
+    text-align:center;
+    padding:25px 10px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.logo h2{
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.logo p{
+    font-size:13px;
+    color:#cbd5e1;
+}
+
+.sidebar ul{
+    list-style:none;
+    padding:15px 0;
+}
+
+.sidebar li{
+    margin:4px 10px;
+}
+
+.sidebar a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#d1d5db;
+    text-decoration:none;
+    padding:13px 15px;
+    border-radius:8px;
+    transition:.2s;
+}
+
+.sidebar a:hover{
+    background:#1f2937;
+    color:white;
+}
+
+.sidebar li.active a{
+    background:#2563eb;
+    color:white;
+}
+
+.sidebar i{
+    width:20px;
+    text-align:center;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+}
+
+header{
+    background:white;
+    padding:25px 30px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+header h1{
+    font-size:28px;
+    color:#111827;
+    margin-bottom:6px;
+}
+
+header p{
+    color:#6b7280;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    background:white;
+    margin:25px;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.container h2{
+    margin-bottom:20px;
+    color:#111827;
+}
+
+/* ================= FILTER ================= */
+
+.filter-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:7px;
+    color:#374151;
+}
+
+select,
+input[type="text"]{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+    outline:none;
+    background:white;
+    font-size:14px;
+}
+
+select:focus,
+input[type="text"]:focus{
+    border-color:#2563eb;
+}
+
+/* ================= BUTTONS ================= */
+
+.button-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:5px;
+}
+
+button{
+    border:none;
+    border-radius:7px;
+    padding:11px 18px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-1px);
+}
+
+.load-btn{
+    background:#2563eb;
+    color:white;
+}
+
+.load-btn:hover{
+    background:#1d4ed8;
+}
+
+.select-btn{
+    background:#6b7280;
+    color:white;
+}
+
+.select-btn:hover{
+    background:#4b5563;
+}
+
+.delete-selected-btn{
+    background:#dc2626;
+    color:white;
+}
+
+.delete-selected-btn:hover{
+    background:#b91c1c;
+}
+
+.delete-all-btn{
+    background:#991b1b;
+    color:white;
+}
+
+.delete-all-btn:hover{
+    background:#7f1d1d;
+}
+
+.delete-one-btn{
+    background:#ef4444;
+    color:white;
+    padding:7px 12px;
+    font-size:13px;
+}
+
+.delete-one-btn:hover{
+    background:#dc2626;
+}
+
+/* ================= SEARCH ================= */
+
+.search-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin:25px 0 15px;
+}
+
+.search-box{
+    position:relative;
+    width:350px;
+}
+
+.search-box i{
+    position:absolute;
+    left:12px;
+    top:13px;
+    color:#9ca3af;
+}
+
+.search-box input{
+    padding-left:38px;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.stat-card{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    padding:15px 20px;
+    min-width:150px;
+}
+
+.stat-card span{
+    display:block;
+    font-size:13px;
+    color:#6b7280;
+    margin-bottom:5px;
+}
+
+.stat-card strong{
+    font-size:22px;
+    color:#111827;
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+    margin-top:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px;
+}
+
+thead{
+    background:#111827;
+    color:white;
+}
+
+th,
+td{
+    padding:13px 12px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    font-weight:bold;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
+}
+
+td:first-child,
+th:first-child{
+    text-align:center;
+    width:50px;
+}
+
+.checkbox{
+    width:17px;
+    height:17px;
+    cursor:pointer;
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+    text-align:center;
+    padding:50px 20px;
+    color:#6b7280;
+}
+
+.empty i{
+    font-size:45px;
+    margin-bottom:15px;
+    color:#9ca3af;
+}
+
+.empty p{
+    font-size:16px;
+}
+
+/* ================= MESSAGE ================= */
+
+.message{
+    display:none;
+    margin-top:18px;
+    padding:14px 16px;
+    border-radius:7px;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.message.success{
+    display:block;
+    background:#dcfce7;
+    color:#166534;
+    border:1px solid #bbf7d0;
+}
+
+.message.error{
+    display:block;
+    background:#fee2e2;
+    color:#991b1b;
+    border:1px solid #fecaca;
+}
+
+.message.warning{
+    display:block;
+    background:#fef3c7;
+    color:#92400e;
+    border:1px solid #fde68a;
+}
+
+/* ================= LOADER ================= */
+
+.loader{
+    display:none;
+    width:28px;
+    height:28px;
+    border:4px solid #e5e7eb;
+    border-top:4px solid #2563eb;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:18px auto;
+}
+
+@keyframes spin{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+/* ================= DANGER AREA ================= */
+
+.danger-area{
+    margin-top:25px;
+    padding:18px;
+    background:#fff7f7;
+    border:1px solid #fecaca;
+    border-radius:8px;
+}
+
+.danger-area h3{
+    color:#991b1b;
+    margin-bottom:7px;
+}
+
+.danger-area p{
+    color:#7f1d1d;
+    font-size:13px;
+    margin-bottom:12px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:1000px){
+
+    .filter-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .filter-grid{
+        grid-template-columns:1fr;
+    }
+
+    .search-row{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .search-box{
+        width:100%;
+    }
+
+    .container{
+        margin:15px;
+        padding:18px;
+    }
+
+}
+
+/* ================= CONFIRM MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:9999;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.55);
+    align-items:center;
+    justify-content:center;
+}
+
+.modal-box{
+    width:420px;
+    max-width:90%;
+    background:white;
+    border-radius:12px;
+    padding:25px;
+    box-shadow:0 10px 40px rgba(0,0,0,.25);
+}
+
+.modal-box h3{
+    color:#991b1b;
+    margin-bottom:12px;
+}
+
+.modal-box p{
+    color:#4b5563;
+    line-height:1.5;
+    margin-bottom:20px;
+}
+
+.modal-buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+}
+
+.cancel-btn{
+    background:#6b7280;
+    color:white;
+}
+
+.confirm-delete-btn{
+    background:#dc2626;
+    color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+```
+<div class="logo">
+
+    <h2>MAASC</h2>
+
+    <p>Student Management</p>
+
+</div>
+
+<ul>
+
+    <li>
+
+        <a href="student.html">
+
+            <i class="fa fa-home"></i>
+
+            Dashboard
+
+        </a>
+
+    </li>
+
+    <li>
+
+        <a href="upload.html">
+
+            <i class="fa fa-upload"></i>
+
+            Upload Students
+
+        </a>
+
+    </li>
+
+    <li>
+
+        <a href="register.html">
+
+            <i class="fa fa-id-card"></i>
+
+            Register Numbers
+
+        </a>
+
+    </li>
+
+    <li class="active">
+
+        <a href="students-delete.html">
+
+            <i class="fa fa-trash"></i>
+
+            Delete Students
+
+        </a>
+
+    </li>
+
+    <li>
+
+        <a href="records.html">
+
+            <i class="fa fa-users"></i>
+
+            Student Records
+
+        </a>
+
+    </li>
+
+    <li>
+
+        <a href="export.html">
+
+            <i class="fa fa-file-excel"></i>
+
+            Export Excel
+
+        </a>
+
+    </li>
+
+</ul>
+```
+
+</div>
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+<header>
+
+```
+<h1>
+
+    <i class="fa fa-trash"></i>
+
+    Delete Students
+
+</h1>
+
+<p>
+
+    Search students and delete individual students or multiple students.
+
+</p>
+```
+
+</header>
+
+<!-- ================= FILTER CONTAINER ================= -->
+
+<div class="container">
+
+```
+<h2>
+
+    <i class="fa fa-filter"></i>
+
+    Select Student Group
+
+</h2>
+
+
+<div class="filter-grid">
+
+
+    <!-- Academic Year -->
+
+    <div class="form-group">
+
+        <label>Academic Year</label>
+
+        <select id="academicYear">
+
+            <option value="">Select Academic Year</option>
+
+            <option>2026-2029</option>
+
+            <option>2025-2028</option>
+
+            <option>2024-2027</option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Department -->
+
+    <div class="form-group">
+
+        <label>Department</label>
+
+        <select id="department">
+
+            <option value="">Select Department</option>
+
+            <option value="B.Com General">B.Com General</option>
+            <option value="B.Com BM">B.Com BM</option>
+            <option value="B.Com MM">B.Com MM</option>
+            <option value="B.Com CS">B.Com CS</option>
+            <option value="B.Com A&F">B.Com A&F</option>
+            <option value="B.Com ISM">B.Com ISM</option>
+            <option value="B.Com CA">B.Com CA</option>
+            <option value="B.Com BUS.AD">B.Com BUS.AD</option>
+
+            <option value="B.A DEFENCE">B.A DEFENCE</option>
+            <option value="B.A PUB.AD">B.A PUB.AD</option>
+            <option value="B.A TAMIL">B.A TAMIL</option>
+            <option value="B.A TOURISM">B.A TOURISM</option>
+
+            <option value="B.Sc CS">B.Sc CS</option>
+            <option value="B.Sc CS WITH AI">B.Sc CS WITH AI</option>
+            <option value="B.Sc CRIMINOLOGY">B.Sc CRIMINOLOGY</option>
+            <option value="B.Sc SA">B.Sc SA</option>
+            <option value="B.Sc PHYS WITH CA">B.Sc PHYS WITH CA</option>
+            <option value="B.Sc MATHS WITH CA">B.Sc MATHS WITH CA</option>
+            <option value="B.Sc ELECTRONICS WITH AI">B.Sc ELECTRONICS WITH AI</option>
+            <option value="B.Sc VISCOM">B.Sc VISCOM</option>
+            <option value="B.Sc ELECTRONIC MEDIA">B.Sc ELECTRONIC MEDIA</option>
+            <option value="B.Sc IDD">B.Sc IDD</option>
+            <option value="B.Sc PHYSICS">B.Sc PHYSICS</option>
+
+            <option value="BCA COMPUTER APPLICATION">BCA COMPUTER APPLICATION</option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Year -->
+
+    <div class="form-group">
+
+        <label>Year</label>
+
+        <select id="year">
+
+            <option value="">Select Year</option>
+
+            <option value="I">I Year</option>
+
+            <option value="II">II Year</option>
+
+            <option value="III">III Year</option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Section -->
+
+    <div class="form-group">
+
+        <label>Section</label>
+
+        <select id="section">
+
+            <option value="">Select Section</option>
+
+            <option value="A">Section A</option>
+
+            <option value="B">Section B</option>
+
+            <option value="C">Section C</option>
+
+            <option value="D">Section D</option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<div class="button-row">
+
+    <button class="load-btn" id="loadBtn">
+
+        <i class="fa fa-search"></i>
+
+        Load Students
+
+    </button>
+
+    <button class="select-btn" id="selectAllBtn">
+
+        <i class="fa fa-check-square"></i>
+
+        Select All
+
+    </button>
+
+    <button class="delete-selected-btn" id="deleteSelectedBtn">
+
+        <i class="fa fa-trash"></i>
+
+        Delete Selected
+
+    </button>
+
+</div>
+
+
+<div class="loader" id="loader"></div>
+
+<div id="message" class="message"></div>
+```
+
+</div>
+
+<!-- ================= STUDENT LIST ================= -->
+
+<div class="container">
+
+```
+<h2>
+
+    <i class="fa fa-users"></i>
+
+    Student List
+
+</h2>
+
+
+<div class="stats">
+
+    <div class="stat-card">
+
+        <span>Total Loaded</span>
+
+        <strong id="totalCount">0</strong>
+
+    </div>
+
+    <div class="stat-card">
+
+        <span>Selected</span>
+
+        <strong id="selectedCount">0</strong>
+
+    </div>
+
+</div>
+
+
+<div class="search-row">
+
+    <div class="search-box">
+
+        <i class="fa fa-search"></i>
+
+        <input
+
+            type="text"
+
+            id="searchInput"
+
+            placeholder="Search Roll No or Student Name..."
+
+        >
+
+    </div>
+
+</div>
+
+
+<div class="table-wrapper">
+
+    <table id="studentTable">
+
+        <thead>
+
+            <tr>
+
+                <th>
+
+                    <input
+
+                        type="checkbox"
+
+                        id="masterCheckbox"
+
+                        class="checkbox"
+
+                    >
+
+                </th>
+
+                <th>S.No</th>
+
+                <th>Roll No</th>
+
+                <th>Student Name</th>
+
+                <th>Academic Year</th>
+
+                <th>Department</th>
+
+                <th>Year</th>
+
+                <th>Section</th>
+
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="studentTableBody">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<div class="empty" id="emptyState">
+
+    <i class="fa fa-users"></i>
+
+    <p>Select the filters and click "Load Students".</p>
+
+</div>
+```
+
+</div>
+
+<!-- ================= DANGER AREA ================= -->
+
+<div class="container danger-area">
+
+```
+<h3>
+
+    <i class="fa fa-triangle-exclamation"></i>
+
+    Mass Delete
+
+</h3>
+
+<p>
+
+    This option will delete every student currently loaded in the table.
+
+    This action cannot be undone.
+
+</p>
+
+<button class="delete-all-btn" id="deleteAllBtn">
+
+    <i class="fa fa-trash-can"></i>
+
+    Delete All Loaded Students
+
+</button>
+```
+
+</div>
+
+</div>
+
+<!-- ================= CONFIRM MODAL ================= -->
+
+<div class="modal" id="confirmModal">
+
+```
+<div class="modal-box">
+
+    <h3>
+
+        <i class="fa fa-triangle-exclamation"></i>
+
+        Confirm Delete
+
+    </h3>
+
+    <p id="confirmText">
+
+        Are you sure you want to delete these students?
+
+    </p>
+
+    <div class="modal-buttons">
+
+        <button class="cancel-btn" id="cancelBtn">
+
+            Cancel
+
+        </button>
+
+        <button class="confirm-delete-btn" id="confirmBtn">
+
+            <i class="fa fa-trash"></i>
+
+            Delete
+
+        </button>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ================= FIREBASE ================= -->
+
+<script type="module">
+
+import { db } from "./firebase-config.js";
+
+import {
+
+    collection,
+
+    getDocs,
+
+    query,
+
+    where,
+
+    deleteDoc
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* ================= ELEMENTS ================= */
+
+const academicYear =
+    document.getElementById("academicYear");
+
+const department =
+    document.getElementById("department");
+
+const year =
+    document.getElementById("year");
+
+const section =
+    document.getElementById("section");
+
+const loadBtn =
+    document.getElementById("loadBtn");
+
+const selectAllBtn =
+    document.getElementById("selectAllBtn");
+
+const deleteSelectedBtn =
+    document.getElementById("deleteSelectedBtn");
+
+const deleteAllBtn =
+    document.getElementById("deleteAllBtn");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const masterCheckbox =
+    document.getElementById("masterCheckbox");
+
+const tableBody =
+    document.getElementById("studentTableBody");
+
+const emptyState =
+    document.getElementById("emptyState");
+
+const totalCount =
+    document.getElementById("totalCount");
+
+const selectedCount =
+    document.getElementById("selectedCount");
+
+const loader =
+    document.getElementById("loader");
+
+const message =
+    document.getElementById("message");
+
+const confirmModal =
+    document.getElementById("confirmModal");
+
+const confirmText =
+    document.getElementById("confirmText");
+
+const confirmBtn =
+    document.getElementById("confirmBtn");
+
+const cancelBtn =
+    document.getElementById("cancelBtn");
+
+
+/* ================= VARIABLES ================= */
+
+let students = [];
+
+let pendingDeleteAction = null;
+
+
+/* ================= MESSAGE ================= */
+
+function showMessage(text, type){
+
+    message.style.display = "block";
+
+    message.className =
+        "message " + type;
+
+    message.innerHTML = text;
+
+}
+
+
+function hideMessage(){
+
+    message.style.display = "none";
+
+}
+
+
+/* ================= UPDATE COUNTS ================= */
+
+function updateCounts(){
+
+    totalCount.textContent =
+        students.length;
+
+    const selected =
+        students.filter(student =>
+            student.selected
+        ).length;
+
+    selectedCount.textContent =
+        selected;
+
+}
+
+
+/* ================= LOAD STUDENTS ================= */
+
+loadBtn.addEventListener(
+    "click",
+    loadStudents
+);
+
+
+async function loadStudents(){
+
+    hideMessage();
+
+    const ay =
+        academicYear.value;
+
+    const dep =
+        department.value;
+
+    const yr =
+        year.value;
+
+    const sec =
+        section.value;
+
+
+    if(
+        ay === "" ||
+        dep === "" ||
+        yr === "" ||
+        sec === ""
+    ){
+
+        showMessage(
+            "Please select Academic Year, Department, Year and Section.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    loader.style.display = "block";
+
+    tableBody.innerHTML = "";
+
+    emptyState.style.display = "none";
+
+    students = [];
+
+    masterCheckbox.checked = false;
+
+
+    try{
+
+        const q = query(
+
+            collection(db, "students"),
+
+            where(
+                "academicYear",
+                "==",
+                ay
+            ),
+
+            where(
+                "department",
+                "==",
+                dep
+            ),
+
+            where(
+                "year",
+                "==",
+                yr
+            ),
+
+            where(
+                "section",
+                "==",
+                sec
+            )
+
+        );
+
+
+        const snapshot =
+            await getDocs(q);
+
+
+        snapshot.forEach(doc => {
+
+            students.push({
+
+                id: doc.id,
+
+                ...doc.data(),
+
+                selected: false
+
+            });
+
+        });
+
+
+        students.sort(
+            (a,b) =>
+                String(a.rollNo || "")
+                .localeCompare(
+                    String(b.rollNo || ""),
+                    undefined,
+                    {
+                        numeric:true,
+                        sensitivity:"base"
+                    }
+                )
+        );
+
+
+        renderStudents();
+
+
+        if(students.length === 0){
+
+            emptyState.style.display =
+                "block";
+
+            emptyState.innerHTML = `
+
+                <i class="fa fa-user-slash"></i>
+
+                <p>No students found for the selected group.</p>
+
+            `;
+
+            showMessage(
+                "No students found.",
+                "warning"
+            );
+
+        }else{
+
+            showMessage(
+                students.length +
+                " students loaded successfully.",
+                "success"
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "LOAD STUDENTS ERROR:",
+            error
+        );
+
+
+        showMessage(
+            "Error loading students: " +
+            error.message,
+            "error"
+        );
+
+    }
+
+
+    loader.style.display = "none";
+
+    updateCounts();
+
+}
+
+
+/* ================= RENDER ================= */
+
+function renderStudents(){
+
+    tableBody.innerHTML = "";
+
+
+    const search =
+        searchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    const filtered =
+        students.filter(student => {
+
+            const roll =
+                String(
+                    student.rollNo || ""
+                ).toLowerCase();
+
+            const name =
+                String(
+                    student.studentName || ""
+                ).toLowerCase();
+
+            return(
+                roll.includes(search) ||
+                name.includes(search)
+            );
+
+        });
+
+
+    if(filtered.length === 0){
+
+        if(students.length > 0){
+
+            emptyState.style.display =
+                "block";
+
+            emptyState.innerHTML = `
+
+                <i class="fa fa-search"></i>
+
+                <p>No matching students found.</p>
+
+            `;
+
+        }
+
+        return;
+
+    }
+
+
+    emptyState.style.display = "none";
+
+
+    filtered.forEach(
+        (student,index) => {
+
+            const actualIndex =
+                students.findIndex(
+                    item =>
+                        item.id === student.id
+                );
+
+
+            const tr =
+                document.createElement("tr");
+
+
+            tr.innerHTML = `
+
+                <td>
+
+                    <input
+
+                        type="checkbox"
+
+                        class="student-checkbox checkbox"
+
+                        data-id="${student.id}"
+
+                        ${student.selected ? "checked" : ""}
+
+                    >
+
+                </td>
+
+
+                <td>
+
+                    ${index + 1}
+
+                </td>
+
+
+                <td>
+
+                    <strong>
+
+                        ${escapeHtml(
+                            student.rollNo || ""
+                        )}
+
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        student.studentName || ""
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        student.academicYear || ""
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        student.department || ""
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        student.year || ""
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        student.section || ""
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    <button
+
+                        class="delete-one-btn"
+
+                        data-id="${student.id}"
+
+                    >
+
+                        <i class="fa fa-trash"></i>
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            tableBody.appendChild(tr);
+
+
+            const checkbox =
+                tr.querySelector(
+                    ".student-checkbox"
+                );
+
+
+            checkbox.addEventListener(
+                "change",
+                function(){
+
+                    students[
+                        actualIndex
+                    ].selected =
+                        this.checked;
+
+                    updateCounts();
+
+                    updateMasterCheckbox();
+
+                }
+            );
+
+
+            const deleteButton =
+                tr.querySelector(
+                    ".delete-one-btn"
+                );
+
+
+            deleteButton.addEventListener(
+                "click",
+                function(){
+
+                    const studentId =
+                        this.dataset.id;
+
+                    const student =
+                        students.find(
+                            item =>
+                                item.id ===
+                                studentId
+                        );
+
+                    if(!student) return;
+
+
+                    openConfirm(
+
+                        "Are you sure you want to delete <strong>" +
+                        escapeHtml(
+                            student.studentName || ""
+                        ) +
+                        "</strong> (" +
+                        escapeHtml(
+                            student.rollNo || ""
+                        ) +
+                        ")?",
+
+                        function(){
+
+                            deleteSingleStudent(
+                                student
+                            );
+
+                        }
+
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    updateMasterCheckbox();
+
+}
+
+
+/* ================= SEARCH ================= */
+
+searchInput.addEventListener(
+    "input",
+    renderStudents
+);
+
+
+/* ================= SELECT ALL ================= */
+
+selectAllBtn.addEventListener(
+    "click",
+    function(){
+
+        const search =
+            searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+        const filtered =
+            students.filter(student => {
+
+                const roll =
+                    String(
+                        student.rollNo || ""
+                    ).toLowerCase();
+
+                const name =
+                    String(
+                        student.studentName || ""
+                    ).toLowerCase();
+
+                return(
+                    roll.includes(search) ||
+                    name.includes(search)
+                );
+
+            });
+
+
+        if(filtered.length === 0){
+
+            showMessage(
+                "There are no students to select.",
+                "warning"
+            );
+
+            return;
+
+        }
+
+
+        const allSelected =
+            filtered.every(
+                student =>
+                    student.selected
+            );
+
+
+        filtered.forEach(student => {
+
+            const index =
+                students.findIndex(
+                    item =>
+                        item.id ===
+                        student.id
+                );
+
+            if(index !== -1){
+
+                students[index].selected =
+                    !allSelected;
+
+            }
+
+        });
+
+
+        renderStudents();
+
+        updateCounts();
+
+    }
+);
+
+
+/* ================= MASTER CHECKBOX ================= */
+
+masterCheckbox.addEventListener(
+    "change",
+    function(){
+
+        const checked =
+            this.checked;
+
+
+        const search =
+            searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+        students.forEach(student => {
+
+            const roll =
+                String(
+                    student.rollNo || ""
+                ).toLowerCase();
+
+            const name =
+                String(
+                    student.studentName || ""
+                ).toLowerCase();
+
+
+            if(
+                roll.includes(search) ||
+                name.includes(search)
+            ){
+
+                student.selected =
+                    checked;
+
+            }
+
+        });
+
+
+        renderStudents();
+
+        updateCounts();
+
+    }
+);
+
+
+/* ================= MASTER STATE ================= */
+
+function updateMasterCheckbox(){
+
+    const search =
+        searchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    const visible =
+        students.filter(student => {
+
+            const roll =
+                String(
+                    student.rollNo || ""
+                ).toLowerCase();
+
+            const name =
+                String(
+                    student.studentName || ""
+                ).toLowerCase();
+
+            return(
+                roll.includes(search) ||
+                name.includes(search)
+            );
+
+        });
+
+
+    if(visible.length === 0){
+
+        masterCheckbox.checked = false;
+
+        masterCheckbox.indeterminate =
+            false;
+
+        return;
+
+    }
+
+
+    const selected =
+        visible.filter(
+            student =>
+                student.selected
+        ).length;
+
+
+    masterCheckbox.checked =
+        selected === visible.length;
+
+
+    masterCheckbox.indeterminate =
+        selected > 0 &&
+        selected < visible.length;
+
+}
+
+
+/* ================= DELETE SELECTED ================= */
+
+deleteSelectedBtn.addEventListener(
+    "click",
+    function(){
+
+        const selected =
+            students.filter(
+                student =>
+                    student.selected
+            );
+
+
+        if(selected.length === 0){
+
+            showMessage(
+                "Please select at least one student.",
+                "warning"
+            );
+
+            return;
+
+        }
+
+
+        openConfirm(
+
+            "You are about to permanently delete <strong>" +
+            selected.length +
+            " students</strong>.<br><br>" +
+            "This action cannot be undone. Continue?",
+
+            function(){
+
+                deleteSelectedStudents(
+                    selected
+                );
+
+            }
+
+        );
+
+    }
+);
+
+
+/* ================= DELETE ALL LOADED ================= */
+
+deleteAllBtn.addEventListener(
+    "click",
+    function(){
+
+        if(students.length === 0){
+
+            showMessage(
+                "No students are currently loaded.",
+                "warning"
+            );
+
+            return;
+
+        }
+
+
+        openConfirm(
+
+            "You are about to permanently delete <strong>" +
+            students.length +
+            " students</strong> currently loaded.<br><br>" +
+            "<strong>This will delete ALL students shown for the selected group.</strong><br><br>" +
+            "This action cannot be undone. Continue?",
+
+            function(){
+
+                deleteAllLoadedStudents();
+
+            }
+
+        );
+
+    }
+);
+
+
+/* ================= DELETE SINGLE ================= */
+
+async function deleteSingleStudent(student){
+
+    loader.style.display = "block";
+
+    hideMessage();
+
+
+    try{
+
+        await deleteDoc(
+
+            collection(db,"students")
+                ? (
+                    await import(
+                        "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
+                    )
+                ).doc(
+                    db,
+                    "students",
+                    student.id
+                )
+                : null
+
+        );
+
+
+        students =
+            students.filter(
+                item =>
+                    item.id !==
+                    student.id
+            );
+
+
+        renderStudents();
+
+        updateCounts();
+
+
+        showMessage(
+
+            "Student <strong>" +
+            escapeHtml(
+                student.studentName || ""
+            ) +
+            "</strong> (" +
+            escapeHtml(
+                student.rollNo || ""
+            ) +
+            ") deleted successfully.",
+
+            "success"
+
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "DELETE STUDENT ERROR:",
+            error
+        );
+
+
+        showMessage(
+            "Error deleting student: " +
+            error.message,
+            "error"
+        );
+
+    }
+
+
+    loader.style.display = "none";
+
+}
+
+
+/* ================= DELETE SELECTED STUDENTS ================= */
+
+async function deleteSelectedStudents(selected){
+
+    loader.style.display = "block";
+
+    hideMessage();
+
+
+    let deleted = 0;
+
+    let failed = 0;
+
+
+    try{
+
+        for(const student of selected){
+
+            try{
+
+                await deleteStudentById(
+                    student.id
+                );
+
+                deleted++;
+
+            }catch(error){
+
+                console.error(
+                    "FAILED:",
+                    student.id,
+                    error
+                );
+
+                failed++;
+
+            }
+
+        }
+
+
+        students =
+            students.filter(
+                student =>
+                    !selected.some(
+                        item =>
+                            item.id ===
+                            student.id
+                    )
+            );
+
+
+        renderStudents();
+
+        updateCounts();
+
+
+        showMessage(
+
+            "<strong>Mass Delete Completed</strong><br><br>" +
+
+            "Deleted : " +
+            deleted +
+            "<br>" +
+
+            "Failed : " +
+            failed,
+
+            failed === 0
+                ? "success"
+                : "warning"
+
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "MASS DELETE ERROR:",
+            error
+        );
+
+
+        showMessage(
+            "Mass delete error: " +
+            error.message,
+            "error"
+        );
+
+    }
+
+
+    loader.style.display = "none";
+
+}
+
+
+/* ================= DELETE ALL ================= */
+
+async function deleteAllLoadedStudents(){
+
+    loader.style.display = "block";
+
+    hideMessage();
+
+
+    let deleted = 0;
+
+    let failed = 0;
+
+
+    const copy =
+        [...students];
+
+
+    try{
+
+        for(const student of copy){
+
+            try{
+
+                await deleteStudentById(
+                    student.id
+                );
+
+                deleted++;
+
+            }catch(error){
+
+                console.error(
+                    "FAILED:",
+                    student.id,
+                    error
+                );
+
+                failed++;
+
+            }
+
+        }
+
+
+        students = [];
+
+
+        renderStudents();
+
+        updateCounts();
+
+
+        masterCheckbox.checked = false;
+
+
+        emptyState.style.display =
+            "block";
+
+
+        emptyState.innerHTML = `
+
+            <i class="fa fa-user-slash"></i>
+
+            <p>No students are currently loaded.</p>
+
+        `;
+
+
+        showMessage(
+
+            "<strong>Mass Delete Completed</strong><br><br>" +
+
+            "Deleted : " +
+            deleted +
+            "<br>" +
+
+            "Failed : " +
+            failed,
+
+            failed === 0
+                ? "success"
+                : "warning"
+
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "DELETE ALL ERROR:",
+            error
+        );
+
+
+        showMessage(
+            "Mass delete error: " +
+            error.message,
+            "error"
+        );
+
+    }
+
+
+    loader.style.display = "none";
+
+}
+
+
+/* ================= DELETE FIRESTORE DOCUMENT ================= */
+
+async function deleteStudentById(id){
+
+    const {
+
+        doc,
+        deleteDoc
+
+    } = await import(
+
+        "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
+
+    );
+
+
+    await deleteDoc(
+
+        doc(
+            db,
+            "students",
+            id
+        )
+
+    );
+
+}
+
+
+/* ================= CONFIRM MODAL ================= */
+
+function openConfirm(
+    text,
+    action
+){
+
+    confirmText.innerHTML =
+        text;
+
+    pendingDeleteAction =
+        action;
+
+    confirmModal.style.display =
+        "flex";
+
+}
+
+
+cancelBtn.addEventListener(
+    "click",
+    closeConfirm
+);
+
+
+function closeConfirm(){
+
+    confirmModal.style.display =
+        "none";
+
+    pendingDeleteAction =
+        null;
+
+}
+
+
+confirmBtn.addEventListener(
+    "click",
+    async function(){
+
+        const action =
+            pendingDeleteAction;
+
+        closeConfirm();
+
+
+        if(action){
+
+            await action();
+
+        }
+
+    }
+);
+
+
+/* ================= ESCAPE HTML ================= */
+
+function escapeHtml(value){
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* ================= INITIAL ================= */
+
+updateCounts();
+
+</script>
+
+</body>
+
+</html>
