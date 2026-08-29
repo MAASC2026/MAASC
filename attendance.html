@@ -423,37 +423,29 @@ tbody td{
 
 <script type="module">
 
-import { db } from "./firebase-config.js";
-
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { db, auth } from "./firebase-config.js";
 
 import {
-
     collection,
     getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 /* =========================================================
    CONSTANTS
 ========================================================= */
 
 const DAYS = [
-    "DAY 01",
-    "DAY 02",
-    "DAY 03",
-    "DAY 04",
-    "DAY 05",
-    "DAY 06"
+    "DAY 01", "DAY 02", "DAY 03",
+    "DAY 04", "DAY 05", "DAY 06"
 ];
 
 const HOURS = [1,2,3,4,5];
 
 const TIME = {
-
     FN:{
         1:"8.30 TO 9.20",
         2:"9.20 TO 10.10",
@@ -461,7 +453,6 @@ const TIME = {
         4:"11.30 TO 12.20",
         5:"12.20 TO 01.10"
     },
-
     AN:{
         1:"01.30 TO 02.20",
         2:"02.20 TO 03.10",
@@ -469,265 +460,279 @@ const TIME = {
         4:"04.20 TO 05.10",
         5:"05.10 TO 06.00"
     }
-
 };
-
 
 /* =========================================================
    GLOBAL
 ========================================================= */
 
 let staffId = "";
-
 let staffName = "";
-
 let timetable = [];
-
+let firebaseUser = null;
+let staffProfile = null;
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
 function clean(value){
-
     return String(value ?? "").trim();
-
 }
-
 
 function upper(value){
-
     return clean(value).toUpperCase();
-
 }
 
+function normalizeStaffId(value){
+    return clean(value).toUpperCase().replace(/[\s_-]+/g, "");
+}
 
 function escapeHtml(value){
-
     return String(value ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
-
 }
-
 
 function normalizeDay(value){
-
-    const v = upper(value);
-
-    const match = v.match(/DAYs*0?([1-6])/);
-
-    if(match){
-
-        return "DAY " +
-            String(Number(match[1])).padStart(2,"0");
-
-    }
-
-    if(/^[1-6]$/.test(v)){
-
-        return "DAY " +
-            v.padStart(2,"0");
-
-    }
-
+    const v = upper(value).replace(/\s+/g," ");
+    const match = v.match(/^DAY\s*0?([1-6])$/);
+    if(match) return "DAY " + String(Number(match[1])).padStart(2,"0");
+    if(/^[1-6]$/.test(v)) return "DAY " + v.padStart(2,"0");
     return v;
-
 }
-
 
 function normalizeSession(value){
-
-    const v = upper(value);
-
-    if(v === "FN" || v.includes("FORENOON")){
-        return "FN";
-    }
-
-    if(v === "AN" || v.includes("AFTERNOON")){
-        return "AN";
-    }
-
+    const v = upper(value).replace(/\s+/g," ");
+    if(v === "FN" || v.includes("FORENOON")) return "FN";
+    if(v === "AN" || v.includes("AFTERNOON")) return "AN";
     return v;
-
 }
 
-
-/* =========================================================
-   CURRENT STAFF — USE ACTUAL FIREBASE LOGIN
-========================================================= */
-
-const auth = getAuth();
-let firebaseUser = null;
-let staffProfile = null;
-
-function getStorageValue(keys){
-    for(const key of keys){
-        try{
-            const s=sessionStorage.getItem(key);
-            if(clean(s)) return clean(s);
-        }catch(e){}
-        try{
-            const l=localStorage.getItem(key);
-            if(clean(l)) return clean(l);
-        }catch(e){}
-    }
-    return "";
-}
-
-function normalizeStaffId(value){
-    return clean(value).toUpperCase().replace(/\s+/g, "");
-}
-
-function getObjectValue(data, keys){
+function getField(data, keys){
     if(!data || typeof data !== "object") return "";
     for(const key of keys){
-        if(data[key] !== undefined && data[key] !== null && clean(data[key])){
-            return clean(data[key]);
+        if(data[key] !== undefined && data[key] !== null){
+            const value = clean(data[key]);
+            if(value) return value;
         }
     }
     return "";
 }
 
-function getStoredStaffId(){
-    return getStorageValue([
-        "currentStaffId","currentStaffID",
-        "loggedInStaffId","loggedInStaffID",
-        "staffId","staffID",
-        "employeeId","employeeID",
-        "staffCode","employeeCode"
+function getStaffIdFromData(data, documentId=""){
+    return getField(data,[
+        "staffId","staffID","staff_id","employeeId","employeeID",
+        "empId","empID","staffCode","employeeCode","employee_code",
+        "teacherId","teacherID","facultyId","facultyID","workerId",
+        "workerID","userStaffId","user_staff_id","staffNo","staffNumber"
+    ]) || clean(documentId);
+}
+
+function getStaffNameFromData(data){
+    return getField(data,[
+        "staffName","staff_name","name","fullName","full_name",
+        "displayName","employeeName","employee_name","teacherName",
+        "facultyName"
     ]);
 }
 
-function getStoredStaffName(){
-    return getStorageValue([
-        "currentStaffName","loggedInStaffName",
-        "staffName","employeeName","name"
+function getEmailFromData(data){
+    return getField(data,[
+        "email","emailId","emailID","mail","mailId","mailID",
+        "officialEmail","officialMail","officialMailId","officialMailID",
+        "staffEmail","staff_email","loginEmail","login_email","username"
+    ]).toLowerCase();
+}
+
+function getUidFromData(data){
+    return getField(data,[
+        "uid","userId","userID","authUid","authUID","firebaseUid",
+        "firebaseUID","authUserId","authUserID","firebaseUserId"
     ]);
 }
 
-async function findStaffProfile(user){
+/* =========================================================
+   STORAGE — ONLY AS A FALLBACK
+   IMPORTANT: storage NEVER overrides Firebase identity.
+========================================================= */
 
-    if(!user) return null;
+function readStorageObject(){
+    const keys = [
+        "currentStaff","loggedInStaff","currentUser","loggedInUser",
+        "staffData","staff","userData","profile","user"
+    ];
 
-    try{
-        const snap=await getDocs(collection(db,"staff"));
-
-        let emailMatch=null;
-        let uidMatch=null;
-        let docMatch=null;
-
-        snap.forEach(docSnap=>{
-            const data=docSnap.data() || {};
-
-            const email=getObjectValue(data,[
-                "email","mail","officialEmail"
-            ]);
-
-            const uid=getObjectValue(data,[
-                "uid","userId","firebaseUid","authUid"
-            ]);
-
-            if(user.email && email &&
-               email.toLowerCase()===user.email.toLowerCase()){
-                emailMatch={id:docSnap.id,data};
-            }
-
-            if(user.uid && uid && uid===user.uid){
-                uidMatch={id:docSnap.id,data};
-            }
-
-            if(user.uid && docSnap.id===user.uid){
-                docMatch={id:docSnap.id,data};
-            }
-        });
-
-        const found=emailMatch || uidMatch || docMatch;
-
-        if(!found) return null;
-
-        return {
-            staffId:getObjectValue(found.data,[
-                "staffId","staffID","employeeId","employeeID",
-                "staffCode","employeeCode","id"
-            ]) || found.id,
-            staffName:getObjectValue(found.data,[
-                "staffName","name","fullName","displayName","employeeName"
-            ]),
-            documentId:found.id,
-            data:found.data
-        };
-
-    }catch(error){
-        console.warn("STAFF PROFILE LOOKUP FAILED:",error);
-        return null;
+    for(const storage of [sessionStorage, localStorage]){
+        for(const key of keys){
+            try{
+                const raw = storage.getItem(key);
+                if(!raw) continue;
+                const parsed = JSON.parse(raw);
+                if(parsed && typeof parsed === "object") return parsed;
+            }catch(e){}
+        }
     }
+    return null;
 }
+
+function readStorageStaffId(){
+    const object = readStorageObject();
+    const objectId = getStaffIdFromData(object);
+    if(objectId) return objectId;
+
+    const keys = [
+        "currentStaffId","currentStaffID","loggedInStaffId","loggedInStaffID",
+        "staffId","staffID","employeeId","employeeID","staffCode","employeeCode"
+    ];
+
+    for(const storage of [sessionStorage, localStorage]){
+        for(const key of keys){
+            try{
+                const value = clean(storage.getItem(key));
+                if(value) return value;
+            }catch(e){}
+        }
+    }
+    return "";
+}
+
+/* =========================================================
+   AUTH USER
+========================================================= */
 
 function waitForAuthUser(){
     return new Promise(resolve=>{
-        let done=false;
-        let timer=null;
+        let settled = false;
+        let unsubscribe = null;
 
-        const finish=user=>{
-            if(done) return;
-            done=true;
-            if(timer) clearTimeout(timer);
+        const finish = user => {
+            if(settled) return;
+            settled = true;
+            if(unsubscribe){
+                try{ unsubscribe(); }catch(e){}
+            }
             resolve(user || null);
         };
 
         try{
-            const unsubscribe=onAuthStateChanged(auth,user=>{
-                if(user){
-                    finish(user);
-                    try{unsubscribe();}catch(e){}
-                }
+            unsubscribe = onAuthStateChanged(auth, user => {
+                if(user) finish(user);
             });
 
-            timer=setTimeout(()=>{
+            setTimeout(() => {
                 finish(auth.currentUser || null);
-                try{unsubscribe();}catch(e){}
-            },3000);
-
+            }, 4000);
         }catch(error){
-            console.warn("AUTH STATE ERROR:",error);
+            console.error("AUTH STATE ERROR:", error);
             finish(auth.currentUser || null);
         }
     });
 }
 
 /* =========================================================
-   LOAD CURRENT STAFF
+   FIND EXACT STAFF PROFILE
+
+   Priority:
+   1. Firebase UID field / document ID
+   2. Firebase email
+   3. Login-provided Staff ID, but ONLY after matching it
+      against the Firestore staff collection
+
+   A stale localStorage value can therefore NEVER silently
+   become another person's identity when Firebase Auth is active.
 ========================================================= */
-async function loadStaff(){
 
-    firebaseUser=await waitForAuthUser();
+async function findStaffProfile(user){
+    const snapshot = await getDocs(collection(db,"staff"));
 
-    console.log("FIREBASE LOGIN USER:",firebaseUser);
+    const docs = snapshot.docs;
+    let uidMatch = null;
+    let emailMatch = null;
+    let storedIdMatch = null;
 
-    /* FIRST PRIORITY: the person who actually authenticated */
-    if(firebaseUser){
-        staffProfile=await findStaffProfile(firebaseUser);
+    const storedId = readStorageStaffId();
+    const storedNorm = normalizeStaffId(storedId);
 
-        if(staffProfile && staffProfile.staffId){
-            staffId=clean(staffProfile.staffId);
-            staffName=clean(staffProfile.staffName);
+    for(const docSnap of docs){
+        const data = docSnap.data() || {};
+        const dbId = getStaffIdFromData(data, docSnap.id);
+        const dbNorm = normalizeStaffId(dbId);
+        const dbUid = getUidFromData(data);
+        const dbEmail = getEmailFromData(data);
+
+        if(user?.uid && dbUid && dbUid === user.uid){
+            uidMatch = { id:docSnap.id, data, dbId };
+        }
+
+        if(user?.uid && docSnap.id === user.uid){
+            uidMatch = { id:docSnap.id, data, dbId };
+        }
+
+        if(user?.email && dbEmail && dbEmail === user.email.toLowerCase()){
+            emailMatch = { id:docSnap.id, data, dbId };
+        }
+
+        if(storedNorm && dbNorm && dbNorm === storedNorm){
+            storedIdMatch = { id:docSnap.id, data, dbId };
         }
     }
 
-    /* SECONDARY FALLBACK: dashboard session only if Auth profile cannot be found */
-    if(!staffId){
-        const params=new URLSearchParams(window.location.search);
-        staffId=clean(
+    /* Firebase identity always wins. */
+    const found = uidMatch || emailMatch || storedIdMatch;
+
+    if(!found) return null;
+
+    return {
+        staffId: getStaffIdFromData(found.data, found.id),
+        staffName: getStaffNameFromData(found.data) || clean(user?.displayName),
+        documentId: found.id,
+        data: found.data
+    };
+}
+
+/* =========================================================
+   LOAD CURRENT STAFF
+========================================================= */
+
+async function loadStaff(){
+    firebaseUser = await waitForAuthUser();
+
+    console.log("========================================");
+    console.log("ATTENDANCE CURRENT LOGIN");
+    console.log("Firebase UID:", firebaseUser?.uid || "NONE");
+    console.log("Firebase Email:", firebaseUser?.email || "NONE");
+    console.log("========================================");
+
+    /* NEVER use old storage first. */
+    if(firebaseUser){
+        staffProfile = await findStaffProfile(firebaseUser);
+    }
+
+    /* If Firebase is logged in, a matching staff profile is mandatory. */
+    if(firebaseUser && staffProfile){
+        staffId = clean(staffProfile.staffId);
+        staffName = clean(staffProfile.staffName);
+    }else if(firebaseUser && !staffProfile){
+        throw new Error(
+            "Firebase login is active, but this login could not be matched to a staff record. " +
+            "Please check the staff document email/UID for this account."
+        );
+    }else{
+        /* Only when there is NO Firebase user do we use the existing dashboard session. */
+        const params = new URLSearchParams(window.location.search);
+        staffId = clean(
             params.get("staffId") ||
             params.get("staffID") ||
             params.get("employeeId") ||
-            getStoredStaffId()
+            readStorageStaffId()
         );
-        staffName=getStoredStaffName();
+
+        const storedObject = readStorageObject();
+        staffName = getStaffNameFromData(storedObject);
     }
 
     if(!staffId){
@@ -737,13 +742,13 @@ async function loadStaff(){
     }
 
     if(!staffName){
-        staffName=getStoredStaffName() || firebaseUser?.displayName || "Staff";
+        staffName = clean(firebaseUser?.displayName) || "Staff";
     }
 
-    document.getElementById("staffId").textContent=staffId;
-    document.getElementById("staffName").textContent=staffName;
+    document.getElementById("staffId").textContent = staffId;
+    document.getElementById("staffName").textContent = staffName;
 
-    document.getElementById("staffInfo").innerHTML=
+    document.getElementById("staffInfo").innerHTML =
         "<strong>Staff:</strong> " + escapeHtml(staffName) +
         " &nbsp;&nbsp; | &nbsp;&nbsp; " +
         "<strong>Staff ID:</strong> " + escapeHtml(staffId);
@@ -751,10 +756,18 @@ async function loadStaff(){
     console.log("CURRENT STAFF USED FOR TIMETABLE:",{
         staffId,
         staffName,
-        authUid:firebaseUser?.uid || "NONE",
-        authEmail:firebaseUser?.email || "NONE",
-        staffProfile
+        authUid: firebaseUser?.uid || "NONE",
+        authEmail: firebaseUser?.email || "NONE",
+        firestoreStaffDocument: staffProfile?.documentId || "SESSION FALLBACK"
     });
+}
+
+/* =========================================================
+   TIMETABLE RECORD STAFF ID
+========================================================= */
+
+function getTimetableStaffId(data, documentId){
+    return getStaffIdFromData(data, documentId);
 }
 
 /* =========================================================
@@ -762,47 +775,94 @@ async function loadStaff(){
 ========================================================= */
 
 async function loadTimetable(){
-    const snapshot=await getDocs(collection(db,"staffTimetable"));
-    timetable=[];
-    const currentId=normalizeStaffId(staffId);
+    const snapshot = await getDocs(collection(db,"staffTimetable"));
+    const currentId = normalizeStaffId(staffId);
+    timetable = [];
 
-    snapshot.forEach(docSnap=>{
-        const data=docSnap.data() || {};
-        const recordStaffId=clean(
-            data.staffId ?? data.staffID ?? data.employeeId ??
-            data.employeeID ?? data.staffCode ?? data.employeeCode ??
-            data.teacherId ?? data.teacherID ?? data.facultyId ??
-            data.facultyID ?? data.workerId ?? data.workerID
+    let total = 0;
+    let matched = 0;
+    let fnCount = 0;
+    let anCount = 0;
+
+    snapshot.forEach(docSnap => {
+        total++;
+
+        const data = docSnap.data() || {};
+        const recordStaffId = getTimetableStaffId(data, docSnap.id);
+
+        if(!recordStaffId) return;
+        if(normalizeStaffId(recordStaffId) !== currentId) return;
+
+        matched++;
+
+        const day = normalizeDay(
+            data.day ?? data.dayName ?? data.dayNo ?? data.dayOrder
         );
 
-        /* Timetable must belong to the authenticated staff member. */
-        if(!recordStaffId || normalizeStaffId(recordStaffId)!==currentId) return;
+        const session = normalizeSession(
+            data.session ?? data.Session
+        );
 
-        const day=normalizeDay(data.day ?? data.dayName ?? data.dayNo);
-        const session=normalizeSession(data.session);
-        const hour=Number(data.hour);
-        if(!day || !session || !Number.isFinite(hour)) return;
+        let rawHour =
+            data.hour ?? data.period ?? data.periodNo ?? data.hourNo;
 
-        timetable.push({
-            id:docSnap.id,
+        if(typeof rawHour === "string"){
+            const match = rawHour.match(/[1-5]/);
+            if(match) rawHour = match[0];
+        }
+
+        const hour = Number(rawHour);
+
+        if(!DAYS.includes(day)) return;
+        if(session !== "FN" && session !== "AN") return;
+        if(!HOURS.includes(hour)) return;
+
+        const record = {
+            id: docSnap.id,
             day,
             session,
             hour,
-            time:clean(data.time) || (TIME[session] && TIME[session][hour] ? TIME[session][hour] : ""),
-            subjectCode:clean(data.subjectCode ?? data.subjectId ?? data.code),
-            subjectName:clean(data.subjectName ?? data.subject),
-            department:clean(data.classDepartment ?? data.department),
-            year:clean(data.classYear ?? data.year),
-            section:clean(data.classSection ?? data.section ?? data.sec),
-            room:clean(data.labNo ?? data.roomNo ?? data.room)
-        });
+            time: clean(data.time) || TIME[session][hour],
+            subjectCode: clean(
+                data.subjectCode ?? data.subjectId ?? data.code ?? data.subject_code
+            ),
+            subjectName: clean(
+                data.subjectName ?? data.subject ?? data.subject_name
+            ),
+            department: clean(
+                data.classDepartment ?? data.department ?? data.dept ?? data.classDept
+            ),
+            year: clean(
+                data.classYear ?? data.year ?? data.academicYear
+            ),
+            section: clean(
+                data.classSection ?? data.section ?? data.sec
+            ),
+            room: clean(
+                data.labNo ?? data.roomNo ?? data.room ?? data.roomNumber
+            )
+        };
+
+        timetable.push(record);
+
+        if(session === "FN") fnCount++;
+        if(session === "AN") anCount++;
     });
 
     timetable.sort((a,b)=>{
-        const dayDiff=DAYS.indexOf(a.day)-DAYS.indexOf(b.day);
-        if(dayDiff!==0) return dayDiff;
-        if(a.session!==b.session) return a.session==="FN" ? -1 : 1;
-        return a.hour-b.hour;
+        const dayDiff = DAYS.indexOf(a.day) - DAYS.indexOf(b.day);
+        if(dayDiff !== 0) return dayDiff;
+        if(a.session !== b.session) return a.session === "FN" ? -1 : 1;
+        return a.hour - b.hour;
+    });
+
+    console.log("TIMETABLE LOAD RESULT:",{
+        currentStaffId: staffId,
+        totalFirestoreRecords: total,
+        matchedStaffRecords: matched,
+        validPeriods: timetable.length,
+        fnPeriods: fnCount,
+        anPeriods: anCount
     });
 
     renderTimetable();
@@ -812,347 +872,160 @@ async function loadTimetable(){
    FIND PERIOD
 ========================================================= */
 
-function findPeriod(
-    day,
-    session,
-    hour
-){
-
+function findPeriod(day,session,hour){
     return timetable.find(item =>
-
         item.day === day &&
         item.session === session &&
         Number(item.hour) === Number(hour)
-
     );
-
 }
-
 
 /* =========================================================
    RENDER
 ========================================================= */
 
 function renderTimetable(){
-
-    const body =
-        document.getElementById(
-            "timetableBody"
-        );
-
+    const body = document.getElementById("timetableBody");
     body.innerHTML = "";
 
-
-    if(!timetable.length){
-
-        document.getElementById(
-            "emptyBox"
-        ).style.display =
-            "block";
-
-        return;
-
-    }
-
+    const emptyBox = document.getElementById("emptyBox");
+    if(emptyBox) emptyBox.style.display = timetable.length ? "none" : "block";
 
     DAYS.forEach(day => {
+        const row = document.createElement("tr");
 
-        const row =
-            document.createElement("tr");
-
-
-        const dayCell =
-            document.createElement("td");
-
-        dayCell.className =
-            "day-cell";
-
-        dayCell.textContent =
-            day;
-
+        const dayCell = document.createElement("td");
+        dayCell.className = "day-cell";
+        dayCell.textContent = day;
         row.appendChild(dayCell);
 
-
         HOURS.forEach(hour => {
-
-            row.appendChild(
-                createPeriod(
-                    day,
-                    "FN",
-                    hour
-                )
-            );
-
+            row.appendChild(createPeriod(day,"FN",hour));
         });
 
-
         HOURS.forEach(hour => {
-
-            row.appendChild(
-                createPeriod(
-                    day,
-                    "AN",
-                    hour
-                )
-            );
-
+            row.appendChild(createPeriod(day,"AN",hour));
         });
-
 
         body.appendChild(row);
-
     });
 
+    const loadingBox = document.getElementById("loadingBox");
+    const tableContainer = document.getElementById("tableContainer");
 
-    document.getElementById(
-        "loadingBox"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "tableContainer"
-    ).style.display =
-        "block";
-
+    if(loadingBox) loadingBox.style.display = "none";
+    if(tableContainer) tableContainer.style.display = "block";
 }
-
 
 /* =========================================================
    CREATE PERIOD
 ========================================================= */
 
-function createPeriod(
-    day,
-    session,
-    hour
-){
-
-    const td =
-        document.createElement("td");
-
-
-    const record =
-        findPeriod(
-            day,
-            session,
-            hour
-        );
-
-
-    const div =
-        document.createElement("div");
-
+function createPeriod(day,session,hour){
+    const td = document.createElement("td");
+    const record = findPeriod(day,session,hour);
+    const div = document.createElement("div");
 
     if(!record){
-
-        div.className =
-            "period free";
-
-        div.textContent =
-            "FREE";
-
+        div.className = "period free";
+        div.textContent = "FREE";
         td.appendChild(div);
-
         return td;
-
     }
 
-
-    div.className =
-        "period class-period";
-
+    div.className = "period class-period";
 
     div.innerHTML = `
-
         <span class="session ${session === "FN" ? "fn" : "an"}">
-
             ${escapeHtml(session)}
-
         </span>
 
         <div class="hour">
-
-            Hour ${hour}
-
-            • ${escapeHtml(record.time)}
-
+            Hour ${hour} • ${escapeHtml(record.time)}
         </div>
 
         <div class="subject-code">
-
-            ${escapeHtml(
-                record.subjectCode || "-"
-            )}
-
+            ${escapeHtml(record.subjectCode || "-")}
         </div>
 
         <div class="subject-name">
-
-            ${escapeHtml(
-                record.subjectName || "-"
-            )}
-
+            ${escapeHtml(record.subjectName || "-")}
         </div>
 
         <div class="class-name">
-
-            ${escapeHtml(
-                record.department || "-"
-            )}
-
+            ${escapeHtml(record.department || "-")}
             <br>
-
-            ${escapeHtml(
-                record.year || "-"
-            )}
-
+            ${escapeHtml(record.year || "-")}
             -
-
-            ${escapeHtml(
-                record.section || "-"
-            )}
-
+            ${escapeHtml(record.section || "-")}
         </div>
 
         <div class="room">
-
-            Room:
-            ${escapeHtml(
-                record.room || "-"
-            )}
-
+            Room: ${escapeHtml(record.room || "-")}
         </div>
-
     `;
 
-
-    div.addEventListener(
-        "click",
-        function(){
-
-            openAttendance(record);
-
-        }
-    );
-
-
+    div.addEventListener("click",()=>openAttendance(record));
     td.appendChild(div);
-
     return td;
-
 }
-
 
 /* =========================================================
    OPEN STUDENT PAGE
 ========================================================= */
 
 function openAttendance(record){
-
-    /*
-       Store selected timetable information.
-
-       The student page will read this information.
-    */
-
     const attendancePeriod = {
-
-        staffId:staffId,
-
-        staffName:staffName,
-
-        day:record.day,
-
-        session:record.session,
-
-        hour:Number(record.hour),
-
-        time:record.time,
-
-        subjectCode:record.subjectCode,
-
-        subjectName:record.subjectName,
-
-        department:record.department,
-
-        year:record.year,
-
-        section:record.section,
-
-        room:record.room
-
+        staffId,
+        staffName,
+        day: record.day,
+        session: record.session,
+        hour: Number(record.hour),
+        time: record.time,
+        subjectCode: record.subjectCode,
+        subjectName: record.subjectName,
+        department: record.department,
+        year: record.year,
+        section: record.section,
+        room: record.room
     };
-
 
     sessionStorage.setItem(
         "attendancePeriod",
-        JSON.stringify(
-            attendancePeriod
-        )
+        JSON.stringify(attendancePeriod)
     );
 
-
-    /*
-       Open separate page.
-    */
-
-    window.location.href =
-        "attendance-students.html";
-
+    window.location.href = "attendance-students.html";
 }
-
 
 /* =========================================================
    ERROR
 ========================================================= */
 
 function showError(message){
-
-    const box =
-        document.getElementById(
-            "errorBox"
-        );
-
-    box.textContent =
-        message;
-
-    box.style.display =
-        "block";
-
+    const box = document.getElementById("errorBox");
+    if(!box) return;
+    box.textContent = message;
+    box.style.display = "block";
 }
-
 
 /* =========================================================
    START
 ========================================================= */
 
 async function start(){
-
     try{
-
         await loadStaff();
-
         await loadTimetable();
+    }catch(error){
+        console.error("ATTENDANCE INITIALIZATION ERROR:",error);
 
+        const loadingBox = document.getElementById("loadingBox");
+        if(loadingBox) loadingBox.style.display = "none";
+
+        showError(error.message || "Unable to load attendance timetable.");
     }
-    catch(error){
-
-        console.error(error);
-
-        document.getElementById(
-            "loadingBox"
-        ).style.display =
-            "none";
-
-        showError(
-            error.message
-        );
-
-    }
-
 }
-
 
 start();
 
