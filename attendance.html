@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Attendance Entry</title>
 
 <style>
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -20,406 +14,505 @@
 }
 
 body{
-    background:#f4f7fb;
+    background:#f3f6fb;
     color:#1f2937;
 }
 
 .header{
     background:#500454;
     color:white;
-    min-height:70px;
-    padding:0 28px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    box-shadow:0 2px 10px rgba(0,0,0,.15);
+    padding:18px 25px;
+    box-shadow:0 2px 10px rgba(0,0,0,.20);
 }
 
-.header-title{
-    font-size:23px;
-    font-weight:bold;
+.header h1{
+    font-size:24px;
 }
 
-.header-subtitle{
-    font-size:12px;
-    margin-top:4px;
-    opacity:.85;
+.header p{
+    margin-top:5px;
+    font-size:14px;
+    opacity:.92;
 }
 
-.staff-box{
-    text-align:right;
-}
-
-.staff-name{
-    font-size:15px;
-    font-weight:bold;
-}
-
-.staff-id{
-    font-size:12px;
-    margin-top:4px;
-    opacity:.85;
-}
-
-.main{
-    max-width:1600px;
-    margin:auto;
-    padding:25px;
+.container{
+    max-width:1500px;
+    margin:20px auto;
+    padding:0 15px;
 }
 
 .card{
     background:white;
     border-radius:12px;
-    padding:22px;
-    box-shadow:0 3px 14px rgba(0,0,0,.08);
+    padding:18px;
+    margin-bottom:18px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
 }
 
-.page-title{
-    color:#500454;
-    font-size:23px;
-    font-weight:bold;
+.staff-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
 }
 
-.page-subtitle{
-    color:#6b7280;
-    font-size:13px;
-    margin-top:5px;
-    margin-bottom:22px;
+.staff-info{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
 .info{
-    background:#faf5fb;
-    border:1px solid #ead9ec;
-    border-radius:9px;
-    padding:14px 16px;
-    margin-bottom:20px;
+    background:#f3e8f5;
+    border:1px solid #e5c9e8;
+    padding:9px 13px;
+    border-radius:8px;
+    font-size:13px;
 }
 
-.info strong{
+.info b{
     color:#500454;
 }
 
-.table-container{
-    width:100%;
-    overflow-x:auto;
-    border:1px solid #ddd;
-    border-radius:9px;
+.controls{
+    display:flex;
+    gap:15px;
+    align-items:end;
+    flex-wrap:wrap;
 }
 
-table{
-    width:100%;
-    min-width:1450px;
-    border-collapse:collapse;
+.field{
+    min-width:220px;
 }
 
-thead th{
+.field label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+select,
+input[type="date"]{
+    width:100%;
+    padding:11px;
+    border:1px solid #cbd5e1;
+    border-radius:7px;
+    background:white;
+    font-size:14px;
+}
+
+button{
+    border:0;
+    border-radius:7px;
+    padding:11px 18px;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.primary{
     background:#500454;
     color:white;
-    padding:12px 8px;
-    border:1px solid rgba(255,255,255,.25);
-    font-size:12px;
-    text-align:center;
 }
 
-tbody td{
-    border:1px solid #ddd;
-    padding:0;
+.primary:hover{
+    background:#6e0a75;
 }
 
-.day-cell{
-    width:95px;
-    min-width:95px;
-    height:125px;
-    background:#f7eff8;
-    color:#500454;
-    font-weight:bold;
-    text-align:center;
-    vertical-align:middle;
+.secondary{
+    background:#e5e7eb;
+    color:#111827;
 }
 
-.period{
-    min-width:135px;
-    min-height:125px;
-    height:100%;
-    padding:10px;
+.message{
+    display:none;
+    margin-top:13px;
+    padding:11px;
+    border-radius:7px;
+    font-size:13px;
 }
 
-.period.class-period{
-    cursor:pointer;
-    background:#faf5fb;
-    border-left:4px solid #500454;
-    transition:.15s;
+.message.show{
+    display:block;
 }
 
-.period.class-period:hover{
-    background:#eee1f0;
-    transform:translateY(-1px);
+.message.ok{
+    background:#dcfce7;
+    color:#166534;
 }
 
-.period.free{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#aaa;
-    background:#fafafa;
-    font-size:12px;
-    font-weight:bold;
+.message.err{
+    background:#fee2e2;
+    color:#991b1b;
 }
 
-.session{
-    display:inline-block;
-    padding:4px 8px;
-    border-radius:12px;
-    font-size:10px;
-    font-weight:bold;
-    margin-bottom:6px;
-}
-
-.fn{
-    background:#dbeafe;
-    color:#1d4ed8;
-}
-
-.an{
+.message.warn{
     background:#fef3c7;
     color:#92400e;
 }
 
-.hour{
-    color:#777;
-    font-size:10px;
-    margin-bottom:5px;
+.session-tabs{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:15px;
 }
 
-.subject-code{
+.session-tab{
+    min-width:110px;
+    padding:10px 20px;
+    background:#e5e7eb;
+    color:#111827;
+    border-radius:7px;
+}
+
+.session-tab.active{
+    background:#16a34a;
+    color:white;
+}
+
+.table-card{
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    overflow:auto;
+}
+
+.table-title{
+    background:#500454;
+    color:white;
+    text-align:center;
+    padding:13px;
+    border-radius:7px 7px 0 0;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.table-wrapper{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    min-width:1000px;
+    border-collapse:collapse;
+    table-layout:fixed;
+}
+
+th,td{
+    border:1px solid white;
+    text-align:center;
+}
+
+thead th{
+    background:#ead8ec;
+    height:44px;
+    font-size:13px;
+}
+
+.time-row th{
+    background:#22c7d6;
+    color:#111827;
+    font-size:11px;
+    height:42px;
+}
+
+.day{
+    width:100px;
+    background:#22c7d6;
+    font-weight:bold;
+}
+
+.slot{
+    height:105px;
+    background:#f1f5f9;
+    padding:6px;
+    vertical-align:middle;
+}
+
+.slot.assigned{
+    background:#dbeafe;
+    cursor:pointer;
+    transition:.15s;
+}
+
+.slot.assigned:hover{
+    background:#bfdbfe;
+    transform:scale(.99);
+}
+
+.slot.free{
+    background:#f8fafc;
+}
+
+.slot-class{
+    font-size:11px;
     color:#500454;
+    font-weight:bold;
+}
+
+.slot-year{
+    font-size:11px;
+    color:#334155;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+.slot-section{
+    font-size:11px;
+    color:#475569;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+.slot-subject{
     font-size:13px;
     font-weight:bold;
-}
-
-.subject-name{
-    color:#222;
-    font-size:12px;
-    font-weight:bold;
-    margin-top:3px;
-    line-height:1.3;
-}
-
-.class-name{
-    color:#555;
-    font-size:11px;
-    margin-top:7px;
-    line-height:1.4;
-}
-
-.room{
-    color:#777;
-    font-size:10px;
+    color:#111827;
     margin-top:5px;
+    line-height:1.25;
+}
+
+.slot-code{
+    font-size:10px;
+    color:#475569;
+    margin-top:4px;
+}
+
+.slot-click{
+    font-size:10px;
+    color:#166534;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.slot-empty{
+    font-size:11px;
+    color:#94a3b8;
+}
+
+.legend{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:13px;
+    font-size:12px;
+}
+
+.legend-item{
+    padding:7px 10px;
+    border-radius:6px;
+    background:#f1f5f9;
+}
+
+.stats{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:14px;
+}
+
+.stat{
+    background:#f1f5f9;
+    padding:9px 13px;
+    border-radius:7px;
+    font-size:12px;
+}
+
+.stat b{
+    color:#500454;
 }
 
 .loading{
     text-align:center;
-    padding:50px;
-    color:#500454;
-    font-weight:bold;
-}
-
-.spinner{
-    width:28px;
-    height:28px;
-    border:3px solid #ddd;
-    border-top-color:#500454;
-    border-radius:50%;
-    margin:0 auto 12px;
-    animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-.empty{
-    text-align:center;
-    padding:50px;
-    color:#777;
-}
-
-.error{
-    display:none;
-    background:#fee2e2;
-    color:#991b1b;
-    border:1px solid #fecaca;
-    padding:14px;
-    border-radius:8px;
-    margin-bottom:20px;
+    padding:35px;
+    color:#64748b;
 }
 
 @media(max-width:700px){
-
-    .header{
-        padding:15px;
+    .field{
+        width:100%;
+        min-width:0;
     }
 
-    .staff-box{
-        display:none;
+    .controls{
+        display:block;
     }
 
-    .main{
-        padding:12px;
+    .controls .field,
+    .controls button{
+        margin-bottom:10px;
     }
-
-    .card{
-        padding:15px;
-    }
-
 }
 
-</style>
+@media print{
+    .controls-card,
+    .legend,
+    .stats,
+    .message{
+        display:none!important;
+    }
 
+    body{
+        background:white;
+    }
+
+    .table-card{
+        box-shadow:none;
+    }
+
+    .slot{
+        background:white!important;
+    }
+
+    th,td{
+        border:1px solid black;
+    }
+}
+</style>
 </head>
 
 <body>
 
-
 <div class="header">
+    <h1>Attendance Entry</h1>
+    <p>Staff timetable — click an assigned subject to enter attendance</p>
+</div>
 
-    <div>
+<div class="container">
 
-        <div class="header-title">
-            Attendance Entry
+    <div class="card">
+        <div class="staff-bar">
+            <div class="staff-info">
+                <div class="info">
+                    Staff ID:
+                    <b id="staffId">-</b>
+                </div>
+
+                <div class="info">
+                    Staff Name:
+                    <b id="staffName">-</b>
+                </div>
+
+                <div class="info">
+                    Department:
+                    <b id="department">-</b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card controls-card">
+
+        <div class="controls">
+
+            <div class="field">
+                <label for="dateSelect">Attendance Date</label>
+                <input type="date" id="dateSelect">
+            </div>
+
+            <div class="field">
+                <label for="sessionSelect">Session</label>
+                <select id="sessionSelect">
+                    <option value="FN">FN</option>
+                    <option value="AN">AN</option>
+                </select>
+            </div>
+
+            <button type="button" class="primary" id="loadBtn">
+                Load Timetable
+            </button>
+
+            <button type="button" class="secondary" id="refreshBtn">
+                Refresh
+            </button>
+
         </div>
 
-        <div class="header-subtitle">
-            Staff Weekly Timetable
+        <div id="message" class="message"></div>
+
+        <div class="stats">
+            <div class="stat">
+                Date: <b id="dateStat">-</b>
+            </div>
+
+            <div class="stat">
+                Session: <b id="sessionStat">FN</b>
+            </div>
+
+            <div class="stat">
+                Assigned Periods: <b id="assignedStat">0</b>
+            </div>
+
+            <div class="stat">
+                Empty Periods: <b id="emptyStat">30</b>
+            </div>
         </div>
 
     </div>
 
+    <div class="table-card">
 
-    <div class="staff-box">
-
-        <div
-            class="staff-name"
-            id="staffName"
-        >
-            Loading...
+        <div class="table-title">
+            STAFF ATTENDANCE TIMETABLE
         </div>
 
-        <div
-            class="staff-id"
-            id="staffId"
-        >
-            -
+        <div class="session-tabs">
+            <button type="button" class="session-tab active" id="fnTab">
+                FN
+            </button>
+
+            <button type="button" class="session-tab" id="anTab">
+                AN
+            </button>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th class="day">Day</th>
+                        <th>Hour 1</th>
+                        <th>Hour 2</th>
+                        <th>Hour 3</th>
+                        <th>Hour 4</th>
+                        <th>Hour 5</th>
+                    </tr>
+
+                    <tr class="time-row">
+                        <th>Time</th>
+                        <th id="time1">08:30 TO 09:20</th>
+                        <th id="time2">09:20 TO 10:10</th>
+                        <th id="time3">10:10 TO 11:00</th>
+                        <th id="time4">11:30 TO 12:20</th>
+                        <th id="time5">12:20 TO 01:10</th>
+                    </tr>
+                </thead>
+
+                <tbody id="timetableBody"></tbody>
+
+            </table>
+
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                Click an assigned subject to open Students
+            </div>
+            <div class="legend-item">
+                Empty slots cannot be opened
+            </div>
         </div>
 
     </div>
 
 </div>
-
-
-
-<div class="main">
-
-<div class="card">
-
-    <div class="page-title">
-        My Weekly Timetable
-    </div>
-
-    <div class="page-subtitle">
-        Click the class period to enter attendance.
-    </div>
-
-
-    <div
-        class="info"
-        id="staffInfo"
-    >
-        Loading staff timetable...
-    </div>
-
-
-    <div
-        class="error"
-        id="errorBox"
-    ></div>
-
-
-    <div
-        class="loading"
-        id="loadingBox"
-    >
-
-        <div class="spinner"></div>
-
-        Loading your full weekly timetable...
-
-    </div>
-
-
-    <div
-        class="empty"
-        id="emptyBox"
-        style="display:none;"
-    >
-
-        <h3>
-            No timetable found
-        </h3>
-
-        <p>
-            No timetable periods are assigned to this staff member.
-        </p>
-
-    </div>
-
-
-    <div
-        class="table-container"
-        id="tableContainer"
-        style="display:none;"
-    >
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>DAY</th>
-
-                    <th>FN H1</th>
-                    <th>FN H2</th>
-                    <th>FN H3</th>
-                    <th>FN H4</th>
-                    <th>FN H5</th>
-
-                    <th>AN H1</th>
-                    <th>AN H2</th>
-                    <th>AN H3</th>
-                    <th>AN H4</th>
-                    <th>AN H5</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="timetableBody">
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-</div>
-
-
 
 <script type="module">
 
@@ -430,610 +523,930 @@ import {
     getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {
-    getAuth,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const auth = getAuth();
 
 /* =========================================================
-   CONSTANTS
-========================================================= */
+   CURRENT STAFF
+   Staff Dashboard stores these in sessionStorage.
+   ========================================================= */
 
-const DAYS = [
-    "DAY 01", "DAY 02", "DAY 03",
-    "DAY 04", "DAY 05", "DAY 06"
-];
+const staffId =
+    String(sessionStorage.getItem("staffId") || "").trim();
 
-const HOURS = [1,2,3,4,5];
+const staffName =
+    String(sessionStorage.getItem("staffName") || "").trim();
 
-const TIME = {
-    FN:{
-        1:"8.30 TO 9.20",
-        2:"9.20 TO 10.10",
-        3:"10.10 TO 11.00",
-        4:"11.30 TO 12.20",
-        5:"12.20 TO 01.10"
-    },
-    AN:{
-        1:"01.30 TO 02.20",
-        2:"02.20 TO 03.10",
-        3:"03.30 TO 04.20",
-        4:"04.20 TO 05.10",
-        5:"05.10 TO 06.00"
-    }
+const department =
+    String(sessionStorage.getItem("department") || "").trim();
+
+
+if(!staffId){
+
+    alert("Please Login");
+
+    window.location.href = "login.html";
+
+    throw new Error("No staffId in sessionStorage.");
+
+}
+
+
+/* =========================================================
+   DISPLAY STAFF
+   ========================================================= */
+
+document.getElementById("staffId").textContent =
+    staffId || "-";
+
+document.getElementById("staffName").textContent =
+    staffName || "-";
+
+document.getElementById("department").textContent =
+    department || "-";
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+let timetableAssignments = [];
+
+let selectedSession = "FN";
+
+
+/* =========================================================
+   TIMINGS
+   ========================================================= */
+
+const timings = {
+
+    FN: [
+        "08:30 TO 09:20",
+        "09:20 TO 10:10",
+        "10:10 TO 11:00",
+        "11:30 TO 12:20",
+        "12:20 TO 01:10"
+    ],
+
+    AN: [
+        "01:30 TO 02:20",
+        "02:20 TO 03:10",
+        "03:30 TO 04:20",
+        "04:20 TO 05:10",
+        "05:10 TO 06:00"
+    ]
+
 };
 
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-let staffId = "";
-let staffName = "";
-let timetable = [];
-let firebaseUser = null;
-let staffProfile = null;
 
 /* =========================================================
    HELPERS
-========================================================= */
+   ========================================================= */
 
 function clean(value){
+
     return String(value ?? "").trim();
+
 }
+
 
 function upper(value){
+
     return clean(value).toUpperCase();
+
 }
 
-function normalizeStaffId(value){
-    return clean(value).toUpperCase().replace(/[\s_-]+/g, "");
+
+function getStaffId(data){
+
+    return clean(
+        data.staffId ??
+        data.staffID ??
+        data.staff_id ??
+        data.id
+    );
+
 }
 
-function escapeHtml(value){
+
+function getStaffName(data){
+
+    return clean(
+        data.staffName ??
+        data.name ??
+        data.staff_name ??
+        data.displayName
+    );
+
+}
+
+
+function getDepartment(data){
+
+    return clean(
+        data.department ??
+        data.dep ??
+        data.dept ??
+        data.departmentName
+    );
+
+}
+
+
+function getYear(data){
+
+    return clean(
+        data.year ??
+        data.academicYear ??
+        data.classYear ??
+        data.studyYear
+    );
+
+}
+
+
+function getSection(data){
+
+    return clean(
+        data.section ??
+        data.sec ??
+        data.sectionName ??
+        data.classSection
+    );
+
+}
+
+
+function getSubject(data){
+
+    return clean(
+        data.subjectName ??
+        data.subject ??
+        data.subject_name ??
+        data.subjectTitle
+    );
+
+}
+
+
+function getSubjectCode(data){
+
+    return clean(
+        data.subjectCode ??
+        data.subject_code ??
+        data.code ??
+        data.subCode
+    );
+
+}
+
+
+function getSession(data){
+
+    return upper(
+        data.session ??
+        data.Session ??
+        ""
+    );
+
+}
+
+
+function getHour(data){
+
+    return Number(
+        data.hour ??
+        data.period ??
+        data.hourNo ??
+        data.periodNo ??
+        0
+    );
+
+}
+
+
+/*
+ * Your timetable stores values such as:
+ * DAY 01
+ * DAY 02
+ * DAY 04
+ *
+ * This function keeps the Day Order exactly as stored.
+ * It does NOT calculate Day Order from the date.
+ */
+
+function getDay(data){
+
+    const value = upper(
+        data.day ??
+        data.dayName ??
+        data.dayOrder ??
+        data.dayNo ??
+        ""
+    );
+
+    const match = value.match(/DAY\s*0?([1-6])/);
+
+    if(match){
+
+        return "DAY " +
+            String(Number(match[1])).padStart(2,"0");
+
+    }
+
+    if(/^[1-6]$/.test(value)){
+
+        return "DAY " +
+            value.padStart(2,"0");
+
+    }
+
+    return value;
+
+}
+
+
+function showMessage(text,type="ok"){
+
+    const el =
+        document.getElementById("message");
+
+    el.textContent = text;
+
+    el.className =
+        "message show " + type;
+
+}
+
+
+function clearMessage(){
+
+    const el =
+        document.getElementById("message");
+
+    el.textContent = "";
+
+    el.className = "message";
+
+}
+
+
+function escapeHTML(value){
+
     return String(value ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+
 }
 
-function normalizeDay(value){
-    const v = upper(value).replace(/\s+/g," ");
-    const match = v.match(/^DAY\s*0?([1-6])$/);
-    if(match) return "DAY " + String(Number(match[1])).padStart(2,"0");
-    if(/^[1-6]$/.test(v)) return "DAY " + v.padStart(2,"0");
-    return v;
-}
-
-function normalizeSession(value){
-    const v = upper(value).replace(/\s+/g," ");
-    if(v === "FN" || v.includes("FORENOON")) return "FN";
-    if(v === "AN" || v.includes("AFTERNOON")) return "AN";
-    return v;
-}
-
-function getField(data, keys){
-    if(!data || typeof data !== "object") return "";
-    for(const key of keys){
-        if(data[key] !== undefined && data[key] !== null){
-            const value = clean(data[key]);
-            if(value) return value;
-        }
-    }
-    return "";
-}
-
-function getStaffIdFromData(data, documentId=""){
-    return getField(data,[
-        "staffId","staffID","staff_id","employeeId","employeeID",
-        "empId","empID","staffCode","employeeCode","employee_code",
-        "teacherId","teacherID","facultyId","facultyID","workerId",
-        "workerID","userStaffId","user_staff_id","staffNo","staffNumber"
-    ]) || clean(documentId);
-}
-
-function getStaffNameFromData(data){
-    return getField(data,[
-        "staffName","staff_name","name","fullName","full_name",
-        "displayName","employeeName","employee_name","teacherName",
-        "facultyName"
-    ]);
-}
-
-function getEmailFromData(data){
-    return getField(data,[
-        "email","emailId","emailID","mail","mailId","mailID",
-        "officialEmail","officialMail","officialMailId","officialMailID",
-        "staffEmail","staff_email","loginEmail","login_email","username"
-    ]).toLowerCase();
-}
-
-function getUidFromData(data){
-    return getField(data,[
-        "uid","userId","userID","authUid","authUID","firebaseUid",
-        "firebaseUID","authUserId","authUserID","firebaseUserId"
-    ]);
-}
 
 /* =========================================================
-   STORAGE — ONLY AS A FALLBACK
-   IMPORTANT: storage NEVER overrides Firebase identity.
-========================================================= */
+   DATE
+   ========================================================= */
 
-function readStorageObject(){
-    const keys = [
-        "currentStaff","loggedInStaff","currentUser","loggedInUser",
-        "staffData","staff","userData","profile","user"
-    ];
+function getToday(){
 
-    for(const storage of [sessionStorage, localStorage]){
-        for(const key of keys){
-            try{
-                const raw = storage.getItem(key);
-                if(!raw) continue;
-                const parsed = JSON.parse(raw);
-                if(parsed && typeof parsed === "object") return parsed;
-            }catch(e){}
-        }
-    }
-    return null;
+    const d = new Date();
+
+    const year =
+        d.getFullYear();
+
+    const month =
+        String(d.getMonth()+1).padStart(2,"0");
+
+    const day =
+        String(d.getDate()).padStart(2,"0");
+
+    return `${year}-${month}-${day}`;
+
 }
 
-function readStorageStaffId(){
-    const object = readStorageObject();
-    const objectId = getStaffIdFromData(object);
-    if(objectId) return objectId;
 
-    const keys = [
-        "currentStaffId","currentStaffID","loggedInStaffId","loggedInStaffID",
-        "staffId","staffID","employeeId","employeeID","staffCode","employeeCode"
-    ];
+document.getElementById("dateSelect").value =
+    getToday();
 
-    for(const storage of [sessionStorage, localStorage]){
-        for(const key of keys){
-            try{
-                const value = clean(storage.getItem(key));
-                if(value) return value;
-            }catch(e){}
-        }
-    }
-    return "";
+
+function updateDateStat(){
+
+    document.getElementById("dateStat").textContent =
+        document.getElementById("dateSelect").value || "-";
+
 }
+
 
 /* =========================================================
-   AUTH USER
-========================================================= */
+   TIMING HEADERS
+   ========================================================= */
 
-function waitForAuthUser(){
-    return new Promise(resolve=>{
-        let settled = false;
-        let unsubscribe = null;
+function updateTimingHeaders(){
 
-        const finish = user => {
-            if(settled) return;
-            settled = true;
-            if(unsubscribe){
-                try{ unsubscribe(); }catch(e){}
-            }
-            resolve(user || null);
-        };
+    const list =
+        timings[selectedSession];
 
-        try{
-            unsubscribe = onAuthStateChanged(auth, user => {
-                if(user) finish(user);
-            });
+    for(let i=1;i<=5;i++){
 
-            setTimeout(() => {
-                finish(auth.currentUser || null);
-            }, 4000);
-        }catch(error){
-            console.error("AUTH STATE ERROR:", error);
-            finish(auth.currentUser || null);
-        }
-    });
-}
+        document.getElementById("time"+i).textContent =
+            list[i-1];
 
-/* =========================================================
-   FIND EXACT STAFF PROFILE
-
-   Priority:
-   1. Firebase UID field / document ID
-   2. Firebase email
-   3. Login-provided Staff ID, but ONLY after matching it
-      against the Firestore staff collection
-
-   A stale localStorage value can therefore NEVER silently
-   become another person's identity when Firebase Auth is active.
-========================================================= */
-
-async function findStaffProfile(user){
-    const snapshot = await getDocs(collection(db,"staff"));
-
-    const docs = snapshot.docs;
-    let uidMatch = null;
-    let emailMatch = null;
-    let storedIdMatch = null;
-
-    const storedId = readStorageStaffId();
-    const storedNorm = normalizeStaffId(storedId);
-
-    for(const docSnap of docs){
-        const data = docSnap.data() || {};
-        const dbId = getStaffIdFromData(data, docSnap.id);
-        const dbNorm = normalizeStaffId(dbId);
-        const dbUid = getUidFromData(data);
-        const dbEmail = getEmailFromData(data);
-
-        if(user?.uid && dbUid && dbUid === user.uid){
-            uidMatch = { id:docSnap.id, data, dbId };
-        }
-
-        if(user?.uid && docSnap.id === user.uid){
-            uidMatch = { id:docSnap.id, data, dbId };
-        }
-
-        if(user?.email && dbEmail && dbEmail === user.email.toLowerCase()){
-            emailMatch = { id:docSnap.id, data, dbId };
-        }
-
-        if(storedNorm && dbNorm && dbNorm === storedNorm){
-            storedIdMatch = { id:docSnap.id, data, dbId };
-        }
     }
 
-    /* Firebase identity always wins. */
-    const found = uidMatch || emailMatch || storedIdMatch;
+    document.getElementById("sessionStat").textContent =
+        selectedSession;
 
-    if(!found) return null;
-
-    return {
-        staffId: getStaffIdFromData(found.data, found.id),
-        staffName: getStaffNameFromData(found.data) || clean(user?.displayName),
-        documentId: found.id,
-        data: found.data
-    };
-}
-
-/* =========================================================
-   LOAD CURRENT STAFF
-========================================================= */
-
-async function loadStaff(){
-    firebaseUser = await waitForAuthUser();
-
-    console.log("========================================");
-    console.log("ATTENDANCE CURRENT LOGIN");
-    console.log("Firebase UID:", firebaseUser?.uid || "NONE");
-    console.log("Firebase Email:", firebaseUser?.email || "NONE");
-    console.log("========================================");
-
-    /* NEVER use old storage first. */
-    if(firebaseUser){
-        staffProfile = await findStaffProfile(firebaseUser);
-    }
-
-    /* If Firebase is logged in, a matching staff profile is mandatory. */
-    if(firebaseUser && staffProfile){
-        staffId = clean(staffProfile.staffId);
-        staffName = clean(staffProfile.staffName);
-    }else if(firebaseUser && !staffProfile){
-        throw new Error(
-            "Firebase login is active, but this login could not be matched to a staff record. " +
-            "Please check the staff document email/UID for this account."
-        );
-    }else{
-        /* Only when there is NO Firebase user do we use the existing dashboard session. */
-        const params = new URLSearchParams(window.location.search);
-        staffId = clean(
-            params.get("staffId") ||
-            params.get("staffID") ||
-            params.get("employeeId") ||
-            readStorageStaffId()
+    document.getElementById("fnTab")
+        .classList.toggle(
+            "active",
+            selectedSession === "FN"
         );
 
-        const storedObject = readStorageObject();
-        staffName = getStaffNameFromData(storedObject);
-    }
-
-    if(!staffId){
-        throw new Error(
-            "Current staff could not be identified. Please login again from the Staff Dashboard."
-        );
-    }
-
-    if(!staffName){
-        staffName = clean(firebaseUser?.displayName) || "Staff";
-    }
-
-    document.getElementById("staffId").textContent = staffId;
-    document.getElementById("staffName").textContent = staffName;
-
-    document.getElementById("staffInfo").innerHTML =
-        "<strong>Staff:</strong> " + escapeHtml(staffName) +
-        " &nbsp;&nbsp; | &nbsp;&nbsp; " +
-        "<strong>Staff ID:</strong> " + escapeHtml(staffId);
-
-    console.log("CURRENT STAFF USED FOR TIMETABLE:",{
-        staffId,
-        staffName,
-        authUid: firebaseUser?.uid || "NONE",
-        authEmail: firebaseUser?.email || "NONE",
-        firestoreStaffDocument: staffProfile?.documentId || "SESSION FALLBACK"
-    });
-}
-
-/* =========================================================
-   TIMETABLE RECORD STAFF ID
-========================================================= */
-
-function getTimetableStaffId(data, documentId){
-    return getStaffIdFromData(data, documentId);
-}
-
-/* =========================================================
-   LOAD TIMETABLE
-========================================================= */
-
-async function loadTimetable(){
-    const snapshot = await getDocs(collection(db,"timetableAssignments"));
-    const currentId = normalizeStaffId(staffId);
-    timetable = [];
-
-    let total = 0;
-    let matched = 0;
-    let fnCount = 0;
-    let anCount = 0;
-
-    snapshot.forEach(docSnap => {
-        total++;
-
-        const data = docSnap.data() || {};
-        const recordStaffId = getTimetableStaffId(data, docSnap.id);
-
-        if(!recordStaffId) return;
-        if(normalizeStaffId(recordStaffId) !== currentId) return;
-
-        matched++;
-
-        const day = normalizeDay(
-            data.day ?? data.dayName ?? data.dayNo ?? data.dayOrder
+    document.getElementById("anTab")
+        .classList.toggle(
+            "active",
+            selectedSession === "AN"
         );
 
-        const session = normalizeSession(
-            data.session ?? data.Session
-        );
+    updateDateStat();
 
-        let rawHour =
-            data.hour ?? data.period ?? data.periodNo ?? data.hourNo;
-
-        if(typeof rawHour === "string"){
-            const match = rawHour.match(/[1-5]/);
-            if(match) rawHour = match[0];
-        }
-
-        const hour = Number(rawHour);
-
-        if(!DAYS.includes(day)) return;
-        if(session !== "FN" && session !== "AN") return;
-        if(!HOURS.includes(hour)) return;
-
-        const record = {
-            id: docSnap.id,
-            day,
-            session,
-            hour,
-            time: clean(data.time) || TIME[session][hour],
-            subjectCode: clean(
-                data.subjectCode ?? data.subjectId ?? data.code ?? data.subject_code
-            ),
-            subjectName: clean(
-                data.subjectName ?? data.subject ?? data.subject_name
-            ),
-            department: clean(
-                data.classDepartment ?? data.department ?? data.dept ?? data.classDept
-            ),
-            year: clean(
-                data.classYear ?? data.year ?? data.academicYear
-            ),
-            section: clean(
-                data.classSection ?? data.section ?? data.sec
-            ),
-            room: clean(
-                data.labNo ?? data.roomNo ?? data.room ?? data.roomNumber
-            )
-        };
-
-        timetable.push(record);
-
-        if(session === "FN") fnCount++;
-        if(session === "AN") anCount++;
-    });
-
-    timetable.sort((a,b)=>{
-        const dayDiff = DAYS.indexOf(a.day) - DAYS.indexOf(b.day);
-        if(dayDiff !== 0) return dayDiff;
-        if(a.session !== b.session) return a.session === "FN" ? -1 : 1;
-        return a.hour - b.hour;
-    });
-
-    console.log("TIMETABLE LOAD RESULT:",{
-        currentStaffId: staffId,
-        totalFirestoreRecords: total,
-        matchedStaffRecords: matched,
-        validPeriods: timetable.length,
-        fnPeriods: fnCount,
-        anPeriods: anCount
-    });
-
-    renderTimetable();
 }
 
-/* =========================================================
-   FIND PERIOD
-========================================================= */
-
-function findPeriod(day,session,hour){
-    return timetable.find(item =>
-        item.day === day &&
-        item.session === session &&
-        Number(item.hour) === Number(hour)
-    );
-}
 
 /* =========================================================
-   RENDER
-========================================================= */
+   EMPTY TEMPLATE
+   ========================================================= */
 
-function renderTimetable(){
-    const body = document.getElementById("timetableBody");
+function createTemplate(){
+
+    const body =
+        document.getElementById("timetableBody");
+
     body.innerHTML = "";
 
-    const emptyBox = document.getElementById("emptyBox");
-    if(emptyBox) emptyBox.style.display = timetable.length ? "none" : "block";
+    for(let d=1;d<=6;d++){
 
-    DAYS.forEach(day => {
-        const row = document.createElement("tr");
+        const tr =
+            document.createElement("tr");
 
-        const dayCell = document.createElement("td");
-        dayCell.className = "day-cell";
+        const day =
+            "DAY " +
+            String(d).padStart(2,"0");
+
+        const dayCell =
+            document.createElement("td");
+
+        dayCell.className = "day";
+
         dayCell.textContent = day;
-        row.appendChild(dayCell);
 
-        HOURS.forEach(hour => {
-            row.appendChild(createPeriod(day,"FN",hour));
+        tr.appendChild(dayCell);
+
+
+        for(let h=1;h<=5;h++){
+
+            const td =
+                document.createElement("td");
+
+            td.className = "slot free";
+
+            td.dataset.day = day;
+            td.dataset.hour = String(h);
+
+            td.innerHTML = `
+                <div class="slot-empty">
+                    EMPTY
+                </div>
+            `;
+
+            tr.appendChild(td);
+
+        }
+
+        body.appendChild(tr);
+
+    }
+
+    updateTimingHeaders();
+
+}
+
+
+/* =========================================================
+   LOAD ONLY CURRENT STAFF'S TIMETABLE
+   ========================================================= */
+
+async function loadTimetable(){
+
+    clearMessage();
+
+    createTemplate();
+
+    timetableAssignments = [];
+
+    try{
+
+        /*
+         * IMPORTANT:
+         *
+         * Correct Firestore collection:
+         *
+         * timetableAssignments
+         *
+         * We read the collection and compare staffId
+         * after trimming/uppercasing. This avoids problems
+         * caused by old records having different capitalization.
+         */
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "timetableAssignments"
+                )
+            );
+
+
+        snapshot.forEach(docSnap => {
+
+            const data =
+                docSnap.data();
+
+            const recordStaffId =
+                getStaffId(data);
+
+            const recordSession =
+                getSession(data);
+
+            const day =
+                getDay(data);
+
+            const hour =
+                getHour(data);
+
+
+            /*
+             * ONLY THE LOGGED-IN STAFF
+             */
+
+            if(
+                upper(recordStaffId) !==
+                upper(staffId)
+            ){
+
+                return;
+
+            }
+
+
+            /*
+             * ONLY THE SELECTED SESSION
+             */
+
+            if(
+                recordSession !==
+                upper(selectedSession)
+            ){
+
+                return;
+
+            }
+
+
+            /*
+             * VALID DAY / HOUR
+             */
+
+            if(
+                !/^DAY 0[1-6]$/.test(day) ||
+                hour < 1 ||
+                hour > 5
+            ){
+
+                return;
+
+            }
+
+
+            timetableAssignments.push({
+
+                firestoreId:
+                    docSnap.id,
+
+                staffId:
+                    recordStaffId,
+
+                staffName:
+                    getStaffName(data) || staffName,
+
+                department:
+                    getDepartment(data),
+
+                year:
+                    getYear(data),
+
+                section:
+                    getSection(data),
+
+                session:
+                    recordSession,
+
+                day:
+                    day,
+
+                hour:
+                    hour,
+
+                subjectName:
+                    getSubject(data),
+
+                subjectCode:
+                    getSubjectCode(data)
+
+            });
+
         });
 
-        HOURS.forEach(hour => {
-            row.appendChild(createPeriod(day,"AN",hour));
-        });
 
-        body.appendChild(row);
+        renderTimetable();
+
+
+        if(!timetableAssignments.length){
+
+            showMessage(
+                `No timetable assignment found for ${staffId} in ${selectedSession}.`,
+                "warn"
+            );
+
+        }
+        else{
+
+            showMessage(
+                `${timetableAssignments.length} assigned period(s) loaded for ${staffId}.`,
+                "ok"
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "ATTENDANCE TIMETABLE LOAD ERROR:",
+            error
+        );
+
+        showMessage(
+            "Unable to load timetable: " +
+            error.message,
+            "err"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER TIMETABLE
+   ========================================================= */
+
+function renderTimetable(){
+
+    createTemplate();
+
+    const assignmentMap = new Map();
+
+
+    timetableAssignments.forEach(item => {
+
+        const key =
+            item.day + "_" + item.hour;
+
+        assignmentMap.set(key,item);
+
     });
 
-    const loadingBox = document.getElementById("loadingBox");
-    const tableContainer = document.getElementById("tableContainer");
 
-    if(loadingBox) loadingBox.style.display = "none";
-    if(tableContainer) tableContainer.style.display = "block";
+    let assignedCount = 0;
+
+
+    document
+        .querySelectorAll(".slot")
+        .forEach(slot => {
+
+            const key =
+                slot.dataset.day +
+                "_" +
+                slot.dataset.hour;
+
+            const item =
+                assignmentMap.get(key);
+
+
+            if(!item){
+
+                return;
+
+            }
+
+
+            assignedCount++;
+
+            slot.classList.remove("free");
+
+            slot.classList.add("assigned");
+
+            slot.innerHTML = `
+
+                <div class="slot-class">
+                    ${escapeHTML(
+                        item.department || "-"
+                    )}
+                </div>
+
+                <div class="slot-year">
+                    YEAR:
+                    ${escapeHTML(
+                        item.year || "-"
+                    )}
+                </div>
+
+                <div class="slot-section">
+                    SEC:
+                    ${escapeHTML(
+                        item.section || "-"
+                    )}
+                </div>
+
+                <div class="slot-subject">
+                    ${escapeHTML(
+                        item.subjectName || "-"
+                    )}
+                </div>
+
+                <div class="slot-code">
+                    ${escapeHTML(
+                        item.subjectCode || "-"
+                    )}
+                </div>
+
+                <div class="slot-click">
+                    CLICK TO ENTER ATTENDANCE
+                </div>
+
+            `;
+
+
+            slot.addEventListener(
+                "click",
+                () => openStudents(item)
+            );
+
+        });
+
+
+    document.getElementById("assignedStat").textContent =
+        assignedCount;
+
+    document.getElementById("emptyStat").textContent =
+        30 - assignedCount;
+
 }
 
-/* =========================================================
-   CREATE PERIOD
-========================================================= */
-
-function createPeriod(day,session,hour){
-    const td = document.createElement("td");
-    const record = findPeriod(day,session,hour);
-    const div = document.createElement("div");
-
-    if(!record){
-        div.className = "period free";
-        div.textContent = "FREE";
-        td.appendChild(div);
-        return td;
-    }
-
-    div.className = "period class-period";
-
-    div.innerHTML = `
-        <span class="session ${session === "FN" ? "fn" : "an"}">
-            ${escapeHtml(session)}
-        </span>
-
-        <div class="hour">
-            Hour ${hour} • ${escapeHtml(record.time)}
-        </div>
-
-        <div class="subject-code">
-            ${escapeHtml(record.subjectCode || "-")}
-        </div>
-
-        <div class="subject-name">
-            ${escapeHtml(record.subjectName || "-")}
-        </div>
-
-        <div class="class-name">
-            ${escapeHtml(record.department || "-")}
-            <br>
-            ${escapeHtml(record.year || "-")}
-            -
-            ${escapeHtml(record.section || "-")}
-        </div>
-
-        <div class="room">
-            Room: ${escapeHtml(record.room || "-")}
-        </div>
-    `;
-
-    div.addEventListener("click",()=>openAttendance(record));
-    td.appendChild(div);
-    return td;
-}
 
 /* =========================================================
-   OPEN STUDENT PAGE
-========================================================= */
+   OPEN STUDENTS.HTML
+   ========================================================= */
 
-function openAttendance(record){
-    const attendancePeriod = {
-        staffId,
-        staffName,
-        day: record.day,
-        session: record.session,
-        hour: Number(record.hour),
-        time: record.time,
-        subjectCode: record.subjectCode,
-        subjectName: record.subjectName,
-        department: record.department,
-        year: record.year,
-        section: record.section,
-        room: record.room
+function openStudents(item){
+
+    const date =
+        document.getElementById("dateSelect").value ||
+        getToday();
+
+
+    /*
+     * Store complete context as well.
+     * This allows students.html to read it from sessionStorage
+     * even if it does not yet use URL parameters.
+     */
+
+    const context = {
+
+        staffId:
+            staffId,
+
+        staffName:
+            staffName,
+
+        department:
+            item.department || "",
+
+        year:
+            item.year || "",
+
+        section:
+            item.section || "",
+
+        subjectName:
+            item.subjectName || "",
+
+        subjectCode:
+            item.subjectCode || "",
+
+        day:
+            item.day || "",
+
+        session:
+            item.session || selectedSession,
+
+        hour:
+            Number(item.hour || 0),
+
+        date:
+            date,
+
+        timetableAssignmentId:
+            item.firestoreId || ""
+
     };
 
+
     sessionStorage.setItem(
-        "attendancePeriod",
-        JSON.stringify(attendancePeriod)
+        "attendanceContext",
+        JSON.stringify(context)
     );
 
-    window.location.href = "attendance-students.html";
+
+    /*
+     * Also send the values through URL parameters.
+     * students.html can use either method.
+     */
+
+    const params =
+        new URLSearchParams({
+
+            staffId:
+                context.staffId,
+
+            staffName:
+                context.staffName,
+
+            department:
+                context.department,
+
+            year:
+                context.year,
+
+            section:
+                context.section,
+
+            subjectName:
+                context.subjectName,
+
+            subjectCode:
+                context.subjectCode,
+
+            day:
+                context.day,
+
+            session:
+                context.session,
+
+            hour:
+                String(context.hour),
+
+            date:
+                context.date,
+
+            timetableAssignmentId:
+                context.timetableAssignmentId
+
+        });
+
+
+    window.location.href =
+        "students.html?" +
+        params.toString();
+
 }
+
 
 /* =========================================================
-   ERROR
-========================================================= */
+   SESSION CHANGE
+   ========================================================= */
 
-function showError(message){
-    const box = document.getElementById("errorBox");
-    if(!box) return;
-    box.textContent = message;
-    box.style.display = "block";
-}
+document.getElementById("sessionSelect")
+    .addEventListener(
+        "change",
+        async () => {
+
+            selectedSession =
+                document.getElementById(
+                    "sessionSelect"
+                ).value;
+
+            updateTimingHeaders();
+
+            await loadTimetable();
+
+        }
+    );
+
 
 /* =========================================================
-   START
-========================================================= */
+   FN / AN BUTTONS
+   ========================================================= */
 
-async function start(){
-    try{
-        await loadStaff();
-        await loadTimetable();
-    }catch(error){
-        console.error("ATTENDANCE INITIALIZATION ERROR:",error);
+document.getElementById("fnTab")
+    .addEventListener(
+        "click",
+        async () => {
 
-        const loadingBox = document.getElementById("loadingBox");
-        if(loadingBox) loadingBox.style.display = "none";
+            selectedSession = "FN";
 
-        showError(error.message || "Unable to load attendance timetable.");
-    }
-}
+            document.getElementById(
+                "sessionSelect"
+            ).value = "FN";
 
-start();
+            updateTimingHeaders();
+
+            await loadTimetable();
+
+        }
+    );
+
+
+document.getElementById("anTab")
+    .addEventListener(
+        "click",
+        async () => {
+
+            selectedSession = "AN";
+
+            document.getElementById(
+                "sessionSelect"
+            ).value = "AN";
+
+            updateTimingHeaders();
+
+            await loadTimetable();
+
+        }
+    );
+
+
+/* =========================================================
+   LOAD BUTTON
+   ========================================================= */
+
+document.getElementById("loadBtn")
+    .addEventListener(
+        "click",
+        loadTimetable
+    );
+
+
+/* =========================================================
+   REFRESH
+   ========================================================= */
+
+document.getElementById("refreshBtn")
+    .addEventListener(
+        "click",
+        async () => {
+
+            await loadTimetable();
+
+        }
+    );
+
+
+/* =========================================================
+   DATE CHANGE
+   ========================================================= */
+
+document.getElementById("dateSelect")
+    .addEventListener(
+        "change",
+        updateDateStat
+    );
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+document.getElementById("sessionSelect").value =
+    "FN";
+
+createTemplate();
+
+updateDateStat();
+
+loadTimetable();
 
 </script>
 
 </body>
-
 </html>
