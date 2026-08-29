@@ -516,7 +516,7 @@ function normalizeDay(value){
 
     const v = upper(value);
 
-    const match = v.match(/DAYs*0?([1-6])/);
+    const match = v.match(/DAY\s*0?([1-6])/);
 
     if(match){
 
@@ -582,28 +582,24 @@ function normalizeStaffId(value){
 
 function getRecordStaffId(data){
     if(!data || typeof data !== "object") return "";
-
-    const fields = [
-        "staffId",
-        "staffID",
-        "employeeId",
-        "employeeID",
-        "staffCode",
-        "employeeCode",
-        "teacherId",
-        "teacherID",
-        "facultyId",
-        "facultyID",
-        "workerId",
-        "workerID"
-    ];
-
+    const fields=["staffId","staffID","staff_id","employeeId","employeeID","employee_id","staffCode","employeeCode","teacherId","teacherID","facultyId","facultyID","workerId","workerID"];
     for(const field of fields){
-        const value = clean(data[field]);
+        const value=clean(data[field]);
         if(value) return value;
     }
-
     return "";
+}
+
+function getRecordSession(data){
+    return normalizeSession(data?.session ?? data?.Session ?? data?.SESSION ?? data?.periodSession ?? data?.sessionName);
+}
+
+function getRecordHour(data){
+    const raw=data?.hour ?? data?.Hour ?? data?.period ?? data?.periodNo ?? data?.hourNo;
+    if(typeof raw === "number") return raw;
+    const text=clean(raw);
+    const match=text.match(/(?:HOUR|PERIOD|H)\s*([1-5])/i);
+    return match ? Number(match[1]) : Number(text);
 }
 
 /* =========================================================
@@ -639,34 +635,36 @@ async function loadStaff(){
 ========================================================= */
 
 async function loadTimetable(){
-    const snapshot=await getDocs(collection(db,"staffTimetable"));
     timetable=[];
     const currentId=normalizeStaffId(staffId);
+    if(!currentId) throw new Error("Current Staff ID is missing.");
+
+    const snapshot=await getDocs(collection(db,"staffTimetable"));
 
     snapshot.forEach(docSnap=>{
         const data=docSnap.data() || {};
         const recordStaffId=getRecordStaffId(data);
 
-        /* ONLY the staff who opened this page from the dashboard. */
         if(!recordStaffId || normalizeStaffId(recordStaffId)!==currentId) return;
 
-        const day=normalizeDay(data.day ?? data.dayName ?? data.dayNo);
-        const session=normalizeSession(data.session);
-        const hour=Number(data.hour);
-        if(!day || !session || !Number.isFinite(hour)) return;
+        const day=normalizeDay(data.day ?? data.dayName ?? data.dayNo ?? data.dayOrder);
+        const session=getRecordSession(data);
+        const hour=getRecordHour(data);
+
+        if(!day || !session || !Number.isInteger(hour) || hour<1 || hour>5) return;
 
         timetable.push({
             id:docSnap.id,
             day,
             session,
             hour,
-            time:clean(data.time) || (TIME[session] && TIME[session][hour] ? TIME[session][hour] : ""),
+            time:clean(data.time ?? data.timing ?? data.periodTime) || TIME[session]?.[hour] || "",
             subjectCode:clean(data.subjectCode ?? data.subjectId ?? data.code),
-            subjectName:clean(data.subjectName ?? data.subject),
-            department:clean(data.classDepartment ?? data.department),
+            subjectName:clean(data.subjectName ?? data.subject ?? data.subjectTitle),
+            department:clean(data.classDepartment ?? data.department ?? data.dep),
             year:clean(data.classYear ?? data.year),
             section:clean(data.classSection ?? data.section ?? data.sec),
-            room:clean(data.labNo ?? data.roomNo ?? data.room)
+            room:clean(data.labNo ?? data.roomNo ?? data.room ?? data.roomNumber)
         });
     });
 
@@ -675,6 +673,13 @@ async function loadTimetable(){
         if(dayDiff!==0) return dayDiff;
         if(a.session!==b.session) return a.session==="FN" ? -1 : 1;
         return a.hour-b.hour;
+    });
+
+    console.log("TIMETABLE LOADED FOR CURRENT DASHBOARD STAFF:",{
+        staffId,
+        total:timetable.length,
+        FN:timetable.filter(x=>x.session==="FN").length,
+        AN:timetable.filter(x=>x.session==="AN").length
     });
 
     renderTimetable();
