@@ -1,12 +1,13 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+   content="width=device-width, initial-scale=1.0">
 
 <title>Student Attendance</title>
 
@@ -23,7 +24,6 @@ body{
     background:#f4f6f9;
     color:#222;
 }
-
 
 /* ================= HEADER ================= */
 
@@ -65,7 +65,6 @@ body{
     opacity:.8;
 }
 
-
 /* ================= MAIN ================= */
 
 .main{
@@ -83,7 +82,6 @@ body{
     box-shadow:
         0 3px 14px rgba(0,0,0,.08);
 }
-
 
 /* ================= BACK BUTTON ================= */
 
@@ -107,7 +105,6 @@ body{
     background:#dddddd;
 }
 
-
 /* ================= TITLE ================= */
 
 .title{
@@ -121,7 +118,6 @@ body{
     font-size:13px;
     margin-top:5px;
 }
-
 
 /* ================= ERROR ================= */
 
@@ -142,7 +138,6 @@ body{
 
     font-size:13px;
 }
-
 
 /* ================= DETAILS ================= */
 
@@ -189,7 +184,6 @@ body{
     word-break:break-word;
 }
 
-
 /* ================= SUBJECT ================= */
 
 .subject{
@@ -201,7 +195,6 @@ body{
 
     font-weight:bold;
 }
-
 
 /* ================= DATE ================= */
 
@@ -267,7 +260,6 @@ body{
     background:#3d033f;
 }
 
-
 /* ================= SUMMARY ================= */
 
 .summary{
@@ -319,7 +311,6 @@ body{
     color:#dc2626;
 }
 
-
 /* ================= INSTRUCTION ================= */
 
 .instruction{
@@ -337,7 +328,6 @@ body{
 
     margin-bottom:15px;
 }
-
 
 /* ================= TABLE ================= */
 
@@ -407,7 +397,6 @@ tbody td{
     font-weight:bold;
 }
 
-
 /* ================= STATUS ================= */
 
 .status{
@@ -437,7 +426,6 @@ tbody td{
 
     color:#991b1b;
 }
-
 
 /* ================= SAVE ================= */
 
@@ -475,7 +463,6 @@ tbody td{
     cursor:not-allowed;
 }
 
-
 /* ================= LOADING ================= */
 
 .loading{
@@ -512,7 +499,6 @@ tbody td{
 
 }
 
-
 /* ================= EMPTY ================= */
 
 .empty{
@@ -528,7 +514,6 @@ tbody td{
 
     margin-bottom:7px;
 }
-
 
 /* ================= MOBILE ================= */
 
@@ -575,9 +560,7 @@ tbody td{
 
 </head>
 
-
 <body>
-
 
 <!-- =====================================================
      HEADER
@@ -585,38 +568,37 @@ tbody td{
 
 <div class="header">
 
-    <div>
+```
+<div>
 
-        <div class="header-title">
-            Student Attendance
-        </div>
-
-        <div class="header-subtitle">
-            Attendance Entry
-        </div>
-
+    <div class="header-title">
+        Student Attendance
     </div>
 
-
-    <div class="staff-box">
-
-        <div
-            class="staff-name"
-            id="staffName">
-            Staff
-        </div>
-
-        <div
-            class="staff-id"
-            id="staffId">
-            -
-        </div>
-
+    <div class="header-subtitle">
+        Attendance Entry
     </div>
 
 </div>
 
+<div class="staff-box">
 
+    <div
+        class="staff-name"
+        id="staffName">
+        Staff
+    </div>
+
+    <div
+        class="staff-id"
+        id="staffId">
+        -
+    </div>
+
+</div>
+```
+
+</div>
 
 <!-- =====================================================
      MAIN
@@ -624,179 +606,163 @@ tbody td{
 
 <div class="main">
 
-
 <!-- =====================================================
      CLASS INFORMATION
 ===================================================== -->
 
 <div class="card">
 
+```
+<button
+    class="back-btn"
+    id="backBtn">
 
-    <button
-        class="back-btn"
-        id="backBtn">
+    ← Back to Attendance
 
-        ← Back to Attendance
+</button>
 
-    </button>
+<div class="title">
+    Student Attendance
+</div>
 
+<div class="subtitle">
 
-    <div class="title">
-        Student Attendance
-    </div>
+    Click a student row to change
+    Present / Absent.
 
+</div>
 
-    <div class="subtitle">
+<div
+    class="error"
+    id="errorBox">
+</div>
 
-        Click a student row to change
-        Present / Absent.
+<!-- DETAILS -->
 
-    </div>
+<div class="details">
 
+    <div class="detail">
 
-    <div
-        class="error"
-        id="errorBox">
-    </div>
-
-
-    <!-- DETAILS -->
-
-    <div class="details">
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Day Order
-            </div>
-
-            <div
-                class="detail-value"
-                id="day">
-                -
-            </div>
-
+        <div class="detail-label">
+            Day Order
         </div>
 
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Session
-            </div>
-
-            <div
-                class="detail-value"
-                id="session">
-                -
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Hour
-            </div>
-
-            <div
-                class="detail-value"
-                id="hour">
-                -
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Department
-            </div>
-
-            <div
-                class="detail-value"
-                id="department">
-                -
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Year / Section
-            </div>
-
-            <div
-                class="detail-value"
-                id="className">
-                -
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Room
-            </div>
-
-            <div
-                class="detail-value"
-                id="room">
-                -
-            </div>
-
+        <div
+            class="detail-value"
+            id="day">
+            -
         </div>
 
     </div>
 
+    <div class="detail">
 
-    <!-- SUBJECT -->
-
-    <div
-        class="subject"
-        id="subject">
-        -
-    </div>
-
-
-    <!-- DATE -->
-
-    <div class="date-row">
-
-
-        <div class="date-group">
-
-            <label>
-                Attendance Date
-            </label>
-
-            <input
-                type="date"
-                id="attendanceDate">
-
+        <div class="detail-label">
+            Session
         </div>
 
+        <div
+            class="detail-value"
+            id="session">
+            -
+        </div>
 
-        <button
-            class="load-btn"
-            id="loadBtn">
+    </div>
 
-            Load Students
+    <div class="detail">
 
-        </button>
+        <div class="detail-label">
+            Hour
+        </div>
+
+        <div
+            class="detail-value"
+            id="hour">
+            -
+        </div>
+
+    </div>
+
+    <div class="detail">
+
+        <div class="detail-label">
+            Department
+        </div>
+
+        <div
+            class="detail-value"
+            id="department">
+            -
+        </div>
+
+    </div>
+
+    <div class="detail">
+
+        <div class="detail-label">
+            Year / Section
+        </div>
+
+        <div
+            class="detail-value"
+            id="className">
+            -
+        </div>
+
+    </div>
+
+    <div class="detail">
+
+        <div class="detail-label">
+            Room
+        </div>
+
+        <div
+            class="detail-value"
+            id="room">
+            -
+        </div>
 
     </div>
 
 </div>
 
+<!-- SUBJECT -->
 
+<div
+    class="subject"
+    id="subject">
+    -
+</div>
+
+<!-- DATE -->
+
+<div class="date-row">
+
+    <div class="date-group">
+
+        <label>
+            Attendance Date
+        </label>
+
+        <input
+            type="date"
+            id="attendanceDate">
+
+    </div>
+
+    <button
+        class="load-btn"
+        id="loadBtn">
+
+        Load Students
+
+    </button>
+
+</div>
+```
+
+</div>
 
 <!-- =====================================================
      STUDENTS
@@ -804,161 +770,151 @@ tbody td{
 
 <div class="card">
 
+```
+<div class="instruction">
 
-    <div class="instruction">
+    <strong>Default:</strong>
+    All students are PRESENT.
 
-        <strong>Default:</strong>
-        All students are PRESENT.
+    Click a student row to mark
+    ABSENT.
 
-        Click a student row to mark
-        ABSENT.
+    Click again to mark PRESENT.
 
-        Click again to mark PRESENT.
+</div>
 
-    </div>
+<!-- SUMMARY -->
 
+<div class="summary">
 
-    <!-- SUMMARY -->
+    <div class="summary-card total">
 
-    <div class="summary">
-
-
-        <div class="summary-card total">
-
-            <h2 id="total">
-                0
-            </h2>
-
-            <p>
-                TOTAL STUDENTS
-            </p>
-
-        </div>
-
-
-        <div class="summary-card present">
-
-            <h2 id="present">
-                0
-            </h2>
-
-            <p>
-                PRESENT
-            </p>
-
-        </div>
-
-
-        <div class="summary-card absent">
-
-            <h2 id="absent">
-                0
-            </h2>
-
-            <p>
-                ABSENT
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- LOADING -->
-
-    <div
-        class="loading"
-        id="loading"
-        style="display:none;">
-
-        <div class="spinner"></div>
-
-        Loading students...
-
-    </div>
-
-
-    <!-- EMPTY -->
-
-    <div
-        class="empty"
-        id="empty"
-        style="display:none;">
-
-        <h3>
-            No Students Found
-        </h3>
+        <h2 id="total">
+            0
+        </h2>
 
         <p>
-            Check the selected Department,
-            Year and Section.
+            TOTAL STUDENTS
         </p>
 
     </div>
 
+    <div class="summary-card present">
 
-    <!-- TABLE -->
+        <h2 id="present">
+            0
+        </h2>
 
-    <div
-        class="table-wrapper"
-        id="tableWrapper"
-        style="display:none;">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        S.No
-                    </th>
-
-                    <th>
-                        Roll No
-                    </th>
-
-                    <th>
-                        Student Name
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody
-                id="studentTable">
-            </tbody>
-
-        </table>
+        <p>
+            PRESENT
+        </p>
 
     </div>
 
+    <div class="summary-card absent">
 
-    <!-- SAVE -->
+        <h2 id="absent">
+            0
+        </h2>
 
-    <div class="save-area">
-
-        <button
-            class="save-btn"
-            id="saveBtn">
-
-            SAVE ATTENDANCE
-
-        </button>
+        <p>
+            ABSENT
+        </p>
 
     </div>
 
 </div>
 
+<!-- LOADING -->
+
+<div
+    class="loading"
+    id="loading"
+    style="display:none;">
+
+    <div class="spinner"></div>
+
+    Loading students...
+
 </div>
 
+<!-- EMPTY -->
 
+<div
+    class="empty"
+    id="empty"
+    style="display:none;">
+
+    <h3>
+        No Students Found
+    </h3>
+
+    <p>
+        Check the selected Department,
+        Year and Section.
+    </p>
+
+</div>
+
+<!-- TABLE -->
+
+<div
+    class="table-wrapper"
+    id="tableWrapper"
+    style="display:none;">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    S.No
+                </th>
+
+                <th>
+                    Roll No
+                </th>
+
+                <th>
+                    Student Name
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody
+            id="studentTable">
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- SAVE -->
+
+<div class="save-area">
+
+    <button
+        class="save-btn"
+        id="saveBtn">
+
+        SAVE ATTENDANCE
+
+    </button>
+
+</div>
+```
+
+</div>
+
+</div>
 
 <!-- =====================================================
      FIREBASE SCRIPT
@@ -966,11 +922,8 @@ tbody td{
 
 <script type="module">
 
-
 import { db }
-
 from "./firebase-config.js";
-
 
 import {
 
@@ -982,11 +935,8 @@ import {
     serverTimestamp
 
 }
-
 from
-
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 
 
 /* =====================================================
@@ -1000,7 +950,6 @@ let students = [];
 let attendance = {};
 
 
-
 /* =====================================================
    CLEAN TEXT
 ===================================================== */
@@ -1009,8 +958,7 @@ function clean(value){
 
     return String(
         value ?? ""
-    )
-    .trim();
+    ).trim();
 
 }
 
@@ -1024,74 +972,38 @@ function upper(value){
 }
 
 
-
 /* =====================================================
    DEPARTMENT NORMALIZATION
 ===================================================== */
 
 function normalizeDepartment(value){
 
-    let dept =
-        upper(value);
+    let dept = upper(value);
 
-
-    dept =
-        dept
+    dept = dept
         .replace(/\./g,"")
         .replace(/\s+/g," ")
         .trim();
 
-
-    /*
-     * IMPORTANT
-     *
-     * Attendance page may send:
-     *
-     * BCA
-     *
-     * while Firestore contains:
-     *
-     * BCA COMPUTER APPLICATION
-     *
-     * Convert all BCA values.
-     */
-
     if(
-
         dept === "BCA"
-
         ||
-
-        dept ===
-        "BCA COMPUTER APPLICATION"
-
+        dept === "BCA COMPUTER APPLICATION"
         ||
-
-        dept ===
-        "BCA COMPUTER APPLICATIONS"
-
+        dept === "BCA COMPUTER APPLICATIONS"
         ||
-
-        dept ===
-        "B C A COMPUTER APPLICATION"
-
+        dept === "B C A COMPUTER APPLICATION"
         ||
-
-        dept ===
-        "B C A COMPUTER APPLICATIONS"
-
+        dept === "B C A COMPUTER APPLICATIONS"
     ){
 
-        return
-            "BCA COMPUTER APPLICATION";
+        return "BCA COMPUTER APPLICATION";
 
     }
-
 
     return dept;
 
 }
-
 
 
 /* =====================================================
@@ -1100,30 +1012,20 @@ function normalizeDepartment(value){
 
 function today(){
 
-    const d =
-        new Date();
-
+    const d = new Date();
 
     return (
 
         d.getFullYear()
-
         +
-
         "-"
-
         +
-
         String(
             d.getMonth()+1
         ).padStart(2,"0")
-
         +
-
         "-"
-
         +
-
         String(
             d.getDate()
         ).padStart(2,"0")
@@ -1131,7 +1033,6 @@ function today(){
     );
 
 }
-
 
 
 /* =====================================================
@@ -1152,34 +1053,28 @@ function escapeHtml(value){
 }
 
 
-
 /* =====================================================
    LOAD ATTENDANCE PERIOD
 ===================================================== */
 
 function loadPeriod(){
 
-
     const raw =
         sessionStorage.getItem(
             "attendancePeriod"
         );
-
 
     if(!raw){
 
         throw new Error(
 
             "Attendance period not found. " +
-
             "Please return to the attendance page " +
-
             "and select the class again."
 
         );
 
     }
-
 
     try{
 
@@ -1195,7 +1090,6 @@ function loadPeriod(){
         );
 
     }
-
 
     console.log(
         "===================================="
@@ -1251,7 +1145,6 @@ function loadPeriod(){
     ).textContent =
 
         "Hour " +
-
         (
             attendancePeriod.hour ||
             "-"
@@ -1274,13 +1167,9 @@ function loadPeriod(){
             attendancePeriod.year ||
             "-"
         )
-
         +
-
         " / "
-
         +
-
         (
             attendancePeriod.section ||
             "-"
@@ -1300,37 +1189,24 @@ function loadPeriod(){
     ).textContent =
 
         (
-
             attendancePeriod.subjectCode
-
             ?
-
-            attendancePeriod.subjectCode +
-            " - "
-
+            attendancePeriod.subjectCode + " - "
             :
-
             ""
-
         )
-
         +
-
         (
-
             attendancePeriod.subjectName ||
             "-"
-
         );
 
 
     document.getElementById(
         "attendanceDate"
-    ).value =
-        today();
+    ).value = today();
 
 }
-
 
 
 /* =====================================================
@@ -1339,24 +1215,20 @@ function loadPeriod(){
 
 async function loadStudents(){
 
-
     const loading =
         document.getElementById(
             "loading"
         );
-
 
     const tableWrapper =
         document.getElementById(
             "tableWrapper"
         );
 
-
     const empty =
         document.getElementById(
             "empty"
         );
-
 
     const errorBox =
         document.getElementById(
@@ -1367,14 +1239,11 @@ async function loadStudents(){
     loading.style.display =
         "block";
 
-
     tableWrapper.style.display =
         "none";
 
-
     empty.style.display =
         "none";
-
 
     errorBox.style.display =
         "none";
@@ -1387,11 +1256,6 @@ async function loadStudents(){
 
     try{
 
-
-        /* ============================================
-           CHECK PERIOD
-        ============================================ */
-
         if(!attendancePeriod){
 
             throw new Error(
@@ -1401,15 +1265,9 @@ async function loadStudents(){
         }
 
 
-        /* ============================================
-           TARGET
-        ============================================ */
-
         const targetDepartment =
             normalizeDepartment(
-
                 attendancePeriod.department
-
             );
 
 
@@ -1430,23 +1288,16 @@ async function loadStudents(){
             targetDepartment
         );
 
-
         console.log(
             "TARGET YEAR:",
             targetYear
         );
-
 
         console.log(
             "TARGET SECTION:",
             targetSection
         );
 
-
-
-        /* ============================================
-           FIRESTORE
-        ============================================ */
 
         const studentsCollection =
             collection(
@@ -1470,38 +1321,23 @@ async function loadStudents(){
         if(snapshot.empty){
 
             throw new Error(
-
                 'The "students" collection is empty.'
-
             );
 
         }
 
 
-
-        /* ============================================
-           LOOP STUDENTS
-        ============================================ */
-
         snapshot.forEach(
-
             studentDoc => {
-
 
                 const data =
                     studentDoc.data() ||
                     {};
 
 
-                /*
-                 * EXACT FIRESTORE FIELDS
-                 */
-
                 const studentDepartment =
                     normalizeDepartment(
-
                         data.department
-
                     );
 
 
@@ -1541,49 +1377,6 @@ async function loadStudents(){
                     );
 
 
-                console.log(
-
-                    "CHECK STUDENT:",
-
-                    {
-
-                        id:
-                            studentDoc.id,
-
-                        department:
-                            data.department,
-
-                        normalizedDepartment:
-                            studentDepartment,
-
-                        year:
-                            data.year,
-
-                        section:
-                            data.section,
-
-                        rollNo:
-                            rollNo,
-
-                        studentName:
-                            studentName,
-
-                        registerNo:
-                            registerNo,
-
-                        academicYear:
-                            academicYear
-
-                    }
-
-                );
-
-
-
-                /* =====================================
-                   MATCH
-                ===================================== */
-
                 if(
 
                     studentDepartment ===
@@ -1601,23 +1394,11 @@ async function loadStudents(){
 
                 ){
 
-
-                    /*
-                     * Roll number is required.
-                     *
-                     * Register number can be empty.
-                     */
-
                     if(!rollNo){
 
                         console.warn(
-
-                            "Skipping student " +
-
-                            "without roll number:",
-
+                            "Skipping student without roll number:",
                             studentName
-
                         );
 
                         return;
@@ -1645,45 +1426,17 @@ async function loadStudents(){
                     });
 
 
-                    /*
-                     * Default PRESENT
-                     */
-
                     attendance[
                         rollNo
                     ] = "P";
 
-
-                    console.log(
-
-                        "========== MATCHED =========="
-
-                    );
-
-                    console.log(
-                        rollNo,
-                        studentName
-                    );
-
-                    console.log(
-                        "============================="
-
-                    );
-
                 }
 
             }
-
         );
 
 
-
-        /* ============================================
-           SORT
-        ============================================ */
-
         students.sort(
-
             (a,b) => {
 
                 return a.rollNo.localeCompare(
@@ -1693,17 +1446,13 @@ async function loadStudents(){
                     undefined,
 
                     {
-
                         numeric:true,
-
                         sensitivity:"base"
-
                     }
 
                 );
 
             }
-
         );
 
 
@@ -1713,36 +1462,17 @@ async function loadStudents(){
         );
 
 
-        console.table(
-            students
-        );
-
-
-
-        /* ============================================
-           LOAD EXISTING ATTENDANCE
-        ============================================ */
-
-        if(
-            students.length > 0
-        ){
+        if(students.length > 0){
 
             await loadExistingAttendance();
 
         }
 
 
-
-        /* ============================================
-           DISPLAY
-        ============================================ */
-
         renderStudents();
 
 
-        if(
-            students.length === 0
-        ){
+        if(students.length === 0){
 
             showError(
 
@@ -1771,7 +1501,6 @@ async function loadStudents(){
             error
         );
 
-
         showError(
             error.message
         );
@@ -1788,7 +1517,6 @@ async function loadStudents(){
 }
 
 
-
 /* =====================================================
    ATTENDANCE DOCUMENT ID
 ===================================================== */
@@ -1800,52 +1528,77 @@ function attendanceDocumentId(
 
     return (
 
-        date +
-
-        "_" +
-
-        rollNo
+        clean(date)
+        +
+        "_"
+        +
+        clean(rollNo)
 
     );
 
 }
 
 
-
 /* =====================================================
-   PERIOD KEY
+   SAFE PERIOD KEY
 ===================================================== */
 
 function periodKey(){
 
+    const day =
+        upper(
+            attendancePeriod.day
+        )
+        .replace(/\s+/g,"");
+
+
+    const session =
+        upper(
+            attendancePeriod.session
+        );
+
+
+    const hour =
+        Number(
+            attendancePeriod.hour
+        );
+
+
+    const subjectCode =
+        upper(
+            attendancePeriod.subjectCode ||
+            attendancePeriod.subjectName ||
+            "SUBJECT"
+        )
+        .replace(/[^A-Z0-9]+/g,"_");
+
+
     return (
 
-        clean(
-            attendancePeriod.session
-        )
-
+        day
         +
-
         "_"
-
         +
-
-        clean(
-            attendancePeriod.hour
-        )
+        session
+        +
+        "_H"
+        +
+        hour
+        +
+        "_"
+        +
+        subjectCode
 
     );
 
 }
 
 
-
 /* =====================================================
-   LOAD OLD ATTENDANCE
+   LOAD EXISTING ATTENDANCE
 ===================================================== */
 
 async function loadExistingAttendance(){
-
 
     const date =
         document.getElementById(
@@ -1864,13 +1617,18 @@ async function loadExistingAttendance(){
         periodKey();
 
 
+    console.log(
+        "LOADING EXISTING ATTENDANCE KEY:",
+        key
+    );
+
+
     for(
         const student
         of students
     ){
 
         try{
-
 
             const reference =
                 doc(
@@ -1896,9 +1654,7 @@ async function loadExistingAttendance(){
                 );
 
 
-            if(
-                !snap.exists()
-            ){
+            if(!snap.exists()){
 
                 continue;
 
@@ -1917,19 +1673,15 @@ async function loadExistingAttendance(){
 
             const status =
                 upper(
-
                     savedAttendance[key] ||
                     ""
-
                 );
 
 
             if(
 
                 status === "A"
-
                 ||
-
                 status === "ABSENT"
 
             ){
@@ -1940,13 +1692,10 @@ async function loadExistingAttendance(){
 
             }
 
-
             else if(
 
                 status === "P"
-
                 ||
-
                 status === "PRESENT"
 
             ){
@@ -1978,13 +1727,11 @@ async function loadExistingAttendance(){
 }
 
 
-
 /* =====================================================
-   RENDER
+   RENDER STUDENTS
 ===================================================== */
 
 function renderStudents(){
-
 
     const table =
         document.getElementById(
@@ -1992,13 +1739,10 @@ function renderStudents(){
         );
 
 
-    table.innerHTML =
-        "";
+    table.innerHTML = "";
 
 
-    if(
-        students.length === 0
-    ){
+    if(students.length === 0){
 
         document.getElementById(
             "empty"
@@ -2019,14 +1763,12 @@ function renderStudents(){
     }
 
 
-
     students.forEach(
 
         (
             student,
             index
         ) => {
-
 
             const row =
                 document.createElement(
@@ -2118,7 +1860,6 @@ function renderStudents(){
 }
 
 
-
 /* =====================================================
    TOGGLE STUDENT
 ===================================================== */
@@ -2154,15 +1895,13 @@ function toggleStudent(
 }
 
 
-
 /* =====================================================
-   UPDATE ROW
+   UPDATE STUDENT ROW
 ===================================================== */
 
 function updateStudentRow(
     rollNo
 ){
-
 
     const rows =
         document.querySelectorAll(
@@ -2174,7 +1913,6 @@ function updateStudentRow(
 
 
     rows.forEach(
-
         item => {
 
             if(
@@ -2187,7 +1925,6 @@ function updateStudentRow(
             }
 
         }
-
     );
 
 
@@ -2252,32 +1989,26 @@ function updateStudentRow(
 }
 
 
-
 /* =====================================================
    SUMMARY
 ===================================================== */
 
 function updateSummary(){
 
-
     const total =
         students.length;
 
 
-    let absent =
-        0;
+    let absent = 0;
 
 
     students.forEach(
-
         student => {
 
             if(
-
                 attendance[
                     student.rollNo
                 ] === "A"
-
             ){
 
                 absent++;
@@ -2285,7 +2016,6 @@ function updateSummary(){
             }
 
         }
-
     );
 
 
@@ -2314,13 +2044,11 @@ function updateSummary(){
 }
 
 
-
 /* =====================================================
    SAVE ATTENDANCE
 ===================================================== */
 
 async function saveAttendance(){
-
 
     if(!attendancePeriod){
 
@@ -2350,9 +2078,7 @@ async function saveAttendance(){
     }
 
 
-    if(
-        students.length === 0
-    ){
+    if(students.length === 0){
 
         alert(
             "No students found."
@@ -2379,16 +2105,20 @@ async function saveAttendance(){
 
     try{
 
-
         const key =
             periodKey();
+
+
+        console.log(
+            "SAVING ATTENDANCE KEY:",
+            key
+        );
 
 
         for(
             const student
             of students
         ){
-
 
             const reference =
                 doc(
@@ -2414,8 +2144,7 @@ async function saveAttendance(){
                 );
 
 
-            let oldData =
-                {};
+            let oldData = {};
 
 
             if(
@@ -2476,7 +2205,7 @@ async function saveAttendance(){
 
                     department:
                         attendancePeriod.department ||
-                        "BCA COMPUTER APPLICATION",
+                        "",
 
                     year:
                         attendancePeriod.year ||
@@ -2541,9 +2270,7 @@ async function saveAttendance(){
                 },
 
                 {
-
                     merge:true
-
                 }
 
             );
@@ -2554,6 +2281,15 @@ async function saveAttendance(){
         alert(
             "Attendance saved successfully."
         );
+
+
+        /*
+         * Reload from Firestore so that
+         * the screen always represents
+         * the saved data.
+         */
+
+        await loadStudents();
 
     }
 
@@ -2568,7 +2304,6 @@ async function saveAttendance(){
         alert(
 
             "Unable to save attendance.\n\n" +
-
             error.message
 
         );
@@ -2587,7 +2322,6 @@ async function saveAttendance(){
     }
 
 }
-
 
 
 /* =====================================================
@@ -2614,9 +2348,8 @@ function showError(
 }
 
 
-
 /* =====================================================
-   BUTTONS
+   LOAD BUTTON
 ===================================================== */
 
 document.getElementById(
@@ -2633,6 +2366,10 @@ document.getElementById(
 
 );
 
+
+/* =====================================================
+   DATE CHANGE
+===================================================== */
 
 document.getElementById(
     "attendanceDate"
@@ -2653,6 +2390,10 @@ document.getElementById(
 );
 
 
+/* =====================================================
+   SAVE BUTTON
+===================================================== */
+
 document.getElementById(
     "saveBtn"
 ).addEventListener(
@@ -2668,6 +2409,10 @@ document.getElementById(
 );
 
 
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
 document.getElementById(
     "backBtn"
 ).addEventListener(
@@ -2682,7 +2427,6 @@ document.getElementById(
     }
 
 );
-
 
 
 /* =====================================================
@@ -2723,4 +2467,3 @@ start();
 </body>
 
 </html>
-
