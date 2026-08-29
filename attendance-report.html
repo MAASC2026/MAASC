@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="en">
@@ -540,19 +541,19 @@ tbody tr:hover{
 
 <div class="header">
 
-```
-<h1>
-    Attendance Report
-</h1>
+    <h1>
+        Attendance Report
+    </h1>
 
-<p>
-    Student attendance analysis and detailed attendance report
-</p>
-```
+    <p>
+        Student attendance analysis and detailed attendance report
+    </p>
 
 </div>
 
+
 <div class="container">
+
 
 <!-- =====================================================
      FILTER CARD
@@ -560,330 +561,291 @@ tbody tr:hover{
 
 <div class="card filter-card">
 
-```
-<div class="card-title">
-    Attendance Report Filters
-</div>
+    <div class="card-title">
+        Attendance Report Filters
+    </div>
 
 
-<div class="filters">
+    <div class="filters">
 
 
-    <div class="field">
+        <!-- DEPARTMENT -->
 
-        <label>
-            DEPARTMENT
-        </label>
+        <div class="field">
 
-        <select id="departmentSelect">
+            <label>
+                DEPARTMENT
+            </label>
 
-            <option value="">
-                All Departments
-            </option>
-         <option value="">
- Select Department
- </option>
+            <select id="departmentSelect">
 
+                <option value="">
+                    All Departments
+                </option>
 
- <option value="B.Com General">
- B.Com General
- </option>
+                <option value="B.Com General">
+                    B.Com General
+                </option>
 
+                <option value="B.Com BM">
+                    B.Com BM
+                </option>
 
- <option value="B.Com BM">
- B.Com BM
- </option>
+                <option value="B.Com MM">
+                    B.Com MM
+                </option>
 
+                <option value="B.Com CS">
+                    B.Com CS
+                </option>
 
- <option value="B.Com MM">
- B.Com MM
- </option>
+                <option value="B.Com A&F">
+                    B.Com A&F
+                </option>
 
+                <option value="B.Com ISM">
+                    B.Com ISM
+                </option>
 
- <option value="B.Com CS">
- B.Com CS
- </option>
+                <option value="B.Com CA">
+                    B.Com CA
+                </option>
 
+                <option value="B.Com BUS.AD">
+                    B.Com BUS.AD
+                </option>
 
- <option value="B.Com A&F">
- B.Com A&F
- </option>
+                <option value="B.A DEFENCE">
+                    B.A DEFENCE
+                </option>
 
+                <option value="B.A PUB.AD">
+                    B.A PUB.AD
+                </option>
 
- <option value="B.Com ISM">
- B.Com ISM
- </option>
+                <option value="B.A TAMIL">
+                    B.A TAMIL
+                </option>
 
+                <option value="B.A TOURISM">
+                    B.A TOURISM
+                </option>
 
- <option value="B.Com CA">
- B.Com CA
- </option>
+                <option value="B.Sc CS">
+                    B.Sc CS
+                </option>
 
+                <option value="B.Sc CS WITH AI">
+                    B.Sc CS WITH AI
+                </option>
 
- <option value="B.Com BUS.AD">
- B.Com BUS.AD
- </option>
+                <option value="B.Sc CRIMINOLOGY">
+                    B.Sc CRIMINOLOGY
+                </option>
 
+                <option value="B.Sc SA">
+                    B.Sc SA
+                </option>
 
+                <option value="B.Sc PHYS WITH CA">
+                    B.Sc PHYS WITH CA
+                </option>
 
- <option value="B.A DEFENCE">
- B.A DEFENCE
- </option>
+                <option value="B.Sc MATHS WITH CA">
+                    B.Sc MATHS WITH CA
+                </option>
 
+                <option value="B.Sc ELECTRONICS WITH AI">
+                    B.Sc ELECTRONICS WITH AI
+                </option>
 
- <option value="B.A PUB.AD">
- B.A PUB.AD
- </option>
+                <option value="B.Sc VISCOM">
+                    B.Sc VISCOM
+                </option>
 
+                <option value="B.Sc ELECTRONIC MEDIA">
+                    B.Sc ELECTRONIC MEDIA
+                </option>
 
- <option value="B.A TAMIL">
- B.A TAMIL
- </option>
+                <option value="B.Sc IDD">
+                    B.Sc IDD
+                </option>
 
+                <option value="B.Sc PHYSICS">
+                    B.Sc PHYSICS
+                </option>
 
- <option value="B.A TOURISM">
- B.A TOURISM
- </option>
+                <option value="BCA COMPUTER APPLICATION">
+                    BCA COMPUTER APPLICATION
+                </option>
 
+            </select>
 
-
- <option value="B.Sc CS">
- B.Sc CS
- </option>
-
-
- <option value="B.Sc CS WITH AI">
- B.Sc CS WITH AI
- </option>
-
-
- <option value="B.Sc CRIMINOLOGY">
- B.Sc CRIMINOLOGY
- </option>
-
-
- <option value="B.Sc SA">
- B.Sc SA
- </option>
-
-
- <option value="B.Sc PHYS WITH CA">
- B.Sc PHYS WITH CA
- </option>
-
-
- <option value="B.Sc MATHS WITH CA">
- B.Sc MATHS WITH CA
- </option>
-
-
- <option value="B.Sc ELECTRONICS WITH AI">
- B.Sc ELECTRONICS WITH AI
- </option>
-
-
- <option value="B.Sc VISCOM">
- B.Sc VISCOM
- </option>
+        </div>
 
 
- <option value="B.Sc ELECTRONIC MEDIA">
- B.Sc ELECTRONIC MEDIA
- </option>
+        <!-- YEAR -->
+
+        <div class="field">
+
+            <label>
+                YEAR
+            </label>
+
+            <select id="yearSelect">
+
+                <option value="">
+                    All Years
+                </option>
+
+                <option value="I">
+                    I Year
+                </option>
+
+                <option value="II">
+                    II Year
+                </option>
+
+                <option value="III">
+                    III Year
+                </option>
+
+            </select>
+
+        </div>
 
 
- <option value="B.Sc IDD">
- B.Sc IDD
- </option>
+        <!-- SECTION -->
+
+        <div class="field">
+
+            <label>
+                SECTION
+            </label>
+
+            <select id="sectionSelect">
+
+                <option value="">
+                    All Sections
+                </option>
+
+                <option value="A">
+                    A
+                </option>
+
+                <option value="B">
+                    B
+                </option>
+
+                <option value="C">
+                    C
+                </option>
+
+                <option value="D">
+                    D
+                </option>
+
+            </select>
+
+        </div>
 
 
- <option value="B.Sc PHYSICS">
- B.Sc PHYSICS
- </option>
+        <!-- FROM DATE -->
+
+        <div class="field">
+
+            <label>
+                FROM DATE
+            </label>
+
+            <input
+                type="date"
+                id="fromDate">
+
+        </div>
 
 
+        <!-- TO DATE -->
 
- <option value="BCA COMPUTER APPLICATION">
- BCA COMPUTER APPLICATION
- </option>
+        <div class="field">
 
-        </select>
+            <label>
+                TO DATE
+            </label>
+
+            <input
+                type="date"
+                id="toDate">
+
+        </div>
+
+
+        <!-- STUDENT SEARCH -->
+
+        <div class="field">
+
+            <label>
+                STUDENT / ROLL NO
+            </label>
+
+            <input
+                type="text"
+                id="studentSearch"
+                placeholder="Search student or roll number">
+
+        </div>
+
 
     </div>
 
 
-    <div class="field">
+    <div class="buttons">
 
-        <label>
-            YEAR
-        </label>
+        <button
+            class="primary"
+            id="generateBtn">
 
-        <select id="yearSelect">
+            GENERATE REPORT
 
-            <option value="">
-                All Years
-            </option>
-        
- <option value="I">
- I Year
- </option>
+        </button>
 
 
- <option value="II">
- II Year
- </option>
+        <button
+            class="secondary"
+            id="clearBtn">
+
+            CLEAR
+
+        </button>
 
 
- <option value="III">
- III Year
- </option>
+        <button
+            class="green"
+            id="printBtn">
 
-        </select>
+            PRINT REPORT
 
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            SECTION
-        </label>
-
-        <select id="sectionSelect">
-
-           
- <option value="A">
- A
- </option>
+        </button>
 
 
- <option value="B">
- B
- </option>
+        <button
+            class="blue"
+            id="csvBtn">
 
+            DOWNLOAD CSV
 
- <option value="C">
- C
- </option>
-
-
- <option value="D">
- D
- </option>
-         
-
-        </select>
+        </button>
 
     </div>
 
 
-    <div class="field">
-
-        <label>
-            SUBJECT
-        </label>
-
-        <select id="subjectSelect">
-
-            <option value="">
-                All Subjects
-            </option>
-
-        </select>
-
+    <div
+        class="message"
+        id="message">
     </div>
-
-
-    <div class="field">
-
-        <label>
-            FROM DATE
-        </label>
-
-        <input
-            type="date"
-            id="fromDate">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            TO DATE
-        </label>
-
-        <input
-            type="date"
-            id="toDate">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            STUDENT / ROLL NO
-        </label>
-
-        <input
-            type="text"
-            id="studentSearch"
-            placeholder="Search student or roll number">
-
-    </div>
-
-
-</div>
-
-
-<div class="buttons">
-
-    <button
-        class="primary"
-        id="generateBtn">
-
-        GENERATE REPORT
-
-    </button>
-
-
-    <button
-        class="secondary"
-        id="clearBtn">
-
-        CLEAR
-
-    </button>
-
-
-    <button
-        class="green"
-        id="printBtn">
-
-        PRINT REPORT
-
-    </button>
-
-
-    <button
-        class="blue"
-        id="csvBtn">
-
-        DOWNLOAD CSV
-
-    </button>
 
 </div>
 
-
-<div
-    class="message"
-    id="message">
-</div>
-```
-
-</div>
 
 <!-- =====================================================
      SUMMARY
@@ -891,109 +853,120 @@ tbody tr:hover{
 
 <div class="card">
 
-```
-<div class="card-title">
-    Attendance Summary
+    <div class="card-title">
+        Attendance Summary
+    </div>
+
+
+    <div class="summary">
+
+
+        <div class="stat">
+
+            <div
+                class="stat-value"
+                id="studentCount">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                STUDENTS
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-value"
+                id="totalHours">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                TOTAL PERIODS
+            </div>
+
+        </div>
+
+
+        <div class="stat present-stat">
+
+            <div
+                class="stat-value"
+                id="totalPresent">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                PRESENT
+            </div>
+
+        </div>
+
+
+        <div class="stat absent-stat">
+
+            <div
+                class="stat-value"
+                id="totalAbsent">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                ABSENT
+            </div>
+
+        </div>
+
+
+        <div class="stat percent-stat">
+
+            <div
+                class="stat-value"
+                id="overallPercentage">
+
+                0%
+
+            </div>
+
+            <div class="stat-label">
+                OVERALL %
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                class="stat-value"
+                id="attendanceDates">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                DATES
+            </div>
+
+        </div>
+
+
+    </div>
+
 </div>
 
-
-<div class="summary">
-
-
-    <div class="stat">
-
-        <div
-            class="stat-value"
-            id="studentCount">
-            0
-        </div>
-
-        <div class="stat-label">
-            STUDENTS
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div
-            class="stat-value"
-            id="totalHours">
-            0
-        </div>
-
-        <div class="stat-label">
-            TOTAL PERIODS
-        </div>
-
-    </div>
-
-
-    <div class="stat present-stat">
-
-        <div
-            class="stat-value"
-            id="totalPresent">
-            0
-        </div>
-
-        <div class="stat-label">
-            PRESENT
-        </div>
-
-    </div>
-
-
-    <div class="stat absent-stat">
-
-        <div
-            class="stat-value"
-            id="totalAbsent">
-            0
-        </div>
-
-        <div class="stat-label">
-            ABSENT
-        </div>
-
-    </div>
-
-
-    <div class="stat percent-stat">
-
-        <div
-            class="stat-value"
-            id="overallPercentage">
-            0%
-        </div>
-
-        <div class="stat-label">
-            OVERALL %
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div
-            class="stat-value"
-            id="attendanceDates">
-            0
-        </div>
-
-        <div class="stat-label">
-            DATES
-        </div>
-
-    </div>
-
-
-</div>
-```
-
-</div>
 
 <!-- =====================================================
      REPORT
@@ -1001,187 +974,197 @@ tbody tr:hover{
 
 <div class="card">
 
-```
-<div class="report-heading">
+    <div class="report-heading">
 
-    <div>
+        <div>
 
-        <h2>
-            Student Attendance Report
-        </h2>
+            <h2>
+                Student Attendance Report
+            </h2>
 
-        <p id="reportSubtitle">
-            Generate a report using the filters above.
+            <p id="reportSubtitle">
+                Generate a report using the filters above.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="report-info"
+        id="reportInfo"
+        style="display:none;">
+
+
+        <div class="info-box">
+
+            <div class="info-label">
+                DEPARTMENT
+            </div>
+
+            <div
+                class="info-value"
+                id="infoDepartment">
+
+                -
+
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <div class="info-label">
+                YEAR
+            </div>
+
+            <div
+                class="info-value"
+                id="infoYear">
+
+                -
+
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <div class="info-label">
+                SECTION
+            </div>
+
+            <div
+                class="info-value"
+                id="infoSection">
+
+                -
+
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <div class="info-label">
+                SUBJECTS
+            </div>
+
+            <div
+                class="info-value"
+                id="infoSubject">
+
+                -
+
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <div class="info-label">
+                DATE RANGE
+            </div>
+
+            <div
+                class="info-value"
+                id="infoDate">
+
+                -
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div
+        class="loading"
+        id="loading">
+
+        <div class="spinner"></div>
+
+        Loading attendance records...
+
+    </div>
+
+
+    <div
+        class="empty"
+        id="empty">
+
+        <h3>
+            No Attendance Records Found
+        </h3>
+
+        <p>
+            Change the filters or date range and try again.
         </p>
 
     </div>
 
-</div>
+
+    <div
+        class="table-wrapper"
+        id="summaryTableWrapper"
+        style="display:none;">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        S.No
+                    </th>
+
+                    <th>
+                        Roll No
+                    </th>
+
+                    <th>
+                        Student Name
+                    </th>
+
+                    <th>
+                        Total Periods
+                    </th>
+
+                    <th>
+                        Present
+                    </th>
+
+                    <th>
+                        Absent
+                    </th>
+
+                    <th>
+                        Attendance %
+                    </th>
+
+                </tr>
+
+            </thead>
 
 
-<div
-    class="report-info"
-    id="reportInfo"
-    style="display:none;">
+            <tbody
+                id="summaryTable">
+            </tbody>
 
-
-    <div class="info-box">
-
-        <div class="info-label">
-            DEPARTMENT
-        </div>
-
-        <div
-            class="info-value"
-            id="infoDepartment">
-            -
-        </div>
-
-    </div>
-
-
-    <div class="info-box">
-
-        <div class="info-label">
-            YEAR
-        </div>
-
-        <div
-            class="info-value"
-            id="infoYear">
-            -
-        </div>
-
-    </div>
-
-
-    <div class="info-box">
-
-        <div class="info-label">
-            SECTION
-        </div>
-
-        <div
-            class="info-value"
-            id="infoSection">
-            -
-        </div>
-
-    </div>
-
-
-    <div class="info-box">
-
-        <div class="info-label">
-            SUBJECT
-        </div>
-
-        <div
-            class="info-value"
-            id="infoSubject">
-            -
-        </div>
-
-    </div>
-
-
-    <div class="info-box">
-
-        <div class="info-label">
-            DATE RANGE
-        </div>
-
-        <div
-            class="info-value"
-            id="infoDate">
-            -
-        </div>
+        </table>
 
     </div>
 
 </div>
 
-
-<div
-    class="loading"
-    id="loading">
-
-    <div class="spinner"></div>
-
-    Loading attendance records...
-
-</div>
-
-
-<div
-    class="empty"
-    id="empty">
-
-    <h3>
-        No Attendance Records Found
-    </h3>
-
-    <p>
-        Change the filters or date range and try again.
-    </p>
-
-</div>
-
-
-<div
-    class="table-wrapper"
-    id="summaryTableWrapper"
-    style="display:none;">
-
-    <table>
-
-        <thead>
-
-            <tr>
-
-                <th>
-                    S.No
-                </th>
-
-                <th>
-                    Roll No
-                </th>
-
-                <th>
-                    Student Name
-                </th>
-
-                <th>
-                    Total Periods
-                </th>
-
-                <th>
-                    Present
-                </th>
-
-                <th>
-                    Absent
-                </th>
-
-                <th>
-                    Attendance %
-                </th>
-
-            </tr>
-
-        </thead>
-
-
-        <tbody
-            id="summaryTable">
-        </tbody>
-
-    </table>
-
-</div>
-```
-
-</div>
 
 <!-- =====================================================
      DATE-WISE DETAIL
@@ -1189,101 +1172,100 @@ tbody tr:hover{
 
 <div class="card">
 
-```
-<div class="card-title">
-    Detailed Attendance
-</div>
+    <div class="card-title">
+        Detailed Attendance
+    </div>
 
 
-<div
-    class="table-wrapper"
-    id="detailTableWrapper"
-    style="display:none;">
+    <div
+        class="table-wrapper"
+        id="detailTableWrapper"
+        style="display:none;">
 
-    <table class="detail-table">
+        <table class="detail-table">
 
-        <thead>
+            <thead>
 
-            <tr>
+                <tr>
 
-                <th>
-                    Date
-                </th>
+                    <th>
+                        Date
+                    </th>
 
-                <th>
-                    Day
-                </th>
+                    <th>
+                        Day
+                    </th>
 
-                <th>
-                    Session
-                </th>
+                    <th>
+                        Session
+                    </th>
 
-                <th>
-                    Hour
-                </th>
+                    <th>
+                        Hour
+                    </th>
 
-                <th>
-                    Department
-                </th>
+                    <th>
+                        Department
+                    </th>
 
-                <th>
-                    Year
-                </th>
+                    <th>
+                        Year
+                    </th>
 
-                <th>
-                    Section
-                </th>
+                    <th>
+                        Section
+                    </th>
 
-                <th>
-                    Subject
-                </th>
+                    <th>
+                        Subject
+                    </th>
 
-                <th>
-                    Subject Code
-                </th>
+                    <th>
+                        Subject Code
+                    </th>
 
-                <th>
-                    Roll No
-                </th>
+                    <th>
+                        Roll No
+                    </th>
 
-                <th>
-                    Student Name
-                </th>
+                    <th>
+                        Student Name
+                    </th>
 
-                <th>
-                    Status
-                </th>
+                    <th>
+                        Status
+                    </th>
 
-                <th>
-                    Staff
-                </th>
+                    <th>
+                        Staff
+                    </th>
 
-            </tr>
+                </tr>
 
-        </thead>
+            </thead>
 
 
-        <tbody
-            id="detailTable">
-        </tbody>
+            <tbody
+                id="detailTable">
+            </tbody>
 
-    </table>
+        </table>
 
-</div>
-```
+    </div>
 
 </div>
+
 
 <div class="footer">
 
-```
-MAASC Student Management System —
-Attendance Report
-```
+    MAASC Student Management System —
+    Attendance Report
 
 </div>
 
+
 </div>
+
 
 <!-- =====================================================
      FIREBASE
@@ -1661,7 +1643,6 @@ function parseAttendanceKey(key){
      *
      */
 
-
     const match =
         value.match(
 
@@ -1749,10 +1730,6 @@ function findTimetable(
         );
 
 
-    /*
-     * First try exact timetable match.
-     */
-
     let found =
         timetableRecords.find(
             item => {
@@ -1771,11 +1748,15 @@ function findTimetable(
 
 
                 const year =
-                    upper(item.year);
+                    upper(
+                        item.year
+                    );
 
 
                 const section =
-                    upper(item.section);
+                    upper(
+                        item.section
+                    );
 
 
                 const session =
@@ -1866,11 +1847,6 @@ function resolveSubjectName(
         );
 
 
-    /*
-     * If the top-level record belongs to
-     * the same subject, use it.
-     */
-
     if(
 
         directCode
@@ -1885,10 +1861,6 @@ function resolveSubjectName(
 
     }
 
-
-    /*
-     * Try timetable.
-     */
 
     const timetable =
         findTimetable(
@@ -1905,10 +1877,6 @@ function resolveSubjectName(
 
     }
 
-
-    /*
-     * Last fallback.
-     */
 
     return targetCode;
 
@@ -2074,10 +2042,6 @@ function buildDetailRows(){
     );
 
 
-    /*
-     * Sort.
-     */
-
     rows.sort(
         (a,b) => {
 
@@ -2132,207 +2096,12 @@ function buildDetailRows(){
 
 function populateFilters(){
 
-    const departments =
-        new Set();
-
-
-    const years =
-        new Set();
-
-
-    const sections =
-        new Set();
-
-
-    const subjects =
-        new Map();
-
-
-    generatedRows.forEach(
-        row => {
-
-            if(row.department){
-
-                departments.add(
-                    row.department
-                );
-
-            }
-
-
-            if(row.year){
-
-                years.add(
-                    row.year
-                );
-
-            }
-
-
-            if(row.section){
-
-                sections.add(
-                    row.section
-                );
-
-            }
-
-
-            const code =
-                row.subjectCode ||
-                row.subject;
-
-
-            const name =
-                row.subject ||
-                code;
-
-
-            if(code){
-
-                subjects.set(
-                    code,
-                    name
-                );
-
-            }
-
-        }
-    );
-
-
-    fillSelect(
-        "departmentSelect",
-        Array.from(
-            departments
-        ).sort()
-    );
-
-
-    fillSelect(
-        "yearSelect",
-        Array.from(
-            years
-        ).sort()
-    );
-
-
-    fillSelect(
-        "sectionSelect",
-        Array.from(
-            sections
-        ).sort()
-    );
-
-
-    const subjectSelect =
-        document.getElementById(
-            "subjectSelect"
-        );
-
-
-    subjectSelect.innerHTML =
-        '<option value="">All Subjects</option>';
-
-
-    Array.from(
-        subjects.entries()
-    )
-    .sort(
-        (a,b) =>
-            String(a[1])
-            .localeCompare(
-                String(b[1])
-            )
-    )
-    .forEach(
-        (
-            [
-                code,
-                name
-            ]
-        ) => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                code;
-
-
-            option.textContent =
-                code +
-                " - " +
-                name;
-
-
-            subjectSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   FILL SELECT
-===================================================== */
-
-function fillSelect(
-    id,
-    values
-){
-
-    const select =
-        document.getElementById(
-            id
-        );
-
-
-    const firstOption =
-        select.options[0];
-
-
-    select.innerHTML = "";
-
-
-    if(firstOption){
-
-        select.appendChild(
-            firstOption
-        );
-
-    }
-
-
-    values.forEach(
-        value => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                value;
-
-
-            option.textContent =
-                value;
-
-
-            select.appendChild(
-                option
-            );
-
-        }
-    );
+    /*
+     * Department, year and section options
+     * are kept from the HTML.
+     *
+     * No subject filter is populated.
+     */
 
 }
 
@@ -2363,14 +2132,6 @@ function getFilteredRows(){
         upper(
             document.getElementById(
                 "sectionSelect"
-            ).value
-        );
-
-
-    const subject =
-        upper(
-            document.getElementById(
-                "subjectSelect"
             ).value
         );
 
@@ -2460,17 +2221,12 @@ function getFilteredRows(){
             }
 
 
-            if(
-                subject
-                &&
-                upper(
-                    row.subjectCode
-                ) !== subject
-            ){
-
-                return false;
-
-            }
+            /*
+             * SUBJECT FILTER REMOVED
+             *
+             * There is intentionally no
+             * subject filtering here.
+             */
 
 
             if(search){
@@ -3025,6 +2781,11 @@ function updateReportInfo(
         "-";
 
 
+    /*
+     * Subject is shown as report information,
+     * but it is NOT a filter.
+     */
+
     document.getElementById(
         "infoSubject"
     ).textContent =
@@ -3267,11 +3028,6 @@ function clearFilters(){
 
     document.getElementById(
         "sectionSelect"
-    ).value = "";
-
-
-    document.getElementById(
-        "subjectSelect"
     ).value = "";
 
 
@@ -3649,3 +3405,4 @@ initialize();
 </body>
 
 </html>
+```
