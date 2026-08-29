@@ -426,11 +426,17 @@ tbody td{
 import { db } from "./firebase-config.js";
 
 import {
+    collection,
+    getDocs as firestoreGetDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
     getAuth,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const auth = getAuth();
+
 /* =========================================================
    CONSTANTS
 ========================================================= */
@@ -644,7 +650,7 @@ function waitForAuthUser(){
 ========================================================= */
 
 async function findStaffProfile(user){
-    const snapshot = await getDocs(collection(db,"staff"));
+    const snapshot = await firestoreGetDocs(collection(db,"staff"));
 
     const docs = snapshot.docs;
     let uidMatch = null;
@@ -772,7 +778,7 @@ function getTimetableStaffId(data, documentId){
 ========================================================= */
 
 async function loadTimetable(){
-    const snapshot = await getDocs(collection(db,"staffTimetable"));
+    const snapshot = await firestoreGetDocs(collection(db,"staffTimetable"));
     const currentId = normalizeStaffId(staffId);
     timetable = [];
 
