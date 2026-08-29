@@ -555,30 +555,150 @@ function normalizeSession(value){
 
 
 /* =========================================================
-   STAFF ID
+   STAFF ID / LOGIN IDENTITY
 ========================================================= */
 
 function getStorageValue(keys){
     for(const key of keys){
-        const s=sessionStorage.getItem(key);
-        if(clean(s)) return clean(s);
-        const l=localStorage.getItem(key);
-        if(clean(l)) return clean(l);
+        try{
+            const s = sessionStorage.getItem(key);
+            if(clean(s)) return clean(s);
+        }catch(e){}
+
+        try{
+            const l = localStorage.getItem(key);
+            if(clean(l)) return clean(l);
+        }catch(e){}
     }
     return "";
 }
 
 function normalizeStaffId(value){
-    return clean(value).toUpperCase().replace(/\s+/g, "");
+    return clean(value).toUpperCase().replace(/[\s_-]+/g, "");
 }
 
-function getStaffId(){
-    const params=new URLSearchParams(window.location.search);
-    return getStorageValue([
-        "staffId","staffID","currentStaffId","currentStaffID",
-        "loggedInStaffId","loggedInStaffID","employeeId","employeeID",
-        "employeeCode","staffCode"
-    ]) || clean(params.get("staffId") || params.get("staffID") || params.get("employeeId"));
+function normalizeName(value){
+    return clean(value).toUpperCase().replace(/\s+/g, " ");
+}
+
+function getStaffCandidates(){
+    const params = new URLSearchParams(window.location.search);
+    const candidates = [];
+
+    const add = value => {
+        const v = clean(value);
+        if(!v) return;
+        if(!candidates.some(x => normalizeStaffId(x) === normalizeStaffId(v))){
+            candidates.push(v);
+        }
+    };
+
+    /* URL is an explicit current-page value, so prefer it. */
+    add(params.get("staffId"));
+    add(params.get("staffID"));
+    add(params.get("employeeId"));
+    add(params.get("employeeID"));
+
+    /* Current-login keys before generic/stale keys. */
+    [
+        "currentStaffId", "currentStaffID",
+        "loggedInStaffId", "loggedInStaffID",
+        "staffId", "staffID",
+        "employeeId", "employeeID",
+        "staffCode", "employeeCode"
+    ].forEach(key => {
+        try{ add(sessionStorage.getItem(key)); }catch(e){}
+        try{ add(localStorage.getItem(key)); }catch(e){}
+    });
+
+    return candidates;
+}
+
+function getStoredStaffName(){
+    const keys = [
+        "currentStaffName", "loggedInStaffName",
+        "staffName", "employeeName", "name"
+    ];
+
+    for(const key of keys){
+        try{
+            const s = clean(sessionStorage.getItem(key));
+            if(s) return s;
+        }catch(e){}
+        try{
+            const l = clean(localStorage.getItem(key));
+            if(l) return l;
+        }catch(e){}
+    }
+    return "";
+}
+
+function firstValue(obj, keys){
+    for(const key of keys){
+        const value = obj?.[key];
+        if(value !== undefined && value !== null && clean(value) !== ""){
+            return value;
+        }
+    }
+    return "";
+}
+
+function collectStaffIds(data){
+    const ids = [];
+
+    const add = value => {
+        if(value === undefined || value === null) return;
+        if(typeof value === "object") return;
+        const v = clean(value);
+        if(!v) return;
+        if(!ids.some(x => normalizeStaffId(x) === normalizeStaffId(v))){
+            ids.push(v);
+        }
+    };
+
+    [
+        "staffId", "staffID", "employeeId", "employeeID",
+        "staffCode", "employeeCode", "teacherId", "teacherID",
+        "workerId", "workerID", "facultyId", "facultyID"
+    ].forEach(k => add(data?.[k]));
+
+    /* Some timetable records keep the staff information in an object. */
+    const nested = [data?.staff, data?.employee, data?.teacher, data?.faculty];
+    nested.forEach(item => {
+        if(item && typeof item === "object"){
+            [
+                "id", "staffId", "staffID", "employeeId", "employeeID",
+                "staffCode", "employeeCode", "teacherId", "teacherID"
+            ].forEach(k => add(item[k]));
+        }else{
+            add(item);
+        }
+    });
+
+    return ids;
+}
+
+function collectStaffNames(data){
+    const names = [];
+    const add = value => {
+        if(value === undefined || value === null || typeof value === "object") return;
+        const v = normalizeName(value);
+        if(v && !names.includes(v)) names.push(v);
+    };
+
+    [
+        "staffName", "employeeName", "teacherName", "facultyName",
+        "name", "staff"
+    ].forEach(k => add(data?.[k]));
+
+    const nested = [data?.staff, data?.employee, data?.teacher, data?.faculty];
+    nested.forEach(item => {
+        if(item && typeof item === "object"){
+            ["name", "staffName", "employeeName", "teacherName", "facultyName"].forEach(k => add(item[k]));
+        }
+    });
+
+    return names;
 }
 
 /* =========================================================
@@ -586,94 +706,183 @@ function getStaffId(){
 ========================================================= */
 async function loadStaff(){
 
-    staffId = getStaffId();
-
-    staffName =
-        clean(
-            sessionStorage.getItem("staffName")
-        );
-
+    const candidates = getStaffCandidates();
+    staffId = candidates[0] || "";
+    staffName = getStoredStaffName();
 
     if(!staffId){
-
         throw new Error(
-            "Staff ID is not available in the current login session."
+            "Staff ID is not available in the current login session. Please open Attendance Entry from the Staff Dashboard."
         );
-
     }
 
+    document.getElementById("staffId").textContent = staffId;
+    document.getElementById("staffName").textContent = staffName || "Staff";
 
-    document.getElementById(
-        "staffId"
-    ).textContent =
-        staffId;
-
-
-    document.getElementById(
-        "staffName"
-    ).textContent =
-        staffName || "Staff";
-
-
-    document.getElementById(
-        "staffInfo"
-    ).innerHTML =
-
+    document.getElementById("staffInfo").innerHTML =
         "<strong>Staff:</strong> " +
         escapeHtml(staffName || "Staff") +
-
         " &nbsp;&nbsp; | &nbsp;&nbsp; " +
-
         "<strong>Staff ID:</strong> " +
         escapeHtml(staffId);
 
+    return candidates;
 }
-
 
 /* =========================================================
    LOAD TIMETABLE
 ========================================================= */
-
 async function loadTimetable(){
-    const snapshot=await getDocs(collection(db,"staffTimetable"));
-    timetable=[];
-    const currentId=normalizeStaffId(staffId);
 
-    snapshot.forEach(docSnap=>{
-        const data=docSnap.data() || {};
-        const recordStaffId=clean(
-            data.staffId ?? data.staffID ?? data.employeeId ??
-            data.employeeID ?? data.staffCode ?? data.employeeCode
+    const snapshot = await getDocs(collection(db, "staffTimetable"));
+    const allRecords = [];
+
+    snapshot.forEach(docSnap => {
+        const data = docSnap.data() || {};
+        allRecords.push({ id: docSnap.id, data });
+    });
+
+    const candidates = getStaffCandidates();
+    const candidateIds = candidates.map(normalizeStaffId).filter(Boolean);
+    const storedName = normalizeName(staffName || getStoredStaffName());
+
+    let matched = [];
+    let matchedBy = "";
+
+    /*
+       PASS 1: exact/normalized Staff ID matching.
+       We deliberately do NOT require one particular field name.
+    */
+    for(const candidate of candidateIds){
+        const found = allRecords.filter(item => {
+            const ids = collectStaffIds(item.data).map(normalizeStaffId);
+            return ids.includes(candidate);
+        });
+
+        if(found.length){
+            matched = found;
+            matchedBy = candidate;
+            break;
+        }
+    }
+
+    /*
+       PASS 2: if the timetable was saved without an ID but has the
+       current staff name, use the name only as a fallback.
+    */
+    if(!matched.length && storedName){
+        matched = allRecords.filter(item =>
+            collectStaffNames(item.data).includes(storedName)
         );
 
-        if(!recordStaffId || normalizeStaffId(recordStaffId)!==currentId) return;
+        if(matched.length){
+            matchedBy = "STAFF NAME";
+        }
+    }
 
-        const day=normalizeDay(data.day ?? data.dayName ?? data.dayNo);
-        const session=normalizeSession(data.session);
-        const hour=Number(data.hour);
-        if(!day || !session || !Number.isFinite(hour)) return;
+    timetable = [];
+
+    matched.forEach(item => {
+        const data = item.data || {};
+
+        const day = normalizeDay(
+            firstValue(data, ["day", "dayName", "dayNo", "dayOrder"])
+        );
+
+        const session = normalizeSession(
+            firstValue(data, ["session", "period", "shift"])
+        );
+
+        let hourValue = firstValue(data, [
+            "hour", "hourNo", "periodNo", "periodNumber", "hourNumber"
+        ]);
+
+        /* Accept values such as H1 / Hour 1 / 1 */
+        if(typeof hourValue === "string"){
+            const hm = hourValue.match(/(?:H|HOUR|PERIOD)?\s*([1-5])/i);
+            if(hm) hourValue = hm[1];
+        }
+
+        const hour = Number(hourValue);
+
+        if(!day || !session || !Number.isFinite(hour) || hour < 1 || hour > 5){
+            console.warn("Skipping invalid timetable record:", item.id, data);
+            return;
+        }
 
         timetable.push({
-            id:docSnap.id,
+            id: item.id,
             day,
             session,
             hour,
-            time:clean(data.time) || (TIME[session] && TIME[session][hour] ? TIME[session][hour] : ""),
-            subjectCode:clean(data.subjectCode ?? data.subjectId ?? data.code),
-            subjectName:clean(data.subjectName ?? data.subject),
-            department:clean(data.classDepartment ?? data.department),
-            year:clean(data.classYear ?? data.year),
-            section:clean(data.classSection ?? data.section ?? data.sec),
-            room:clean(data.labNo ?? data.roomNo ?? data.room)
+            time: clean(firstValue(data, ["time", "timing", "periodTime"])) ||
+                (TIME[session] && TIME[session][hour] ? TIME[session][hour] : ""),
+            subjectCode: clean(firstValue(data, [
+                "subjectCode", "subjectId", "subjectCodeId", "code"
+            ])),
+            subjectName: clean(firstValue(data, [
+                "subjectName", "subject", "subjectTitle"
+            ])),
+            department: clean(firstValue(data, [
+                "classDepartment", "department", "dep", "departmentName"
+            ])),
+            year: clean(firstValue(data, [
+                "classYear", "year", "academicYear"
+            ])),
+            section: clean(firstValue(data, [
+                "classSection", "section", "sec"
+            ])),
+            room: clean(firstValue(data, [
+                "labNo", "roomNo", "room", "roomNumber"
+            ]))
         });
     });
 
-    timetable.sort((a,b)=>{
-        const dayDiff=DAYS.indexOf(a.day)-DAYS.indexOf(b.day);
-        if(dayDiff!==0) return dayDiff;
-        if(a.session!==b.session) return a.session==="FN" ? -1 : 1;
-        return a.hour-b.hour;
+    /*
+       If there are duplicate records for the same day/session/hour,
+       keep all records instead of silently losing a class. Rendering
+       uses the first record, but duplicates are reported for debugging.
+    */
+    const seen = new Map();
+    timetable.forEach(item => {
+        const key = `${item.day}|${item.session}|${item.hour}`;
+        seen.set(key, (seen.get(key) || 0) + 1);
     });
+
+    for(const [key, count] of seen){
+        if(count > 1){
+            console.warn(`Multiple timetable records for ${key}: ${count}`);
+        }
+    }
+
+    timetable.sort((a,b) => {
+        const dayDiff = DAYS.indexOf(a.day) - DAYS.indexOf(b.day);
+        if(dayDiff !== 0) return dayDiff;
+        if(a.session !== b.session) return a.session === "FN" ? -1 : 1;
+        return a.hour - b.hour;
+    });
+
+    console.log("ATTENDANCE TIMETABLE DEBUG", {
+        candidateStaffIds: candidates,
+        selectedStaffId: staffId,
+        staffName,
+        matchedBy,
+        totalFirestoreRecords: allRecords.length,
+        matchedRecords: matched.length,
+        validTimetablePeriods: timetable.length,
+        fnPeriods: timetable.filter(x => x.session === "FN").length,
+        anPeriods: timetable.filter(x => x.session === "AN").length
+    });
+
+    if(!timetable.length){
+        document.getElementById("loadingBox").style.display = "none";
+        document.getElementById("tableContainer").style.display = "none";
+        document.getElementById("emptyBox").style.display = "block";
+
+        document.getElementById("staffInfo").innerHTML +=
+            "<br><br><strong>No timetable records matched this staff account.</strong>";
+        return;
+    }
 
     renderTimetable();
 }
