@@ -1,22 +1,53 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Upload Students</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+href="https://maasc2026.github.io/MAASC/style.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+<style>
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+#previewTable{
+    width:100%;
+    border-collapse:collapse;
+}
+
+#previewTable th,
+#previewTable td{
+    padding:10px;
+    border:1px solid #ddd;
+    text-align:left;
+    white-space:nowrap;
+}
+
+#previewTable th{
+    background:#f1f3f6;
+}
+
+</style>
+
 </head>
 
+
 <body>
+
 
 <!-- Sidebar -->
 
@@ -30,46 +61,78 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
+
 <ul>
 
 <li>
+
 <a href="student.html">
+
 <i class="fa fa-home"></i>
+
 Dashboard
+
 </a>
+
 </li>
+
 
 <li class="active">
+
 <a href="upload.html">
+
 <i class="fa fa-upload"></i>
+
 Upload Students
+
 </a>
+
 </li>
 
+
 <li>
+
 <a href="register.html">
+
 <i class="fa fa-id-card"></i>
+
 Register Numbers
+
 </a>
+
 </li>
 
+
 <li>
+
 <a href="records.html">
+
 <i class="fa fa-users"></i>
+
 Student Records
+
 </a>
+
 </li>
 
+
 <li>
+
 <a href="export.html">
+
 <i class="fa fa-file-excel"></i>
+
 Export Excel
+
 </a>
+
 </li>
 
 </ul>
 
 </div>
+
+
 
 <!-- Main -->
 
@@ -83,7 +146,10 @@ Export Excel
 
 </header>
 
+
+
 <div class="container">
+
 
 <label>Academic Year</label>
 
@@ -92,10 +158,14 @@ Export Excel
 <option value="">Select Academic Year</option>
 
 <option>2026-2029</option>
+
 <option>2025-2028</option>
+
 <option>2024-2027</option>
 
 </select>
+
+
 
 <label>Department</label>
 
@@ -129,9 +199,13 @@ Export Excel
 <option value="B.Sc IDD">B.Sc IDD</option>
 <option value="B.Sc PHYSICS">B.Sc PHYSICS</option>
 
-<option value="BCA COMPUTER APPLICATION">BCA COMPUTER APPLICATION</option>
+<option value="BCA COMPUTER APPLICATION">
+BCA COMPUTER APPLICATION
+</option>
 
 </select>
+
+
 
 <label>Year</label>
 
@@ -140,10 +214,14 @@ Export Excel
 <option value="">Select Year</option>
 
 <option value="I">I Year</option>
+
 <option value="II">II Year</option>
+
 <option value="III">III Year</option>
 
 </select>
+
+
 
 <label>Section</label>
 
@@ -152,11 +230,16 @@ Export Excel
 <option value="">Select Section</option>
 
 <option value="A">Section A</option>
+
 <option value="B">Section B</option>
+
 <option value="C">Section C</option>
+
 <option value="D">Section D</option>
 
 </select>
+
+
 
 <label>Select Excel File</label>
 
@@ -165,7 +248,9 @@ type="file"
 id="excelFile"
 accept=".xlsx,.xls">
 
+
 <br><br>
+
 
 <button id="previewBtn">
 
@@ -175,6 +260,7 @@ Preview Excel
 
 </button>
 
+
 <button id="uploadBtn">
 
 <i class="fa fa-upload"></i>
@@ -183,15 +269,22 @@ Upload Students
 
 </button>
 
+
 <div class="loader" id="loader"></div>
 
 <div id="message" class="message"></div>
 
 </div>
 
+
+
+<!-- Student Preview -->
+
 <div class="container" style="margin-top:25px;">
 
 <h2>Student Preview</h2>
+
+<br>
 
 <div class="table-wrapper">
 
@@ -207,12 +300,16 @@ Upload Students
 
 <th>Student Name</th>
 
+<th>DOB</th>
+
+<th>Register No</th>
+
 </tr>
 
 </thead>
 
-<tbody>
 
+<tbody>
 </tbody>
 
 </table>
@@ -223,230 +320,599 @@ Upload Students
 
 </div>
 
+
+
 <script type="module">
-    import { db } from "./firebase-config.js";
+
+import { db } from "./firebase-config.js";
 
 import {
-    collection,
-    getDocs,
-    query,
-    where,
-    addDoc,
-    serverTimestamp
+
+collection,
+getDocs,
+query,
+where,
+addDoc,
+serverTimestamp
+
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const previewBtn = document.getElementById("previewBtn");
-const uploadBtn = document.getElementById("uploadBtn");
 
-const tbody = document.querySelector("#previewTable tbody");
 
-const loader = document.getElementById("loader");
-const message = document.getElementById("message");
+const previewBtn =
+document.getElementById("previewBtn");
+
+const uploadBtn =
+document.getElementById("uploadBtn");
+
+const tbody =
+document.querySelector("#previewTable tbody");
+
+const loader =
+document.getElementById("loader");
+
+const message =
+document.getElementById("message");
+
 
 let students = [];
 
-// Preview Excel
-previewBtn.addEventListener("click", readExcel);
 
-// Upload
-uploadBtn.addEventListener("click", uploadStudents);
 
-function showMessage(text, type) {
+/* =========================
+   MESSAGE
+========================= */
 
-    message.style.display = "block";
-    message.className = "message " + type;
-    message.innerHTML = text;
+function showMessage(text,type){
 
-}
+message.style.display="block";
 
-function hideMessage() {
+message.className="message "+type;
 
-    message.style.display = "none";
+message.innerHTML=text;
 
 }
 
-function readExcel() {
 
-    hideMessage();
+function hideMessage(){
 
-    const file = document.getElementById("excelFile").files[0];
-
-    if (!file) {
-
-        showMessage("Please choose an Excel file.", "error");
-
-        return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-
-        const data = new Uint8Array(e.target.result);
-
-        const workbook = XLSX.read(data, {
-            type: "array"
-        });
-
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-
-        const rows = XLSX.utils.sheet_to_json(sheet, {
-            header: 1
-        });
-
-        students = [];
-
-        tbody.innerHTML = "";
-
-        for (let i = 1; i < rows.length; i++) {
-
-            if (!rows[i][0]) continue;
-
-            const rollNo = String(rows[i][0]).trim();
-
-            const studentName = String(rows[i][1] || "").trim();
-
-            students.push({
-                rollNo,
-                studentName
-            });
-
-            tbody.innerHTML += `
-            <tr>
-                <td>${students.length}</td>
-                <td>${rollNo}</td>
-                <td>${studentName}</td>
-            </tr>
-            `;
-
-        }
-
-        showMessage(
-            students.length +
-            " students loaded successfully.",
-            "success"
-        );
-
-    };
-
-    reader.readAsArrayBuffer(file);
+message.style.display="none";
 
 }
 
-async function uploadStudents() {
 
-    hideMessage();
 
-    const academicYear =
-        document.getElementById("academicYear").value;
+/* =========================
+   EXCEL DATE CONVERSION
+========================= */
 
-    const department =
-        document.getElementById("department").value;
+function formatDOB(value){
 
-    const year =
-        document.getElementById("year").value;
+if(value === undefined ||
+   value === null ||
+   value === ""){
 
-    const section =
-        document.getElementById("section").value;
-
-    if (
-        academicYear == "" ||
-        department == "" ||
-        year == "" ||
-        section == ""
-    ) {
-
-        showMessage(
-            "Please select Academic Year, Department, Year and Section.",
-            "error"
-        );
-
-        return;
-
-    }
-
-    if (students.length == 0) {
-
-        showMessage(
-            "Preview the Excel file first.",
-            "error"
-        );
-
-        return;
-
-    }
-
-    loader.style.display = "block";
-
-    let uploaded = 0;
-
-    let skipped = 0;
-
-    for (const student of students) {
-
-        const q = query(
-            collection(db, "students"),
-            where("rollNo", "==", student.rollNo)
-        );
-
-        const existing = await getDocs(q);
-
-        if (!existing.empty) {
-
-            skipped++;
-
-            continue;
-
-        }
-
-        await addDoc(collection(db, "students"), {
-
-            academicYear,
-
-            department,
-
-            year,
-
-            section,
-
-            rollNo: student.rollNo,
-
-            studentName: student.studentName,
-
-            registerNo: "",
-
-            createdAt: serverTimestamp()
-
-        });
-
-        uploaded++;
-
-    }
-
-    loader.style.display = "none";
-
-    showMessage(
-
-        "Upload Completed.<br><br>" +
-
-        "Uploaded : " + uploaded +
-
-        "<br>" +
-
-        "Skipped : " + skipped,
-
-        "success"
-
-    );
-
-    students = [];
-
-    tbody.innerHTML = "";
-
-    document.getElementById("excelFile").value = "";
+return "";
 
 }
+
+
+/*
+   If Excel gives a JavaScript Date
+*/
+
+if(value instanceof Date){
+
+const day =
+String(value.getDate()).padStart(2,"0");
+
+const month =
+String(value.getMonth()+1).padStart(2,"0");
+
+const year =
+value.getFullYear();
+
+return `${day}/${month}/${year}`;
+
+}
+
+
+/*
+   If Excel gives a number
+   such as 39500
+*/
+
+if(typeof value === "number"){
+
+const excelDate =
+XLSX.SSF.parse_date_code(value);
+
+if(excelDate){
+
+const day =
+String(excelDate.d).padStart(2,"0");
+
+const month =
+String(excelDate.m).padStart(2,"0");
+
+const year =
+excelDate.y;
+
+return `${day}/${month}/${year}`;
+
+}
+
+}
+
+
+/*
+   If DOB is already text
+*/
+
+return String(value).trim();
+
+}
+
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+return String(value || "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+previewBtn.addEventListener(
+"click",
+readExcel
+);
+
+
+
+function readExcel(){
+
+hideMessage();
+
+
+const file =
+document.getElementById("excelFile").files[0];
+
+
+if(!file){
+
+showMessage(
+"Please choose an Excel file.",
+"error"
+);
+
+return;
+
+}
+
+
+
+const reader =
+new FileReader();
+
+
+
+reader.onload=function(e){
+
+try{
+
+const data =
+new Uint8Array(e.target.result);
+
+
+const workbook =
+XLSX.read(data,{
+type:"array",
+cellDates:true
+});
+
+
+const sheet =
+workbook.Sheets[
+workbook.SheetNames[0]
+];
+
+
+const rows =
+XLSX.utils.sheet_to_json(
+sheet,
+{
+header:1,
+defval:""
+}
+);
+
+
+
+students=[];
+
+tbody.innerHTML="";
+
+
+
+/*
+Expected Excel columns:
+
+Column A = Roll No
+Column B = Student Name
+Column C = DOB
+Column D = Register No
+*/
+
+
+for(let i=1;i<rows.length;i++){
+
+if(!rows[i][0]){
+
+continue;
+
+}
+
+
+const rollNo =
+String(rows[i][0]).trim();
+
+
+const studentName =
+String(rows[i][1] || "").trim();
+
+
+const dob =
+formatDOB(rows[i][2]);
+
+
+const registerNo =
+String(rows[i][3] || "").trim();
+
+
+
+students.push({
+
+rollNo,
+studentName,
+dob,
+registerNo
+
+});
+
+
+
+tbody.innerHTML += `
+
+<tr>
+
+<td>${students.length}</td>
+
+<td>${escapeHTML(rollNo)}</td>
+
+<td>${escapeHTML(studentName)}</td>
+
+<td>${escapeHTML(dob)}</td>
+
+<td>${escapeHTML(registerNo)}</td>
+
+</tr>
+
+`;
+
+}
+
+
+
+if(students.length===0){
+
+showMessage(
+"No students found in the Excel file.",
+"error"
+);
+
+return;
+
+}
+
+
+
+showMessage(
+
+students.length +
+" students loaded successfully.",
+"success"
+
+);
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"Unable to read Excel file. Please check the file format.",
+"error"
+);
+
+}
+
+};
+
+
+reader.readAsArrayBuffer(file);
+
+}
+
+
+
+/* =========================
+   UPLOAD STUDENTS
+========================= */
+
+uploadBtn.addEventListener(
+"click",
+uploadStudents
+);
+
+
+
+async function uploadStudents(){
+
+hideMessage();
+
+
+
+const academicYear =
+document.getElementById(
+"academicYear"
+).value;
+
+
+const department =
+document.getElementById(
+"department"
+).value;
+
+
+const year =
+document.getElementById(
+"year"
+).value;
+
+
+const section =
+document.getElementById(
+"section"
+).value;
+
+
+
+if(
+
+academicYear === "" ||
+department === "" ||
+year === "" ||
+section === ""
+
+){
+
+showMessage(
+
+"Please select Academic Year, Department, Year and Section.",
+
+"error"
+
+);
+
+return;
+
+}
+
+
+
+if(students.length===0){
+
+showMessage(
+
+"Preview the Excel file first.",
+
+"error"
+
+);
+
+return;
+
+}
+
+
+
+loader.style.display="block";
+
+
+let uploaded=0;
+
+let skipped=0;
+
+
+
+try{
+
+
+for(const student of students){
+
+
+/*
+   Check duplicate Roll Number
+*/
+
+const q =
+query(
+
+collection(db,"students"),
+
+where(
+"rollNo",
+"==",
+student.rollNo
+)
+
+);
+
+
+const existing =
+await getDocs(q);
+
+
+
+if(!existing.empty){
+
+skipped++;
+
+continue;
+
+}
+
+
+
+/*
+   Add student
+*/
+
+await addDoc(
+
+collection(db,"students"),
+
+{
+
+academicYear:
+
+academicYear,
+
+
+department:
+
+department,
+
+
+year:
+
+year,
+
+
+section:
+
+section,
+
+
+rollNo:
+
+student.rollNo,
+
+
+studentName:
+
+student.studentName,
+
+
+dob:
+
+student.dob,
+
+
+registerNo:
+
+student.registerNo,
+
+
+createdAt:
+
+serverTimestamp()
+
+}
+
+);
+
+
+uploaded++;
+
+}
+
+
+
+loader.style.display="none";
+
+
+
+showMessage(
+
+"Upload Completed.<br><br>" +
+
+"Uploaded : " +
+uploaded +
+
+"<br>" +
+
+"Skipped : " +
+skipped,
+
+"success"
+
+);
+
+
+
+students=[];
+
+tbody.innerHTML="";
+
+document.getElementById(
+"excelFile"
+).value="";
+
+
+
+}catch(error){
+
+console.error(
+"UPLOAD ERROR:",
+error
+);
+
+
+loader.style.display="none";
+
+
+showMessage(
+
+"Upload failed: " +
+error.message,
+
+"error"
+
+);
+
+}
+
+}
+
 </script>
 
+
 </body>
+
 </html>
+```
