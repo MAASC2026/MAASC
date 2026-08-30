@@ -5,9 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Attendance Entry</title>
 
@@ -25,9 +23,7 @@ body{
     color:#1f2937;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* ================= HEADER ================= */
 
 .header{
     background:#500454;
@@ -46,9 +42,7 @@ body{
     opacity:.9;
 }
 
-/* =========================
-   MAIN CONTAINER
-========================= */
+/* ================= MAIN ================= */
 
 .container{
     max-width:1500px;
@@ -56,9 +50,7 @@ body{
     padding:0 15px;
 }
 
-/* =========================
-   STAFF CARD
-========================= */
+/* ================= STAFF CARD ================= */
 
 .staff-card{
     background:white;
@@ -102,9 +94,7 @@ body{
     color:#111827;
 }
 
-/* =========================
-   CONTROL CARD
-========================= */
+/* ================= CONTROL ================= */
 
 .control-card{
     background:white;
@@ -174,9 +164,7 @@ button{
     margin-top:15px;
 }
 
-/* =========================
-   MESSAGE
-========================= */
+/* ================= MESSAGE ================= */
 
 .message{
     display:none;
@@ -205,9 +193,7 @@ button{
     color:#92400e;
 }
 
-/* =========================
-   TIMETABLE CARD
-========================= */
+/* ================= TIMETABLE ================= */
 
 .timetable-card{
     background:white;
@@ -226,9 +212,44 @@ button{
     font-weight:bold;
 }
 
-/* =========================
-   SESSION
-========================= */
+/* ================= LEGEND ================= */
+
+.legend{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin:15px 0;
+}
+
+.legend-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.legend-box{
+    width:18px;
+    height:18px;
+    border-radius:4px;
+    border:1px solid #ccc;
+}
+
+.legend-blue{
+    background:#dbeafe;
+}
+
+.legend-green{
+    background:#bbf7d0;
+}
+
+.legend-empty{
+    background:#f8fafc;
+}
+
+/* ================= SESSION ================= */
 
 .session-info{
     display:flex;
@@ -249,48 +270,7 @@ button{
     color:white;
 }
 
-/* =========================
-   ATTENDANCE LEGEND
-========================= */
-
-.attendance-legend{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-    margin:10px 0 15px;
-}
-
-.legend-item{
-    display:flex;
-    align-items:center;
-    gap:7px;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.legend-box{
-    width:18px;
-    height:18px;
-    border-radius:4px;
-    border:1px solid #ddd;
-}
-
-.legend-blue{
-    background:#dbeafe;
-}
-
-.legend-yellow{
-    background:#fef3c7;
-}
-
-.legend-green{
-    background:#bbf7d0;
-}
-
-/* =========================
-   TABLE
-========================= */
+/* ================= TABLE ================= */
 
 .table-wrapper{
     overflow:auto;
@@ -327,9 +307,7 @@ thead th{
     font-weight:bold;
 }
 
-/* =========================
-   SLOT
-========================= */
+/* ================= SLOT ================= */
 
 .slot{
     height:105px;
@@ -342,69 +320,36 @@ thead th{
     background:#f8fafc;
 }
 
+/* NOT MARKED */
+
 .slot.assigned{
     background:#dbeafe;
     cursor:pointer;
     transition:.15s;
 }
 
+/* NOT MARKED HOVER */
+
 .slot.assigned:hover{
     background:#bfdbfe;
     transform:scale(.99);
 }
 
-/* =========================
-   ATTENDANCE STATUS COLORS
-========================= */
+/* ================= ATTENDANCE MARKED GREEN ================= */
 
-/*
- * BLUE
- * Attendance not yet marked
- */
-
-.slot.assigned.attendance-not-marked{
-    background:#dbeafe;
+.slot.attendance-marked{
+    background:#bbf7d0 !important;
+    border:2px solid #16a34a;
+    cursor:pointer;
+    transition:.15s;
 }
 
-
-/*
- * YELLOW
- * Some students have attendance saved
- */
-
-.slot.assigned.attendance-partial{
-    background:#fef3c7;
+.slot.attendance-marked:hover{
+    background:#86efac !important;
+    transform:scale(.99);
 }
 
-
-/*
- * GREEN
- * Attendance completely saved
- */
-
-.slot.assigned.attendance-marked{
-    background:#bbf7d0;
-}
-
-
-/* HOVER COLORS */
-
-.slot.assigned.attendance-not-marked:hover{
-    background:#bfdbfe;
-}
-
-.slot.assigned.attendance-partial:hover{
-    background:#fde68a;
-}
-
-.slot.assigned.attendance-marked:hover{
-    background:#86efac;
-}
-
-
-/* =========================
-   SLOT TEXT
-========================= */
+/* ================= TEXT ================= */
 
 .slot-class{
     font-size:12px;
@@ -445,42 +390,19 @@ thead th{
     margin-top:3px;
 }
 
+.slot-attendance{
+    font-size:10px;
+    color:#166534;
+    font-weight:bold;
+    margin-top:4px;
+}
+
 .slot-empty{
     color:#94a3b8;
     font-size:11px;
 }
 
-/* =========================
-   ATTENDANCE STATUS TEXT
-========================= */
-
-.attendance-status{
-    display:inline-block;
-    margin-top:5px;
-    padding:3px 7px;
-    border-radius:10px;
-    font-size:9px;
-    font-weight:bold;
-}
-
-.attendance-status.not-marked{
-    background:#bfdbfe;
-    color:#1e3a8a;
-}
-
-.attendance-status.partial{
-    background:#fde68a;
-    color:#92400e;
-}
-
-.attendance-status.marked{
-    background:#86efac;
-    color:#166534;
-}
-
-/* =========================
-   STATS
-========================= */
+/* ================= STATS ================= */
 
 .stats{
     display:flex;
@@ -500,9 +422,7 @@ thead th{
     color:#500454;
 }
 
-/* =========================
-   LOADING
-========================= */
+/* ================= LOADING ================= */
 
 .loading{
     text-align:center;
@@ -511,9 +431,7 @@ thead th{
     font-size:14px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:900px){
 
@@ -539,9 +457,7 @@ thead th{
 
 }
 
-/* =========================
-   PRINT
-========================= */
+/* ================= PRINT ================= */
 
 @media print{
 
@@ -567,10 +483,6 @@ thead th{
         box-shadow:none;
     }
 
-    .slot{
-        background:white!important;
-    }
-
     th,
     td{
         border:1px solid black;
@@ -584,10 +496,9 @@ thead th{
 
 <body>
 
-
 <!-- =====================================================
      HEADER
-====================================================== -->
+===================================================== -->
 
 <div class="header">
 
@@ -607,8 +518,8 @@ thead th{
 
 
 <!-- =====================================================
-     LOGGED IN STAFF
-====================================================== -->
+     STAFF
+===================================================== -->
 
 <div class="staff-card">
 
@@ -675,8 +586,8 @@ thead th{
 
 
 <!-- =====================================================
-     CONTROLS
-====================================================== -->
+     CONTROL
+===================================================== -->
 
 <div class="control-card">
 
@@ -811,9 +722,19 @@ thead th{
 
         <div class="stat">
 
-            Empty:
-            <b id="emptyStat">
-                30
+            Marked:
+            <b id="markedStat">
+                0
+            </b>
+
+        </div>
+
+
+        <div class="stat">
+
+            Not Marked:
+            <b id="notMarkedStat">
+                0
             </b>
 
         </div>
@@ -825,13 +746,44 @@ thead th{
 
 <!-- =====================================================
      TIMETABLE
-====================================================== -->
+===================================================== -->
 
 <div class="timetable-card">
 
     <div class="timetable-title">
 
         MY STAFF TIMETABLE
+
+    </div>
+
+
+    <div class="legend">
+
+        <div class="legend-item">
+
+            <span class="legend-box legend-blue"></span>
+
+            Attendance Not Marked
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span class="legend-box legend-green"></span>
+
+            Attendance Marked
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span class="legend-box legend-empty"></span>
+
+            Empty
+
+        </div>
 
     </div>
 
@@ -852,47 +804,6 @@ thead th{
             class="session">
 
             AN
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================
-         ATTENDANCE LEGEND
-    ========================== -->
-
-    <div class="attendance-legend">
-
-        <div class="legend-item">
-
-            <span
-                class="legend-box legend-blue">
-            </span>
-
-            Attendance Not Marked
-
-        </div>
-
-
-        <div class="legend-item">
-
-            <span
-                class="legend-box legend-yellow">
-            </span>
-
-            Partially Marked
-
-        </div>
-
-
-        <div class="legend-item">
-
-            <span
-                class="legend-box legend-green">
-            </span>
-
-            Attendance Marked
 
         </div>
 
@@ -981,14 +892,9 @@ thead th{
 
 <!-- =====================================================
      FIREBASE
-====================================================== -->
+===================================================== -->
 
 <script type="module">
-
-
-/* =====================================================
-   IMPORT FIREBASE CONFIG
-====================================================== */
 
 import { db }
 from "./firebase-config.js";
@@ -1007,8 +913,8 @@ from
 
 
 /* =====================================================
-   GLOBAL VARIABLES
-====================================================== */
+   GLOBAL
+===================================================== */
 
 let currentStaffId = "";
 
@@ -1022,12 +928,12 @@ let attendanceDate = "";
 
 let timetableAssignments = {};
 
-let markedAttendancePeriods = {};
+let markedAttendancePeriods = new Set();
 
 
 /* =====================================================
    TIMINGS
-====================================================== */
+===================================================== */
 
 const timings = {
 
@@ -1064,7 +970,7 @@ const timings = {
 
 /* =====================================================
    CLEAN
-====================================================== */
+===================================================== */
 
 function clean(value){
 
@@ -1077,7 +983,7 @@ function clean(value){
 
 /* =====================================================
    UPPER
-====================================================== */
+===================================================== */
 
 function upper(value){
 
@@ -1089,7 +995,7 @@ function upper(value){
 
 /* =====================================================
    NORMALIZE STAFF ID
-====================================================== */
+===================================================== */
 
 function normalizeStaffId(value){
 
@@ -1102,7 +1008,7 @@ function normalizeStaffId(value){
 
 /* =====================================================
    STAFF ID
-====================================================== */
+===================================================== */
 
 function getStaffId(data){
 
@@ -1121,7 +1027,7 @@ function getStaffId(data){
 
 /* =====================================================
    STAFF NAME
-====================================================== */
+===================================================== */
 
 function getStaffName(data){
 
@@ -1140,7 +1046,7 @@ function getStaffName(data){
 
 /* =====================================================
    DEPARTMENT
-====================================================== */
+===================================================== */
 
 function getDepartment(data){
 
@@ -1158,49 +1064,8 @@ function getDepartment(data){
 
 
 /* =====================================================
-   DEPARTMENT NORMALIZATION
-====================================================== */
-
-function normalizeAttendanceDepartment(value){
-
-    let dept =
-        upper(value);
-
-
-    dept =
-        dept
-        .replace(/\./g,"")
-        .replace(/\s+/g," ")
-        .trim();
-
-
-    if(
-
-        dept === "BCA"
-        ||
-        dept === "BCA COMPUTER APPLICATION"
-        ||
-        dept === "BCA COMPUTER APPLICATIONS"
-        ||
-        dept === "B C A COMPUTER APPLICATION"
-        ||
-        dept === "B C A COMPUTER APPLICATIONS"
-
-    ){
-
-        return "BCA COMPUTER APPLICATION";
-
-    }
-
-
-    return dept;
-
-}
-
-
-/* =====================================================
    YEAR
-====================================================== */
+===================================================== */
 
 function getYear(data){
 
@@ -1219,7 +1084,7 @@ function getYear(data){
 
 /* =====================================================
    SECTION
-====================================================== */
+===================================================== */
 
 function getSection(data){
 
@@ -1238,7 +1103,7 @@ function getSection(data){
 
 /* =====================================================
    SUBJECT
-====================================================== */
+===================================================== */
 
 function getSubject(data){
 
@@ -1257,7 +1122,7 @@ function getSubject(data){
 
 /* =====================================================
    SUBJECT CODE
-====================================================== */
+===================================================== */
 
 function getSubjectCode(data){
 
@@ -1276,7 +1141,7 @@ function getSubjectCode(data){
 
 /* =====================================================
    SESSION
-====================================================== */
+===================================================== */
 
 function getSession(data){
 
@@ -1293,7 +1158,7 @@ function getSession(data){
 
 /* =====================================================
    DAY
-====================================================== */
+===================================================== */
 
 function getDay(data){
 
@@ -1318,10 +1183,13 @@ function getDay(data){
     if(match){
 
         return (
+
             "DAY " +
+
             String(
                 Number(match[1])
             ).padStart(2,"0")
+
         );
 
     }
@@ -1332,8 +1200,11 @@ function getDay(data){
     ){
 
         return (
+
             "DAY " +
+
             value.padStart(2,"0")
+
         );
 
     }
@@ -1346,11 +1217,12 @@ function getDay(data){
 
 /* =====================================================
    HOUR
-====================================================== */
+===================================================== */
 
 function getHour(data){
 
     const value =
+
         data.hour ??
         data.period ??
         data.hourNo ??
@@ -1370,8 +1242,8 @@ function getHour(data){
 
 
 /* =====================================================
-   HTML ESCAPE
-====================================================== */
+   ESCAPE
+===================================================== */
 
 function escapeHTML(value){
 
@@ -1379,37 +1251,22 @@ function escapeHTML(value){
         value ?? ""
     )
 
-    .replace(
-        /&/g,
-        "&amp;"
-    )
+    .replace(/&/g,"&amp;")
 
-    .replace(
-        /</g,
-        "&lt;"
-    )
+    .replace(/</g,"&lt;")
 
-    .replace(
-        />/g,
-        "&gt;"
-    )
+    .replace(/>/g,"&gt;")
 
-    .replace(
-        /"/g,
-        "&quot;"
-    )
+    .replace(/"/g,"&quot;")
 
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    .replace(/'/g,"&#039;");
 
 }
 
 
 /* =====================================================
    MESSAGE
-====================================================== */
+===================================================== */
 
 function showMessage(
     text,
@@ -1433,10 +1290,6 @@ function showMessage(
 }
 
 
-/* =====================================================
-   CLEAR MESSAGE
-====================================================== */
-
 function clearMessage(){
 
     const element =
@@ -1456,8 +1309,8 @@ function clearMessage(){
 
 
 /* =====================================================
-   GET LOGGED-IN STAFF
-====================================================== */
+   LOAD LOGGED STAFF
+===================================================== */
 
 function loadLoggedInStaff(){
 
@@ -1489,29 +1342,24 @@ function loadLoggedInStaff(){
         "========================================"
     );
 
-
     console.log(
         "ATTENDANCE DASHBOARD STAFF"
     );
 
-
     console.log(
-        "Staff ID:",
+        "STAFF ID:",
         currentStaffId
     );
 
-
     console.log(
-        "Staff Name:",
+        "STAFF NAME:",
         currentStaffName
     );
 
-
     console.log(
-        "Department:",
+        "DEPARTMENT:",
         currentDepartment
     );
-
 
     console.log(
         "========================================"
@@ -1557,6 +1405,7 @@ function loadLoggedInStaff(){
     ).textContent =
 
         currentStaffId +
+
         (
             currentStaffName
                 ? " — " + currentStaffName
@@ -1569,6 +1418,7 @@ function loadLoggedInStaff(){
     ).value =
 
         currentStaffId +
+
         (
             currentStaffName
                 ? " — " + currentStaffName
@@ -1583,27 +1433,27 @@ function loadLoggedInStaff(){
 
 /* =====================================================
    DEFAULT DATE
-====================================================== */
+===================================================== */
 
 function setDefaultDate(){
 
-    const today =
+    const todayDate =
         new Date();
 
 
     const year =
-        today.getFullYear();
+        todayDate.getFullYear();
 
 
     const month =
         String(
-            today.getMonth()+1
+            todayDate.getMonth()+1
         ).padStart(2,"0");
 
 
     const day =
         String(
-            today.getDate()
+            todayDate.getDate()
         ).padStart(2,"0");
 
 
@@ -1620,8 +1470,8 @@ function setDefaultDate(){
 
 
 /* =====================================================
-   UPDATE TIMING HEADERS
-====================================================== */
+   UPDATE TIME HEADERS
+===================================================== */
 
 function updateTimingHeaders(){
 
@@ -1673,7 +1523,7 @@ function updateTimingHeaders(){
 
 /* =====================================================
    CREATE EMPTY TABLE
-====================================================== */
+===================================================== */
 
 function createEmptyTimetable(){
 
@@ -1700,6 +1550,7 @@ function createEmptyTimetable(){
 
         const day =
             "DAY " +
+
             String(dayNumber)
                 .padStart(2,"0");
 
@@ -1776,47 +1627,28 @@ function createEmptyTimetable(){
 
 
 /* =====================================================
-   ATTENDANCE DOCUMENT ID
-====================================================== */
+   PERIOD KEY
+===================================================== */
 
-function attendanceDocumentId(
-    date,
-    rollNo
-){
-
-    return (
-
-        clean(date)
-        +
-        "_"
-        +
-        clean(rollNo)
-
-    );
-
-}
-
-
-/* =====================================================
-   ATTENDANCE PERIOD KEY
- *
- * EXACTLY THE SAME LOGIC USED BY
- * attendance-students.html
-====================================================== */
-
-function attendancePeriodKey(item){
+function makePeriodKey(item){
 
     const day =
-        upper(item.day)
+        upper(
+            item.day
+        )
         .replace(/\s+/g,"");
 
 
     const session =
-        upper(item.session);
+        upper(
+            item.session
+        );
 
 
     const hour =
-        Number(item.hour);
+        Number(
+            item.hour
+        );
 
 
     const subjectCode =
@@ -1861,357 +1693,77 @@ function attendancePeriodKey(item){
 
 
 /* =====================================================
-   LOAD STAFF TIMETABLE
-====================================================== */
+   ATTENDANCE DOCUMENT ID
+===================================================== */
 
-async function loadMyTimetable(){
+function attendanceDocumentId(
+    date,
+    rollNo
+){
 
-    clearMessage();
+    return (
 
+        clean(date)
+        +
+        "_"
+        +
+        clean(rollNo)
 
-    timetableAssignments = {};
-
-
-    markedAttendancePeriods = {};
-
-
-    createEmptyTimetable();
-
-
-    document.getElementById(
-        "recordCount"
-    ).textContent =
-        "Loading...";
-
-
-    console.log(
-        "========================================"
     );
-
-
-    console.log(
-        "LOADING STAFF TIMETABLE"
-    );
-
-
-    console.log(
-        "CURRENT STAFF ID:",
-        currentStaffId
-    );
-
-
-    console.log(
-        "CURRENT STAFF NAME:",
-        currentStaffName
-    );
-
-
-    console.log(
-        "CURRENT SESSION:",
-        currentSession
-    );
-
-
-    console.log(
-        "ATTENDANCE DATE:",
-        document.getElementById(
-            "attendanceDate"
-        ).value
-    );
-
-
-    console.log(
-        "COLLECTION: timetableAssignments"
-    );
-
-
-    console.log(
-        "========================================"
-    );
-
-
-    try{
-
-        const snapshot =
-            await getDocs(
-
-                collection(
-                    db,
-                    "timetableAssignments"
-                )
-
-            );
-
-
-        console.log(
-            "TOTAL TIMETABLE DOCUMENTS:",
-            snapshot.size
-        );
-
-
-        let matchedCount = 0;
-
-
-        snapshot.forEach(
-            timetableDoc => {
-
-                const data =
-                    timetableDoc.data();
-
-
-                const firestoreStaffId =
-                    getStaffId(data);
-
-
-                const firestoreSession =
-                    getSession(data);
-
-
-                const day =
-                    getDay(data);
-
-
-                const hour =
-                    getHour(data);
-
-
-                console.log(
-                    "TIMETABLE RECORD:",
-                    {
-                        documentId:
-                            timetableDoc.id,
-
-                        staffId:
-                            firestoreStaffId,
-
-                        staffName:
-                            getStaffName(data),
-
-                        department:
-                            getDepartment(data),
-
-                        year:
-                            getYear(data),
-
-                        section:
-                            getSection(data),
-
-                        subject:
-                            getSubject(data),
-
-                        subjectCode:
-                            getSubjectCode(data),
-
-                        session:
-                            firestoreSession,
-
-                        day:
-                            day,
-
-                        hour:
-                            hour
-                    }
-                );
-
-
-                if(
-                    normalizeStaffId(
-                        firestoreStaffId
-                    ) !==
-                    normalizeStaffId(
-                        currentStaffId
-                    )
-                ){
-
-                    return;
-
-                }
-
-
-                if(
-                    firestoreSession !==
-                    currentSession
-                ){
-
-                    return;
-
-                }
-
-
-                if(
-                    !day ||
-                    hour < 1 ||
-                    hour > 5
-                ){
-
-                    return;
-
-                }
-
-
-                const item = {
-
-                    firestoreId:
-                        timetableDoc.id,
-
-                    staffId:
-                        firestoreStaffId,
-
-                    staffName:
-                        getStaffName(data) ||
-                        currentStaffName,
-
-                    department:
-                        getDepartment(data),
-
-                    year:
-                        getYear(data),
-
-                    section:
-                        getSection(data),
-
-                    subjectName:
-                        getSubject(data),
-
-                    subjectCode:
-                        getSubjectCode(data),
-
-                    session:
-                        firestoreSession,
-
-                    day:
-                        day,
-
-                    hour:
-                        hour
-
-                };
-
-
-                const key =
-                    day +
-                    "_" +
-                    hour;
-
-
-                timetableAssignments[key] =
-                    item;
-
-
-                matchedCount++;
-
-            }
-        );
-
-
-        document.getElementById(
-            "recordCount"
-        ).textContent =
-            matchedCount;
-
-
-        console.log(
-            "========================================"
-        );
-
-
-        console.log(
-            "MATCHED STAFF TIMETABLE RECORDS:",
-            matchedCount
-        );
-
-
-        console.log(
-            "FINAL TIMETABLE:",
-            timetableAssignments
-        );
-
-
-        console.log(
-            "========================================"
-        );
-
-
-        /*
-         * FIRST CHECK ATTENDANCE
-         */
-
-        await loadMarkedAttendance();
-
-
-        /*
-         * THEN RENDER TABLE
-         */
-
-        renderTimetable();
-
-
-        if(!matchedCount){
-
-            showMessage(
-
-                "No timetable assigned for " +
-                currentStaffId +
-                " in " +
-                currentSession +
-                ".",
-
-                "warn"
-
-            );
-
-        }
-        else{
-
-            showMessage(
-
-                matchedCount +
-                " timetable period(s) loaded for " +
-                currentStaffId +
-                ".",
-
-                "ok"
-
-            );
-
-        }
-
-    }
-    catch(error){
-
-        console.error(
-            "TIMETABLE LOAD ERROR:",
-            error
-        );
-
-
-        document.getElementById(
-            "recordCount"
-        ).textContent =
-            "0";
-
-
-        showMessage(
-
-            "Unable to load timetable: " +
-            error.message,
-
-            "err"
-
-        );
-
-    }
 
 }
 
 
 /* =====================================================
-   LOAD MARKED ATTENDANCE
-====================================================== */
+   CHECK ONE PERIOD
+===================================================== */
 
-async function loadMarkedAttendance(){
+function periodHasAttendance(
+    item
+){
 
-    markedAttendancePeriods = {};
+    const date =
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+
+    if(!date){
+
+        return false;
+
+    }
+
+
+    const key =
+        makePeriodKey(item);
+
+
+    /*
+     * We cannot know the attendance status
+     * from only one attendance document.
+     *
+     * The attendance is stored per student.
+     *
+     * Therefore this function is supported by
+     * checkAttendanceForPeriod().
+     */
+
+    return markedAttendancePeriods.has(
+        key
+    );
+
+}
+
+
+/* =====================================================
+   CHECK ATTENDANCE FOR ALL TIMETABLE PERIODS
+===================================================== */
+
+async function checkAttendanceForPeriods(){
+
+    markedAttendancePeriods =
+        new Set();
 
 
     const date =
@@ -2227,14 +1779,10 @@ async function loadMarkedAttendance(){
     }
 
 
-    const timetableItems =
-        Object.values(
-            timetableAssignments
-        );
-
-
     if(
-        timetableItems.length === 0
+        Object.keys(
+            timetableAssignments
+        ).length === 0
     ){
 
         return;
@@ -2246,17 +1794,14 @@ async function loadMarkedAttendance(){
         "========================================"
     );
 
-
     console.log(
-        "CHECKING ATTENDANCE STATUS"
+        "CHECKING MARKED ATTENDANCE"
     );
-
 
     console.log(
         "DATE:",
         date
     );
-
 
     console.log(
         "========================================"
@@ -2264,10 +1809,14 @@ async function loadMarkedAttendance(){
 
 
     /*
-     * Load students once.
+     * Get all student documents.
+     *
+     * This lets us determine whether at least
+     * one attendance record exists for the
+     * timetable period.
      */
 
-    const studentSnapshot =
+    const studentsSnapshot =
         await getDocs(
 
             collection(
@@ -2278,14 +1827,20 @@ async function loadMarkedAttendance(){
         );
 
 
+    const targetDepartment =
+        upper(
+            currentDepartment
+        );
+
+
     /*
-     * Build student groups.
+     * Build student roll list for each period.
      */
 
-    const studentsByClass = {};
+    const relevantStudents = [];
 
 
-    studentSnapshot.forEach(
+    studentsSnapshot.forEach(
         studentDoc => {
 
             const data =
@@ -2293,7 +1848,7 @@ async function loadMarkedAttendance(){
 
 
             const department =
-                normalizeAttendanceDepartment(
+                upper(
                     data.department
                 );
 
@@ -2323,108 +1878,110 @@ async function loadMarkedAttendance(){
             }
 
 
-            const classKey =
-                department +
-                "|" +
-                year +
-                "|" +
-                section;
+            relevantStudents.push({
 
+                rollNo:
+                    rollNo,
 
-            if(
-                !studentsByClass[
-                    classKey
-                ]
-            ){
+                department:
+                    department,
 
-                studentsByClass[
-                    classKey
-                ] = [];
+                year:
+                    year,
 
-            }
+                section:
+                    section
 
-
-            studentsByClass[
-                classKey
-            ].push(
-                rollNo
-            );
+            });
 
         }
     );
 
 
     /*
-     * Check every timetable period.
+     * Check each timetable period.
      */
 
     for(
-        const item
-        of timetableItems
+        const key
+        of Object.keys(
+            timetableAssignments
+        )
     ){
 
-        const department =
-            normalizeAttendanceDepartment(
+        const item =
+            timetableAssignments[key];
+
+
+        const itemDepartment =
+            upper(
                 item.department
             );
 
 
-        const year =
+        const itemYear =
             upper(
                 item.year
             );
 
 
-        const section =
+        const itemSection =
             upper(
                 item.section
             );
 
 
-        const classKey =
-            department +
-            "|" +
-            year +
-            "|" +
-            section;
+        const periodKeyValue =
+            makePeriodKey(item);
 
 
-        const classStudents =
-            studentsByClass[
-                classKey
-            ] || [];
-
-
-        if(
-            classStudents.length === 0
-        ){
-
-            console.warn(
-                "NO STUDENTS FOUND FOR PERIOD:",
-                item
-            );
-
-            continue;
-
-        }
-
-
-        const key =
-            attendancePeriodKey(
-                item
-            );
-
-
-        let markedCount = 0;
+        let foundAttendance =
+            false;
 
 
         /*
-         * Check attendance document
-         * for each student.
+         * Find students belonging to this class.
+         */
+
+        const classStudents =
+            relevantStudents.filter(
+                student => {
+
+                    return (
+
+                        student.department ===
+                        itemDepartment
+
+                        &&
+
+                        student.year ===
+                        itemYear
+
+                        &&
+
+                        student.section ===
+                        itemSection
+
+                    );
+
+                }
+            );
+
+
+        console.log(
+            "CHECK PERIOD:",
+            periodKeyValue,
+            "STUDENTS:",
+            classStudents.length
+        );
+
+
+        /*
+         * Look for attendance documents.
          */
 
         for(
-            const rollNo
+            const student
             of classStudents
         ){
 
@@ -2438,8 +1995,11 @@ async function loadMarkedAttendance(){
                         "attendance",
 
                         attendanceDocumentId(
+
                             date,
-                            rollNo
+
+                            student.rollNo
+
                         )
 
                     );
@@ -2466,53 +2026,58 @@ async function loadMarkedAttendance(){
                     data.attendance || {};
 
 
+                const status =
+                    upper(
+
+                        savedAttendance[
+                            periodKeyValue
+                        ] || ""
+
+                    );
+
+
                 /*
                  * IMPORTANT:
                  *
-                 * We check whether the exact
-                 * period key exists.
-                 *
-                 * Both P and A count as
-                 * attendance marked.
+                 * If P or A exists for this exact
+                 * date + period, attendance has been
+                 * entered.
                  */
 
                 if(
-                    Object.prototype.hasOwnProperty.call(
-                        savedAttendance,
-                        key
-                    )
+
+                    status === "P"
+
+                    ||
+
+                    status === "A"
+
+                    ||
+
+                    status === "PRESENT"
+
+                    ||
+
+                    status === "ABSENT"
+
                 ){
 
-                    const status =
-                        upper(
-                            savedAttendance[key]
-                        );
+                    foundAttendance =
+                        true;
 
-
-                    if(
-                        status === "P"
-                        ||
-                        status === "A"
-                        ||
-                        status === "PRESENT"
-                        ||
-                        status === "ABSENT"
-                    ){
-
-                        markedCount++;
-
-                    }
+                    break;
 
                 }
 
             }
+
             catch(error){
 
                 console.warn(
 
-                    "ATTENDANCE CHECK ERROR:",
+                    "Attendance check failed:",
 
-                    rollNo,
+                    student.rollNo,
 
                     error
 
@@ -2523,51 +2088,368 @@ async function loadMarkedAttendance(){
         }
 
 
-        /*
-         * Save status.
-         */
+        if(foundAttendance){
 
-        markedAttendancePeriods[key] = {
+            markedAttendancePeriods.add(
+                periodKeyValue
+            );
 
-            markedCount:
-                markedCount,
-
-            totalStudents:
-                classStudents.length
-
-        };
-
-
-        console.log(
-            "PERIOD STATUS:",
-            {
-                key:key,
-                department:item.department,
-                year:item.year,
-                section:item.section,
-                subject:item.subjectName,
-                day:item.day,
-                session:item.session,
-                hour:item.hour,
-                markedCount:markedCount,
-                totalStudents:classStudents.length
-            }
-        );
+        }
 
     }
 
 
     console.log(
-        "FINAL ATTENDANCE STATUS:",
-        markedAttendancePeriods
+        "MARKED PERIODS:",
+        [...markedAttendancePeriods]
     );
 
 }
 
 
 /* =====================================================
+   LOAD STAFF TIMETABLE
+===================================================== */
+
+async function loadMyTimetable(){
+
+    clearMessage();
+
+
+    timetableAssignments = {};
+
+    markedAttendancePeriods =
+        new Set();
+
+
+    createEmptyTimetable();
+
+
+    document.getElementById(
+        "recordCount"
+    ).textContent =
+        "Loading...";
+
+
+    console.log(
+        "========================================"
+    );
+
+    console.log(
+        "LOADING STAFF TIMETABLE"
+    );
+
+    console.log(
+        "STAFF ID:",
+        currentStaffId
+    );
+
+    console.log(
+        "SESSION:",
+        currentSession
+    );
+
+    console.log(
+        "DATE:",
+        document.getElementById(
+            "attendanceDate"
+        ).value
+    );
+
+    console.log(
+        "========================================"
+    );
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+
+                collection(
+                    db,
+                    "timetableAssignments"
+                )
+
+            );
+
+
+        console.log(
+            "TOTAL TIMETABLE DOCUMENTS:",
+            snapshot.size
+        );
+
+
+        let matchedCount =
+            0;
+
+
+        snapshot.forEach(
+            timetableDoc => {
+
+                const data =
+                    timetableDoc.data() || {};
+
+
+                const firestoreStaffId =
+                    getStaffId(data);
+
+
+                const firestoreSession =
+                    getSession(data);
+
+
+                const day =
+                    getDay(data);
+
+
+                const hour =
+                    getHour(data);
+
+
+                /*
+                 * STAFF MATCH
+                 */
+
+                if(
+
+                    normalizeStaffId(
+                        firestoreStaffId
+                    )
+
+                    !==
+
+                    normalizeStaffId(
+                        currentStaffId
+                    )
+
+                ){
+
+                    return;
+
+                }
+
+
+                /*
+                 * SESSION MATCH
+                 */
+
+                if(
+
+                    firestoreSession
+                    !==
+                    currentSession
+
+                ){
+
+                    return;
+
+                }
+
+
+                /*
+                 * VALID PERIOD
+                 */
+
+                if(
+
+                    !day
+
+                    ||
+
+                    hour < 1
+
+                    ||
+
+                    hour > 5
+
+                ){
+
+                    return;
+
+                }
+
+
+                const item = {
+
+                    firestoreId:
+                        timetableDoc.id,
+
+                    staffId:
+                        firestoreStaffId,
+
+                    staffName:
+                        getStaffName(data)
+                        ||
+                        currentStaffName,
+
+                    department:
+                        getDepartment(data),
+
+                    year:
+                        getYear(data),
+
+                    section:
+                        getSection(data),
+
+                    subjectName:
+                        getSubject(data),
+
+                    subjectCode:
+                        getSubjectCode(data),
+
+                    session:
+                        firestoreSession,
+
+                    day:
+                        day,
+
+                    hour:
+                        hour,
+
+                    room:
+                        clean(
+                            data.room ??
+                            data.roomNo ??
+                            data.roomNumber ??
+                            ""
+                        )
+
+                };
+
+
+                const key =
+                    day +
+                    "_" +
+                    hour;
+
+
+                timetableAssignments[key] =
+                    item;
+
+
+                matchedCount++;
+
+            }
+        );
+
+
+        document.getElementById(
+            "recordCount"
+        ).textContent =
+            matchedCount;
+
+
+        console.log(
+            "MATCHED TIMETABLE:",
+            timetableAssignments
+        );
+
+
+        /*
+         * FIRST RENDER BLUE
+         */
+
+        renderTimetable();
+
+
+        /*
+         * THEN CHECK FIRESTORE
+         * FOR GREEN STATUS.
+         */
+
+        if(matchedCount > 0){
+
+            await checkAttendanceForPeriods();
+
+            renderTimetable();
+
+        }
+
+
+        if(!matchedCount){
+
+            showMessage(
+
+                "No timetable assigned for " +
+
+                currentStaffId +
+
+                " in " +
+
+                currentSession +
+
+                ".",
+
+                "warn"
+
+            );
+
+        }
+
+        else{
+
+            const marked =
+                markedAttendancePeriods.size;
+
+
+            showMessage(
+
+                matchedCount +
+
+                " timetable period(s) loaded. " +
+
+                marked +
+
+                " period(s) already marked " +
+
+                "for " +
+
+                document.getElementById(
+                    "attendanceDate"
+                ).value +
+
+                ".",
+
+                "ok"
+
+            );
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(
+            "TIMETABLE LOAD ERROR:",
+            error
+        );
+
+
+        document.getElementById(
+            "recordCount"
+        ).textContent =
+            "0";
+
+
+        showMessage(
+
+            "Unable to load timetable: " +
+            error.message,
+
+            "err"
+
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    RENDER TIMETABLE
-====================================================== */
+===================================================== */
 
 function renderTimetable(){
 
@@ -2580,7 +2462,12 @@ function renderTimetable(){
         );
 
 
-    let assignedCount = 0;
+    let assignedCount =
+        0;
+
+
+    let markedCount =
+        0;
 
 
     slots.forEach(
@@ -2616,136 +2503,19 @@ function renderTimetable(){
             );
 
 
-            /*
-             * =========================================
-             * ATTENDANCE STATUS
-             * =========================================
-             */
-
-            const attendanceKey =
-                attendancePeriodKey(
+            const attendanceMarked =
+                periodHasAttendance(
                     item
                 );
 
 
-            const status =
-                markedAttendancePeriods[
-                    attendanceKey
-                ];
-
-
-            /*
-             * Remove previous status classes.
-             */
-
-            slot.classList.remove(
-                "attendance-not-marked"
-            );
-
-            slot.classList.remove(
-                "attendance-partial"
-            );
-
-            slot.classList.remove(
-                "attendance-marked"
-            );
-
-
-            let statusHTML = "";
-
-
-            /*
-             * GREEN
-             *
-             * ALL STUDENTS HAVE ATTENDANCE
-             */
-
-            if(
-
-                status
-                &&
-                status.totalStudents > 0
-                &&
-                status.markedCount >=
-                    status.totalStudents
-
-            ){
+            if(attendanceMarked){
 
                 slot.classList.add(
                     "attendance-marked"
                 );
 
-
-                statusHTML = `
-
-                    <div class="attendance-status marked">
-
-                        ✓ ATTENDANCE MARKED
-
-                    </div>
-
-                `;
-
-            }
-
-
-            /*
-             * YELLOW
-             *
-             * SOME STUDENTS HAVE ATTENDANCE
-             */
-
-            else if(
-
-                status
-                &&
-                status.markedCount > 0
-
-            ){
-
-                slot.classList.add(
-                    "attendance-partial"
-                );
-
-
-                statusHTML = `
-
-                    <div class="attendance-status partial">
-
-                        ${status.markedCount}
-                        /
-                        ${status.totalStudents}
-                        MARKED
-
-                    </div>
-
-                `;
-
-            }
-
-
-            /*
-             * BLUE
-             *
-             * NO ATTENDANCE
-             */
-
-            else{
-
-                slot.classList.add(
-                    "attendance-not-marked"
-                );
-
-
-                statusHTML = `
-
-                    <div class="attendance-status not-marked">
-
-                        ATTENDANCE NOT MARKED
-
-                    </div>
-
-                `;
+                markedCount++;
 
             }
 
@@ -2816,30 +2586,51 @@ function renderTimetable(){
                 </div>
 
 
-                ${statusHTML}
+                ${
+                    attendanceMarked
+
+                    ?
+
+                    `
+
+                    <div class="slot-attendance">
+
+                        ✓ ATTENDANCE MARKED
+
+                    </div>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
 
             `;
 
 
-            /*
-             * CLICK SUBJECT
-             *
-             * Opens attendance-students.html
-             */
-
             slot.addEventListener(
+
                 "click",
-                () => {
+
+                function(){
 
                     openAttendanceStudents(
                         item
                     );
 
                 }
+
             );
 
         }
     );
+
+
+    const notMarked =
+        assignedCount -
+        markedCount;
 
 
     document.getElementById(
@@ -2849,30 +2640,37 @@ function renderTimetable(){
 
 
     document.getElementById(
-        "emptyStat"
+        "markedStat"
     ).textContent =
-        30 - assignedCount;
+        markedCount;
+
+
+    document.getElementById(
+        "notMarkedStat"
+    ).textContent =
+        notMarked;
 
 }
 
 
 /* =====================================================
-   OPEN ATTENDANCE STUDENTS
-====================================================== */
+   OPEN STUDENT ATTENDANCE
+===================================================== */
 
 function openAttendanceStudents(item){
 
-    /*
-     * FINAL SECURITY CHECK
-     */
-
     if(
+
         normalizeStaffId(
             item.staffId
-        ) !==
+        )
+
+        !==
+
         normalizeStaffId(
             currentStaffId
         )
+
     ){
 
         alert(
@@ -2880,26 +2678,10 @@ function openAttendanceStudents(item){
         );
 
 
-        console.error(
-            "STAFF MISMATCH:",
-            {
-                loggedInStaff:
-                    currentStaffId,
-
-                timetableStaff:
-                    item.staffId
-            }
-        );
-
-
         return;
 
     }
 
-
-    /*
-     * MAKE SURE DATE IS CURRENT
-     */
 
     attendanceDate =
         document.getElementById(
@@ -2919,10 +2701,6 @@ function openAttendanceStudents(item){
 
     }
 
-
-    /*
-     * PASS DETAILS
-     */
 
     const params =
         new URLSearchParams();
@@ -2996,57 +2774,17 @@ function openAttendanceStudents(item){
     );
 
 
-    console.log(
-        "========================================"
+    params.set(
+        "room",
+        item.room || ""
     );
 
 
     console.log(
-        "OPENING attendance-students.html"
-    );
-
-
-    console.log(
-        "PARAMETERS:",
-        {
-            staffId:
-                currentStaffId,
-
-            staffName:
-                currentStaffName,
-
-            department:
-                item.department,
-
-            year:
-                item.year,
-
-            section:
-                item.section,
-
-            subject:
-                item.subjectName,
-
-            subjectCode:
-                item.subjectCode,
-
-            session:
-                item.session,
-
-            day:
-                item.day,
-
-            hour:
-                item.hour,
-
-            date:
-                attendanceDate
-        }
-    );
-
-
-    console.log(
-        "========================================"
+        "OPENING ATTENDANCE STUDENTS:",
+        Object.fromEntries(
+            params.entries()
+        )
     );
 
 
@@ -3058,8 +2796,8 @@ function openAttendanceStudents(item){
 
 
 /* =====================================================
-   STAFF ID CHANGE PROTECTION
-====================================================== */
+   VERIFY STAFF
+===================================================== */
 
 function verifyStaffIdentity(){
 
@@ -3072,18 +2810,18 @@ function verifyStaffIdentity(){
 
 
     if(
+
         normalizeStaffId(
             dashboardStaffId
-        ) !==
+        )
+
+        !==
+
         normalizeStaffId(
             currentStaffId
         )
+
     ){
-
-        console.error(
-            "STAFF ID CHANGED OR INVALID"
-        );
-
 
         alert(
             "Staff login changed. Please login again."
@@ -3109,7 +2847,7 @@ function verifyStaffIdentity(){
 
 /* =====================================================
    SESSION CHANGE
-====================================================== */
+===================================================== */
 
 document.getElementById(
     "sessionSelect"
@@ -3144,7 +2882,7 @@ document.getElementById(
 
 /* =====================================================
    DATE CHANGE
-====================================================== */
+===================================================== */
 
 document.getElementById(
     "attendanceDate"
@@ -3166,18 +2904,68 @@ document.getElementById(
             this.value;
 
 
-        console.log(
-            "ATTENDANCE DATE CHANGED:",
-            attendanceDate
-        );
-
-
         /*
-         * Reload timetable and attendance
-         * status for the new date.
+         * VERY IMPORTANT:
+         *
+         * Same timetable.
+         *
+         * Only attendance status is
+         * recalculated for new date.
          */
 
-        await loadMyTimetable();
+        if(
+            Object.keys(
+                timetableAssignments
+            ).length > 0
+        ){
+
+            markedAttendancePeriods =
+                new Set();
+
+
+            await checkAttendanceForPeriods();
+
+
+            renderTimetable();
+
+
+            const marked =
+                markedAttendancePeriods.size;
+
+
+            const total =
+                Object.keys(
+                    timetableAssignments
+                ).length;
+
+
+            showMessage(
+
+                "Attendance status updated for " +
+
+                attendanceDate +
+
+                ". " +
+
+                marked +
+
+                " of " +
+
+                total +
+
+                " period(s) marked.",
+
+                "ok"
+
+            );
+
+        }
+
+        else{
+
+            await loadMyTimetable();
+
+        }
 
     }
 );
@@ -3185,7 +2973,7 @@ document.getElementById(
 
 /* =====================================================
    LOAD BUTTON
-====================================================== */
+===================================================== */
 
 document.getElementById(
     "loadBtn"
@@ -3211,7 +2999,7 @@ document.getElementById(
 
 /* =====================================================
    REFRESH
-====================================================== */
+===================================================== */
 
 document.getElementById(
     "refreshBtn"
@@ -3237,7 +3025,7 @@ document.getElementById(
 
 /* =====================================================
    PRINT
-====================================================== */
+===================================================== */
 
 document.getElementById(
     "printBtn"
@@ -3254,7 +3042,7 @@ document.getElementById(
 
 /* =====================================================
    INITIALIZE
-====================================================== */
+===================================================== */
 
 async function initialize(){
 
@@ -3262,11 +3050,9 @@ async function initialize(){
         "========================================"
     );
 
-
     console.log(
         "ATTENDANCE PAGE INITIALIZATION"
     );
-
 
     console.log(
         "========================================"
@@ -3304,11 +3090,7 @@ async function initialize(){
 
 
     /*
-     * Automatically load:
-     *
-     * 1. Staff timetable
-     * 2. Students
-     * 3. Attendance status
+     * Automatically load timetable.
      */
 
     await loadMyTimetable();
