@@ -1,149 +1,154 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Student Login</title>
 
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-background:#f4f6f9;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+    background:#f4f6f9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
 }
 
 .login-box{
-
-width:400px;
-background:#fff;
-padding:30px;
-border-radius:10px;
-box-shadow:0 0 15px rgba(0,0,0,.2);
-
+    width:400px;
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
 }
 
 .logo{
-
-text-align:center;
-margin-bottom:20px;
-
+    text-align:center;
+    margin-bottom:20px;
 }
 
 .logo img{
-
-width:90px;
-
+    width:90px;
 }
 
 h2{
-
-text-align:center;
-color:#500454;
-margin-bottom:25px;
-
+    text-align:center;
+    color:#500454;
+    margin-bottom:25px;
 }
 
 .input-group{
-
-margin-bottom:18px;
-
+    margin-bottom:18px;
 }
 
 label{
-
-display:block;
-margin-bottom:6px;
-font-weight:bold;
-color:#333;
-
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+    color:#333;
 }
 
 input{
-
-width:100%;
-padding:12px;
-border:1px solid #ccc;
-border-radius:5px;
-font-size:15px;
-
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:15px;
 }
 
 button{
-
-width:100%;
-padding:13px;
-background:#500454;
-color:#fff;
-border:none;
-border-radius:5px;
-font-size:16px;
-cursor:pointer;
-
+    width:100%;
+    padding:13px;
+    background:#500454;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
 }
 
 button:hover{
-
-background:#700770;
-
+    background:#700770;
 }
 
 .message{
+    margin-top:15px;
+    text-align:center;
+    font-weight:bold;
+    color:red;
+}
 
-margin-top:15px;
-text-align:center;
-font-weight:bold;
-color:red;
-
+.hint{
+    margin-top:8px;
+    font-size:12px;
+    color:#777;
+    text-align:center;
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="login-box">
 
+
 <div class="logo">
 
-<!-- Replace with your college logo -->
 <img src="images/logo.png">
 
 </div>
 
+
 <h2>Student Login</h2>
+
 
 <div class="input-group">
 
-<label>Register Number</label>
+<label>Roll Number</label>
 
 <input
 type="text"
-id="regNo"
-placeholder="Enter Register Number">
+id="rollNo"
+placeholder="Enter Roll Number"
+autocomplete="username">
 
 </div>
+
 
 <div class="input-group">
 
-<label>Date of Birth</label>
+<label>Password</label>
 
 <input
-type="date"
-id="dob">
+type="password"
+id="password"
+placeholder="Enter DOB (DD/MMM/YYYY)"
+autocomplete="current-password">
+
+<div class="hint">
+Example: 15/JUN/2008
+</div>
 
 </div>
+
 
 <button onclick="loginStudent()">
 
@@ -151,56 +156,377 @@ Login
 
 </button>
 
+
 <div class="message" id="msg"></div>
+
 
 </div>
 
+
+
 <script type="module">
 
-import { db } from "./firebase-config.js";
+
+import { db }
+from "./firebase-config.js";
+
 
 import {
-doc,
-getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+collection,
+query,
+where,
+getDocs
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
 
 window.loginStudent = async function(){
 
-const regNo = document.getElementById("regNo").value.trim().toUpperCase();
-const dob = document.getElementById("dob").value;
-const msg = document.getElementById("msg");
+
+const rollNo =
+document
+.getElementById("rollNo")
+.value
+.trim()
+.toUpperCase();
+
+
+const password =
+document
+.getElementById("password")
+.value
+.trim()
+.toUpperCase();
+
+
+const msg =
+document.getElementById("msg");
+
 
 msg.innerHTML = "";
 
-const ref = doc(db, "students", regNo);
-const snap = await getDoc(ref);
 
-if(!snap.exists()){
-    msg.innerHTML = "Student Not Found";
-    return;
-}
 
-const student = snap.data();
+if(!rollNo){
 
-// Convert HTML date (YYYY-MM-DD) to Firestore format (DD.MM.YYYY)
-const parts = dob.split("-");
-const formattedDOB = `${parts[2]}.${parts[1]}.${parts[0]}`;
+msg.innerHTML =
+"Please enter Roll Number.";
 
-// Compare DOB
-if(student.dob.trim() !== formattedDOB){
-
-    msg.innerHTML = "Invalid Date of Birth";
-
-    return;
+return;
 
 }
 
-// Login successful
-sessionStorage.setItem("studentRegNo", regNo);
 
-window.location.href = "student-dashboard.html";
+
+if(!password){
+
+msg.innerHTML =
+"Please enter Date of Birth.";
+
+return;
+
 }
+
+
+
+/*
+====================================
+EXPECTED PASSWORD FORMAT
+DD/MMM/YYYY
+
+Example:
+15/JUN/2008
+====================================
+*/
+
+
+const dobPattern =
+/^(0[1-9]|[12][0-9]|3[01])\/(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\/\d{4}$/;
+
+
+if(!dobPattern.test(password)){
+
+msg.innerHTML =
+"Password must be DOB in DD/MMM/YYYY format.";
+
+return;
+
+}
+
+
+
+try{
+
+
+/*
+====================================
+FIND STUDENT USING ROLL NUMBER
+====================================
+*/
+
+const q =
+query(
+
+collection(db,"students"),
+
+where(
+"rollNo",
+"==",
+rollNo
+)
+
+);
+
+
+const result =
+await getDocs(q);
+
+
+
+if(result.empty){
+
+msg.innerHTML =
+"Invalid Roll Number or Password.";
+
+return;
+
+}
+
+
+
+const studentDoc =
+result.docs[0];
+
+
+const student =
+studentDoc.data();
+
+
+
+/*
+====================================
+NORMALIZE STORED DOB
+====================================
+*/
+
+let storedDOB =
+String(student.dob || "")
+.trim()
+.toUpperCase();
+
+
+
+/*
+====================================
+ACCEPT COMMON DOB FORMATS
+
+Stored:
+15/JUN/2008
+
+Also supports:
+15/JUN/08
+15/06/2008
+15.06.2008
+15-06-2008
+====================================
+*/
+
+function normalizeDOB(value){
+
+value =
+String(value || "")
+.trim()
+.toUpperCase();
+
+
+/*
+Already DD/MMM/YYYY
+*/
+
+if(
+/^(0[1-9]|[12][0-9]|3[01])\/
+(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\/
+\d{4}$/.test(value)
+){
+
+return value;
+
+}
+
+
+
+/*
+DD/MM/YYYY
+*/
+
+let match =
+value.match(
+/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})$/
+);
+
+
+if(match){
+
+const day =
+String(match[1]).padStart(2,"0");
+
+const monthNumber =
+parseInt(match[2]);
+
+const year =
+match[3];
+
+
+const months = [
+
+"JAN",
+"FEB",
+"MAR",
+"APR",
+"MAY",
+"JUN",
+"JUL",
+"AUG",
+"SEP",
+"OCT",
+"NOV",
+"DEC"
+
+];
+
+
+if(
+monthNumber >= 1 &&
+monthNumber <= 12
+){
+
+return (
+
+day +
+"/" +
+months[monthNumber - 1] +
+"/" +
+year
+
+);
+
+}
+
+}
+
+
+return value;
+
+}
+
+
+
+const normalizedStoredDOB =
+normalizeDOB(storedDOB);
+
+
+
+const normalizedPassword =
+normalizeDOB(password);
+
+
+
+/*
+====================================
+CHECK PASSWORD
+====================================
+*/
+
+if(
+normalizedStoredDOB !==
+normalizedPassword
+){
+
+msg.innerHTML =
+"Invalid Roll Number or Password.";
+
+return;
+
+}
+
+
+
+/*
+====================================
+LOGIN SUCCESS
+====================================
+*/
+
+sessionStorage.setItem(
+"studentRegNo",
+student.registerNo || ""
+);
+
+
+sessionStorage.setItem(
+"studentRollNo",
+student.rollNo
+);
+
+
+sessionStorage.setItem(
+"studentName",
+student.studentName || ""
+);
+
+
+sessionStorage.setItem(
+"studentDepartment",
+student.department || ""
+);
+
+
+sessionStorage.setItem(
+"studentYear",
+student.year || ""
+);
+
+
+sessionStorage.setItem(
+"studentSection",
+student.section || ""
+);
+
+
+
+/*
+====================================
+GO TO STUDENT DASHBOARD
+====================================
+*/
+
+window.location.href =
+"student-dashboard.html";
+
+
+}catch(error){
+
+console.error(
+"STUDENT LOGIN ERROR:",
+error
+);
+
+
+msg.innerHTML =
+"Login failed. Please try again.";
+
+}
+
+};
+
 </script>
 
+
 </body>
+
 </html>
+```
