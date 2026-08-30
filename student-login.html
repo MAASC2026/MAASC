@@ -21,18 +21,19 @@ content="width=device-width, initial-scale=1.0">
 
 body{
     background:#f4f6f9;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
 }
 
 .login-box{
     width:400px;
-    background:#fff;
+    max-width:90%;
+    background:white;
     padding:30px;
-    border-radius:10px;
-    box-shadow:0 0 15px rgba(0,0,0,.2);
+    border-radius:12px;
+    box-shadow:0 5px 25px rgba(0,0,0,0.15);
 }
 
 .logo{
@@ -56,32 +57,72 @@ h2{
 
 label{
     display:block;
-    margin-bottom:6px;
+    margin-bottom:7px;
     font-weight:bold;
     color:#333;
 }
 
+.password-box{
+    position:relative;
+}
+
 input{
     width:100%;
-    padding:12px;
+    padding:13px 45px 13px 13px;
     border:1px solid #ccc;
-    border-radius:5px;
+    border-radius:6px;
     font-size:15px;
 }
 
-button{
+input:focus{
+    outline:none;
+    border-color:#500454;
+}
+
+.eye-button{
+    position:absolute;
+    right:0;
+    top:0;
+
+    width:45px;
+    height:100%;
+
+    border:none;
+    background:transparent;
+
+    color:#555;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.eye-button:hover{
+    color:#500454;
+}
+
+.login-button{
     width:100%;
     padding:13px;
     background:#500454;
-    color:#fff;
+    color:white;
     border:none;
-    border-radius:5px;
+    border-radius:6px;
     font-size:16px;
     cursor:pointer;
 }
 
-button:hover{
+.login-button:hover{
     background:#700770;
+}
+
+.login-button:disabled{
+    background:#999;
+    cursor:not-allowed;
 }
 
 .message{
@@ -91,14 +132,21 @@ button:hover{
     color:red;
 }
 
-.hint{
+.help{
     margin-top:8px;
+    text-align:center;
     font-size:12px;
     color:#777;
-    text-align:center;
 }
 
 </style>
+
+
+<!-- Font Awesome for eye icon -->
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -111,7 +159,9 @@ button:hover{
 
 <div class="logo">
 
-<img src="logo.png">
+<img
+src="images/logo.png"
+alt="MAASC Logo">
 
 </div>
 
@@ -119,9 +169,16 @@ button:hover{
 <h2>Student Login</h2>
 
 
+
+<!-- ==========================
+     ROLL NUMBER
+========================== -->
+
 <div class="input-group">
 
-<label>Roll Number</label>
+<label>
+Roll Number
+</label>
 
 <input
 type="text"
@@ -132,31 +189,78 @@ autocomplete="username">
 </div>
 
 
+
+<!-- ==========================
+     PASSWORD
+========================== -->
+
 <div class="input-group">
 
-<label>Password</label>
+<label>
+Password
+</label>
+
+
+<div class="password-box">
 
 <input
 type="password"
 id="password"
-placeholder="Enter DOB (DD/MMM/YYYY)"
+placeholder="Enter DOB"
+inputmode="numeric"
+maxlength="8"
 autocomplete="current-password">
 
-<div class="hint">
-Example: 15/JUN/2008
+
+<button
+type="button"
+class="eye-button"
+id="eyeButton"
+onclick="togglePassword()">
+
+<i
+class="fa-solid fa-eye"
+id="eyeIcon">
+</i>
+
+</button>
+
+</div>
+
+
+<div class="help">
+
+DOB Password: DDMMYYYY
+
+<br>
+
+Example: 17/06/2007 → <b>17062007</b>
+
 </div>
 
 </div>
 
 
-<button onclick="loginStudent()">
+
+<!-- ==========================
+     LOGIN BUTTON
+========================== -->
+
+<button
+type="button"
+class="login-button"
+id="loginBtn"
+onclick="loginStudent()">
 
 Login
 
 </button>
 
 
-<div class="message" id="msg"></div>
+<div
+id="msg"
+class="message">
+</div>
 
 
 </div>
@@ -183,204 +287,11 @@ from
 
 
 
-window.loginStudent = async function(){
-
-
-const rollNo =
-document
-.getElementById("rollNo")
-.value
-.trim()
-.toUpperCase();
-
-
-const password =
-document
-.getElementById("password")
-.value
-.trim()
-.toUpperCase();
-
-
-const msg =
-document.getElementById("msg");
-
-
-msg.innerHTML = "";
-
-
-
-if(!rollNo){
-
-msg.innerHTML =
-"Please enter Roll Number.";
-
-return;
-
-}
-
-
-
-if(!password){
-
-msg.innerHTML =
-"Please enter Date of Birth.";
-
-return;
-
-}
-
-
-
-/*
-====================================
-EXPECTED PASSWORD FORMAT
-DD/MMM/YYYY
-
-Example:
-15/JUN/2008
-====================================
-*/
-
-
-const dobPattern =
-/^(0[1-9]|[12][0-9]|3[01])\/(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\/\d{4}$/;
-
-
-if(!dobPattern.test(password)){
-
-msg.innerHTML =
-"Password must be DOB in DD/MMM/YYYY format.";
-
-return;
-
-}
-
-
-
-try{
-
-
-/*
-====================================
-FIND STUDENT USING ROLL NUMBER
-====================================
-*/
-
-const q =
-query(
-
-collection(db,"students"),
-
-where(
-"rollNo",
-"==",
-rollNo
-)
-
-);
-
-
-const result =
-await getDocs(q);
-
-
-
-if(result.empty){
-
-msg.innerHTML =
-"Invalid Roll Number or Password.";
-
-return;
-
-}
-
-
-
-const studentDoc =
-result.docs[0];
-
-
-const student =
-studentDoc.data();
-
-
-
-/*
-====================================
-NORMALIZE STORED DOB
-====================================
-*/
-
-let storedDOB =
-String(student.dob || "")
-.trim()
-.toUpperCase();
-
-
-
-/*
-====================================
-ACCEPT COMMON DOB FORMATS
-
-Stored:
-15/JUN/2008
-
-Also supports:
-15/JUN/08
-15/06/2008
-15.06.2008
-15-06-2008
-====================================
-*/
-
-function normalizeDOB(value){
-
-value =
-String(value || "")
-.trim()
-.toUpperCase();
-
-
-/*
-Already DD/MMM/YYYY
-*/
-
-if(
-/^(0[1-9]|[12][0-9]|3[01])\/
-(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\/
-\d{4}$/.test(value)
-){
-
-return value;
-
-}
-
-
-
-/*
-DD/MM/YYYY
-*/
-
-let match =
-value.match(
-/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})$/
-);
-
-
-if(match){
-
-const day =
-String(match[1]).padStart(2,"0");
-
-const monthNumber =
-parseInt(match[2]);
-
-const year =
-match[3];
-
-
-const months = [
+/* =========================================
+   MONTHS
+========================================= */
+
+const MONTHS = [
 
 "JAN",
 "FEB",
@@ -398,129 +309,751 @@ const months = [
 ];
 
 
-if(
-monthNumber >= 1 &&
-monthNumber <= 12
-){
 
-return (
+/* =========================================
+   CONVERT STORED DOB TO NUMERIC DDMMYYYY
+========================================= */
 
-day +
-"/" +
-months[monthNumber - 1] +
-"/" +
-year
+function normalizeDOB(value){
 
-);
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    let text =
+        String(value)
+        .trim()
+        .toUpperCase();
+
+
+    text =
+        text.replaceAll(" ","");
+
+
+    /*
+    ========================================
+    FORMAT 1
+
+    DD/MM/YYYY
+
+    Example:
+    17/06/2007
+    ========================================
+    */
+
+    let parts =
+        text.split("/");
+
+
+    if(parts.length === 3){
+
+        let day =
+            parts[0];
+
+        let month =
+            parts[1];
+
+        let year =
+            parts[2];
+
+
+        /*
+        Numeric month
+        */
+
+        if(
+            month.length <= 2 &&
+            year.length === 4
+        ){
+
+            let monthNumber =
+                parseInt(month,10);
+
+
+            if(
+                monthNumber >= 1 &&
+                monthNumber <= 12
+            ){
+
+                day =
+                    day.padStart(2,"0");
+
+
+                month =
+                    monthNumber
+                    .toString()
+                    .padStart(2,"0");
+
+
+                return (
+                    day +
+                    month +
+                    year
+                );
+
+            }
+
+        }
+
+
+        /*
+        ====================================
+        FORMAT 2
+
+        DD/MMM/YYYY
+
+        Example:
+        17/JUN/2007
+        ====================================
+        */
+
+        if(
+            MONTHS.includes(month) &&
+            year.length === 4
+        ){
+
+            let monthNumber =
+                MONTHS.indexOf(month) + 1;
+
+
+            day =
+                day.padStart(2,"0");
+
+
+            month =
+                monthNumber
+                .toString()
+                .padStart(2,"0");
+
+
+            return (
+                day +
+                month +
+                year
+            );
+
+        }
+
+    }
+
+
+
+    /*
+    ========================================
+    FORMAT 3
+
+    DD-MM-YYYY
+    ========================================
+    */
+
+    parts =
+        text.split("-");
+
+
+    if(parts.length === 3){
+
+        let day =
+            parts[0];
+
+        let month =
+            parts[1];
+
+        let year =
+            parts[2];
+
+
+        /*
+        Numeric month
+        */
+
+        if(
+            month.length <= 2 &&
+            year.length === 4
+        ){
+
+            let monthNumber =
+                parseInt(month,10);
+
+
+            if(
+                monthNumber >= 1 &&
+                monthNumber <= 12
+            ){
+
+                day =
+                    day.padStart(2,"0");
+
+
+                month =
+                    monthNumber
+                    .toString()
+                    .padStart(2,"0");
+
+
+                return (
+                    day +
+                    month +
+                    year
+                );
+
+            }
+
+        }
+
+
+        /*
+        DD-MMM-YYYY
+        */
+
+        if(
+            MONTHS.includes(month) &&
+            year.length === 4
+        ){
+
+            let monthNumber =
+                MONTHS.indexOf(month) + 1;
+
+
+            day =
+                day.padStart(2,"0");
+
+
+            month =
+                monthNumber
+                .toString()
+                .padStart(2,"0");
+
+
+            return (
+                day +
+                month +
+                year
+            );
+
+        }
+
+    }
+
+
+
+    /*
+    ========================================
+    FORMAT 4
+
+    DD.MM.YYYY
+    ========================================
+    */
+
+    parts =
+        text.split(".");
+
+
+    if(parts.length === 3){
+
+        let day =
+            parts[0];
+
+        let month =
+            parts[1];
+
+        let year =
+            parts[2];
+
+
+        if(
+            month.length <= 2 &&
+            year.length === 4
+        ){
+
+            let monthNumber =
+                parseInt(month,10);
+
+
+            if(
+                monthNumber >= 1 &&
+                monthNumber <= 12
+            ){
+
+                day =
+                    day.padStart(2,"0");
+
+
+                month =
+                    monthNumber
+                    .toString()
+                    .padStart(2,"0");
+
+
+                return (
+                    day +
+                    month +
+                    year
+                );
+
+            }
+
+        }
+
+    }
+
+
+
+    /*
+    ========================================
+    IF ALREADY NUMERIC
+
+    Example:
+    17062007
+    ========================================
+    */
+
+    let digitsOnly =
+        text.replace(/\D/g,"");
+
+
+    if(digitsOnly.length === 8){
+
+        return digitsOnly;
+
+    }
+
+
+    return "";
 
 }
 
-}
 
 
-return value;
+/* =========================================
+   ONLY ALLOW NUMBERS IN PASSWORD
+========================================= */
 
-}
+document
+.getElementById("password")
+.addEventListener(
+    "input",
+    function(){
 
+        this.value =
+            this.value.replace(/\D/g,"");
 
-
-const normalizedStoredDOB =
-normalizeDOB(storedDOB);
-
-
-
-const normalizedPassword =
-normalizeDOB(password);
-
-
-
-/*
-====================================
-CHECK PASSWORD
-====================================
-*/
-
-if(
-normalizedStoredDOB !==
-normalizedPassword
-){
-
-msg.innerHTML =
-"Invalid Roll Number or Password.";
-
-return;
-
-}
-
-
-
-/*
-====================================
-LOGIN SUCCESS
-====================================
-*/
-
-sessionStorage.setItem(
-"studentRegNo",
-student.registerNo || ""
-);
-
-
-sessionStorage.setItem(
-"studentRollNo",
-student.rollNo
-);
-
-
-sessionStorage.setItem(
-"studentName",
-student.studentName || ""
-);
-
-
-sessionStorage.setItem(
-"studentDepartment",
-student.department || ""
-);
-
-
-sessionStorage.setItem(
-"studentYear",
-student.year || ""
-);
-
-
-sessionStorage.setItem(
-"studentSection",
-student.section || ""
+    }
 );
 
 
 
-/*
-====================================
-GO TO STUDENT DASHBOARD
-====================================
-*/
+/* =========================================
+   SHOW / HIDE PASSWORD
+========================================= */
 
-window.location.href =
-"student-dashboard.html";
+window.togglePassword =
+function(){
 
-
-}catch(error){
-
-console.error(
-"STUDENT LOGIN ERROR:",
-error
-);
+    const password =
+        document.getElementById("password");
 
 
-msg.innerHTML =
-"Login failed. Please try again.";
+    const eyeIcon =
+        document.getElementById("eyeIcon");
 
-}
+
+    if(
+        password.type === "password"
+    ){
+
+        password.type =
+            "text";
+
+
+        eyeIcon.className =
+            "fa-solid fa-eye-slash";
+
+    }
+
+    else{
+
+        password.type =
+            "password";
+
+
+        eyeIcon.className =
+            "fa-solid fa-eye";
+
+    }
 
 };
+
+
+
+/* =========================================
+   STUDENT LOGIN
+========================================= */
+
+window.loginStudent =
+async function(){
+
+    const rollNo =
+        document
+        .getElementById("rollNo")
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const password =
+        document
+        .getElementById("password")
+        .value
+        .trim();
+
+
+    const msg =
+        document.getElementById("msg");
+
+
+    const loginBtn =
+        document.getElementById("loginBtn");
+
+
+    msg.innerHTML = "";
+
+
+
+    /*
+    ========================================
+    CHECK ROLL NUMBER
+    ========================================
+    */
+
+    if(rollNo === ""){
+
+        msg.innerHTML =
+            "Please enter Roll Number.";
+
+        return;
+
+    }
+
+
+
+    /*
+    ========================================
+    CHECK PASSWORD
+    ========================================
+    */
+
+    if(password === ""){
+
+        msg.innerHTML =
+            "Please enter DOB password.";
+
+        return;
+
+    }
+
+
+
+    /*
+    ========================================
+    PASSWORD MUST BE 8 NUMBERS
+    ========================================
+    */
+
+    if(
+        password.length !== 8 ||
+        isNaN(password)
+    ){
+
+        msg.innerHTML =
+            "Password must be 8 digits.<br>Example: 17062007";
+
+        return;
+
+    }
+
+
+
+    loginBtn.disabled = true;
+
+    loginBtn.innerHTML =
+        "Checking...";
+
+
+
+    try{
+
+
+        /*
+        ====================================
+        FIND STUDENT BY ROLL NUMBER
+        ====================================
+        */
+
+        const studentQuery =
+            query(
+
+                collection(
+                    db,
+                    "students"
+                ),
+
+                where(
+                    "rollNo",
+                    "==",
+                    rollNo
+                )
+
+            );
+
+
+        const result =
+            await getDocs(
+                studentQuery
+            );
+
+
+
+        /*
+        ====================================
+        STUDENT NOT FOUND
+        ====================================
+        */
+
+        if(result.empty){
+
+            msg.innerHTML =
+                "Invalid Roll Number or Password.";
+
+            loginBtn.disabled = false;
+
+            loginBtn.innerHTML =
+                "Login";
+
+            return;
+
+        }
+
+
+
+        /*
+        ====================================
+        GET STUDENT
+        ====================================
+        */
+
+        const studentDocument =
+            result.docs[0];
+
+
+        const student =
+            studentDocument.data();
+
+
+
+        /*
+        ====================================
+        STORED DOB
+        ====================================
+        */
+
+        const storedDOB =
+            normalizeDOB(
+                student.dob
+            );
+
+
+
+        /*
+        ====================================
+        ENTERED PASSWORD
+        ====================================
+        */
+
+        const enteredDOB =
+            password;
+
+
+
+        console.log(
+            "Roll Number:",
+            rollNo
+        );
+
+
+        console.log(
+            "Stored DOB:",
+            storedDOB
+        );
+
+
+        console.log(
+            "Entered Password:",
+            enteredDOB
+        );
+
+
+
+        /*
+        ====================================
+        COMPARE
+        ====================================
+        */
+
+        if(
+            storedDOB !==
+            enteredDOB
+        ){
+
+            msg.innerHTML =
+                "Invalid Roll Number or Password.";
+
+            loginBtn.disabled = false;
+
+            loginBtn.innerHTML =
+                "Login";
+
+            return;
+
+        }
+
+
+
+        /*
+        ====================================
+        LOGIN SUCCESS
+        ====================================
+        */
+
+        sessionStorage.setItem(
+            "studentId",
+            studentDocument.id
+        );
+
+
+        sessionStorage.setItem(
+            "studentRollNo",
+            student.rollNo || ""
+        );
+
+
+        sessionStorage.setItem(
+            "studentName",
+            student.studentName || ""
+        );
+
+
+        sessionStorage.setItem(
+            "studentDOB",
+            student.dob || ""
+        );
+
+
+        sessionStorage.setItem(
+            "studentRegNo",
+            student.registerNo || ""
+        );
+
+
+        sessionStorage.setItem(
+            "studentDepartment",
+            student.department || ""
+        );
+
+
+        sessionStorage.setItem(
+            "studentAcademicYear",
+            student.academicYear || ""
+        );
+
+
+        sessionStorage.setItem(
+            "studentYear",
+            student.year || ""
+        );
+
+
+        sessionStorage.setItem(
+            "studentSection",
+            student.section || ""
+        );
+
+
+
+        /*
+        ====================================
+        OPEN DASHBOARD
+        ====================================
+        */
+
+        window.location.href =
+            "student-dashboard.html";
+
+    }
+
+
+    catch(error){
+
+        console.error(
+            "STUDENT LOGIN ERROR:",
+            error
+        );
+
+
+        msg.innerHTML =
+            "Login failed. Please check your connection.";
+
+        loginBtn.disabled = false;
+
+        loginBtn.innerHTML =
+            "Login";
+
+    }
+
+};
+
+
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
+document
+.getElementById("rollNo")
+.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            loginStudent();
+
+        }
+
+    }
+);
+
+
+document
+.getElementById("password")
+.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            loginStudent();
+
+        }
+
+    }
+);
+
 
 </script>
 
