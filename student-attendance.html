@@ -6,413 +6,374 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
-<title>My Attendance</title>
+<title>Hour Wise Attendance</title>
 
 <style>
 
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
 }
 
 body{
+    font-family:Arial,Helvetica,sans-serif;
     background:#f4f6f9;
     color:#222;
 }
 
-
-/* ================================
-   HEADER
-================================ */
+/* ================= HEADER ================= */
 
 .header{
-
-    background:#500454;
-
-    color:white;
-
-    padding:20px 30px;
+    height:70px;
+    background:#ffffff;
+    border-bottom:1px solid #ddd;
 
     display:flex;
-
+    align-items:center;
     justify-content:space-between;
 
-    align-items:center;
+    padding:0 28px;
 
-    gap:20px;
-
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.header-title{
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
 
-    font-size:24px;
+.logo{
+    width:42px;
+    height:42px;
+    object-fit:contain;
+}
+
+.college-name{
+    font-size:18px;
+    font-weight:bold;
+    color:#500454;
+}
+
+.college-sub{
+    font-size:11px;
+    color:#777;
+    margin-top:3px;
+}
+
+.portal-name{
+    font-size:14px;
+    font-weight:bold;
+    color:#500454;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    max-width:1200px;
+    margin:auto;
+    padding:25px;
+}
+
+/* ================= TITLE ================= */
+
+.title-card{
+    background:#500454;
+    color:white;
+
+    padding:14px 18px;
+
+    border-radius:7px;
+
+    font-size:19px;
+    font-weight:bold;
+
+    margin-bottom:18px;
+}
+
+/* ================= STUDENT INFO ================= */
+
+.info-card{
+    background:white;
+
+    border-radius:10px;
+
+    padding:18px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.07);
+
+    margin-bottom:18px;
+}
+
+.student-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+}
+
+.info-box{
+    background:#faf5fb;
+
+    border:1px solid #ead9ec;
+
+    border-radius:7px;
+
+    padding:11px;
+}
+
+.info-label{
+    font-size:10px;
+
+    color:#777;
 
     font-weight:bold;
 
+    text-transform:uppercase;
+
+    margin-bottom:5px;
 }
 
-.header-subtitle{
-
-    margin-top:5px;
+.info-value{
+    color:#500454;
 
     font-size:13px;
 
-    opacity:.85;
+    font-weight:bold;
 
+    word-break:break-word;
 }
 
-.student-info{
+/* ================= MESSAGE ================= */
 
-    text-align:right;
+.message{
+    display:none;
 
+    background:#fee2e2;
+
+    border:1px solid #fecaca;
+
+    color:#991b1b;
+
+    padding:12px;
+
+    border-radius:7px;
+
+    margin-bottom:18px;
+
+    font-size:13px;
 }
 
-.student-name{
+/* ================= TABLE CARD ================= */
+
+.attendance-card{
+    background:white;
+
+    border-radius:10px;
+
+    padding:18px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.07);
+}
+
+.table-title{
+    color:#500454;
 
     font-size:16px;
 
     font-weight:bold;
 
+    margin-bottom:14px;
 }
 
-.student-roll{
-
-    font-size:13px;
-
-    margin-top:4px;
-
-}
-
-
-
-/* ================================
-   MAIN
-================================ */
-
-.container{
-
-    max-width:1200px;
-
-    margin:25px auto;
-
-    padding:0 20px;
-
-}
-
-
-
-/* ================================
-   STUDENT CARD
-================================ */
-
-.student-card{
-
-    background:white;
-
-    padding:20px;
-
-    border-radius:12px;
-
-    box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.08);
-
-    margin-bottom:20px;
-
-}
-
-.student-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:15px;
-
-}
-
-.info-box{
-
-    background:#f7f7f7;
-
-    border-radius:8px;
-
-    padding:15px;
-
-}
-
-.info-label{
-
-    font-size:12px;
-
-    color:#777;
-
-    margin-bottom:5px;
-
-}
-
-.info-value{
-
-    font-size:15px;
-
-    font-weight:bold;
-
-    color:#333;
-
-}
-
-
-
-/* ================================
-   SUMMARY
-================================ */
-
-.summary{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:15px;
-
-    margin-bottom:20px;
-
-}
-
-.summary-card{
-
-    background:white;
-
-    border-radius:12px;
-
-    padding:20px;
-
-    box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.08);
-
-    text-align:center;
-
-}
-
-.summary-number{
-
-    font-size:28px;
-
-    font-weight:bold;
-
-    color:#500454;
-
-}
-
-.summary-label{
-
-    margin-top:6px;
-
-    font-size:13px;
-
-    color:#777;
-
-}
-
-
-
-/* ================================
-   ATTENDANCE CARD
-================================ */
-
-.attendance-card{
-
-    background:white;
-
-    border-radius:12px;
-
-    box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.08);
-
-    overflow:hidden;
-
-}
-
-.card-header{
-
-    padding:20px;
-
-    border-bottom:1px solid #eee;
-
-}
-
-.card-title{
-
-    font-size:19px;
-
-    font-weight:bold;
-
-    color:#500454;
-
-}
-
-.card-subtitle{
-
-    margin-top:5px;
-
-    font-size:13px;
-
-    color:#777;
-
-}
-
-
-
-/* ================================
-   TABLE
-================================ */
+/* ================= TABLE ================= */
 
 .table-wrapper{
-
     width:100%;
 
     overflow-x:auto;
 
+    border:1px solid #ddd;
+
+    border-radius:8px;
 }
 
 table{
-
     width:100%;
 
     border-collapse:collapse;
 
-    min-width:800px;
-
+    min-width:700px;
 }
 
-th{
-
+thead th{
     background:#500454;
 
     color:white;
 
-    padding:13px 10px;
+    padding:12px 10px;
 
     font-size:13px;
-
-}
-
-td{
-
-    border-bottom:1px solid #eee;
-
-    padding:12px 10px;
 
     text-align:center;
 
-    font-size:13px;
-
+    border-right:1px solid rgba(255,255,255,.2);
 }
 
-td.date{
+thead th:first-child{
+    text-align:left;
 
+    min-width:180px;
+}
+
+tbody td{
+    padding:10px;
+
+    border:1px solid #ddd;
+
+    font-size:13px;
+
+    text-align:center;
+
+    height:42px;
+}
+
+tbody td:first-child{
     text-align:left;
 
     font-weight:bold;
 
+    color:#500454;
+
+    white-space:nowrap;
 }
 
-
-
-/* ================================
-   STATUS
-================================ */
-
-.status{
-
-    display:inline-flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    min-width:40px;
-
-    padding:6px 10px;
-
-    border-radius:20px;
-
-    font-weight:bold;
-
-    font-size:12px;
-
+tbody tr:hover{
+    background:#faf5fb;
 }
+
+/* ================= STATUS ================= */
 
 .present{
+    color:#15803d;
 
-    background:#dff6e7;
+    background:#dcfce7;
 
-    color:#16803c;
-
+    font-weight:bold;
 }
 
 .absent{
+    color:#dc2626;
 
-    background:#ffe2e2;
+    background:#fee2e2;
 
-    color:#c62828;
-
+    font-weight:bold;
 }
 
-.pending{
+.not-marked{
+    color:#999;
 
-    background:#eee;
-
-    color:#777;
-
+    background:#f8fafc;
 }
 
-.percentage{
+/* ================= OVERALL ================= */
+
+.overall{
+    margin-top:18px;
+
+    background:#faf5fb;
+
+    border:1px solid #ead9ec;
+
+    border-radius:8px;
+
+    padding:20px;
+
+    text-align:center;
+}
+
+.overall-label{
+    color:#555;
+
+    font-size:12px;
 
     font-weight:bold;
 
+    text-transform:uppercase;
+
+    margin-bottom:8px;
 }
 
+.overall-value{
+    color:#500454;
 
+    font-size:32px;
 
-/* ================================
-   LOADING
-================================ */
+    font-weight:bold;
+}
+
+/* ================= SUMMARY ================= */
+
+.summary{
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    margin-top:12px;
+
+    font-size:13px;
+
+    color:#555;
+}
+
+.summary span{
+    font-weight:bold;
+}
+
+.present-count{
+    color:#15803d;
+}
+
+.absent-count{
+    color:#dc2626;
+}
+
+/* ================= LOADING ================= */
 
 .loading{
-
-    padding:50px;
+    display:none;
 
     text-align:center;
 
-    color:#777;
+    padding:40px;
 
+    color:#500454;
+
+    font-weight:bold;
 }
 
 .spinner{
-
     width:30px;
-
     height:30px;
 
-    border:4px solid #ddd;
+    border:3px solid #ddd;
 
     border-top-color:#500454;
 
     border-radius:50%;
 
-    animation:spin 1s linear infinite;
-
     margin:0 auto 12px;
 
+    animation:spin .8s linear infinite;
 }
 
 @keyframes spin{
@@ -423,103 +384,64 @@ td.date{
 
 }
 
-
-
-/* ================================
-   EMPTY
-================================ */
+/* ================= EMPTY ================= */
 
 .empty{
-
-    padding:50px;
+    display:none;
 
     text-align:center;
 
-    color:#777;
+    padding:45px;
 
+    color:#777;
 }
 
 .empty h3{
-
     color:#500454;
 
-    margin-bottom:8px;
-
+    margin-bottom:7px;
 }
 
-
-
-/* ================================
-   ERROR
-================================ */
-
-.error{
-
-    background:#ffe5e5;
-
-    color:#c62828;
-
-    padding:15px;
-
-    border-radius:8px;
-
-    margin-bottom:20px;
-
-    display:none;
-
-}
-
-
-
-/* ================================
-   MOBILE
-================================ */
+/* ================= MOBILE ================= */
 
 @media(max-width:800px){
 
-    .header{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-    }
-
-    .student-info{
-
-        text-align:left;
-
-    }
-
     .student-grid{
-
         grid-template-columns:
             repeat(2,1fr);
-
-    }
-
-    .summary{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
     }
 
 }
 
+@media(max-width:600px){
 
-@media(max-width:500px){
+    .header{
+        padding:0 15px;
+    }
+
+    .college-name{
+        font-size:15px;
+    }
+
+    .portal-name{
+        display:none;
+    }
+
+    .main{
+        padding:12px;
+    }
 
     .student-grid{
+        grid-template-columns:1fr 1fr;
+    }
 
-        grid-template-columns:1fr;
-
+    .info-card,
+    .attendance-card{
+        padding:13px;
     }
 
     .summary{
-
-        grid-template-columns:1fr 1fr;
-
+        gap:15px;
     }
 
 }
@@ -528,315 +450,287 @@ td.date{
 
 </head>
 
-
 <body>
 
 
-<!-- ==================================
+<!-- =====================================================
      HEADER
-================================== -->
+===================================================== -->
 
 <div class="header">
 
-    <div>
+    <div class="logo-area">
 
-        <div class="header-title">
-            My Attendance
-        </div>
+        <img
+            src="logo.png"
+            class="logo"
+            onerror="this.style.display='none';">
 
-        <div class="header-subtitle">
-            Hour-wise Attendance Report
+        <div>
+
+            <div class="college-name">
+                MURALI ARTS AND SCIENCE COLLEGE
+            </div>
+
+            <div class="college-sub">
+                STUDENT PORTAL
+            </div>
+
         </div>
 
     </div>
 
 
-    <div class="student-info">
-
-        <div
-            class="student-name"
-            id="studentName">
-            Loading...
-        </div>
-
-        <div
-            class="student-roll"
-            id="studentRoll">
-            -
-        </div>
-
+    <div class="portal-name">
+        HOUR WISE ATTENDANCE
     </div>
 
 </div>
 
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-<div class="container">
-
-
-<!-- ==================================
-     ERROR
-================================== -->
-
-<div
-    id="errorBox"
-    class="error">
-</div>
+<div class="main">
 
 
+    <!-- TITLE -->
 
-<!-- ==================================
-     STUDENT DETAILS
-================================== -->
+    <div class="title-card">
 
-<div class="student-card">
-
-    <div class="student-grid">
-
-
-        <div class="info-box">
-
-            <div class="info-label">
-                Student Name
-            </div>
-
-            <div
-                class="info-value"
-                id="detailName">
-                -
-            </div>
-
-        </div>
-
-
-
-        <div class="info-box">
-
-            <div class="info-label">
-                Roll Number
-            </div>
-
-            <div
-                class="info-value"
-                id="detailRoll">
-                -
-            </div>
-
-        </div>
-
-
-
-        <div class="info-box">
-
-            <div class="info-label">
-                Register Number
-            </div>
-
-            <div
-                class="info-value"
-                id="detailReg">
-                -
-            </div>
-
-        </div>
-
-
-
-        <div class="info-box">
-
-            <div class="info-label">
-                Department
-            </div>
-
-            <div
-                class="info-value"
-                id="detailDepartment">
-                -
-            </div>
-
-        </div>
-
+        HOUR WISE ATTENDANCE
 
     </div>
 
-</div>
+
+    <!-- STUDENT INFORMATION -->
+
+    <div class="info-card">
+
+        <div class="student-grid">
 
 
+            <div class="info-box">
 
-<!-- ==================================
-     SUMMARY
-================================== -->
+                <div class="info-label">
+                    Student Name
+                </div>
 
-<div class="summary">
+                <div
+                    class="info-value"
+                    id="studentName">
+                    -
+                </div>
+
+            </div>
 
 
-    <div class="summary-card">
+            <div class="info-box">
 
-        <div
-            class="summary-number"
-            id="totalHours">
-            0
-        </div>
+                <div class="info-label">
+                    Roll No
+                </div>
 
-        <div class="summary-label">
-            Total Hours
+                <div
+                    class="info-value"
+                    id="rollNo">
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Department
+                </div>
+
+                <div
+                    class="info-value"
+                    id="department">
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Year / Section
+                </div>
+
+                <div
+                    class="info-value"
+                    id="className">
+                    -
+                </div>
+
+            </div>
+
+
         </div>
 
     </div>
 
 
-
-    <div class="summary-card">
-
-        <div
-            class="summary-number"
-            id="presentHours">
-            0
-        </div>
-
-        <div class="summary-label">
-            Present
-        </div>
-
-    </div>
-
-
-
-    <div class="summary-card">
-
-        <div
-            class="summary-number"
-            id="absentHours">
-            0
-        </div>
-
-        <div class="summary-label">
-            Absent
-        </div>
-
-    </div>
-
-
-
-    <div class="summary-card">
-
-        <div
-            class="summary-number"
-            id="attendancePercentage">
-            0%
-        </div>
-
-        <div class="summary-label">
-            Attendance
-        </div>
-
-    </div>
-
-
-</div>
-
-
-
-<!-- ==================================
-     ATTENDANCE TABLE
-================================== -->
-
-<div class="attendance-card">
-
-
-    <div class="card-header">
-
-        <div class="card-title">
-            Hour-wise Attendance
-        </div>
-
-        <div class="card-subtitle">
-            Your attendance for each hour of every day
-        </div>
-
-    </div>
-
-
+    <!-- MESSAGE -->
 
     <div
-        id="loadingBox"
-        class="loading">
-
-        <div class="spinner"></div>
-
-        Loading attendance...
-
+        class="message"
+        id="message">
     </div>
 
 
+    <!-- ATTENDANCE -->
 
-    <div
-        id="emptyBox"
-        class="empty"
-        style="display:none;">
-
-        <h3>
-            No Attendance Found
-        </h3>
-
-        <p>
-            Attendance has not been entered yet.
-        </p>
-
-    </div>
+    <div class="attendance-card">
 
 
+        <div class="table-title">
 
-    <div
-        class="table-wrapper"
-        id="tableWrapper"
-        style="display:none;">
+            HOUR WISE ATTENDANCE
 
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Date
-                    </th>
-
-                    <th>
-                        Hour 1
-                    </th>
-
-                    <th>
-                        Hour 2
-                    </th>
-
-                    <th>
-                        Hour 3
-                    </th>
-
-                    <th>
-                        Hour 4
-                    </th>
-
-                    <th>
-                        Hour 5
-                    </th>
-
-                    <th>
-                        Day %
-                    </th>
-
-                </tr>
-
-            </thead>
+        </div>
 
 
-            <tbody
-                id="attendanceTable">
+        <!-- LOADING -->
 
-            </tbody>
+        <div
+            class="loading"
+            id="loading">
 
-        </table>
+            <div class="spinner"></div>
+
+            Loading attendance...
+
+        </div>
+
+
+        <!-- EMPTY -->
+
+        <div
+            class="empty"
+            id="empty">
+
+            <h3>
+                No Attendance Found
+            </h3>
+
+            <p>
+                Attendance records are not available.
+            </p>
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <div
+            class="table-wrapper"
+            id="tableWrapper"
+            style="display:none;">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Attendance Date
+                        </th>
+
+                        <th>
+                            1
+                        </th>
+
+                        <th>
+                            2
+                        </th>
+
+                        <th>
+                            3
+                        </th>
+
+                        <th>
+                            4
+                        </th>
+
+                        <th>
+                            5
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="attendanceTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- =================================================
+             ONE OVERALL PERCENTAGE ONLY
+        ================================================== -->
+
+        <div
+            class="overall"
+            id="overallBox"
+            style="display:none;">
+
+            <div class="overall-label">
+
+                Overall Attendance
+
+            </div>
+
+
+            <div
+                class="overall-value"
+                id="overallPercentage">
+
+                0.00%
+
+            </div>
+
+
+            <div class="summary">
+
+                <div>
+
+                    Present:
+                    <span
+                        class="present-count"
+                        id="totalPresent">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    Absent:
+                    <span
+                        class="absent-count"
+                        id="totalAbsent">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
     </div>
 
@@ -844,12 +738,11 @@ td.date{
 </div>
 
 
-</div>
-
-
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
 
 <script type="module">
-
 
 import { db }
 from "./firebase-config.js";
@@ -857,179 +750,1043 @@ from "./firebase-config.js";
 
 import {
 
-collection,
-getDocs
+    collection,
+    getDocs
 
 }
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
-/* =========================================
-   ESCAPE HTML
-========================================= */
+/* =====================================================
+   GLOBAL
+===================================================== */
 
-function escapeHTML(value){
+let currentStudent = null;
 
-    return String(value ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+let attendanceRows = [];
+
+
+
+/* =====================================================
+   CLEAN VALUE
+===================================================== */
+
+function clean(value){
+
+    if(
+        value === undefined ||
+        value === null
+    ){
+
+        return "";
+
+    }
+
+    return String(value)
+        .trim();
+
+}
+
+
+function upper(value){
+
+    return clean(value)
+        .toUpperCase()
+        .replace(/\s+/g," ");
 
 }
 
 
 
-/* =========================================
-   LOAD STUDENT FROM SESSION
-========================================= */
+/* =====================================================
+   STUDENT STORAGE
+===================================================== */
 
-function loadStudent(){
+function getStoredStudent(){
 
-    const studentName =
-        sessionStorage.getItem(
-            "studentName"
-        ) || "";
+    const keys = [
 
+        "student",
+        "studentData",
+        "loggedInStudent",
+        "currentStudent",
+        "studentDetails"
 
-    const studentRoll =
-        sessionStorage.getItem(
-            "studentRollNo"
-        ) || "";
-
-
-    const studentReg =
-        sessionStorage.getItem(
-            "studentRegNo"
-        ) || "";
+    ];
 
 
-    const department =
-        sessionStorage.getItem(
-            "studentDepartment"
-        ) || "";
+    for(
+        const key of keys
+    ){
+
+        try{
+
+            const local =
+                localStorage.getItem(key);
+
+
+            if(local){
+
+                const data =
+                    JSON.parse(local);
+
+
+                if(data){
+
+                    return data;
+
+                }
+
+            }
+
+        }
+        catch(error){}
+
+
+        try{
+
+            const session =
+                sessionStorage.getItem(key);
+
+
+            if(session){
+
+                const data =
+                    JSON.parse(session);
+
+
+                if(data){
+
+                    return data;
+
+                }
+
+            }
+
+        }
+        catch(error){}
+
+    }
+
+
+    return null;
+
+}
+
+
+
+/* =====================================================
+   FIND STUDENT
+===================================================== */
+
+async function loadStudent(){
+
+    const stored =
+        getStoredStudent();
+
+
+    if(stored){
+
+        currentStudent = {
+
+            rollNo:
+                clean(
+                    stored.rollNo ||
+                    stored.roll ||
+                    stored.studentRollNo
+                ),
+
+            registerNo:
+                clean(
+                    stored.registerNo ||
+                    stored.regNo ||
+                    stored.registrationNo
+                ),
+
+            name:
+                clean(
+                    stored.studentName ||
+                    stored.name
+                ),
+
+            department:
+                clean(
+                    stored.department
+                ),
+
+            year:
+                clean(
+                    stored.year
+                ),
+
+            section:
+                clean(
+                    stored.section
+                ),
+
+            academicYear:
+                clean(
+                    stored.academicYear
+                )
+
+        };
+
+    }
+
+
+    /* URL fallback */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    if(
+        !currentStudent ||
+        !currentStudent.rollNo
+    ){
+
+        const urlRoll =
+            clean(
+                params.get("rollNo")
+            );
+
+
+        if(urlRoll){
+
+            currentStudent = {
+
+                rollNo:urlRoll,
+
+                registerNo:
+                    clean(
+                        params.get("registerNo")
+                    ),
+
+                name:
+                    clean(
+                        params.get("studentName")
+                    ),
+
+                department:
+                    clean(
+                        params.get("department")
+                    ),
+
+                year:
+                    clean(
+                        params.get("year")
+                    ),
+
+                section:
+                    clean(
+                        params.get("section")
+                    ),
+
+                academicYear:
+                    clean(
+                        params.get("academicYear")
+                    )
+
+            };
+
+        }
+
+    }
+
+
+    if(
+        !currentStudent ||
+        !currentStudent.rollNo
+    ){
+
+        throw new Error(
+            "Student login information not found. Please login again."
+        );
+
+    }
 
 
     /*
-    -----------------------------------------
-    DISPLAY
-    -----------------------------------------
+       If some student details are missing,
+       get them from Firestore.
     */
+
+    if(
+        !currentStudent.name ||
+        !currentStudent.department ||
+        !currentStudent.year ||
+        !currentStudent.section
+    ){
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "students"
+                )
+            );
+
+
+        snapshot.forEach(
+            studentDoc => {
+
+                const data =
+                    studentDoc.data();
+
+
+                const dbRoll =
+                    clean(
+                        data.rollNo ||
+                        data.roll ||
+                        data.studentRollNo
+                    );
+
+
+                if(
+                    upper(dbRoll)
+                    ===
+                    upper(
+                        currentStudent.rollNo
+                    )
+                ){
+
+                    currentStudent.name =
+                        currentStudent.name ||
+                        clean(
+                            data.studentName ||
+                            data.name
+                        );
+
+
+                    currentStudent.department =
+                        currentStudent.department ||
+                        clean(
+                            data.department
+                        );
+
+
+                    currentStudent.year =
+                        currentStudent.year ||
+                        clean(
+                            data.year
+                        );
+
+
+                    currentStudent.section =
+                        currentStudent.section ||
+                        clean(
+                            data.section
+                        );
+
+
+                    currentStudent.academicYear =
+                        currentStudent.academicYear ||
+                        clean(
+                            data.academicYear
+                        );
+
+
+                    currentStudent.registerNo =
+                        currentStudent.registerNo ||
+                        clean(
+                            data.registerNo ||
+                            data.regNo
+                        );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    displayStudent();
+
+}
+
+
+
+/* =====================================================
+   DISPLAY STUDENT
+===================================================== */
+
+function displayStudent(){
 
     document.getElementById(
         "studentName"
     ).textContent =
-        studentName || "-";
+        currentStudent.name || "-";
 
 
     document.getElementById(
-        "studentRoll"
+        "rollNo"
     ).textContent =
-        studentRoll || "-";
+        currentStudent.rollNo || "-";
 
 
     document.getElementById(
-        "detailName"
+        "department"
     ).textContent =
-        studentName || "-";
+        currentStudent.department || "-";
 
 
     document.getElementById(
-        "detailRoll"
+        "className"
     ).textContent =
-        studentRoll || "-";
 
+        (
+            currentStudent.year || "-"
+        )
 
-    document.getElementById(
-        "detailReg"
-    ).textContent =
-        studentReg || "-";
+        +
 
+        " / "
 
-    document.getElementById(
-        "detailDepartment"
-    ).textContent =
-        department || "-";
+        +
 
-
-    return {
-
-        name:studentName,
-
-        rollNo:studentRoll,
-
-        regNo:studentReg,
-
-        department:department
-
-    };
+        (
+            currentStudent.section || "-"
+        );
 
 }
 
 
 
-/* =========================================
-   STATUS HTML
-========================================= */
+/* =====================================================
+   DATE CONVERTER
+===================================================== */
 
-function statusHTML(status){
+function convertDate(value){
+
+    if(!value){
+
+        return "";
+
+    }
+
+
+    /*
+       YYYY-MM-DD
+    */
+
+    if(
+        /^\d{4}-\d{2}-\d{2}$/.test(value)
+    ){
+
+        return value;
+
+    }
+
+
+    /*
+       DD-MM-YYYY
+    */
+
+    if(
+        /^\d{2}-\d{2}-\d{4}$/.test(value)
+    ){
+
+        const p =
+            value.split("-");
+
+
+        return (
+            p[2] +
+            "-" +
+            p[1] +
+            "-" +
+            p[0]
+        );
+
+    }
+
+
+    /*
+       DD/MM/YYYY
+    */
+
+    if(
+        /^\d{2}\/\d{2}\/\d{4}$/.test(value)
+    ){
+
+        const p =
+            value.split("/");
+
+
+        return (
+            p[2] +
+            "-" +
+            p[1] +
+            "-" +
+            p[0]
+        );
+
+    }
+
+
+    /*
+       Firestore Timestamp
+    */
+
+    if(
+        typeof value === "object" &&
+        value.seconds
+    ){
+
+        const date =
+            new Date(
+                value.seconds * 1000
+            );
+
+
+        return (
+            date.getFullYear() +
+            "-" +
+            String(
+                date.getMonth()+1
+            ).padStart(2,"0") +
+            "-" +
+            String(
+                date.getDate()
+            ).padStart(2,"0")
+        );
+
+    }
+
+
+    return clean(value);
+
+}
+
+
+
+/* =====================================================
+   DISPLAY DATE
+===================================================== */
+
+function displayDate(date){
+
+    const converted =
+        convertDate(date);
+
+
+    if(
+        !converted
+    ){
+
+        return "-";
+
+    }
+
+
+    const p =
+        converted.split("-");
+
+
+    if(
+        p.length !== 3
+    ){
+
+        return converted;
+
+    }
+
+
+    const months = [
+
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+
+    ];
+
+
+    return (
+        p[2] +
+        "-" +
+        months[
+            Number(p[1])-1
+        ] +
+        "-" +
+        p[0]
+    );
+
+}
+
+
+
+/* =====================================================
+   GET ROLL NUMBER
+===================================================== */
+
+function getRoll(data){
+
+    return clean(
+
+        data.rollNo ||
+        data.roll ||
+        data.studentRollNo ||
+        data.studentRoll ||
+        data.regNo ||
+        data.registerNo
+
+    );
+
+}
+
+
+
+/* =====================================================
+   STATUS NORMALIZER
+===================================================== */
+
+function getStatus(value){
+
+    const status =
+        upper(value);
+
+
+    if(
+
+        status === "P" ||
+        status === "PRESENT" ||
+        status === "TRUE" ||
+        status === "1"
+
+    ){
+
+        return "P";
+
+    }
+
+
+    if(
+
+        status === "A" ||
+        status === "ABSENT" ||
+        status === "FALSE" ||
+        status === "0"
+
+    ){
+
+        return "A";
+
+    }
+
+
+    return "";
+
+}
+
+
+
+/* =====================================================
+   GET HOUR NUMBER
+===================================================== */
+
+function getHourFromKey(key){
 
     const value =
-        String(status || "")
-        .trim()
-        .toUpperCase();
+        upper(key);
 
 
-    if(value === "P"){
+    /*
+       Supports:
 
-        return `
-            <span class="status present">
-                P
-            </span>
-        `;
+       H1
+       H2
+       H3
+       H4
+       H5
 
-    }
+       HOUR1
+       HOUR2
 
-
-    if(value === "A"){
-
-        return `
-            <span class="status absent">
-                A
-            </span>
-        `;
-
-    }
+       PERIOD1
+       PERIOD2
+    */
 
 
-    return `
-        <span class="status pending">
-            -
-        </span>
-    `;
-
-}
-
-
-
-/* =========================================
-   LOAD ATTENDANCE
-========================================= */
-
-async function loadAttendance(){
-
-    const loadingBox =
-        document.getElementById(
-            "loadingBox"
+    let match =
+        value.match(
+            /(?:^|[_\-\s])H(?:OUR)?[_\-\s]?([1-5])(?:$|[_\-\s])/i
         );
 
 
-    const emptyBox =
+    if(match){
+
+        return Number(
+            match[1]
+        );
+
+    }
+
+
+    match =
+        value.match(
+            /(?:^|[_\-\s])PERIOD[_\-\s]?([1-5])(?:$|[_\-\s])/i
+        );
+
+
+    if(match){
+
+        return Number(
+            match[1]
+        );
+
+    }
+
+
+    return 0;
+
+}
+
+
+
+/* =====================================================
+   READ HOUR OBJECT
+===================================================== */
+
+function readHourObject(
+    object,
+    row
+){
+
+    if(
+        !object ||
+        typeof object !== "object"
+    ){
+
+        return;
+
+    }
+
+
+    Object.entries(
+        object
+    ).forEach(
+        ([key,value]) => {
+
+            const hour =
+                getHourFromKey(
+                    key
+                );
+
+
+            if(
+                hour < 1 ||
+                hour > 5
+            ){
+
+                return;
+
+            }
+
+
+            const status =
+                getStatus(value);
+
+
+            if(status){
+
+                row.hours[hour] =
+                    status;
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   READ ATTENDANCE DOCUMENT
+===================================================== */
+
+function processAttendanceDocument(
+    data,
+    result
+){
+
+    /*
+       DATE
+    */
+
+    const date =
+        convertDate(
+
+            data.date ||
+            data.attendanceDate ||
+            data.markedDate ||
+            data.day
+
+        );
+
+
+    if(!date){
+
+        return;
+
+    }
+
+
+    /*
+       Create row for date.
+    */
+
+    if(
+        !result[date]
+    ){
+
+        result[date] = {
+
+            date:date,
+
+            hours:{
+
+                1:null,
+                2:null,
+                3:null,
+                4:null,
+                5:null
+
+            }
+
+        };
+
+    }
+
+
+    const row =
+        result[date];
+
+
+    /*
+       ------------------------------------------------
+       CASE 1
+
+       attendance object
+
+       {
+          H1: "P",
+          H2: "A",
+          H3: "P"
+       }
+       ------------------------------------------------
+    */
+
+    readHourObject(
+        data.attendance,
+        row
+    );
+
+
+    /*
+       ------------------------------------------------
+       CASE 2
+
+       attendanceData object
+       ------------------------------------------------
+    */
+
+    readHourObject(
+        data.attendanceData,
+        row
+    );
+
+
+    /*
+       ------------------------------------------------
+       CASE 3
+
+       hours object
+       ------------------------------------------------
+    */
+
+    readHourObject(
+        data.hours,
+        row
+    );
+
+
+    /*
+       ------------------------------------------------
+       CASE 4
+
+       periods object
+       ------------------------------------------------
+    */
+
+    readHourObject(
+        data.periods,
+        row
+    );
+
+
+    /*
+       ------------------------------------------------
+       CASE 5
+
+       Direct fields:
+
+       hour1: P
+       hour2: A
+
+       h1: P
+       h2: A
+       ------------------------------------------------
+    */
+
+    const directFields = {
+
+        1:[
+            "hour1",
+            "h1",
+            "period1",
+            "p1"
+        ],
+
+        2:[
+            "hour2",
+            "h2",
+            "period2",
+            "p2"
+        ],
+
+        3:[
+            "hour3",
+            "h3",
+            "period3",
+            "p3"
+        ],
+
+        4:[
+            "hour4",
+            "h4",
+            "period4",
+            "p4"
+        ],
+
+        5:[
+            "hour5",
+            "h5",
+            "period5",
+            "p5"
+        ]
+
+    };
+
+
+    for(
+        let hour=1;
+        hour<=5;
+        hour++
+    ){
+
+        for(
+            const field of
+            directFields[hour]
+        ){
+
+            if(
+                data[field] !== undefined
+            ){
+
+                const status =
+                    getStatus(
+                        data[field]
+                    );
+
+
+                if(status){
+
+                    row.hours[hour] =
+                        status;
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    /*
+       ------------------------------------------------
+       CASE 6
+
+       Document itself has:
+
+       hour: 1
+       status: "P"
+
+       ------------------------------------------------
+    */
+
+    const documentHour =
+        Number(
+            data.hour ||
+            data.hourNo ||
+            data.period ||
+            data.periodNo
+        );
+
+
+    if(
+        documentHour >= 1 &&
+        documentHour <= 5
+    ){
+
+        const status =
+            getStatus(
+
+                data.status ||
+                data.attendanceStatus ||
+                data.attendanceValue ||
+                data.value
+
+            );
+
+
+        if(status){
+
+            row.hours[
+                documentHour
+            ] = status;
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   LOAD ALL ATTENDANCE
+===================================================== */
+
+async function loadAttendance(){
+
+    const loading =
         document.getElementById(
-            "emptyBox"
+            "loading"
         );
 
 
@@ -1039,42 +1796,59 @@ async function loadAttendance(){
         );
 
 
-    const table =
+    const empty =
         document.getElementById(
-            "attendanceTable"
+            "empty"
         );
 
 
-    const errorBox =
+    const overallBox =
         document.getElementById(
-            "errorBox"
+            "overallBox"
         );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    loading.style.display =
+        "block";
+
+
+    tableWrapper.style.display =
+        "none";
+
+
+    empty.style.display =
+        "none";
+
+
+    overallBox.style.display =
+        "none";
+
+
+    message.style.display =
+        "none";
 
 
     try{
 
-
-        const student =
-            loadStudent();
-
-
-        if(!student.regNo){
+        if(
+            !currentStudent ||
+            !currentStudent.rollNo
+        ){
 
             throw new Error(
-                "Student Register Number is not available. Please login again."
+                "Student roll number not found."
             );
 
         }
 
 
-
-        /*
-        =====================================
-        GET ALL ATTENDANCE
-        =====================================
-        */
-
-        const snapshot =
+        const attendanceSnapshot =
             await getDocs(
                 collection(
                     db,
@@ -1083,49 +1857,46 @@ async function loadAttendance(){
             );
 
 
-        const records = [];
-
-
-        let totalHours = 0;
-
-        let presentHours = 0;
-
-        let absentHours = 0;
-
+        const result = {};
 
 
         /*
-        =====================================
-        FILTER CURRENT STUDENT
-        =====================================
+           Logged-in student's roll number.
         */
 
-        snapshot.forEach(
-            docSnap => {
+        const studentRoll =
+            upper(
+                currentStudent.rollNo
+            );
+
+
+        attendanceSnapshot.forEach(
+            attendanceDoc => {
 
                 const data =
-                    docSnap.data() || {};
+                    attendanceDoc.data()
+                    ||
+                    {};
 
 
-                const recordRegNo =
-                    String(
-                        data.regNo || ""
-                    )
-                    .trim()
-                    .toUpperCase();
+                /*
+                   Get attendance roll number.
+                */
+
+                const recordRoll =
+                    upper(
+                        getRoll(data)
+                    );
 
 
-                const studentRegNo =
-                    String(
-                        student.regNo
-                    )
-                    .trim()
-                    .toUpperCase();
-
+                /*
+                   Only this student.
+                */
 
                 if(
-                    recordRegNo !==
-                    studentRegNo
+                    recordRoll &&
+                    recordRoll !==
+                    studentRoll
                 ){
 
                     return;
@@ -1133,298 +1904,92 @@ async function loadAttendance(){
                 }
 
 
-
                 /*
-                ---------------------------------
-                ATTENDANCE OBJECT
-                ---------------------------------
+                   If document has a student
+                   object, check it.
                 */
 
-                const attendance =
-                    data.attendance || {};
-
-
-                let present = 0;
-
-                let absent = 0;
-
-                let marked = 0;
-
-
-                for(
-                    let hour = 1;
-                    hour <= 5;
-                    hour++
+                if(
+                    !recordRoll &&
+                    data.student
                 ){
 
-                    const status =
-                        String(
-                            attendance[hour] || ""
-                        )
-                        .trim()
-                        .toUpperCase();
+                    const nestedRoll =
+                        upper(
+                            getRoll(
+                                data.student
+                            )
+                        );
 
 
-                    if(status === "P"){
+                    if(
+                        nestedRoll &&
+                        nestedRoll !==
+                        studentRoll
+                    ){
 
-                        present++;
-
-                        marked++;
-
-                        totalHours++;
-
-                        presentHours++;
-
-                    }
-
-                    else if(status === "A"){
-
-                        absent++;
-
-                        marked++;
-
-                        totalHours++;
-
-                        absentHours++;
+                        return;
 
                     }
 
                 }
-
 
 
                 /*
-                ---------------------------------
-                DAY PERCENTAGE
-                ---------------------------------
+                   Process record.
                 */
 
-                let dayPercentage = 0;
-
-
-                if(marked > 0){
-
-                    dayPercentage =
-                        (
-                            present /
-                            marked
-                        ) * 100;
-
-                }
-
-
-
-                records.push({
-
-                    date:
-                        data.date ||
-                        docSnap.id
-                        .split("_")[0],
-
-                    attendance,
-
-                    present,
-
-                    absent,
-
-                    marked,
-
-                    dayPercentage
-
-                });
+                processAttendanceDocument(
+                    data,
+                    result
+                );
 
             }
         );
 
 
-
         /*
-        =====================================
-        SORT DATE NEWEST FIRST
-        =====================================
+           Convert result into array.
         */
 
-        records.sort(
-            function(a,b){
-
-                return String(b.date)
-                    .localeCompare(
-                        String(a.date)
-                    );
-
-            }
-        );
-
-
-
-        /*
-        =====================================
-        UPDATE SUMMARY
-        =====================================
-        */
-
-        document.getElementById(
-            "totalHours"
-        ).textContent =
-            totalHours;
+        attendanceRows =
+            Object.values(
+                result
+            )
+            .sort(
+                (a,b) =>
+                    b.date.localeCompare(
+                        a.date
+                    )
+            );
 
 
-        document.getElementById(
-            "presentHours"
-        ).textContent =
-            presentHours;
-
-
-        document.getElementById(
-            "absentHours"
-        ).textContent =
-            absentHours;
-
-
-        const percentage =
-            totalHours > 0
-            ?
-            (
-                presentHours /
-                totalHours
-            ) * 100
-            :
-            0;
-
-
-        document.getElementById(
-            "attendancePercentage"
-        ).textContent =
-            percentage.toFixed(2) + "%";
-
-
-
-        /*
-        =====================================
-        NO DATA
-        =====================================
-        */
-
-        if(records.length === 0){
-
-            loadingBox.style.display =
-                "none";
-
-            emptyBox.style.display =
-                "block";
-
-            return;
-
-        }
-
-
-
-        /*
-        =====================================
-        CREATE TABLE
-        =====================================
-        */
-
-        table.innerHTML = "";
-
-
-        records.forEach(
-            record => {
-
-                const row =
-                    document.createElement(
-                        "tr"
-                    );
-
-
-                let dayPercent =
-                    record.marked > 0
-                    ?
-                    record.dayPercentage
-                    .toFixed(0) + "%"
-                    :
-                    "-";
-
-
-                row.innerHTML = `
-
-                    <td class="date">
-                        ${escapeHTML(record.date)}
-                    </td>
-
-                    <td>
-                        ${statusHTML(
-                            record.attendance[1]
-                        )}
-                    </td>
-
-                    <td>
-                        ${statusHTML(
-                            record.attendance[2]
-                        )}
-                    </td>
-
-                    <td>
-                        ${statusHTML(
-                            record.attendance[3]
-                        )}
-                    </td>
-
-                    <td>
-                        ${statusHTML(
-                            record.attendance[4]
-                        )}
-                    </td>
-
-                    <td>
-                        ${statusHTML(
-                            record.attendance[5]
-                        )}
-                    </td>
-
-                    <td class="percentage">
-                        ${dayPercent}
-                    </td>
-
-                `;
-
-
-                table.appendChild(row);
-
-            }
-        );
-
-
-
-        loadingBox.style.display =
-            "none";
-
-
-        tableWrapper.style.display =
-            "block";
+        renderAttendance();
 
     }
-
 
     catch(error){
 
         console.error(
-            "STUDENT ATTENDANCE ERROR:",
+            "Attendance Error:",
             error
         );
 
 
-        loadingBox.style.display =
-            "none";
-
-
-        errorBox.textContent =
+        message.textContent =
             error.message ||
             "Unable to load attendance.";
 
 
-        errorBox.style.display =
+        message.style.display =
             "block";
+
+    }
+
+    finally{
+
+        loading.style.display =
+            "none";
 
     }
 
@@ -1432,12 +1997,258 @@ async function loadAttendance(){
 
 
 
-/* =========================================
-   START
-========================================= */
+/* =====================================================
+   RENDER ATTENDANCE
+===================================================== */
 
-loadAttendance();
+function renderAttendance(){
 
+    const tbody =
+        document.getElementById(
+            "attendanceTable"
+        );
+
+
+    const tableWrapper =
+        document.getElementById(
+            "tableWrapper"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+
+    const overallBox =
+        document.getElementById(
+            "overallBox"
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    if(
+        attendanceRows.length === 0
+    ){
+
+        empty.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    let totalPresent = 0;
+
+    let totalAbsent = 0;
+
+
+    attendanceRows.forEach(
+        row => {
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            /*
+               DATE
+            */
+
+            const dateCell =
+                document.createElement(
+                    "td"
+                );
+
+
+            dateCell.textContent =
+                displayDate(
+                    row.date
+                );
+
+
+            tr.appendChild(
+                dateCell
+            );
+
+
+            /*
+               HOURS 1 TO 5
+            */
+
+            for(
+                let hour=1;
+                hour<=5;
+                hour++
+            ){
+
+                const td =
+                    document.createElement(
+                        "td"
+                    );
+
+
+                const status =
+                    row.hours[hour];
+
+
+                if(
+                    status === "P"
+                ){
+
+                    td.textContent =
+                        "P";
+
+                    td.className =
+                        "present";
+
+                    totalPresent++;
+
+                }
+
+                else if(
+                    status === "A"
+                ){
+
+                    td.textContent =
+                        "A";
+
+                    td.className =
+                        "absent";
+
+                    totalAbsent++;
+
+                }
+
+                else{
+
+                    td.textContent =
+                        "-";
+
+                    td.className =
+                        "not-marked";
+
+                }
+
+
+                tr.appendChild(
+                    td
+                );
+
+            }
+
+
+            tbody.appendChild(
+                tr
+            );
+
+        }
+    );
+
+
+    tableWrapper.style.display =
+        "block";
+
+
+    /*
+       ONE OVERALL PERCENTAGE
+    */
+
+    const total =
+        totalPresent +
+        totalAbsent;
+
+
+    let percentage = 0;
+
+
+    if(total > 0){
+
+        percentage =
+            (
+                totalPresent /
+                total
+            )
+            *
+            100;
+
+    }
+
+
+    document.getElementById(
+        "overallPercentage"
+    ).textContent =
+        percentage.toFixed(2)
+        +
+        "%";
+
+
+    document.getElementById(
+        "totalPresent"
+    ).textContent =
+        totalPresent;
+
+
+    document.getElementById(
+        "totalAbsent"
+    ).textContent =
+        totalAbsent;
+
+
+    overallBox.style.display =
+        "block";
+
+}
+
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+async function init(){
+
+    try{
+
+        await loadStudent();
+
+        await loadAttendance();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Initialization Error:",
+            error
+        );
+
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        message.textContent =
+            error.message ||
+            "Unable to load student information.";
+
+
+        message.style.display =
+            "block";
+
+    }
+
+}
+
+
+init();
 
 </script>
 
