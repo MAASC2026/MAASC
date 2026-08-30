@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,14 +84,10 @@ body{
 .title-card{
     background:#500454;
     color:white;
-
     padding:14px 18px;
-
     border-radius:7px;
-
     font-size:19px;
     font-weight:bold;
-
     margin-bottom:18px;
 }
 
@@ -98,9 +95,7 @@ body{
 
 .info-card{
     background:white;
-
     border-radius:10px;
-
     padding:18px;
 
     box-shadow:
@@ -111,42 +106,29 @@ body{
 
 .student-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:12px;
 }
 
 .info-box{
     background:#faf5fb;
-
     border:1px solid #ead9ec;
-
     border-radius:7px;
-
     padding:11px;
 }
 
 .info-label{
     font-size:10px;
-
     color:#777;
-
     font-weight:bold;
-
     text-transform:uppercase;
-
     margin-bottom:5px;
 }
 
 .info-value{
     color:#500454;
-
     font-size:13px;
-
     font-weight:bold;
-
     word-break:break-word;
 }
 
@@ -154,29 +136,20 @@ body{
 
 .message{
     display:none;
-
     background:#fee2e2;
-
     border:1px solid #fecaca;
-
     color:#991b1b;
-
     padding:12px;
-
     border-radius:7px;
-
     margin-bottom:18px;
-
     font-size:13px;
 }
 
-/* ================= TABLE CARD ================= */
+/* ================= ATTENDANCE CARD ================= */
 
 .attendance-card{
     background:white;
-
     border-radius:10px;
-
     padding:18px;
 
     box-shadow:
@@ -185,11 +158,8 @@ body{
 
 .table-title{
     color:#500454;
-
     font-size:16px;
-
     font-weight:bold;
-
     margin-bottom:14px;
 }
 
@@ -197,61 +167,43 @@ body{
 
 .table-wrapper{
     width:100%;
-
     overflow-x:auto;
-
     border:1px solid #ddd;
-
     border-radius:8px;
 }
 
 table{
     width:100%;
-
     border-collapse:collapse;
-
     min-width:700px;
 }
 
 thead th{
     background:#500454;
-
     color:white;
-
     padding:12px 10px;
-
     font-size:13px;
-
     text-align:center;
-
     border-right:1px solid rgba(255,255,255,.2);
 }
 
 thead th:first-child{
     text-align:left;
-
     min-width:180px;
 }
 
 tbody td{
     padding:10px;
-
     border:1px solid #ddd;
-
     font-size:13px;
-
     text-align:center;
-
     height:42px;
 }
 
 tbody td:first-child{
     text-align:left;
-
     font-weight:bold;
-
     color:#500454;
-
     white-space:nowrap;
 }
 
@@ -263,23 +215,18 @@ tbody tr:hover{
 
 .present{
     color:#15803d;
-
     background:#dcfce7;
-
     font-weight:bold;
 }
 
 .absent{
     color:#dc2626;
-
     background:#fee2e2;
-
     font-weight:bold;
 }
 
 .not-marked{
     color:#999;
-
     background:#f8fafc;
 }
 
@@ -287,35 +234,24 @@ tbody tr:hover{
 
 .overall{
     margin-top:18px;
-
     background:#faf5fb;
-
     border:1px solid #ead9ec;
-
     border-radius:8px;
-
     padding:20px;
-
     text-align:center;
 }
 
 .overall-label{
     color:#555;
-
     font-size:12px;
-
     font-weight:bold;
-
     text-transform:uppercase;
-
     margin-bottom:8px;
 }
 
 .overall-value{
     color:#500454;
-
     font-size:32px;
-
     font-weight:bold;
 }
 
@@ -323,15 +259,10 @@ tbody tr:hover{
 
 .summary{
     display:flex;
-
     justify-content:center;
-
     gap:30px;
-
     margin-top:12px;
-
     font-size:13px;
-
     color:#555;
 }
 
@@ -351,13 +282,9 @@ tbody tr:hover{
 
 .loading{
     display:none;
-
     text-align:center;
-
     padding:40px;
-
     color:#500454;
-
     font-weight:bold;
 }
 
@@ -366,9 +293,7 @@ tbody tr:hover{
     height:30px;
 
     border:3px solid #ddd;
-
     border-top-color:#500454;
-
     border-radius:50%;
 
     margin:0 auto 12px;
@@ -388,17 +313,13 @@ tbody tr:hover{
 
 .empty{
     display:none;
-
     text-align:center;
-
     padding:45px;
-
     color:#777;
 }
 
 .empty h3{
     color:#500454;
-
     margin-bottom:7px;
 }
 
@@ -407,8 +328,7 @@ tbody tr:hover{
 @media(max-width:800px){
 
     .student-grid{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
@@ -462,7 +382,7 @@ tbody tr:hover{
     <div class="logo-area">
 
         <img
-            src="logo.png"
+            src="images/logo.png"
             class="logo"
             onerror="this.style.display='none';">
 
@@ -495,8 +415,6 @@ tbody tr:hover{
 <div class="main">
 
 
-    <!-- TITLE -->
-
     <div class="title-card">
 
         HOUR WISE ATTENDANCE
@@ -504,7 +422,7 @@ tbody tr:hover{
     </div>
 
 
-    <!-- STUDENT INFORMATION -->
+    <!-- ================= STUDENT INFO ================= -->
 
     <div class="info-card">
 
@@ -576,7 +494,7 @@ tbody tr:hover{
     </div>
 
 
-    <!-- MESSAGE -->
+    <!-- ================= MESSAGE ================= -->
 
     <div
         class="message"
@@ -584,7 +502,7 @@ tbody tr:hover{
     </div>
 
 
-    <!-- ATTENDANCE -->
+    <!-- ================= ATTENDANCE ================= -->
 
     <div class="attendance-card">
 
@@ -596,8 +514,6 @@ tbody tr:hover{
         </div>
 
 
-        <!-- LOADING -->
-
         <div
             class="loading"
             id="loading">
@@ -608,8 +524,6 @@ tbody tr:hover{
 
         </div>
 
-
-        <!-- EMPTY -->
 
         <div
             class="empty"
@@ -625,8 +539,6 @@ tbody tr:hover{
 
         </div>
 
-
-        <!-- TABLE -->
 
         <div
             class="table-wrapper"
@@ -677,9 +589,7 @@ tbody tr:hover{
         </div>
 
 
-        <!-- =================================================
-             ONE OVERALL PERCENTAGE ONLY
-        ================================================== -->
+        <!-- ================= OVERALL ================= -->
 
         <div
             class="overall"
@@ -707,10 +617,13 @@ tbody tr:hover{
                 <div>
 
                     Present:
+
                     <span
                         class="present-count"
                         id="totalPresent">
+
                         0
+
                     </span>
 
                 </div>
@@ -719,10 +632,13 @@ tbody tr:hover{
                 <div>
 
                     Absent:
+
                     <span
                         class="absent-count"
                         id="totalAbsent">
+
                         0
+
                     </span>
 
                 </div>
@@ -754,8 +670,8 @@ import {
     getDocs
 
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 /* =====================================================
@@ -767,9 +683,8 @@ let currentStudent = null;
 let attendanceRows = [];
 
 
-
 /* =====================================================
-   CLEAN VALUE
+   CLEAN
 ===================================================== */
 
 function clean(value){
@@ -783,8 +698,7 @@ function clean(value){
 
     }
 
-    return String(value)
-        .trim();
+    return String(value).trim();
 
 }
 
@@ -798,209 +712,78 @@ function upper(value){
 }
 
 
-
 /* =====================================================
-   STUDENT STORAGE
+   LOAD STUDENT FROM YOUR LOGIN SESSION
 ===================================================== */
 
-function getStoredStudent(){
+function loadStudentFromSession(){
 
-    const keys = [
+    /*
+       THESE ARE THE EXACT KEYS USED
+       BY YOUR student-login.html
+    */
 
-        "student",
-        "studentData",
-        "loggedInStudent",
-        "currentStudent",
-        "studentDetails"
-
-    ];
-
-
-    for(
-        const key of keys
-    ){
-
-        try{
-
-            const local =
-                localStorage.getItem(key);
-
-
-            if(local){
-
-                const data =
-                    JSON.parse(local);
-
-
-                if(data){
-
-                    return data;
-
-                }
-
-            }
-
-        }
-        catch(error){}
-
-
-        try{
-
-            const session =
-                sessionStorage.getItem(key);
-
-
-            if(session){
-
-                const data =
-                    JSON.parse(session);
-
-
-                if(data){
-
-                    return data;
-
-                }
-
-            }
-
-        }
-        catch(error){}
-
-    }
-
-
-    return null;
-
-}
-
-
-
-/* =====================================================
-   FIND STUDENT
-===================================================== */
-
-async function loadStudent(){
-
-    const stored =
-        getStoredStudent();
-
-
-    if(stored){
-
-        currentStudent = {
-
-            rollNo:
-                clean(
-                    stored.rollNo ||
-                    stored.roll ||
-                    stored.studentRollNo
-                ),
-
-            registerNo:
-                clean(
-                    stored.registerNo ||
-                    stored.regNo ||
-                    stored.registrationNo
-                ),
-
-            name:
-                clean(
-                    stored.studentName ||
-                    stored.name
-                ),
-
-            department:
-                clean(
-                    stored.department
-                ),
-
-            year:
-                clean(
-                    stored.year
-                ),
-
-            section:
-                clean(
-                    stored.section
-                ),
-
-            academicYear:
-                clean(
-                    stored.academicYear
-                )
-
-        };
-
-    }
-
-
-    /* URL fallback */
-
-    const params =
-        new URLSearchParams(
-            window.location.search
+    const rollNo =
+        clean(
+            sessionStorage.getItem(
+                "studentRollNo"
+            )
         );
 
 
-    if(
-        !currentStudent ||
-        !currentStudent.rollNo
-    ){
-
-        const urlRoll =
-            clean(
-                params.get("rollNo")
-            );
+    const name =
+        clean(
+            sessionStorage.getItem(
+                "studentName"
+            )
+        );
 
 
-        if(urlRoll){
-
-            currentStudent = {
-
-                rollNo:urlRoll,
-
-                registerNo:
-                    clean(
-                        params.get("registerNo")
-                    ),
-
-                name:
-                    clean(
-                        params.get("studentName")
-                    ),
-
-                department:
-                    clean(
-                        params.get("department")
-                    ),
-
-                year:
-                    clean(
-                        params.get("year")
-                    ),
-
-                section:
-                    clean(
-                        params.get("section")
-                    ),
-
-                academicYear:
-                    clean(
-                        params.get("academicYear")
-                    )
-
-            };
-
-        }
-
-    }
+    const department =
+        clean(
+            sessionStorage.getItem(
+                "studentDepartment"
+            )
+        );
 
 
-    if(
-        !currentStudent ||
-        !currentStudent.rollNo
-    ){
+    const academicYear =
+        clean(
+            sessionStorage.getItem(
+                "studentAcademicYear"
+            )
+        );
+
+
+    const year =
+        clean(
+            sessionStorage.getItem(
+                "studentYear"
+            )
+        );
+
+
+    const section =
+        clean(
+            sessionStorage.getItem(
+                "studentSection"
+            )
+        );
+
+
+    const registerNo =
+        clean(
+            sessionStorage.getItem(
+                "studentRegNo"
+            )
+        );
+
+
+    /*
+       CHECK ROLL NUMBER
+    */
+
+    if(!rollNo){
 
         throw new Error(
             "Student login information not found. Please login again."
@@ -1009,105 +792,34 @@ async function loadStudent(){
     }
 
 
-    /*
-       If some student details are missing,
-       get them from Firestore.
-    */
+    currentStudent = {
 
-    if(
-        !currentStudent.name ||
-        !currentStudent.department ||
-        !currentStudent.year ||
-        !currentStudent.section
-    ){
+        rollNo:rollNo,
 
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "students"
-                )
-            );
+        name:name,
+
+        department:department,
+
+        academicYear:academicYear,
+
+        year:year,
+
+        section:section,
+
+        registerNo:registerNo
+
+    };
 
 
-        snapshot.forEach(
-            studentDoc => {
-
-                const data =
-                    studentDoc.data();
-
-
-                const dbRoll =
-                    clean(
-                        data.rollNo ||
-                        data.roll ||
-                        data.studentRollNo
-                    );
-
-
-                if(
-                    upper(dbRoll)
-                    ===
-                    upper(
-                        currentStudent.rollNo
-                    )
-                ){
-
-                    currentStudent.name =
-                        currentStudent.name ||
-                        clean(
-                            data.studentName ||
-                            data.name
-                        );
-
-
-                    currentStudent.department =
-                        currentStudent.department ||
-                        clean(
-                            data.department
-                        );
-
-
-                    currentStudent.year =
-                        currentStudent.year ||
-                        clean(
-                            data.year
-                        );
-
-
-                    currentStudent.section =
-                        currentStudent.section ||
-                        clean(
-                            data.section
-                        );
-
-
-                    currentStudent.academicYear =
-                        currentStudent.academicYear ||
-                        clean(
-                            data.academicYear
-                        );
-
-
-                    currentStudent.registerNo =
-                        currentStudent.registerNo ||
-                        clean(
-                            data.registerNo ||
-                            data.regNo
-                        );
-
-                }
-
-            }
-        );
-
-    }
+    console.log(
+        "Logged in student:",
+        currentStudent
+    );
 
 
     displayStudent();
 
 }
-
 
 
 /* =====================================================
@@ -1155,7 +867,6 @@ function displayStudent(){
 }
 
 
-
 /* =====================================================
    DATE CONVERTER
 ===================================================== */
@@ -1170,14 +881,63 @@ function convertDate(value){
 
 
     /*
+       Firestore Timestamp
+    */
+
+    if(
+        typeof value === "object" &&
+        value !== null &&
+        value.seconds !== undefined
+    ){
+
+        const date =
+            new Date(
+                Number(value.seconds) * 1000
+            );
+
+
+        return (
+
+            date.getFullYear()
+
+            +
+
+            "-"
+
+            +
+
+            String(
+                date.getMonth()+1
+            ).padStart(2,"0")
+
+            +
+
+            "-"
+
+            +
+
+            String(
+                date.getDate()
+            ).padStart(2,"0")
+
+        );
+
+    }
+
+
+    let text =
+        clean(value);
+
+
+    /*
        YYYY-MM-DD
     */
 
     if(
-        /^\d{4}-\d{2}-\d{2}$/.test(value)
+        /^\d{4}-\d{2}-\d{2}$/.test(text)
     ){
 
-        return value;
+        return text;
 
     }
 
@@ -1187,19 +947,25 @@ function convertDate(value){
     */
 
     if(
-        /^\d{2}-\d{2}-\d{4}$/.test(value)
+        /^\d{2}-\d{2}-\d{4}$/.test(text)
     ){
 
         const p =
-            value.split("-");
+            text.split("-");
 
 
         return (
-            p[2] +
-            "-" +
-            p[1] +
-            "-" +
+
+            p[2]
+            +
+            "-"
+            +
+            p[1]
+            +
+            "-"
+            +
             p[0]
+
         );
 
     }
@@ -1210,58 +976,62 @@ function convertDate(value){
     */
 
     if(
-        /^\d{2}\/\d{2}\/\d{4}$/.test(value)
+        /^\d{2}\/\d{2}\/\d{4}$/.test(text)
     ){
 
         const p =
-            value.split("/");
+            text.split("/");
 
 
         return (
-            p[2] +
-            "-" +
-            p[1] +
-            "-" +
+
+            p[2]
+            +
+            "-"
+            +
+            p[1]
+            +
+            "-"
+            +
             p[0]
+
         );
 
     }
 
 
     /*
-       Firestore Timestamp
+       DD.MM.YYYY
     */
 
     if(
-        typeof value === "object" &&
-        value.seconds
+        /^\d{2}\.\d{2}\.\d{4}$/.test(text)
     ){
 
-        const date =
-            new Date(
-                value.seconds * 1000
-            );
+        const p =
+            text.split(".");
 
 
         return (
-            date.getFullYear() +
-            "-" +
-            String(
-                date.getMonth()+1
-            ).padStart(2,"0") +
-            "-" +
-            String(
-                date.getDate()
-            ).padStart(2,"0")
+
+            p[2]
+            +
+            "-"
+            +
+            p[1]
+            +
+            "-"
+            +
+            p[0]
+
         );
 
     }
 
 
-    return clean(value);
+    return text;
 
 }
-
 
 
 /* =====================================================
@@ -1274,15 +1044,6 @@ function displayDate(date){
         convertDate(date);
 
 
-    if(
-        !converted
-    ){
-
-        return "-";
-
-    }
-
-
     const p =
         converted.split("-");
 
@@ -1291,7 +1052,7 @@ function displayDate(date){
         p.length !== 3
     ){
 
-        return converted;
+        return converted || "-";
 
     }
 
@@ -1315,17 +1076,26 @@ function displayDate(date){
 
 
     return (
-        p[2] +
-        "-" +
-        months[
-            Number(p[1])-1
-        ] +
-        "-" +
+
+        p[2]
+        +
+        "-"
+        +
+        (
+            months[
+                Number(p[1])-1
+            ]
+            ||
+            p[1]
+        )
+        +
+        "-"
+        +
         p[0]
+
     );
 
 }
-
 
 
 /* =====================================================
@@ -1336,21 +1106,25 @@ function getRoll(data){
 
     return clean(
 
-        data.rollNo ||
-        data.roll ||
-        data.studentRollNo ||
-        data.studentRoll ||
-        data.regNo ||
+        data.rollNo
+        ||
+        data.roll
+        ||
+        data.studentRollNo
+        ||
+        data.studentRoll
+        ||
         data.registerNo
+        ||
+        data.regNo
 
     );
 
 }
 
 
-
 /* =====================================================
-   STATUS NORMALIZER
+   STATUS
 ===================================================== */
 
 function getStatus(value){
@@ -1392,9 +1166,8 @@ function getStatus(value){
 }
 
 
-
 /* =====================================================
-   GET HOUR NUMBER
+   HOUR FROM KEY
 ===================================================== */
 
 function getHourFromKey(key){
@@ -1404,8 +1177,6 @@ function getHourFromKey(key){
 
 
     /*
-       Supports:
-
        H1
        H2
        H3
@@ -1418,7 +1189,6 @@ function getHourFromKey(key){
        PERIOD1
        PERIOD2
     */
-
 
     let match =
         value.match(
@@ -1450,10 +1220,46 @@ function getHourFromKey(key){
     }
 
 
+    /*
+       Also support:
+
+       H1_SUBJECT
+       H2_SUBJECT
+    */
+
+    match =
+        value.match(
+            /^H([1-5])(?:_|$)/
+        );
+
+
+    if(match){
+
+        return Number(
+            match[1]
+        );
+
+    }
+
+
+    match =
+        value.match(
+            /^HOUR([1-5])(?:_|$)/
+        );
+
+
+    if(match){
+
+        return Number(
+            match[1]
+        );
+
+    }
+
+
     return 0;
 
 }
-
 
 
 /* =====================================================
@@ -1513,26 +1319,28 @@ function readHourObject(
 }
 
 
-
 /* =====================================================
-   READ ATTENDANCE DOCUMENT
+   PROCESS DOCUMENT
 ===================================================== */
 
-function processAttendanceDocument(
+function processDocument(
     data,
     result
 ){
 
     /*
-       DATE
+       GET DATE
     */
 
     const date =
         convertDate(
 
-            data.date ||
-            data.attendanceDate ||
-            data.markedDate ||
+            data.date
+            ||
+            data.attendanceDate
+            ||
+            data.markedDate
+            ||
             data.day
 
         );
@@ -1546,7 +1354,7 @@ function processAttendanceDocument(
 
 
     /*
-       Create row for date.
+       CREATE DATE ROW
     */
 
     if(
@@ -1577,17 +1385,7 @@ function processAttendanceDocument(
 
 
     /*
-       ------------------------------------------------
-       CASE 1
-
-       attendance object
-
-       {
-          H1: "P",
-          H2: "A",
-          H3: "P"
-       }
-       ------------------------------------------------
+       ATTENDANCE OBJECT
     */
 
     readHourObject(
@@ -1597,11 +1395,7 @@ function processAttendanceDocument(
 
 
     /*
-       ------------------------------------------------
-       CASE 2
-
-       attendanceData object
-       ------------------------------------------------
+       ATTENDANCE DATA
     */
 
     readHourObject(
@@ -1611,11 +1405,7 @@ function processAttendanceDocument(
 
 
     /*
-       ------------------------------------------------
-       CASE 3
-
-       hours object
-       ------------------------------------------------
+       HOURS
     */
 
     readHourObject(
@@ -1625,11 +1415,7 @@ function processAttendanceDocument(
 
 
     /*
-       ------------------------------------------------
-       CASE 4
-
-       periods object
-       ------------------------------------------------
+       PERIODS
     */
 
     readHourObject(
@@ -1639,52 +1425,42 @@ function processAttendanceDocument(
 
 
     /*
-       ------------------------------------------------
-       CASE 5
-
-       Direct fields:
-
-       hour1: P
-       hour2: A
-
-       h1: P
-       h2: A
-       ------------------------------------------------
+       DIRECT HOUR FIELDS
     */
 
-    const directFields = {
+    const fields = {
 
         1:[
-            "hour1",
             "h1",
+            "hour1",
             "period1",
             "p1"
         ],
 
         2:[
-            "hour2",
             "h2",
+            "hour2",
             "period2",
             "p2"
         ],
 
         3:[
-            "hour3",
             "h3",
+            "hour3",
             "period3",
             "p3"
         ],
 
         4:[
-            "hour4",
             "h4",
+            "hour4",
             "period4",
             "p4"
         ],
 
         5:[
-            "hour5",
             "h5",
+            "hour5",
             "period5",
             "p5"
         ]
@@ -1700,7 +1476,7 @@ function processAttendanceDocument(
 
         for(
             const field of
-            directFields[hour]
+            fields[hour]
         ){
 
             if(
@@ -1728,23 +1504,23 @@ function processAttendanceDocument(
 
 
     /*
-       ------------------------------------------------
-       CASE 6
-
-       Document itself has:
+       DOCUMENT WITH:
 
        hour: 1
-       status: "P"
-
-       ------------------------------------------------
+       status: P
     */
 
     const documentHour =
         Number(
-            data.hour ||
-            data.hourNo ||
-            data.period ||
+
+            data.hour
+            ||
+            data.hourNo
+            ||
+            data.period
+            ||
             data.periodNo
+
         );
 
 
@@ -1756,9 +1532,12 @@ function processAttendanceDocument(
         const status =
             getStatus(
 
-                data.status ||
-                data.attendanceStatus ||
-                data.attendanceValue ||
+                data.status
+                ||
+                data.attendanceStatus
+                ||
+                data.attendanceValue
+                ||
                 data.value
 
             );
@@ -1777,9 +1556,8 @@ function processAttendanceDocument(
 }
 
 
-
 /* =====================================================
-   LOAD ALL ATTENDANCE
+   LOAD ATTENDANCE
 ===================================================== */
 
 async function loadAttendance(){
@@ -1836,19 +1614,7 @@ async function loadAttendance(){
 
     try{
 
-        if(
-            !currentStudent ||
-            !currentStudent.rollNo
-        ){
-
-            throw new Error(
-                "Student roll number not found."
-            );
-
-        }
-
-
-        const attendanceSnapshot =
+        const snapshot =
             await getDocs(
                 collection(
                     db,
@@ -1860,28 +1626,32 @@ async function loadAttendance(){
         const result = {};
 
 
-        /*
-           Logged-in student's roll number.
-        */
-
         const studentRoll =
             upper(
                 currentStudent.rollNo
             );
 
 
-        attendanceSnapshot.forEach(
-            attendanceDoc => {
+        console.log(
+            "Searching attendance for:",
+            studentRoll
+        );
+
+
+        console.log(
+            "Total attendance documents:",
+            snapshot.size
+        );
+
+
+        snapshot.forEach(
+            doc => {
 
                 const data =
-                    attendanceDoc.data()
+                    doc.data()
                     ||
                     {};
 
-
-                /*
-                   Get attendance roll number.
-                */
 
                 const recordRoll =
                     upper(
@@ -1890,11 +1660,12 @@ async function loadAttendance(){
 
 
                 /*
-                   Only this student.
+                   ONLY CURRENT STUDENT
                 */
 
                 if(
-                    recordRoll &&
+                    recordRoll
+                    &&
                     recordRoll !==
                     studentRoll
                 ){
@@ -1905,13 +1676,15 @@ async function loadAttendance(){
 
 
                 /*
-                   If document has a student
-                   object, check it.
+                   If no rollNo exists in the
+                   document, check nested student.
                 */
 
                 if(
                     !recordRoll &&
-                    data.student
+                    data.student &&
+                    typeof data.student ===
+                    "object"
                 ){
 
                     const nestedRoll =
@@ -1936,10 +1709,10 @@ async function loadAttendance(){
 
 
                 /*
-                   Process record.
+                   Process attendance
                 */
 
-                processAttendanceDocument(
+                processDocument(
                     data,
                     result
                 );
@@ -1947,10 +1720,6 @@ async function loadAttendance(){
             }
         );
 
-
-        /*
-           Convert result into array.
-        */
 
         attendanceRows =
             Object.values(
@@ -1964,6 +1733,12 @@ async function loadAttendance(){
             );
 
 
+        console.log(
+            "Attendance rows:",
+            attendanceRows
+        );
+
+
         renderAttendance();
 
     }
@@ -1971,7 +1746,7 @@ async function loadAttendance(){
     catch(error){
 
         console.error(
-            "Attendance Error:",
+            "ATTENDANCE ERROR:",
             error
         );
 
@@ -1996,9 +1771,8 @@ async function loadAttendance(){
 }
 
 
-
 /* =====================================================
-   RENDER ATTENDANCE
+   RENDER
 ===================================================== */
 
 function renderAttendance(){
@@ -2078,7 +1852,7 @@ function renderAttendance(){
 
 
             /*
-               HOURS 1 TO 5
+               HOURS
             */
 
             for(
@@ -2206,16 +1980,32 @@ function renderAttendance(){
 }
 
 
-
 /* =====================================================
-   INITIALIZE
+   INIT
 ===================================================== */
 
 async function init(){
 
     try{
 
-        await loadStudent();
+        /*
+           THIS NOW READS:
+
+           studentRollNo
+           studentName
+           studentDepartment
+           studentAcademicYear
+           studentYear
+           studentSection
+           studentRegNo
+        */
+
+        loadStudentFromSession();
+
+
+        /*
+           Automatically load ALL records
+        */
 
         await loadAttendance();
 
@@ -2224,7 +2014,7 @@ async function init(){
     catch(error){
 
         console.error(
-            "Initialization Error:",
+            "INITIALIZATION ERROR:",
             error
         );
 
@@ -2236,8 +2026,7 @@ async function init(){
 
 
         message.textContent =
-            error.message ||
-            "Unable to load student information.";
+            error.message;
 
 
         message.style.display =
@@ -2251,7 +2040,6 @@ async function init(){
 init();
 
 </script>
-
 
 </body>
 
