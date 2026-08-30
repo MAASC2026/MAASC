@@ -77,8 +77,7 @@ body{
 
 .staff-grid{
     display:grid;
-    grid-template-columns:
-        repeat(4,1fr);
+    grid-template-columns:repeat(4,1fr);
     gap:15px;
 }
 
@@ -124,8 +123,7 @@ body{
 
 .controls{
     display:grid;
-    grid-template-columns:
-        1fr 1fr 1fr;
+    grid-template-columns:1fr 1fr 1fr;
     gap:15px;
 }
 
@@ -252,6 +250,45 @@ button{
 }
 
 /* =========================
+   ATTENDANCE LEGEND
+========================= */
+
+.attendance-legend{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin:10px 0 15px;
+}
+
+.legend-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.legend-box{
+    width:18px;
+    height:18px;
+    border-radius:4px;
+    border:1px solid #ddd;
+}
+
+.legend-blue{
+    background:#dbeafe;
+}
+
+.legend-yellow{
+    background:#fef3c7;
+}
+
+.legend-green{
+    background:#bbf7d0;
+}
+
+/* =========================
    TABLE
 ========================= */
 
@@ -316,6 +353,59 @@ thead th{
     transform:scale(.99);
 }
 
+/* =========================
+   ATTENDANCE STATUS COLORS
+========================= */
+
+/*
+ * BLUE
+ * Attendance not yet marked
+ */
+
+.slot.assigned.attendance-not-marked{
+    background:#dbeafe;
+}
+
+
+/*
+ * YELLOW
+ * Some students have attendance saved
+ */
+
+.slot.assigned.attendance-partial{
+    background:#fef3c7;
+}
+
+
+/*
+ * GREEN
+ * Attendance completely saved
+ */
+
+.slot.assigned.attendance-marked{
+    background:#bbf7d0;
+}
+
+
+/* HOVER COLORS */
+
+.slot.assigned.attendance-not-marked:hover{
+    background:#bfdbfe;
+}
+
+.slot.assigned.attendance-partial:hover{
+    background:#fde68a;
+}
+
+.slot.assigned.attendance-marked:hover{
+    background:#86efac;
+}
+
+
+/* =========================
+   SLOT TEXT
+========================= */
+
 .slot-class{
     font-size:12px;
     font-weight:bold;
@@ -361,6 +451,34 @@ thead th{
 }
 
 /* =========================
+   ATTENDANCE STATUS TEXT
+========================= */
+
+.attendance-status{
+    display:inline-block;
+    margin-top:5px;
+    padding:3px 7px;
+    border-radius:10px;
+    font-size:9px;
+    font-weight:bold;
+}
+
+.attendance-status.not-marked{
+    background:#bfdbfe;
+    color:#1e3a8a;
+}
+
+.attendance-status.partial{
+    background:#fde68a;
+    color:#92400e;
+}
+
+.attendance-status.marked{
+    background:#86efac;
+    color:#166534;
+}
+
+/* =========================
    STATS
 ========================= */
 
@@ -400,8 +518,7 @@ thead th{
 @media(max-width:900px){
 
     .staff-grid{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     .controls{
@@ -741,6 +858,47 @@ thead th{
     </div>
 
 
+    <!-- =========================
+         ATTENDANCE LEGEND
+    ========================== -->
+
+    <div class="attendance-legend">
+
+        <div class="legend-item">
+
+            <span
+                class="legend-box legend-blue">
+            </span>
+
+            Attendance Not Marked
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span
+                class="legend-box legend-yellow">
+            </span>
+
+            Partially Marked
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span
+                class="legend-box legend-green">
+            </span>
+
+            Attendance Marked
+
+        </div>
+
+    </div>
+
+
     <div class="table-wrapper">
 
         <table>
@@ -839,7 +997,9 @@ from "./firebase-config.js";
 import {
 
     collection,
-    getDocs
+    getDocs,
+    doc,
+    getDoc
 
 }
 from
@@ -861,6 +1021,8 @@ let currentSession = "FN";
 let attendanceDate = "";
 
 let timetableAssignments = {};
+
+let markedAttendancePeriods = {};
 
 
 /* =====================================================
@@ -939,7 +1101,7 @@ function normalizeStaffId(value){
 
 
 /* =====================================================
-   STAFF ID FROM FIRESTORE
+   STAFF ID
 ====================================================== */
 
 function getStaffId(data){
@@ -991,6 +1153,47 @@ function getDepartment(data){
         ""
 
     );
+
+}
+
+
+/* =====================================================
+   DEPARTMENT NORMALIZATION
+====================================================== */
+
+function normalizeAttendanceDepartment(value){
+
+    let dept =
+        upper(value);
+
+
+    dept =
+        dept
+        .replace(/\./g,"")
+        .replace(/\s+/g," ")
+        .trim();
+
+
+    if(
+
+        dept === "BCA"
+        ||
+        dept === "BCA COMPUTER APPLICATION"
+        ||
+        dept === "BCA COMPUTER APPLICATIONS"
+        ||
+        dept === "B C A COMPUTER APPLICATION"
+        ||
+        dept === "B C A COMPUTER APPLICATIONS"
+
+    ){
+
+        return "BCA COMPUTER APPLICATION";
+
+    }
+
+
+    return dept;
 
 }
 
@@ -1257,19 +1460,6 @@ function clearMessage(){
 ====================================================== */
 
 function loadLoggedInStaff(){
-
-    /*
-     * IMPORTANT:
-     *
-     * The dashboard already stores:
-     *
-     * staffId
-     * staffName
-     * department
-     *
-     * in sessionStorage.
-     */
-
 
     currentStaffId =
         clean(
@@ -1586,6 +1776,91 @@ function createEmptyTimetable(){
 
 
 /* =====================================================
+   ATTENDANCE DOCUMENT ID
+====================================================== */
+
+function attendanceDocumentId(
+    date,
+    rollNo
+){
+
+    return (
+
+        clean(date)
+        +
+        "_"
+        +
+        clean(rollNo)
+
+    );
+
+}
+
+
+/* =====================================================
+   ATTENDANCE PERIOD KEY
+ *
+ * EXACTLY THE SAME LOGIC USED BY
+ * attendance-students.html
+====================================================== */
+
+function attendancePeriodKey(item){
+
+    const day =
+        upper(item.day)
+        .replace(/\s+/g,"");
+
+
+    const session =
+        upper(item.session);
+
+
+    const hour =
+        Number(item.hour);
+
+
+    const subjectCode =
+        upper(
+
+            item.subjectCode
+
+            ||
+
+            item.subjectName
+
+            ||
+
+            "SUBJECT"
+
+        )
+        .replace(
+            /[^A-Z0-9]+/g,
+            "_"
+        );
+
+
+    return (
+
+        day
+        +
+        "_"
+        +
+        session
+        +
+        "_H"
+        +
+        hour
+        +
+        "_"
+        +
+        subjectCode
+
+    );
+
+}
+
+
+/* =====================================================
    LOAD STAFF TIMETABLE
 ====================================================== */
 
@@ -1595,6 +1870,9 @@ async function loadMyTimetable(){
 
 
     timetableAssignments = {};
+
+
+    markedAttendancePeriods = {};
 
 
     createEmptyTimetable();
@@ -1635,6 +1913,14 @@ async function loadMyTimetable(){
 
 
     console.log(
+        "ATTENDANCE DATE:",
+        document.getElementById(
+            "attendanceDate"
+        ).value
+    );
+
+
+    console.log(
         "COLLECTION: timetableAssignments"
     );
 
@@ -1645,17 +1931,6 @@ async function loadMyTimetable(){
 
 
     try{
-
-        /*
-         * IMPORTANT:
-         *
-         * We read the timetable collection
-         * and filter by STAFF ID in JavaScript.
-         *
-         * This prevents problems when some old
-         * timetable records have different field
-         * names or Firestore query indexes.
-         */
 
         const snapshot =
             await getDocs(
@@ -1739,12 +2014,6 @@ async function loadMyTimetable(){
                 );
 
 
-                /*
-                 * PRIMARY CHECK:
-                 *
-                 * STAFF ID MUST MATCH.
-                 */
-
                 if(
                     normalizeStaffId(
                         firestoreStaffId
@@ -1759,10 +2028,6 @@ async function loadMyTimetable(){
                 }
 
 
-                /*
-                 * SESSION CHECK
-                 */
-
                 if(
                     firestoreSession !==
                     currentSession
@@ -1772,10 +2037,6 @@ async function loadMyTimetable(){
 
                 }
 
-
-                /*
-                 * VALID DAY/HOUR
-                 */
 
                 if(
                     !day ||
@@ -1833,11 +2094,6 @@ async function loadMyTimetable(){
                     hour;
 
 
-                /*
-                 * Store only the current staff's
-                 * current session timetable.
-                 */
-
                 timetableAssignments[key] =
                     item;
 
@@ -1866,18 +2122,6 @@ async function loadMyTimetable(){
 
 
         console.log(
-            "STAFF ID USED:",
-            currentStaffId
-        );
-
-
-        console.log(
-            "SESSION USED:",
-            currentSession
-        );
-
-
-        console.log(
             "FINAL TIMETABLE:",
             timetableAssignments
         );
@@ -1887,6 +2131,17 @@ async function loadMyTimetable(){
             "========================================"
         );
 
+
+        /*
+         * FIRST CHECK ATTENDANCE
+         */
+
+        await loadMarkedAttendance();
+
+
+        /*
+         * THEN RENDER TABLE
+         */
 
         renderTimetable();
 
@@ -1951,6 +2206,366 @@ async function loadMyTimetable(){
 
 
 /* =====================================================
+   LOAD MARKED ATTENDANCE
+====================================================== */
+
+async function loadMarkedAttendance(){
+
+    markedAttendancePeriods = {};
+
+
+    const date =
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+
+    if(!date){
+
+        return;
+
+    }
+
+
+    const timetableItems =
+        Object.values(
+            timetableAssignments
+        );
+
+
+    if(
+        timetableItems.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    console.log(
+        "========================================"
+    );
+
+
+    console.log(
+        "CHECKING ATTENDANCE STATUS"
+    );
+
+
+    console.log(
+        "DATE:",
+        date
+    );
+
+
+    console.log(
+        "========================================"
+    );
+
+
+    /*
+     * Load students once.
+     */
+
+    const studentSnapshot =
+        await getDocs(
+
+            collection(
+                db,
+                "students"
+            )
+
+        );
+
+
+    /*
+     * Build student groups.
+     */
+
+    const studentsByClass = {};
+
+
+    studentSnapshot.forEach(
+        studentDoc => {
+
+            const data =
+                studentDoc.data() || {};
+
+
+            const department =
+                normalizeAttendanceDepartment(
+                    data.department
+                );
+
+
+            const year =
+                upper(
+                    data.year
+                );
+
+
+            const section =
+                upper(
+                    data.section
+                );
+
+
+            const rollNo =
+                clean(
+                    data.rollNo
+                );
+
+
+            if(!rollNo){
+
+                return;
+
+            }
+
+
+            const classKey =
+                department +
+                "|" +
+                year +
+                "|" +
+                section;
+
+
+            if(
+                !studentsByClass[
+                    classKey
+                ]
+            ){
+
+                studentsByClass[
+                    classKey
+                ] = [];
+
+            }
+
+
+            studentsByClass[
+                classKey
+            ].push(
+                rollNo
+            );
+
+        }
+    );
+
+
+    /*
+     * Check every timetable period.
+     */
+
+    for(
+        const item
+        of timetableItems
+    ){
+
+        const department =
+            normalizeAttendanceDepartment(
+                item.department
+            );
+
+
+        const year =
+            upper(
+                item.year
+            );
+
+
+        const section =
+            upper(
+                item.section
+            );
+
+
+        const classKey =
+            department +
+            "|" +
+            year +
+            "|" +
+            section;
+
+
+        const classStudents =
+            studentsByClass[
+                classKey
+            ] || [];
+
+
+        if(
+            classStudents.length === 0
+        ){
+
+            console.warn(
+                "NO STUDENTS FOUND FOR PERIOD:",
+                item
+            );
+
+            continue;
+
+        }
+
+
+        const key =
+            attendancePeriodKey(
+                item
+            );
+
+
+        let markedCount = 0;
+
+
+        /*
+         * Check attendance document
+         * for each student.
+         */
+
+        for(
+            const rollNo
+            of classStudents
+        ){
+
+            try{
+
+                const reference =
+                    doc(
+
+                        db,
+
+                        "attendance",
+
+                        attendanceDocumentId(
+                            date,
+                            rollNo
+                        )
+
+                    );
+
+
+                const snap =
+                    await getDoc(
+                        reference
+                    );
+
+
+                if(!snap.exists()){
+
+                    continue;
+
+                }
+
+
+                const data =
+                    snap.data() || {};
+
+
+                const savedAttendance =
+                    data.attendance || {};
+
+
+                /*
+                 * IMPORTANT:
+                 *
+                 * We check whether the exact
+                 * period key exists.
+                 *
+                 * Both P and A count as
+                 * attendance marked.
+                 */
+
+                if(
+                    Object.prototype.hasOwnProperty.call(
+                        savedAttendance,
+                        key
+                    )
+                ){
+
+                    const status =
+                        upper(
+                            savedAttendance[key]
+                        );
+
+
+                    if(
+                        status === "P"
+                        ||
+                        status === "A"
+                        ||
+                        status === "PRESENT"
+                        ||
+                        status === "ABSENT"
+                    ){
+
+                        markedCount++;
+
+                    }
+
+                }
+
+            }
+            catch(error){
+
+                console.warn(
+
+                    "ATTENDANCE CHECK ERROR:",
+
+                    rollNo,
+
+                    error
+
+                );
+
+            }
+
+        }
+
+
+        /*
+         * Save status.
+         */
+
+        markedAttendancePeriods[key] = {
+
+            markedCount:
+                markedCount,
+
+            totalStudents:
+                classStudents.length
+
+        };
+
+
+        console.log(
+            "PERIOD STATUS:",
+            {
+                key:key,
+                department:item.department,
+                year:item.year,
+                section:item.section,
+                subject:item.subjectName,
+                day:item.day,
+                session:item.session,
+                hour:item.hour,
+                markedCount:markedCount,
+                totalStudents:classStudents.length
+            }
+        );
+
+    }
+
+
+    console.log(
+        "FINAL ATTENDANCE STATUS:",
+        markedAttendancePeriods
+    );
+
+}
+
+
+/* =====================================================
    RENDER TIMETABLE
 ====================================================== */
 
@@ -1999,6 +2614,140 @@ function renderTimetable(){
             slot.classList.add(
                 "assigned"
             );
+
+
+            /*
+             * =========================================
+             * ATTENDANCE STATUS
+             * =========================================
+             */
+
+            const attendanceKey =
+                attendancePeriodKey(
+                    item
+                );
+
+
+            const status =
+                markedAttendancePeriods[
+                    attendanceKey
+                ];
+
+
+            /*
+             * Remove previous status classes.
+             */
+
+            slot.classList.remove(
+                "attendance-not-marked"
+            );
+
+            slot.classList.remove(
+                "attendance-partial"
+            );
+
+            slot.classList.remove(
+                "attendance-marked"
+            );
+
+
+            let statusHTML = "";
+
+
+            /*
+             * GREEN
+             *
+             * ALL STUDENTS HAVE ATTENDANCE
+             */
+
+            if(
+
+                status
+                &&
+                status.totalStudents > 0
+                &&
+                status.markedCount >=
+                    status.totalStudents
+
+            ){
+
+                slot.classList.add(
+                    "attendance-marked"
+                );
+
+
+                statusHTML = `
+
+                    <div class="attendance-status marked">
+
+                        ✓ ATTENDANCE MARKED
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /*
+             * YELLOW
+             *
+             * SOME STUDENTS HAVE ATTENDANCE
+             */
+
+            else if(
+
+                status
+                &&
+                status.markedCount > 0
+
+            ){
+
+                slot.classList.add(
+                    "attendance-partial"
+                );
+
+
+                statusHTML = `
+
+                    <div class="attendance-status partial">
+
+                        ${status.markedCount}
+                        /
+                        ${status.totalStudents}
+                        MARKED
+
+                    </div>
+
+                `;
+
+            }
+
+
+            /*
+             * BLUE
+             *
+             * NO ATTENDANCE
+             */
+
+            else{
+
+                slot.classList.add(
+                    "attendance-not-marked"
+                );
+
+
+                statusHTML = `
+
+                    <div class="attendance-status not-marked">
+
+                        ATTENDANCE NOT MARKED
+
+                    </div>
+
+                `;
+
+            }
 
 
             slot.innerHTML = `
@@ -2055,13 +2804,19 @@ function renderTimetable(){
                     ${escapeHTML(
                         item.session || "-"
                     )}
+
                     |
+
                     HOUR
+
                     ${escapeHTML(
                         item.hour
                     )}
 
                 </div>
+
+
+                ${statusHTML}
 
             `;
 
@@ -2108,10 +2863,7 @@ function renderTimetable(){
 function openAttendanceStudents(item){
 
     /*
-     * FINAL SECURITY CHECK:
-     *
-     * The timetable record must belong
-     * to the currently logged-in staff.
+     * FINAL SECURITY CHECK
      */
 
     if(
@@ -2146,7 +2898,7 @@ function openAttendanceStudents(item){
 
 
     /*
-     * MAKE SURE DATE IS CURRENT.
+     * MAKE SURE DATE IS CURRENT
      */
 
     attendanceDate =
@@ -2159,6 +2911,7 @@ function openAttendanceStudents(item){
 
         setDefaultDate();
 
+
         attendanceDate =
             document.getElementById(
                 "attendanceDate"
@@ -2168,8 +2921,7 @@ function openAttendanceStudents(item){
 
 
     /*
-     * PASS DETAILS TO
-     * attendance-students.html
+     * PASS DETAILS
      */
 
     const params =
@@ -2399,10 +3151,33 @@ document.getElementById(
 )
 .addEventListener(
     "change",
-    function(){
+    async function(){
+
+        if(
+            !verifyStaffIdentity()
+        ){
+
+            return;
+
+        }
+
 
         attendanceDate =
             this.value;
+
+
+        console.log(
+            "ATTENDANCE DATE CHANGED:",
+            attendanceDate
+        );
+
+
+        /*
+         * Reload timetable and attendance
+         * status for the new date.
+         */
+
+        await loadMyTimetable();
 
     }
 );
@@ -2529,10 +3304,11 @@ async function initialize(){
 
 
     /*
-     * IMPORTANT:
+     * Automatically load:
      *
-     * Automatically load the timetable of
-     * the logged-in staff.
+     * 1. Staff timetable
+     * 2. Students
+     * 3. Attendance status
      */
 
     await loadMyTimetable();
