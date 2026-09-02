@@ -8,9 +8,13 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Student Exam Timetable</title>
+<title>Student Examination Timetable</title>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
     margin:0;
@@ -19,26 +23,32 @@
     font-family:Arial,Helvetica,sans-serif;
 }
 
+
+/* =====================================================
+   BODY
+===================================================== */
+
 body{
     background:#f4f6f9;
     color:#222;
 }
 
+
 /* =====================================================
-HEADER
+   HEADER
 ===================================================== */
 
 .header{
     background:#1f3c88;
     color:white;
-    padding:22px;
+    padding:24px 20px;
     text-align:center;
-    box-shadow:0 3px 10px rgba(0,0,0,.15);
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
 
 .header h1{
-    font-size:27px;
-    margin-bottom:6px;
+    font-size:28px;
+    margin-bottom:7px;
 }
 
 .header p{
@@ -46,37 +56,46 @@ HEADER
     opacity:.9;
 }
 
+
 /* =====================================================
-CONTAINER
+   CONTAINER
 ===================================================== */
 
 .container{
     width:95%;
-    max-width:1400px;
+    max-width:1450px;
     margin:25px auto;
 }
 
+
 /* =====================================================
-STUDENT INFO
+   STUDENT CARD
 ===================================================== */
 
-.student-info{
+.student-card{
     background:white;
     border-radius:12px;
-    padding:20px;
+    padding:22px;
     margin-bottom:20px;
     box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
-.student-info h2{
+.student-card h2{
     color:#1f3c88;
-    margin-bottom:16px;
+    margin-bottom:18px;
     font-size:20px;
 }
 
-.info-grid{
+
+/* =====================================================
+   STUDENT INFO GRID
+===================================================== */
+
+.student-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:14px;
 }
 
@@ -84,70 +103,82 @@ STUDENT INFO
     background:#f8f9fc;
     border:1px solid #ddd;
     border-radius:8px;
-    padding:13px;
+    padding:14px;
 }
 
 .info-box span{
     display:block;
     font-size:11px;
     color:#777;
-    margin-bottom:5px;
+    margin-bottom:6px;
 }
 
 .info-box strong{
     font-size:14px;
+    color:#222;
 }
 
+
 /* =====================================================
-STATS
+   STATS
 ===================================================== */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:15px;
+
     margin-bottom:20px;
 }
 
 .stat{
     background:white;
     border-radius:10px;
-    padding:18px;
+    padding:20px;
     text-align:center;
     box-shadow:0 3px 10px rgba(0,0,0,.07);
 }
 
 .stat h3{
+    font-size:29px;
     color:#1f3c88;
-    font-size:28px;
-    margin-bottom:5px;
+    margin-bottom:6px;
 }
 
 .stat p{
-    color:#666;
     font-size:13px;
+    color:#666;
 }
 
+
 /* =====================================================
-LOADING
+   LOADING
 ===================================================== */
 
-.loading{
+.loading-card{
     background:white;
-    padding:40px;
-    text-align:center;
     border-radius:12px;
+    padding:50px 20px;
+    text-align:center;
     box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 .spinner{
-    width:40px;
-    height:40px;
+    width:45px;
+    height:45px;
+
     border:4px solid #ddd;
     border-top:4px solid #1f3c88;
+
     border-radius:50%;
-    margin:0 auto 15px;
-    animation:spin 1s linear infinite;
+
+    margin:
+        0 auto 18px;
+
+    animation:
+        spin 1s linear infinite;
 }
 
 @keyframes spin{
@@ -158,123 +189,168 @@ LOADING
 
 }
 
-/* =====================================================
-ERROR
-===================================================== */
-
-.error-box{
-    background:#fff;
-    border-left:5px solid #dc3545;
-    padding:20px;
-    border-radius:8px;
-    color:#842029;
-    box-shadow:0 3px 10px rgba(0,0,0,.07);
-}
-
-.error-box h3{
-    margin-bottom:8px;
-}
 
 /* =====================================================
-NO TIMETABLE
+   NO TIMETABLE
 ===================================================== */
 
 .no-timetable{
     background:white;
-    padding:45px 20px;
-    text-align:center;
     border-radius:12px;
+    padding:50px 25px;
+    text-align:center;
     box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 .no-timetable h2{
     color:#1f3c88;
-    margin-bottom:10px;
+    margin-bottom:12px;
 }
 
 .no-timetable p{
     color:#666;
+    line-height:1.6;
 }
 
+
 /* =====================================================
-EXAM CARD
+   ERROR
+===================================================== */
+
+.error-card{
+    background:white;
+    border-left:5px solid #dc3545;
+    border-radius:8px;
+
+    padding:22px;
+
+    color:#842029;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.08);
+}
+
+.error-card h2{
+    margin-bottom:10px;
+}
+
+
+/* =====================================================
+   EXAM CARD
 ===================================================== */
 
 .exam-card{
     background:white;
+
     border-radius:12px;
+
     margin-bottom:25px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
+
     overflow:hidden;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.08);
 }
+
+
+/* =====================================================
+   EXAM HEADER
+===================================================== */
 
 .exam-header{
     background:#1f3c88;
+
     color:white;
-    padding:18px 20px;
+
+    padding:
+        18px 20px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     gap:15px;
 }
 
 .exam-header h2{
-    font-size:20px;
+    font-size:21px;
 }
 
-.completed-badge{
-    background:#198754;
-    color:white;
-    padding:7px 12px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.pending-badge{
-    background:#ffc107;
-    color:#212529;
-    padding:7px 12px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-}
 
 /* =====================================================
-EXAM DETAILS
+   STATUS
 ===================================================== */
 
-.exam-details{
-    padding:18px 20px;
+.published{
+    background:#198754;
+
+    color:white;
+
+    padding:
+        7px 13px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
 }
 
-.exam-details-grid{
+
+/* =====================================================
+   EXAM BODY
+===================================================== */
+
+.exam-body{
+    padding:20px;
+}
+
+
+/* =====================================================
+   EXAM INFO
+===================================================== */
+
+.exam-info{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin-bottom:18px;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:13px;
+
+    margin-bottom:20px;
 }
 
-.detail-box{
+.exam-info-box{
     background:#f8f9fc;
-    border:1px solid #ddd;
+
+    border:
+        1px solid #ddd;
+
     border-radius:8px;
-    padding:12px;
+
+    padding:13px;
 }
 
-.detail-box span{
+.exam-info-box span{
     display:block;
-    color:#777;
+
     font-size:11px;
+
+    color:#777;
+
     margin-bottom:5px;
 }
 
-.detail-box strong{
+.exam-info-box strong{
     font-size:14px;
 }
 
+
 /* =====================================================
-TABLE
+   TABLE WRAPPER
 ===================================================== */
 
 .table-wrapper{
@@ -282,25 +358,44 @@ TABLE
     overflow-x:auto;
 }
 
+
+/* =====================================================
+   TABLE
+===================================================== */
+
 table{
     width:100%;
-    border-collapse:collapse;
-    min-width:950px;
+
+    min-width:1000px;
+
+    border-collapse:
+        collapse;
 }
 
 thead th{
     background:#1f3c88;
+
     color:white;
-    padding:13px 12px;
+
+    padding:
+        13px 12px;
+
     text-align:left;
+
     font-size:13px;
+
     white-space:nowrap;
 }
 
 tbody td{
-    padding:13px 12px;
-    border-bottom:1px solid #eee;
+    padding:
+        13px 12px;
+
+    border-bottom:
+        1px solid #eee;
+
     font-size:13px;
+
     vertical-align:top;
 }
 
@@ -308,72 +403,110 @@ tbody tr:hover td{
     background:#f8f9fc;
 }
 
+
+/* =====================================================
+   SUBJECT
+===================================================== */
+
 .subject-name{
     font-weight:bold;
     color:#1f3c88;
 }
 
+
+/* =====================================================
+   PORTION
+===================================================== */
+
 .portion{
     max-width:350px;
+
     white-space:pre-wrap;
-    line-height:1.45;
+
+    line-height:1.5;
 }
+
+
+/* =====================================================
+   SESSION
+===================================================== */
 
 .session{
     display:inline-block;
-    padding:5px 9px;
-    border-radius:15px;
+
+    padding:
+        5px 10px;
+
+    border-radius:20px;
+
     background:#e8f1ff;
+
     color:#174ea6;
+
     font-weight:bold;
+
     font-size:11px;
 }
 
+
+/* =====================================================
+   TIME
+===================================================== */
+
 .time{
     white-space:nowrap;
+
     font-weight:bold;
 }
 
+
 /* =====================================================
-MOBILE
+   MOBILE
 ===================================================== */
 
 @media(max-width:1000px){
 
-    .info-grid{
-        grid-template-columns:repeat(2,1fr);
+    .student-grid{
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
-    .exam-details-grid{
-        grid-template-columns:1fr 1fr;
+    .exam-info{
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
 }
 
-@media(max-width:600px){
 
-    .header h1{
-        font-size:22px;
-    }
+@media(max-width:600px){
 
     .container{
         width:94%;
     }
 
-    .info-grid{
-        grid-template-columns:1fr;
+    .header h1{
+        font-size:22px;
+    }
+
+    .student-grid{
+        grid-template-columns:
+            1fr;
     }
 
     .stats{
-        grid-template-columns:1fr;
+        grid-template-columns:
+            1fr;
     }
 
-    .exam-details-grid{
-        grid-template-columns:1fr;
+    .exam-info{
+        grid-template-columns:
+            1fr;
     }
 
     .exam-header{
         flex-direction:column;
+
         align-items:flex-start;
     }
 
@@ -383,11 +516,12 @@ MOBILE
 
 </head>
 
+
 <body>
 
 
 <!-- =====================================================
-HEADER
+     HEADER
 ===================================================== -->
 
 <div class="header">
@@ -397,7 +531,7 @@ HEADER
     </h1>
 
     <p>
-        Your examination details are loaded automatically
+        Your examination timetable is loaded automatically
     </p>
 
 </div>
@@ -407,12 +541,12 @@ HEADER
 
 
 <!-- =====================================================
-STUDENT INFORMATION
+     STUDENT INFORMATION
 ===================================================== -->
 
 <div
-    id="studentInfo"
-    class="student-info"
+    id="studentCard"
+    class="student-card"
     style="display:none;"
 >
 
@@ -420,7 +554,8 @@ STUDENT INFORMATION
         Student Details
     </h2>
 
-    <div class="info-grid">
+
+    <div class="student-grid">
 
 
         <div class="info-box">
@@ -455,7 +590,7 @@ STUDENT INFORMATION
                 Department
             </span>
 
-            <strong id="studentDepartment">
+            <strong id="department">
                 -
             </strong>
 
@@ -468,7 +603,7 @@ STUDENT INFORMATION
                 Year
             </span>
 
-            <strong id="studentYear">
+            <strong id="year">
                 -
             </strong>
 
@@ -481,7 +616,7 @@ STUDENT INFORMATION
 
 
 <!-- =====================================================
-STATS
+     STATS
 ===================================================== -->
 
 <div
@@ -498,7 +633,7 @@ STATS
         </h3>
 
         <p>
-            Examinations
+            Published Exams
         </p>
 
     </div>
@@ -524,7 +659,7 @@ STATS
         </h3>
 
         <p>
-            Completed Timetables
+            Published Timetables
         </p>
 
     </div>
@@ -534,12 +669,12 @@ STATS
 
 
 <!-- =====================================================
-LOADING
+     LOADING
 ===================================================== -->
 
 <div
     id="loading"
-    class="loading"
+    class="loading-card"
 >
 
     <div class="spinner"></div>
@@ -552,7 +687,7 @@ LOADING
 
 
 <!-- =====================================================
-CONTENT
+     EXAM CONTENT
 ===================================================== -->
 
 <div id="examContent"></div>
@@ -561,33 +696,43 @@ CONTENT
 </div>
 
 
+
 <!-- =====================================================
-FIREBASE
+     FIREBASE
 ===================================================== -->
 
 <script type="module">
 
 
 import {
+
     initializeApp
+
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
 import {
+
     getFirestore,
+
     collection,
+
     getDocs,
-    query,
-    where
+
+    doc,
+
+    getDoc
+
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+
 /* =====================================================
-FIREBASE CONFIG
+   FIREBASE CONFIG
 ===================================================== */
 
 const firebaseConfig = {
@@ -613,6 +758,7 @@ const firebaseConfig = {
 };
 
 
+
 const app =
     initializeApp(
         firebaseConfig
@@ -623,42 +769,89 @@ const db =
     getFirestore(app);
 
 
+
 /* =====================================================
-START
+   START AUTOMATICALLY
 ===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    loadStudentExamTimetable
+    function(){
+
+        loadStudentExam();
+
+    }
 );
 
 
+
 /* =====================================================
-MAIN FUNCTION
+   MAIN
 ===================================================== */
 
-async function loadStudentExamTimetable(){
+async function loadStudentExam(){
 
     try{
 
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "STUDENT EXAM TIMETABLE"
+        );
+
+        console.log(
+            "================================"
+        );
+
+
         /*
-         * DO NOT ASK THE STUDENT FOR
-         * DEPARTMENT / YEAR / SECTION.
-         *
-         * Everything is obtained automatically.
+         * GET STUDENT DOCUMENT ID
+         */
+
+        const studentId =
+            getStudentDocumentId();
+
+
+        console.log(
+            "STUDENT DOCUMENT ID:",
+            studentId
+        );
+
+
+        if(!studentId){
+
+            showError(
+
+                "Student Login Not Found",
+
+                "Student document ID was not found. Please login again."
+
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * READ STUDENT DOCUMENT
          */
 
         const student =
-            await getLoggedInStudent();
+            await getStudentFromFirestore(
+                studentId
+            );
 
 
         if(!student){
 
             showError(
 
-                "Student Login Not Found",
+                "Student Record Not Found",
 
-                "Please login to the student dashboard first."
+                "Unable to find your student record in Firestore."
 
             );
 
@@ -668,10 +861,23 @@ async function loadStudentExamTimetable(){
 
 
         console.log(
-            "LOGGED IN STUDENT:",
+            "STUDENT FIRESTORE DATA:",
             student
         );
 
+
+        /*
+         * DISPLAY STUDENT DETAILS
+         */
+
+        displayStudent(
+            student
+        );
+
+
+        /*
+         * GET DEPARTMENT
+         */
 
         const department =
             normalize(
@@ -679,10 +885,26 @@ async function loadStudentExamTimetable(){
             );
 
 
+        /*
+         * GET YEAR
+         */
+
         const year =
             normalizeYear(
                 student.year
             );
+
+
+        console.log(
+            "STUDENT DEPARTMENT:",
+            department
+        );
+
+
+        console.log(
+            "STUDENT YEAR:",
+            year
+        );
 
 
         if(!department){
@@ -715,50 +937,9 @@ async function loadStudentExamTimetable(){
         }
 
 
-        /* =============================================
-        SHOW STUDENT DETAILS
-        ============================================= */
-
-        document.getElementById(
-            "studentName"
-        ).textContent =
-            student.name ||
-            student.studentName ||
-            "-";
-
-
-        document.getElementById(
-            "registerNumber"
-        ).textContent =
-            student.registerNumber ||
-            student.registerNo ||
-            student.regNo ||
-            "-";
-
-
-        document.getElementById(
-            "studentDepartment"
-        ).textContent =
-            student.department ||
-            "-";
-
-
-        document.getElementById(
-            "studentYear"
-        ).textContent =
-            student.year ||
-            "-";
-
-
-        document.getElementById(
-            "studentInfo"
-        ).style.display =
-            "block";
-
-
-        /* =============================================
-        LOAD EXAM TIMETABLE
-        ============================================= */
+        /*
+         * LOAD TIMETABLE
+         */
 
         await loadExamTimetable(
 
@@ -772,7 +953,7 @@ async function loadStudentExamTimetable(){
     catch(error){
 
         console.error(
-            "EXAM TIMETABLE ERROR:",
+            "STUDENT EXAM ERROR:",
             error
         );
 
@@ -790,18 +971,18 @@ async function loadStudentExamTimetable(){
 }
 
 
+
 /* =====================================================
-GET LOGGED IN STUDENT
+   GET STUDENT DOCUMENT ID
 ===================================================== */
 
-async function getLoggedInStudent(){
+function getStudentDocumentId(){
 
     /*
-     * We first look for the student document ID
-     * saved during login.
+     * Check localStorage first.
      */
 
-    const possibleIds = [
+    const localIds = [
 
         localStorage.getItem(
             "studentId"
@@ -815,248 +996,169 @@ async function getLoggedInStudent(){
             "loggedInStudentId"
         ),
 
+        localStorage.getItem(
+            "studentDocumentId"
+        )
+
+    ];
+
+
+    for(
+        const id of localIds
+    ){
+
+        if(
+            id &&
+            id.trim()
+        ){
+
+            return id.trim();
+
+        }
+
+    }
+
+
+    /*
+     * Check sessionStorage.
+     */
+
+    const sessionIds = [
+
         sessionStorage.getItem(
             "studentId"
         ),
 
         sessionStorage.getItem(
             "studentDocId"
+        ),
+
+        sessionStorage.getItem(
+            "loggedInStudentId"
+        ),
+
+        sessionStorage.getItem(
+            "studentDocumentId"
         )
 
     ];
 
 
-    const studentId =
-        possibleIds.find(
-            id =>
-                id &&
-                id.trim()
-        );
-
-
-    if(studentId){
-
-        console.log(
-            "STUDENT DOCUMENT ID:",
-            studentId
-        );
-
-
-        /*
-         * We cannot import doc/getDoc dynamically here
-         * because the page already uses getDocs.
-         *
-         * Therefore try the cached student object first.
-         */
-
-    }
-
-
-    /*
-     * Many existing student login systems save
-     * the complete student object in localStorage.
-     */
-
-    const possibleStudentObjects = [
-
-        "loggedInStudent",
-
-        "studentData",
-
-        "student",
-
-        "currentStudent",
-
-        "studentProfile"
-
-    ];
-
-
     for(
-        const key of possibleStudentObjects
+        const id of sessionIds
     ){
 
-        const raw =
-            localStorage.getItem(
-                key
-            );
+        if(
+            id &&
+            id.trim()
+        ){
 
-
-        if(raw){
-
-            try{
-
-                const parsed =
-                    JSON.parse(raw);
-
-
-                if(
-                    parsed &&
-                    (
-                        parsed.department ||
-                        parsed.Department
-                    )
-                ){
-
-                    return normalizeStudentObject(
-                        parsed
-                    );
-
-                }
-
-            }
-            catch(e){
-
-                console.warn(
-                    "Invalid student JSON:",
-                    key
-                );
-
-            }
+            return id.trim();
 
         }
 
     }
 
 
-    /*
-     * Session storage fallback.
-     */
-
-    for(
-        const key of possibleStudentObjects
-    ){
-
-        const raw =
-            sessionStorage.getItem(
-                key
-            );
-
-
-        if(raw){
-
-            try{
-
-                const parsed =
-                    JSON.parse(raw);
-
-
-                if(
-                    parsed &&
-                    (
-                        parsed.department ||
-                        parsed.Department
-                    )
-                ){
-
-                    return normalizeStudentObject(
-                        parsed
-                    );
-
-                }
-
-            }
-            catch(e){
-
-            }
-
-        }
-
-    }
-
-
-    /*
-     * If login saved individual values instead of
-     * a complete object, use them.
-     */
-
-    const department =
-        localStorage.getItem(
-            "studentDepartment"
-        ) ||
-        localStorage.getItem(
-            "department"
-        );
-
-
-    const year =
-        localStorage.getItem(
-            "studentYear"
-        ) ||
-        localStorage.getItem(
-            "year"
-        );
-
-
-    if(
-        department &&
-        year
-    ){
-
-        return {
-
-            department:
-                department,
-
-            year:
-                year,
-
-            name:
-                localStorage.getItem(
-                    "studentName"
-                ) || "",
-
-            registerNumber:
-                localStorage.getItem(
-                    "registerNumber"
-                ) || ""
-
-        };
-
-    }
-
-
-    return null;
+    return "";
 
 }
 
 
+
 /* =====================================================
-NORMALIZE STUDENT OBJECT
+   GET STUDENT FROM FIRESTORE
 ===================================================== */
 
-function normalizeStudentObject(student){
+async function getStudentFromFirestore(
+    studentId
+){
+
+    /*
+     * IMPORTANT:
+     *
+     * Student collection:
+     *
+     * students
+     *
+     * Document:
+     *
+     * v5dD0t4QwEHiggC8ErQF
+     */
+
+
+    const studentRef =
+        doc(
+            db,
+            "students",
+            studentId
+        );
+
+
+    console.log(
+        "READING STUDENT:",
+        "students/" + studentId
+    );
+
+
+    const studentSnap =
+        await getDoc(
+            studentRef
+        );
+
+
+    if(
+        !studentSnap.exists()
+    ){
+
+        console.error(
+            "STUDENT DOCUMENT DOES NOT EXIST"
+        );
+
+        return null;
+
+    }
+
+
+    const data =
+        studentSnap.data();
+
 
     return {
 
+        id:
+            studentSnap.id,
+
         name:
-            student.name ||
-            student.Name ||
-            student.studentName ||
-            student.StudentName ||
+            data.name ||
+            data.Name ||
+            data.studentName ||
+            data.StudentName ||
             "",
 
         registerNumber:
-            student.registerNumber ||
-            student.registerNo ||
-            student.regNo ||
-            student.RegisterNumber ||
-            student.RegisterNo ||
+            data.registerNumber ||
+            data.registerNo ||
+            data.regNo ||
+            data.RegisterNumber ||
+            data.RegisterNo ||
+            data.rollNo ||
+            data.rollNumber ||
             "",
 
         department:
-            student.department ||
-            student.Department ||
+            data.department ||
+            data.Department ||
             "",
 
         year:
-            student.year ||
-            student.Year ||
+            data.year ||
+            data.Year ||
             "",
 
         section:
-            student.section ||
-            student.Section ||
+            data.section ||
+            data.Section ||
             ""
 
     };
@@ -1064,8 +1166,50 @@ function normalizeStudentObject(student){
 }
 
 
+
 /* =====================================================
-LOAD EXAM TIMETABLE
+   DISPLAY STUDENT
+===================================================== */
+
+function displayStudent(
+    student
+){
+
+    document.getElementById(
+        "studentName"
+    ).textContent =
+        student.name || "-";
+
+
+    document.getElementById(
+        "registerNumber"
+    ).textContent =
+        student.registerNumber || "-";
+
+
+    document.getElementById(
+        "department"
+    ).textContent =
+        student.department || "-";
+
+
+    document.getElementById(
+        "year"
+    ).textContent =
+        student.year || "-";
+
+
+    document.getElementById(
+        "studentCard"
+    ).style.display =
+        "block";
+
+}
+
+
+
+/* =====================================================
+   LOAD EXAM TIMETABLE
 ===================================================== */
 
 async function loadExamTimetable(
@@ -1074,51 +1218,43 @@ async function loadExamTimetable(
 ){
 
     console.log(
-        "SEARCHING EXAM TIMETABLE"
+        "SEARCHING EXAM TIMETABLE..."
     );
 
 
     console.log(
-        "DEPARTMENT:",
+        "MATCH DEPARTMENT:",
         department
     );
 
 
     console.log(
-        "YEAR:",
+        "MATCH YEAR:",
         year
     );
 
 
     /*
-     * IMPORTANT:
+     * READ ALL TIMETABLES.
      *
-     * SECTION IS NOT USED.
-     *
-     * The timetable was created with:
-     *
-     * allSections: true
-     *
-     * Therefore Department + Year is enough.
+     * We intentionally do not use section.
      */
 
-    const timetableRef =
-        collection(
-            db,
-            "examTimetable"
-        );
-
-
-    const snapshot =
+    const timetableSnapshot =
         await getDocs(
-            timetableRef
+
+            collection(
+                db,
+                "examTimetable"
+            )
+
         );
 
 
-    const matchingTimetables = [];
+    const matching = [];
 
 
-    snapshot.forEach(
+    timetableSnapshot.forEach(
         item => {
 
             const data =
@@ -1137,8 +1273,23 @@ async function loadExamTimetable(
                 );
 
 
+            /*
+             * ALL SECTIONS MUST BE TRUE.
+             */
+
             const allSections =
                 data.allSections === true;
+
+
+            console.log(
+                "CHECK TIMETABLE:",
+                item.id,
+                data.examType,
+                dbDepartment,
+                dbYear,
+                "ALL SECTIONS:",
+                allSections
+            );
 
 
             if(
@@ -1157,7 +1308,7 @@ async function loadExamTimetable(
 
             ){
 
-                matchingTimetables.push({
+                matching.push({
 
                     id:
                         item.id,
@@ -1174,15 +1325,19 @@ async function loadExamTimetable(
 
     console.log(
         "MATCHING TIMETABLES:",
-        matchingTimetables
+        matching
     );
 
 
     hideLoading();
 
 
+    /*
+     * NO TIMETABLE
+     */
+
     if(
-        matchingTimetables.length === 0
+        matching.length === 0
     ){
 
         document.getElementById(
@@ -1202,15 +1357,22 @@ async function loadExamTimetable(
                 </h2>
 
                 <p>
-                    No examination timetable has been
-                    published yet for
+
+                    No examination timetable has
+                    been published for your
+
                     <strong>
                         ${escapeHTML(department)}
                     </strong>
+
                     -
+
                     <strong>
                         ${escapeHTML(year)}
-                    </strong>.
+                    </strong>
+
+                    yet.
+
                 </p>
 
             </div>
@@ -1223,23 +1385,27 @@ async function loadExamTimetable(
 
 
     /*
-     * Only published / completed timetables are shown.
-     *
-     * If you want students to see pending timetables too,
-     * remove this filter.
+     * STUDENTS SHOULD ONLY SEE COMPLETED
+     * / PUBLISHED TIMETABLES.
      */
 
     const published =
-        matchingTimetables.filter(
+        matching.filter(
+
             item =>
-                item.completed === true ||
-                item.status === "completed"
+
+                item.completed === true
+
+                ||
+
+                item.status ===
+                "completed"
+
         );
 
 
     /*
-     * If no timetable is completed yet,
-     * don't show unpublished data.
+     * NOT PUBLISHED
      */
 
     if(
@@ -1259,12 +1425,15 @@ async function loadExamTimetable(
             <div class="no-timetable">
 
                 <h2>
-                    Examination Timetable Not Published
+                    Timetable Not Published
                 </h2>
 
                 <p>
-                    Your examination timetable has not
-                    been published yet.
+
+                    Your examination timetable
+                    has been prepared but has
+                    not been published yet.
+
                 </p>
 
             </div>
@@ -1276,18 +1445,23 @@ async function loadExamTimetable(
     }
 
 
-    renderTimetables(
+    /*
+     * DISPLAY
+     */
+
+    renderExamTimetables(
         published
     );
 
 }
 
 
+
 /* =====================================================
-RENDER
+   RENDER EXAMS
 ===================================================== */
 
-function renderTimetables(
+function renderExamTimetables(
     timetables
 ){
 
@@ -1299,36 +1473,28 @@ function renderTimetables(
 
     let totalSubjects = 0;
 
-    let completedCount = 0;
-
 
     timetables.forEach(
-        item => {
-
-            if(
-                item.completed === true ||
-                item.status === "completed"
-            ){
-
-                completedCount++;
-
-            }
-
+        timetable => {
 
             if(
                 Array.isArray(
-                    item.subjects
+                    timetable.subjects
                 )
             ){
 
                 totalSubjects +=
-                    item.subjects.length;
+                    timetable.subjects.length;
 
             }
 
         }
     );
 
+
+    /*
+     * STATS
+     */
 
     document.getElementById(
         "examCount"
@@ -1345,7 +1511,7 @@ function renderTimetables(
     document.getElementById(
         "completedCount"
     ).textContent =
-        completedCount;
+        timetables.length;
 
 
     document.getElementById(
@@ -1354,24 +1520,28 @@ function renderTimetables(
         "grid";
 
 
+    /*
+     * SORT BY FIRST EXAM DATE
+     */
+
+    timetables.sort(
+
+        (a,b) =>
+
+            getFirstDate(a)
+            .localeCompare(
+                getFirstDate(b)
+            )
+
+    );
+
+
     container.innerHTML = "";
 
 
     /*
-     * Sort exam types
+     * CREATE EACH EXAM
      */
-
-    timetables.sort(
-        (a,b) => {
-
-            return getFirstDate(a)
-                .localeCompare(
-                    getFirstDate(b)
-                );
-
-        }
-    );
-
 
     timetables.forEach(
         timetable => {
@@ -1386,52 +1556,63 @@ function renderTimetables(
                 "exam-card";
 
 
-            const completed =
-                timetable.completed === true ||
-                timetable.status === "completed";
-
-
-            const subjects =
+            let subjects =
                 Array.isArray(
                     timetable.subjects
                 )
+
                 ?
+
                 [...timetable.subjects]
+
                 :
+
                 [];
 
 
+            /*
+             * SORT SUBJECTS BY DATE
+             */
+
             subjects.sort(
+
                 (a,b) => {
 
-                    const dateCompare =
+                    const dateA =
                         String(
                             a.examDate || ""
-                        ).localeCompare(
-                            String(
-                                b.examDate || ""
-                            )
+                        );
+
+
+                    const dateB =
+                        String(
+                            b.examDate || ""
                         );
 
 
                     if(
-                        dateCompare !== 0
+                        dateA !== dateB
                     ){
 
-                        return dateCompare;
+                        return dateA
+                            .localeCompare(
+                                dateB
+                            );
 
                     }
 
 
                     return String(
                         a.startTime || ""
-                    ).localeCompare(
+                    )
+                    .localeCompare(
                         String(
                             b.startTime || ""
                         )
                     );
 
                 }
+
             );
 
 
@@ -1440,73 +1621,67 @@ function renderTimetables(
                 <div class="exam-header">
 
                     <h2>
+
                         ${escapeHTML(
                             timetable.examType ||
                             "Examination"
                         )}
+
                     </h2>
 
-                    ${
-                        completed
 
-                        ?
+                    <span class="published">
 
-                        `
-                        <span class="completed-badge">
-                            ✓ Published
-                        </span>
-                        `
+                        ✓ Published
 
-                        :
-
-                        `
-                        <span class="pending-badge">
-                            Pending
-                        </span>
-                        `
-                    }
+                    </span>
 
                 </div>
 
 
-                <div class="exam-details">
-
-                    <div class="exam-details-grid">
+                <div class="exam-body">
 
 
-                        <div class="detail-box">
+                    <div class="exam-info">
+
+
+                        <div class="exam-info-box">
 
                             <span>
                                 Department
                             </span>
 
                             <strong>
+
                                 ${escapeHTML(
                                     timetable.department ||
                                     "-"
                                 )}
+
                             </strong>
 
                         </div>
 
 
-                        <div class="detail-box">
+                        <div class="exam-info-box">
 
                             <span>
                                 Year
                             </span>
 
                             <strong>
+
                                 ${escapeHTML(
                                     timetable.year ||
                                     "-"
                                 )}
+
                             </strong>
 
                         </div>
 
 
-                        <div class="detail-box">
+                        <div class="exam-info-box">
 
                             <span>
                                 Applicable To
@@ -1566,7 +1741,7 @@ function renderTimetables(
                             <tbody>
 
                                 ${
-                                    renderSubjectRows(
+                                    renderSubjects(
                                         subjects
                                     )
                                 }
@@ -1576,6 +1751,7 @@ function renderTimetables(
                         </table>
 
                     </div>
+
 
                 </div>
 
@@ -1587,16 +1763,18 @@ function renderTimetables(
             );
 
         }
+
     );
 
 }
 
 
+
 /* =====================================================
-SUBJECT ROWS
+   RENDER SUBJECTS
 ===================================================== */
 
-function renderSubjectRows(
+function renderSubjects(
     subjects
 ){
 
@@ -1608,8 +1786,10 @@ function renderSubjectRows(
 
             <tr>
 
-                <td colspan="7"
-                    style="text-align:center;">
+                <td
+                    colspan="7"
+                    style="text-align:center;"
+                >
 
                     No subjects available.
 
@@ -1624,12 +1804,15 @@ function renderSubjectRows(
 
     return subjects
         .map(
+
             (subject,index) => `
 
                 <tr>
 
                     <td>
+
                         ${index + 1}
+
                     </td>
 
 
@@ -1719,14 +1902,16 @@ function renderSubjectRows(
                 </tr>
 
             `
+
         )
         .join("");
 
 }
 
 
+
 /* =====================================================
-FIRST DATE
+   FIRST DATE
 ===================================================== */
 
 function getFirstDate(
@@ -1765,8 +1950,9 @@ function getFirstDate(
 }
 
 
+
 /* =====================================================
-DATE FORMAT
+   DATE FORMAT
 ===================================================== */
 
 function formatDate(
@@ -1806,8 +1992,9 @@ function formatDate(
 }
 
 
+
 /* =====================================================
-TIME FORMAT
+   TIME FORMAT
 ===================================================== */
 
 function formatTime(
@@ -1863,8 +2050,9 @@ function formatTime(
 }
 
 
+
 /* =====================================================
-NORMALIZE
+   NORMALIZE
 ===================================================== */
 
 function normalize(
@@ -1880,8 +2068,9 @@ function normalize(
 }
 
 
+
 /* =====================================================
-NORMALIZE YEAR
+   NORMALIZE YEAR
 ===================================================== */
 
 function normalizeYear(
@@ -1897,10 +2086,12 @@ function normalizeYear(
 
 
     if(
+
         text === "1" ||
         text === "I" ||
         text === "I YEAR" ||
         text === "1 YEAR"
+
     ){
 
         return "I YEAR";
@@ -1909,10 +2100,12 @@ function normalizeYear(
 
 
     if(
+
         text === "2" ||
         text === "II" ||
         text === "II YEAR" ||
         text === "2 YEAR"
+
     ){
 
         return "II YEAR";
@@ -1921,10 +2114,12 @@ function normalizeYear(
 
 
     if(
+
         text === "3" ||
         text === "III" ||
         text === "III YEAR" ||
         text === "3 YEAR"
+
     ){
 
         return "III YEAR";
@@ -1937,8 +2132,9 @@ function normalizeYear(
 }
 
 
+
 /* =====================================================
-HIDE LOADING
+   HIDE LOADING
 ===================================================== */
 
 function hideLoading(){
@@ -1951,8 +2147,9 @@ function hideLoading(){
 }
 
 
+
 /* =====================================================
-ERROR
+   ERROR
 ===================================================== */
 
 function showError(
@@ -1964,17 +2161,31 @@ function showError(
 
 
     document.getElementById(
+        "stats"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
         "examContent"
     ).innerHTML = `
 
-        <div class="error-box">
+        <div class="error-card">
 
-            <h3>
-                ${escapeHTML(title)}
-            </h3>
+            <h2>
+
+                ${escapeHTML(
+                    title
+                )}
+
+            </h2>
 
             <p>
-                ${escapeHTML(message)}
+
+                ${escapeHTML(
+                    message
+                )}
+
             </p>
 
         </div>
@@ -1984,8 +2195,9 @@ function showError(
 }
 
 
+
 /* =====================================================
-ESCAPE HTML
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(
