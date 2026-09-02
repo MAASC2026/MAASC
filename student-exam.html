@@ -12,10 +12,6 @@
 
 <style>
 
-/* =====================================================
-   RESET
-===================================================== */
-
 *{
     margin:0;
     padding:0;
@@ -23,25 +19,17 @@
     font-family:Arial,Helvetica,sans-serif;
 }
 
-
-/* =====================================================
-   BODY
-===================================================== */
-
 body{
     background:#f4f6f9;
     color:#222;
 }
 
-
-/* =====================================================
-   HEADER
-===================================================== */
+/* ================= HEADER ================= */
 
 .header{
     background:#1f3c88;
     color:white;
-    padding:24px 20px;
+    padding:25px 20px;
     text-align:center;
     box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
@@ -56,10 +44,7 @@ body{
     opacity:.9;
 }
 
-
-/* =====================================================
-   CONTAINER
-===================================================== */
+/* ================= CONTAINER ================= */
 
 .container{
     width:95%;
@@ -67,10 +52,7 @@ body{
     margin:25px auto;
 }
 
-
-/* =====================================================
-   STUDENT CARD
-===================================================== */
+/* ================= STUDENT CARD ================= */
 
 .student-card{
     background:white;
@@ -86,16 +68,9 @@ body{
     font-size:20px;
 }
 
-
-/* =====================================================
-   STUDENT INFO GRID
-===================================================== */
-
 .student-grid{
     display:grid;
-    grid-template-columns:
-        repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:14px;
 }
 
@@ -118,18 +93,12 @@ body{
     color:#222;
 }
 
-
-/* =====================================================
-   STATS
-===================================================== */
+/* ================= STATS ================= */
 
 .stats{
     display:grid;
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:15px;
-
     margin-bottom:20px;
 }
 
@@ -152,15 +121,12 @@ body{
     color:#666;
 }
 
-
-/* =====================================================
-   LOADING
-===================================================== */
+/* ================= LOADING ================= */
 
 .loading-card{
     background:white;
     border-radius:12px;
-    padding:50px 20px;
+    padding:55px 20px;
     text-align:center;
     box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
@@ -168,17 +134,11 @@ body{
 .spinner{
     width:45px;
     height:45px;
-
     border:4px solid #ddd;
     border-top:4px solid #1f3c88;
-
     border-radius:50%;
-
-    margin:
-        0 auto 18px;
-
-    animation:
-        spin 1s linear infinite;
+    margin:0 auto 18px;
+    animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
@@ -189,10 +149,7 @@ body{
 
 }
 
-
-/* =====================================================
-   NO TIMETABLE
-===================================================== */
+/* ================= NO TIMETABLE ================= */
 
 .no-timetable{
     background:white;
@@ -209,68 +166,43 @@ body{
 
 .no-timetable p{
     color:#666;
-    line-height:1.6;
+    line-height:1.7;
 }
 
-
-/* =====================================================
-   ERROR
-===================================================== */
+/* ================= ERROR ================= */
 
 .error-card{
     background:white;
     border-left:5px solid #dc3545;
     border-radius:8px;
-
     padding:22px;
-
     color:#842029;
-
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.08);
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 .error-card h2{
     margin-bottom:10px;
 }
 
-
-/* =====================================================
-   EXAM CARD
-===================================================== */
+/* ================= EXAM CARD ================= */
 
 .exam-card{
     background:white;
-
     border-radius:12px;
-
     margin-bottom:25px;
-
     overflow:hidden;
-
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.08);
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
-
-/* =====================================================
-   EXAM HEADER
-===================================================== */
+/* ================= EXAM HEADER ================= */
 
 .exam-header{
     background:#1f3c88;
-
     color:white;
-
-    padding:
-        18px 20px;
-
+    padding:18px 20px;
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     gap:15px;
 }
 
@@ -278,69 +210,39 @@ body{
     font-size:21px;
 }
 
-
-/* =====================================================
-   STATUS
-===================================================== */
-
 .published{
     background:#198754;
-
     color:white;
-
-    padding:
-        7px 13px;
-
+    padding:7px 13px;
     border-radius:20px;
-
     font-size:12px;
-
     font-weight:bold;
 }
 
-
-/* =====================================================
-   EXAM BODY
-===================================================== */
+/* ================= EXAM BODY ================= */
 
 .exam-body{
     padding:20px;
 }
 
-
-/* =====================================================
-   EXAM INFO
-===================================================== */
-
 .exam-info{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:13px;
-
     margin-bottom:20px;
 }
 
 .exam-info-box{
     background:#f8f9fc;
-
-    border:
-        1px solid #ddd;
-
+    border:1px solid #ddd;
     border-radius:8px;
-
     padding:13px;
 }
 
 .exam-info-box span{
     display:block;
-
     font-size:11px;
-
     color:#777;
-
     margin-bottom:5px;
 }
 
@@ -348,54 +250,32 @@ body{
     font-size:14px;
 }
 
-
-/* =====================================================
-   TABLE WRAPPER
-===================================================== */
+/* ================= TABLE ================= */
 
 .table-wrapper{
     width:100%;
     overflow-x:auto;
 }
 
-
-/* =====================================================
-   TABLE
-===================================================== */
-
 table{
     width:100%;
-
     min-width:1000px;
-
-    border-collapse:
-        collapse;
+    border-collapse:collapse;
 }
 
 thead th{
     background:#1f3c88;
-
     color:white;
-
-    padding:
-        13px 12px;
-
+    padding:13px 12px;
     text-align:left;
-
     font-size:13px;
-
     white-space:nowrap;
 }
 
 tbody td{
-    padding:
-        13px 12px;
-
-    border-bottom:
-        1px solid #eee;
-
+    padding:13px 12px;
+    border-bottom:1px solid #eee;
     font-size:13px;
-
     vertical-align:top;
 }
 
@@ -403,81 +283,45 @@ tbody tr:hover td{
     background:#f8f9fc;
 }
 
-
-/* =====================================================
-   SUBJECT
-===================================================== */
-
 .subject-name{
     font-weight:bold;
     color:#1f3c88;
 }
 
-
-/* =====================================================
-   PORTION
-===================================================== */
-
 .portion{
     max-width:350px;
-
     white-space:pre-wrap;
-
     line-height:1.5;
 }
 
-
-/* =====================================================
-   SESSION
-===================================================== */
-
 .session{
     display:inline-block;
-
-    padding:
-        5px 10px;
-
+    padding:5px 10px;
     border-radius:20px;
-
     background:#e8f1ff;
-
     color:#174ea6;
-
     font-weight:bold;
-
     font-size:11px;
 }
 
-
-/* =====================================================
-   TIME
-===================================================== */
-
 .time{
     white-space:nowrap;
-
     font-weight:bold;
 }
 
-
-/* =====================================================
-   MOBILE
-===================================================== */
+/* ================= MOBILE ================= */
 
 @media(max-width:1000px){
 
     .student-grid{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     .exam-info{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
-
 
 @media(max-width:600px){
 
@@ -490,23 +334,19 @@ tbody tr:hover td{
     }
 
     .student-grid{
-        grid-template-columns:
-            1fr;
+        grid-template-columns:1fr;
     }
 
     .stats{
-        grid-template-columns:
-            1fr;
+        grid-template-columns:1fr;
     }
 
     .exam-info{
-        grid-template-columns:
-            1fr;
+        grid-template-columns:1fr;
     }
 
     .exam-header{
         flex-direction:column;
-
         align-items:flex-start;
     }
 
@@ -515,7 +355,6 @@ tbody tr:hover td{
 </style>
 
 </head>
-
 
 <body>
 
@@ -541,7 +380,7 @@ tbody tr:hover td{
 
 
 <!-- =====================================================
-     STUDENT INFORMATION
+     STUDENT DETAILS
 ===================================================== -->
 
 <div
@@ -616,7 +455,7 @@ tbody tr:hover td{
 
 
 <!-- =====================================================
-     STATS
+     STATISTICS
 ===================================================== -->
 
 <div
@@ -624,7 +463,6 @@ tbody tr:hover td{
     class="stats"
     style="display:none;"
 >
-
 
     <div class="stat">
 
@@ -664,7 +502,6 @@ tbody tr:hover td{
 
     </div>
 
-
 </div>
 
 
@@ -696,7 +533,6 @@ tbody tr:hover td{
 </div>
 
 
-
 <!-- =====================================================
      FIREBASE
 ===================================================== -->
@@ -705,30 +541,21 @@ tbody tr:hover td{
 
 
 import {
-
     initializeApp
-
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
 import {
-
     getFirestore,
-
     collection,
-
     getDocs,
-
     doc,
-
     getDoc
-
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 
 
 /* =====================================================
@@ -758,7 +585,6 @@ const firebaseConfig = {
 };
 
 
-
 const app =
     initializeApp(
         firebaseConfig
@@ -769,14 +595,17 @@ const db =
     getFirestore(app);
 
 
+const COLLECTION_NAME =
+    "examTimetable";
+
 
 /* =====================================================
-   START AUTOMATICALLY
+   START
 ===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    function(){
+    () => {
 
         loadStudentExam();
 
@@ -784,9 +613,8 @@ document.addEventListener(
 );
 
 
-
 /* =====================================================
-   MAIN
+   MAIN FUNCTION
 ===================================================== */
 
 async function loadStudentExam(){
@@ -806,9 +634,9 @@ async function loadStudentExam(){
         );
 
 
-        /*
-         * GET STUDENT DOCUMENT ID
-         */
+        /* =============================================
+           GET STUDENT DOCUMENT ID
+        ============================================= */
 
         const studentId =
             getStudentDocumentId();
@@ -835,9 +663,9 @@ async function loadStudentExam(){
         }
 
 
-        /*
-         * READ STUDENT DOCUMENT
-         */
+        /* =============================================
+           GET STUDENT DOCUMENT
+        ============================================= */
 
         const student =
             await getStudentFromFirestore(
@@ -851,7 +679,7 @@ async function loadStudentExam(){
 
                 "Student Record Not Found",
 
-                "Unable to find your student record in Firestore."
+                "Your student record could not be found."
 
             );
 
@@ -866,18 +694,18 @@ async function loadStudentExam(){
         );
 
 
-        /*
-         * DISPLAY STUDENT DETAILS
-         */
+        /* =============================================
+           DISPLAY STUDENT
+        ============================================= */
 
         displayStudent(
             student
         );
 
 
-        /*
-         * GET DEPARTMENT
-         */
+        /* =============================================
+           NORMALIZE DEPARTMENT
+        ============================================= */
 
         const department =
             normalize(
@@ -885,9 +713,9 @@ async function loadStudentExam(){
             );
 
 
-        /*
-         * GET YEAR
-         */
+        /* =============================================
+           NORMALIZE YEAR
+        ============================================= */
 
         const year =
             normalizeYear(
@@ -913,7 +741,7 @@ async function loadStudentExam(){
 
                 "Department Not Found",
 
-                "Your student profile does not contain a department."
+                "Department is missing from your student record."
 
             );
 
@@ -928,7 +756,7 @@ async function loadStudentExam(){
 
                 "Year Not Found",
 
-                "Your student profile does not contain a year."
+                "Year is missing from your student record."
 
             );
 
@@ -937,19 +765,17 @@ async function loadStudentExam(){
         }
 
 
-        /*
-         * LOAD TIMETABLE
-         */
+        /* =============================================
+           LOAD EXAM
+        ============================================= */
 
         await loadExamTimetable(
-
             department,
-
             year
-
         );
 
     }
+
     catch(error){
 
         console.error(
@@ -971,89 +797,86 @@ async function loadStudentExam(){
 }
 
 
-
 /* =====================================================
-   GET STUDENT DOCUMENT ID
+   GET STUDENT ID
 ===================================================== */
 
 function getStudentDocumentId(){
 
-    /*
-     * Check localStorage first.
-     */
+    const localStorageKeys = [
 
-    const localIds = [
+        "studentId",
 
-        localStorage.getItem(
-            "studentId"
-        ),
+        "studentDocId",
 
-        localStorage.getItem(
-            "studentDocId"
-        ),
+        "loggedInStudentId",
 
-        localStorage.getItem(
-            "loggedInStudentId"
-        ),
-
-        localStorage.getItem(
-            "studentDocumentId"
-        )
+        "studentDocumentId"
 
     ];
 
 
     for(
-        const id of localIds
+        const key of localStorageKeys
     ){
 
+        const value =
+            localStorage.getItem(
+                key
+            );
+
+
         if(
-            id &&
-            id.trim()
+            value &&
+            value.trim()
         ){
 
-            return id.trim();
+            console.log(
+                "STUDENT ID FROM LOCAL STORAGE:",
+                key
+            );
+
+            return value.trim();
 
         }
 
     }
 
 
-    /*
-     * Check sessionStorage.
-     */
+    const sessionStorageKeys = [
 
-    const sessionIds = [
+        "studentId",
 
-        sessionStorage.getItem(
-            "studentId"
-        ),
+        "studentDocId",
 
-        sessionStorage.getItem(
-            "studentDocId"
-        ),
+        "loggedInStudentId",
 
-        sessionStorage.getItem(
-            "loggedInStudentId"
-        ),
-
-        sessionStorage.getItem(
-            "studentDocumentId"
-        )
+        "studentDocumentId"
 
     ];
 
 
     for(
-        const id of sessionIds
+        const key of sessionStorageKeys
     ){
 
+        const value =
+            sessionStorage.getItem(
+                key
+            );
+
+
         if(
-            id &&
-            id.trim()
+            value &&
+            value.trim()
         ){
 
-            return id.trim();
+            console.log(
+                "STUDENT ID FROM SESSION STORAGE:",
+                key
+            );
+
+            return value.trim();
 
         }
 
@@ -1065,7 +888,6 @@ function getStudentDocumentId(){
 }
 
 
-
 /* =====================================================
    GET STUDENT FROM FIRESTORE
 ===================================================== */
@@ -1074,17 +896,10 @@ async function getStudentFromFirestore(
     studentId
 ){
 
-    /*
-     * IMPORTANT:
-     *
-     * Student collection:
-     *
-     * students
-     *
-     * Document:
-     *
-     * v5dD0t4QwEHiggC8ErQF
-     */
+    console.log(
+        "READING STUDENT:",
+        "students/" + studentId
+    );
 
 
     const studentRef =
@@ -1093,12 +908,6 @@ async function getStudentFromFirestore(
             "students",
             studentId
         );
-
-
-    console.log(
-        "READING STUDENT:",
-        "students/" + studentId
-    );
 
 
     const studentSnap =
@@ -1112,7 +921,8 @@ async function getStudentFromFirestore(
     ){
 
         console.error(
-            "STUDENT DOCUMENT DOES NOT EXIST"
+            "STUDENT DOCUMENT DOES NOT EXIST:",
+            studentId
         );
 
         return null;
@@ -1166,7 +976,6 @@ async function getStudentFromFirestore(
 }
 
 
-
 /* =====================================================
    DISPLAY STUDENT
 ===================================================== */
@@ -1207,7 +1016,6 @@ function displayStudent(
 }
 
 
-
 /* =====================================================
    LOAD EXAM TIMETABLE
 ===================================================== */
@@ -1234,27 +1042,21 @@ async function loadExamTimetable(
     );
 
 
-    /*
-     * READ ALL TIMETABLES.
-     *
-     * We intentionally do not use section.
-     */
-
-    const timetableSnapshot =
+    const snapshot =
         await getDocs(
 
             collection(
                 db,
-                "examTimetable"
+                COLLECTION_NAME
             )
 
         );
 
 
-    const matching = [];
+    const matchingTimetables = [];
 
 
-    timetableSnapshot.forEach(
+    snapshot.forEach(
         item => {
 
             const data =
@@ -1273,14 +1075,6 @@ async function loadExamTimetable(
                 );
 
 
-            /*
-             * ALL SECTIONS MUST BE TRUE.
-             */
-
-            const allSections =
-                data.allSections === true;
-
-
             console.log(
                 "CHECK TIMETABLE:",
                 item.id,
@@ -1288,8 +1082,24 @@ async function loadExamTimetable(
                 dbDepartment,
                 dbYear,
                 "ALL SECTIONS:",
-                allSections
+                data.allSections,
+                "STATUS:",
+                data.status,
+                "COMPLETED:",
+                data.completed
             );
+
+
+            /*
+             * IMPORTANT
+             *
+             * NO SECTION MATCHING.
+             *
+             * Student timetable is based on:
+             *
+             * DEPARTMENT + YEAR
+             *
+             */
 
 
             if(
@@ -1302,13 +1112,9 @@ async function loadExamTimetable(
                 dbYear ===
                 year
 
-                &&
-
-                allSections === true
-
             ){
 
-                matching.push({
+                matchingTimetables.push({
 
                     id:
                         item.id,
@@ -1325,129 +1131,141 @@ async function loadExamTimetable(
 
     console.log(
         "MATCHING TIMETABLES:",
-        matching
+        matchingTimetables
     );
 
 
     hideLoading();
 
 
-    /*
-     * NO TIMETABLE
-     */
+    /* =================================================
+       NO MATCH
+    ================================================= */
 
     if(
-        matching.length === 0
+        matchingTimetables.length === 0
     ){
 
-        document.getElementById(
-            "stats"
-        ).style.display =
-            "none";
+        showNoTimetable(
 
+            "No Examination Timetable",
 
-        document.getElementById(
-            "examContent"
-        ).innerHTML = `
+            `No examination timetable has been created for ${department} - ${year}.`
 
-            <div class="no-timetable">
-
-                <h2>
-                    No Examination Timetable
-                </h2>
-
-                <p>
-
-                    No examination timetable has
-                    been published for your
-
-                    <strong>
-                        ${escapeHTML(department)}
-                    </strong>
-
-                    -
-
-                    <strong>
-                        ${escapeHTML(year)}
-                    </strong>
-
-                    yet.
-
-                </p>
-
-            </div>
-
-        `;
+        );
 
         return;
 
     }
 
 
-    /*
-     * STUDENTS SHOULD ONLY SEE COMPLETED
-     * / PUBLISHED TIMETABLES.
-     */
+    /* =================================================
+       FILTER PUBLISHED
+    ================================================= */
 
     const published =
-        matching.filter(
+        matchingTimetables.filter(
+            item => {
 
-            item =>
+                /*
+                 * NEW SYSTEM
+                 */
 
-                item.completed === true
+                if(
+                    item.completed === true
+                ){
 
-                ||
+                    return true;
 
-                item.status ===
-                "completed"
+                }
 
+
+                if(
+                    String(
+                        item.status || ""
+                    )
+                    .trim()
+                    .toLowerCase()
+                    ===
+                    "completed"
+                ){
+
+                    return true;
+
+                }
+
+
+                /*
+                 * SUPPORT OTHER POSSIBLE
+                 * COMPLETION VALUES
+                 */
+
+                if(
+                    String(
+                        item.status || ""
+                    )
+                    .trim()
+                    .toLowerCase()
+                    ===
+                    "complete"
+                ){
+
+                    return true;
+
+                }
+
+
+                if(
+                    String(
+                        item.status || ""
+                    )
+                    .trim()
+                    .toLowerCase()
+                    ===
+                    "published"
+                ){
+
+                    return true;
+
+                }
+
+
+                return false;
+
+            }
         );
 
 
-    /*
-     * NOT PUBLISHED
-     */
+    console.log(
+        "PUBLISHED TIMETABLES:",
+        published
+    );
+
+
+    /* =================================================
+       NOT PUBLISHED
+    ================================================= */
 
     if(
         published.length === 0
     ){
 
-        document.getElementById(
-            "stats"
-        ).style.display =
-            "none";
+        showNoTimetable(
 
+            "Examination Timetable Not Published",
 
-        document.getElementById(
-            "examContent"
-        ).innerHTML = `
+            `Your timetable for ${department} - ${year} has not been published yet.`
 
-            <div class="no-timetable">
-
-                <h2>
-                    Timetable Not Published
-                </h2>
-
-                <p>
-
-                    Your examination timetable
-                    has been prepared but has
-                    not been published yet.
-
-                </p>
-
-            </div>
-
-        `;
+        );
 
         return;
 
     }
 
 
-    /*
-     * DISPLAY
-     */
+    /* =================================================
+       DISPLAY
+    ================================================= */
 
     renderExamTimetables(
         published
@@ -1456,9 +1274,8 @@ async function loadExamTimetable(
 }
 
 
-
 /* =====================================================
-   RENDER EXAMS
+   RENDER EXAM TIMETABLES
 ===================================================== */
 
 function renderExamTimetables(
@@ -1471,7 +1288,8 @@ function renderExamTimetables(
         );
 
 
-    let totalSubjects = 0;
+    let totalSubjects =
+        0;
 
 
     timetables.forEach(
@@ -1491,10 +1309,6 @@ function renderExamTimetables(
         }
     );
 
-
-    /*
-     * STATS
-     */
 
     document.getElementById(
         "examCount"
@@ -1521,27 +1335,23 @@ function renderExamTimetables(
 
 
     /*
-     * SORT BY FIRST EXAM DATE
+     * SORT EXAMS
      */
 
     timetables.sort(
+        (a,b) => {
 
-        (a,b) =>
+            return getFirstDate(a)
+                .localeCompare(
+                    getFirstDate(b)
+                );
 
-            getFirstDate(a)
-            .localeCompare(
-                getFirstDate(b)
-            )
-
+        }
     );
 
 
     container.innerHTML = "";
 
-
-    /*
-     * CREATE EACH EXAM
-     */
 
     timetables.forEach(
         timetable => {
@@ -1571,11 +1381,10 @@ function renderExamTimetables(
 
 
             /*
-             * SORT SUBJECTS BY DATE
+             * SORT SUBJECTS BY DATE/TIME
              */
 
             subjects.sort(
-
                 (a,b) => {
 
                     const dateA =
@@ -1594,10 +1403,9 @@ function renderExamTimetables(
                         dateA !== dateB
                     ){
 
-                        return dateA
-                            .localeCompare(
-                                dateB
-                            );
+                        return dateA.localeCompare(
+                            dateB
+                        );
 
                     }
 
@@ -1612,7 +1420,6 @@ function renderExamTimetables(
                     );
 
                 }
-
             );
 
 
@@ -1740,11 +1547,9 @@ function renderExamTimetables(
 
                             <tbody>
 
-                                ${
-                                    renderSubjects(
-                                        subjects
-                                    )
-                                }
+                                ${renderSubjects(
+                                    subjects
+                                )}
 
                             </tbody>
 
@@ -1763,15 +1568,13 @@ function renderExamTimetables(
             );
 
         }
-
     );
 
 }
 
 
-
 /* =====================================================
-   RENDER SUBJECTS
+   SUBJECT ROWS
 ===================================================== */
 
 function renderSubjects(
@@ -1788,7 +1591,10 @@ function renderSubjects(
 
                 <td
                     colspan="7"
-                    style="text-align:center;"
+                    style="
+                        text-align:center;
+                        padding:30px;
+                    "
                 >
 
                     No subjects available.
@@ -1804,7 +1610,6 @@ function renderSubjects(
 
     return subjects
         .map(
-
             (subject,index) => `
 
                 <tr>
@@ -1902,16 +1707,14 @@ function renderSubjects(
                 </tr>
 
             `
-
         )
         .join("");
 
 }
 
 
-
 /* =====================================================
-   FIRST DATE
+   GET FIRST DATE
 ===================================================== */
 
 function getFirstDate(
@@ -1931,18 +1734,15 @@ function getFirstDate(
 
     const dates =
         timetable.subjects
-
-            .map(
-                subject =>
-                    subject.examDate || ""
-            )
-
-            .filter(
-                date =>
-                    date
-            )
-
-            .sort();
+        .map(
+            subject =>
+                subject.examDate || ""
+        )
+        .filter(
+            date =>
+                date
+        )
+        .sort();
 
 
     return dates[0] || "";
@@ -1950,9 +1750,8 @@ function getFirstDate(
 }
 
 
-
 /* =====================================================
-   DATE FORMAT
+   FORMAT DATE
 ===================================================== */
 
 function formatDate(
@@ -1966,35 +1765,38 @@ function formatDate(
     }
 
 
-    const parts =
-        date.split("-");
-
+    /*
+     * YYYY-MM-DD
+     */
 
     if(
-        parts.length !== 3
+        /^\d{4}-\d{2}-\d{2}$/.test(
+            date
+        )
     ){
 
-        return date;
+        const parts =
+            date.split("-");
+
+
+        return (
+            parts[2] +
+            "-" +
+            parts[1] +
+            "-" +
+            parts[0]
+        );
 
     }
 
 
-    return (
-
-        parts[2] +
-        "-" +
-        parts[1] +
-        "-" +
-        parts[0]
-
-    );
+    return date;
 
 }
 
 
-
 /* =====================================================
-   TIME FORMAT
+   FORMAT TIME
 ===================================================== */
 
 function formatTime(
@@ -2008,8 +1810,30 @@ function formatTime(
     }
 
 
+    /*
+     * Already formatted
+     */
+
+    if(
+        /AM|PM/i.test(time)
+    ){
+
+        return time;
+
+    }
+
+
     const parts =
         time.split(":");
+
+
+    if(
+        parts.length < 2
+    ){
+
+        return time;
+
+    }
 
 
     let hour =
@@ -2020,8 +1844,16 @@ function formatTime(
 
 
     const minute =
-        parts[1] ||
-        "00";
+        parts[1];
+
+
+    if(
+        Number.isNaN(hour)
+    ){
+
+        return time;
+
+    }
 
 
     const ampm =
@@ -2038,17 +1870,14 @@ function formatTime(
 
 
     return (
-
         hour +
         ":" +
         minute +
         " " +
         ampm
-
     );
 
 }
-
 
 
 /* =====================================================
@@ -2063,10 +1892,13 @@ function normalize(
         value || ""
     )
     .trim()
+    .replace(
+        /\s+/g,
+        " "
+    )
     .toUpperCase();
 
 }
-
 
 
 /* =====================================================
@@ -2082,7 +1914,11 @@ function normalizeYear(
             value || ""
         )
         .trim()
-        .toUpperCase();
+        .toUpperCase()
+        .replace(
+            /\s+/g,
+            " "
+        );
 
 
     if(
@@ -2132,7 +1968,6 @@ function normalizeYear(
 }
 
 
-
 /* =====================================================
    HIDE LOADING
 ===================================================== */
@@ -2147,9 +1982,52 @@ function hideLoading(){
 }
 
 
+/* =====================================================
+   SHOW NO TIMETABLE
+===================================================== */
+
+function showNoTimetable(
+    title,
+    message
+){
+
+    document.getElementById(
+        "stats"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "examContent"
+    ).innerHTML = `
+
+        <div class="no-timetable">
+
+            <h2>
+
+                ${escapeHTML(
+                    title
+                )}
+
+            </h2>
+
+            <p>
+
+                ${escapeHTML(
+                    message
+                )}
+
+            </p>
+
+        </div>
+
+    `;
+
+}
+
 
 /* =====================================================
-   ERROR
+   SHOW ERROR
 ===================================================== */
 
 function showError(
@@ -2193,7 +2071,6 @@ function showError(
     `;
 
 }
-
 
 
 /* =====================================================
