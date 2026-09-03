@@ -1,0 +1,2895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Exam Timetable Assignment Portal</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    color:#222;
+}
+
+.header{
+    background:#1f3c88;
+    color:white;
+    padding:22px;
+    text-align:center;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+}
+
+.header h1{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.header p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.container{
+    width:95%;
+    max-width:1450px;
+    margin:25px auto;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.card h2{
+    color:#1f3c88;
+    margin-bottom:18px;
+    font-size:20px;
+}
+
+/* ================= FORM ================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    font-size:13px;
+    font-weight:bold;
+    color:#444;
+    margin-bottom:7px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid #ccc;
+    border-radius:7px;
+    padding:11px 12px;
+    font-size:14px;
+    outline:none;
+    background:white;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#1f3c88;
+    box-shadow:0 0 0 2px rgba(31,60,136,.10);
+}
+
+/* ================= ALL SECTION INFO ================= */
+
+.all-sections{
+    margin-top:18px;
+    padding:15px 18px;
+    border-radius:8px;
+    background:#e8f1ff;
+    border:1px solid #b8d2ff;
+    color:#174ea6;
+    font-size:14px;
+    font-weight:bold;
+}
+
+/* ================= SUBJECT ================= */
+
+.subject-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.subject-header h2{
+    margin-bottom:0;
+}
+
+.subject-row{
+    background:#f8f9fc;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:18px;
+    margin-bottom:15px;
+}
+
+.subject-row-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.subject-number{
+    font-weight:bold;
+    color:#1f3c88;
+    font-size:15px;
+}
+
+.subject-grid{
+    display:grid;
+    grid-template-columns:2fr 1.2fr 2fr 1.2fr 1fr 1.2fr 1.2fr;
+    gap:12px;
+}
+
+.subject-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.subject-group label{
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:6px;
+    color:#555;
+}
+
+/* ================= BUTTONS ================= */
+
+button{
+    border:none;
+    border-radius:7px;
+    padding:11px 18px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.btn-primary{
+    background:#1f3c88;
+    color:white;
+}
+
+.btn-success{
+    background:#198754;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-warning{
+    background:#f0ad4e;
+    color:white;
+}
+
+.btn-secondary{
+    background:#6c757d;
+    color:white;
+}
+
+.btn-add{
+    background:#198754;
+    color:white;
+}
+
+.btn-remove{
+    background:#dc3545;
+    color:white;
+    padding:8px 12px;
+    font-size:12px;
+}
+
+.button-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:white;
+    border-radius:10px;
+    padding:18px;
+    text-align:center;
+    box-shadow:0 3px 10px rgba(0,0,0,.07);
+}
+
+.stat h3{
+    color:#1f3c88;
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.stat p{
+    font-size:13px;
+    color:#666;
+}
+
+/* ================= SEARCH ================= */
+
+.search-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+/* ================= SAVED ================= */
+
+.timetable-card{
+    margin-top:20px;
+}
+
+.timetable-info{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.info-box{
+    background:#f8f9fc;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:13px;
+}
+
+.info-box span{
+    display:block;
+    font-size:11px;
+    color:#777;
+    margin-bottom:4px;
+}
+
+.info-box strong{
+    font-size:14px;
+}
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1150px;
+}
+
+th{
+    background:#1f3c88;
+    color:white;
+    padding:12px;
+    font-size:13px;
+    text-align:left;
+    white-space:nowrap;
+}
+
+td{
+    padding:11px 12px;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+    vertical-align:top;
+}
+
+tr:hover td{
+    background:#f8f9fc;
+}
+
+.portion-cell{
+    max-width:300px;
+    white-space:pre-wrap;
+    line-height:1.4;
+}
+
+.status{
+    display:inline-block;
+    padding:6px 11px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.status-pending{
+    background:#fff3cd;
+    color:#856404;
+}
+
+.status-completed{
+    background:#d1e7dd;
+    color:#0f5132;
+}
+
+.action-buttons{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+}
+
+.action-buttons button{
+    padding:7px 10px;
+    font-size:12px;
+}
+
+.empty{
+    text-align:center;
+    padding:35px;
+    color:#777;
+}
+
+/* ================= MESSAGE ================= */
+
+.message{
+    position:fixed;
+    top:20px;
+    right:20px;
+    min-width:280px;
+    max-width:400px;
+    padding:15px 18px;
+    color:white;
+    border-radius:8px;
+    display:none;
+    z-index:9999;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+}
+
+.message.success{
+    background:#198754;
+}
+
+.message.error{
+    background:#dc3545;
+}
+
+.message.info{
+    background:#0d6efd;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1200px){
+
+    .subject-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:900px){
+
+    .form-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .timetable-info{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .subject-grid{
+        grid-template-columns:1fr;
+    }
+
+    .timetable-info{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="header">
+
+    <h1>
+        Exam Timetable Assignment Portal
+    </h1>
+
+    <p>
+        Student Examination Timetable Management
+    </p>
+
+</div>
+
+
+<div class="container">
+
+
+<!-- =====================================================
+EXAM DETAILS
+===================================================== -->
+
+<div class="card">
+
+    <h2>
+        Exam Details
+    </h2>
+
+    <div class="form-grid">
+
+
+        <!-- EXAM -->
+
+        <div class="form-group">
+
+            <label>
+                Exam Type
+            </label>
+
+            <select id="examType">
+
+                <option value="">
+                    Select Exam
+                </option>
+
+                <option value="CIA I">
+                    CIA I
+                </option>
+
+                <option value="CIA II">
+                    CIA II
+                </option>
+
+                <option value="MODEL EXAM">
+                    MODEL EXAM
+                </option>
+
+                <option value="UNIVERSITY PRACTICAL EXAM">
+                    UNIVERSITY PRACTICAL EXAM
+                </option>
+                <option value="UNIVERSITY EXAM">
+                    UNIVERSITY EXAM
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- DEPARTMENT -->
+
+        <div class="form-group">
+
+            <label>
+                Department
+            </label>
+
+            <select id="department">
+
+                <option value="">
+                    Select Department
+                </option>
+
+                <option value="B.Com General">
+                    B.Com General
+                </option>
+
+                <option value="B.Com BM">
+                    B.Com BM
+                </option>
+
+                <option value="B.Com MM">
+                    B.Com MM
+                </option>
+
+                <option value="B.Com CS">
+                    B.Com CS
+                </option>
+
+                <option value="B.Com A&F">
+                    B.Com A&F
+                </option>
+
+                <option value="B.Com ISM">
+                    B.Com ISM
+                </option>
+
+                <option value="B.Com CA">
+                    B.Com CA
+                </option>
+
+                <option value="B.Com BUS.AD">
+                    B.Com BUS.AD
+                </option>
+
+                <option value="B.A DEFENCE">
+                    B.A DEFENCE
+                </option>
+
+                <option value="B.A PUB.AD">
+                    B.A PUB.AD
+                </option>
+
+                <option value="B.A TAMIL">
+                    B.A TAMIL
+                </option>
+
+                <option value="B.A TOURISM">
+                    B.A TOURISM
+                </option>
+
+                <option value="B.Sc CS">
+                    B.Sc CS
+                </option>
+
+                <option value="B.Sc CS WITH AI">
+                    B.Sc CS WITH AI
+                </option>
+
+                <option value="B.Sc CRIMINOLOGY">
+                    B.Sc CRIMINOLOGY
+                </option>
+
+                <option value="B.Sc SA">
+                    B.Sc SA
+                </option>
+
+                <option value="B.Sc PHYS WITH CA">
+                    B.Sc PHYS WITH CA
+                </option>
+
+                <option value="B.Sc MATHS WITH CA">
+                    B.Sc MATHS WITH CA
+                </option>
+
+                <option value="B.Sc ELECTRONICS WITH AI">
+                    B.Sc ELECTRONICS WITH AI
+                </option>
+
+                <option value="B.Sc VISCOM">
+                    B.Sc VISCOM
+                </option>
+
+                <option value="B.Sc ELECTRONIC MEDIA">
+                    B.Sc ELECTRONIC MEDIA
+                </option>
+
+                <option value="B.Sc IDD">
+                    B.Sc IDD
+                </option>
+
+                <option value="B.Sc PHYSICS">
+                    B.Sc PHYSICS
+                </option>
+
+                <option value="BCA COMPUTER APPLICATION">
+                    BCA COMPUTER APPLICATION
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- YEAR -->
+
+        <div class="form-group">
+
+            <label>
+                Year
+            </label>
+
+            <select id="year">
+
+                <option value="">
+                    Year
+                </option>
+
+                <option value="I Year">
+                    I Year
+                </option>
+
+                <option value="II Year">
+                    II Year
+                </option>
+
+                <option value="III Year">
+                    III Year
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="all-sections">
+
+        ✓ This examination timetable will automatically apply
+        to <strong>ALL SECTIONS</strong> of the selected Department
+        and Year.
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+SUBJECTS
+===================================================== -->
+
+<div class="card">
+
+    <div class="subject-header">
+
+        <h2>
+            Examination Subjects
+        </h2>
+
+        <button
+            type="button"
+            class="btn-add"
+            onclick="addSubjectRow()"
+        >
+
+            + Add Subject
+
+        </button>
+
+    </div>
+
+
+    <div id="subjectsContainer"></div>
+
+
+    <div class="button-row">
+
+        <button
+            type="button"
+            class="btn-primary"
+            id="saveBtn"
+            onclick="saveExamTimetable()"
+        >
+
+            Save Exam Timetable
+
+        </button>
+
+
+        <button
+            type="button"
+            class="btn-secondary"
+            onclick="clearForm()"
+        >
+
+            Clear
+
+        </button>
+
+
+        <button
+            type="button"
+            class="btn-secondary"
+            id="cancelEditBtn"
+            onclick="cancelEdit()"
+            style="display:none;"
+        >
+
+            Cancel Edit
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+STATS
+===================================================== -->
+
+<div class="stats">
+
+    <div class="stat">
+
+        <h3 id="totalTimetables">
+            0
+        </h3>
+
+        <p>
+            Total Timetables
+        </p>
+
+    </div>
+
+
+    <div class="stat">
+
+        <h3 id="pendingTimetables">
+            0
+        </h3>
+
+        <p>
+            Pending
+        </p>
+
+    </div>
+
+
+    <div class="stat">
+
+        <h3 id="completedTimetables">
+            0
+        </h3>
+
+        <p>
+            Completed
+        </p>
+
+    </div>
+
+
+    <div class="stat">
+
+        <h3 id="totalSubjects">
+            0
+        </h3>
+
+        <p>
+            Total Subjects
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+SAVED TIMETABLES
+===================================================== -->
+
+<div class="card">
+
+    <h2>
+        Saved Examination Timetables
+    </h2>
+
+
+    <div class="search-grid">
+
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="Search department, subject, code..."
+            oninput="filterTimetables()"
+        >
+
+
+        <select
+            id="filterExam"
+            onchange="filterTimetables()"
+        >
+
+            <option value="">
+                All Exams
+            </option>
+
+            <option value="Internal Exam">
+                Internal Exam
+            </option>
+
+            <option value="Model Exam">
+                Model Exam
+            </option>
+
+            <option value="Semester Exam">
+                Semester Exam
+            </option>
+
+            <option value="University Exam">
+                University Exam
+            </option>
+
+        </select>
+
+
+        <select
+            id="filterStatus"
+            onchange="filterTimetables()"
+        >
+
+            <option value="">
+                All Status
+            </option>
+
+            <option value="pending">
+                Pending
+            </option>
+
+            <option value="completed">
+                Completed
+            </option>
+
+        </select>
+
+
+        <select
+            id="filterYear"
+            onchange="filterTimetables()"
+        >
+
+            <option value="">
+                All Years
+            </option>
+
+            <option value="I Year">
+                I Year
+            </option>
+
+            <option value="II Year">
+                II Year
+            </option>
+
+            <option value="III Year">
+                III Year
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div id="timetableList">
+
+        <div class="empty">
+
+            Loading examination timetables...
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<div
+    id="message"
+    class="message"
+></div>
+
+
+<!-- =====================================================
+FIREBASE
+===================================================== -->
+
+<script type="module">
+
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    doc,
+    serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =====================================================
+FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAIv3091VM-gkmdwEAn7OhXWd9Cm2zh2bo",
+
+    authDomain:
+        "maasc-2026.firebaseapp.com",
+
+    projectId:
+        "maasc-2026",
+
+    storageBucket:
+        "maasc-2026.appspot.com",
+
+    messagingSenderId:
+        "585813001586",
+
+    appId:
+        "1:585813001586:web:664e0e90ff"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const db =
+    getFirestore(app);
+
+
+const COLLECTION_NAME =
+    "examTimetable";
+
+
+let timetableData = [];
+
+let editingId = "";
+
+let subjectCounter = 0;
+
+
+/* =====================================================
+MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type="success"
+){
+
+    const message =
+        document.getElementById("message");
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message " + type;
+
+    message.style.display =
+        "block";
+
+
+    setTimeout(() => {
+
+        message.style.display =
+            "none";
+
+    },3000);
+
+}
+
+
+/* =====================================================
+ADD SUBJECT
+===================================================== */
+
+window.addSubjectRow =
+function(data=null){
+
+    subjectCounter++;
+
+
+    const container =
+        document.getElementById(
+            "subjectsContainer"
+        );
+
+
+    const row =
+        document.createElement("div");
+
+
+    row.className =
+        "subject-row";
+
+
+    row.innerHTML = `
+
+        <div class="subject-row-header">
+
+            <div class="subject-number">
+
+                Subject ${subjectCounter}
+
+            </div>
+
+            <button
+                type="button"
+                class="btn-remove"
+                onclick="removeSubjectRow(this)"
+            >
+
+                Remove
+
+            </button>
+
+        </div>
+
+
+        <div class="subject-grid">
+
+
+            <div class="subject-group">
+
+                <label>
+                    Subject Name
+                </label>
+
+                <input
+                    type="text"
+                    class="subjectName"
+                    placeholder="Subject name"
+                    value="${escapeAttribute(
+                        data?.subjectName || ""
+                    )}"
+                >
+
+            </div>
+
+
+            <div class="subject-group">
+
+                <label>
+                    Subject Code
+                </label>
+
+                <input
+                    type="text"
+                    class="subjectCode"
+                    placeholder="Subject code"
+                    value="${escapeAttribute(
+                        data?.subjectCode || ""
+                    )}"
+                >
+
+            </div>
+
+
+            <div class="subject-group">
+
+                <label>
+                    Portion
+                </label>
+
+                <textarea
+                    class="portion"
+                    placeholder="Enter portion / syllabus"
+                >${escapeHTML(
+                    data?.portion || ""
+                )}</textarea>
+
+            </div>
+
+
+            <div class="subject-group">
+
+                <label>
+                    Exam Date
+                </label>
+
+                <input
+                    type="date"
+                    class="subjectDate"
+                    value="${escapeAttribute(
+                        data?.examDate || ""
+                    )}"
+                >
+
+            </div>
+
+
+            <div class="subject-group">
+
+                <label>
+                    Session
+                </label>
+
+                <select class="subjectSession">
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option
+                        value="FN"
+                        ${
+                            data?.session === "FN"
+                            ? "selected"
+                            : ""
+                        }
+                    >
+                        FN
+                    </option>
+
+                    <option
+                        value="AN"
+                        ${
+                            data?.session === "AN"
+                            ? "selected"
+                            : ""
+                        }
+                    >
+                        AN
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="subject-group">
+
+                <label>
+                    Start Time
+                </label>
+
+                <input
+                    type="time"
+                    class="startTime"
+                    value="${escapeAttribute(
+                        data?.startTime || ""
+                    )}"
+                >
+
+            </div>
+
+
+            <div class="subject-group">
+
+                <label>
+                    End Time
+                </label>
+
+                <input
+                    type="time"
+                    class="endTime"
+                    value="${escapeAttribute(
+                        data?.endTime || ""
+                    )}"
+                >
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+    container.appendChild(row);
+
+
+    const session =
+        row.querySelector(
+            ".subjectSession"
+        );
+
+
+    session.addEventListener(
+        "change",
+        function(){
+
+            const start =
+                row.querySelector(
+                    ".startTime"
+                );
+
+            const end =
+                row.querySelector(
+                    ".endTime"
+                );
+
+
+            if(
+                this.value === "FN"
+            ){
+
+                if(!start.value)
+                    start.value =
+                        "09:30";
+
+                if(!end.value)
+                    end.value =
+                        "12:30";
+
+            }
+
+
+            if(
+                this.value === "AN"
+            ){
+
+                if(!start.value)
+                    start.value =
+                        "02:00";
+
+                if(!end.value)
+                    end.value =
+                        "05:00";
+
+            }
+
+        }
+    );
+
+};
+
+
+/* =====================================================
+REMOVE SUBJECT
+===================================================== */
+
+window.removeSubjectRow =
+function(button){
+
+    const rows =
+        document.querySelectorAll(
+            ".subject-row"
+        );
+
+
+    if(rows.length <= 1){
+
+        showMessage(
+            "At least one subject is required",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    button
+        .closest(".subject-row")
+        .remove();
+
+
+    renumberSubjects();
+
+};
+
+
+function renumberSubjects(){
+
+    document
+        .querySelectorAll(
+            ".subject-row"
+        )
+        .forEach(
+            (row,index) => {
+
+                row.querySelector(
+                    ".subject-number"
+                ).textContent =
+                    "Subject " +
+                    (index + 1);
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+GET SUBJECTS
+===================================================== */
+
+function getSubjects(){
+
+    const rows =
+        document.querySelectorAll(
+            ".subject-row"
+        );
+
+
+    const subjects = [];
+
+
+    rows.forEach(row => {
+
+        subjects.push({
+
+            subjectName:
+                row.querySelector(
+                    ".subjectName"
+                ).value.trim(),
+
+            subjectCode:
+                row.querySelector(
+                    ".subjectCode"
+                ).value.trim(),
+
+            portion:
+                row.querySelector(
+                    ".portion"
+                ).value.trim(),
+
+            examDate:
+                row.querySelector(
+                    ".subjectDate"
+                ).value,
+
+            session:
+                row.querySelector(
+                    ".subjectSession"
+                ).value,
+
+            startTime:
+                row.querySelector(
+                    ".startTime"
+                ).value,
+
+            endTime:
+                row.querySelector(
+                    ".endTime"
+                ).value
+
+        });
+
+    });
+
+
+    return subjects;
+
+}
+
+
+/* =====================================================
+SAVE
+===================================================== */
+
+window.saveExamTimetable =
+async function(){
+
+    const examType =
+        document.getElementById(
+            "examType"
+        ).value;
+
+
+    const department =
+        document.getElementById(
+            "department"
+        ).value;
+
+
+    const year =
+        document.getElementById(
+            "year"
+        ).value;
+
+
+    if(
+        !examType ||
+        !department ||
+        !year
+    ){
+
+        showMessage(
+            "Please select Exam, Department and Year",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const subjects =
+        getSubjects();
+
+
+    if(subjects.length === 0){
+
+        showMessage(
+            "Please add at least one subject",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    for(
+        let i=0;
+        i<subjects.length;
+        i++
+    ){
+
+        const s =
+            subjects[i];
+
+
+        if(
+            !s.subjectName ||
+            !s.subjectCode ||
+            !s.portion ||
+            !s.examDate ||
+            !s.session ||
+            !s.startTime ||
+            !s.endTime
+        ){
+
+            showMessage(
+                "Please complete all fields for Subject " +
+                (i+1),
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            s.startTime >= s.endTime
+        ){
+
+            showMessage(
+                "Invalid time for Subject " +
+                (i+1),
+                "error"
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    /* ================================================
+       CHECK DUPLICATE
+    ================================================= */
+
+    const duplicate =
+        timetableData.find(item =>
+
+            item.id !== editingId &&
+
+            item.examType === examType &&
+
+            item.department === department &&
+
+            item.year === year
+
+        );
+
+
+    if(duplicate){
+
+        showMessage(
+            "A timetable already exists for this Exam, Department and Year",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const existing =
+        timetableData.find(
+            item =>
+                item.id === editingId
+        );
+
+
+    const data = {
+
+        examType:
+
+            examType,
+
+        department:
+
+            department,
+
+        year:
+
+            year,
+
+        allSections:
+
+            true,
+
+        subjects:
+
+            subjects,
+
+        status:
+
+            existing?.status ||
+            "pending",
+
+        completed:
+
+            existing?.completed === true,
+
+        updatedAt:
+
+            serverTimestamp()
+
+    };
+
+
+    try{
+
+        if(editingId){
+
+            await updateDoc(
+
+                doc(
+                    db,
+                    COLLECTION_NAME,
+                    editingId
+                ),
+
+                data
+
+            );
+
+
+            showMessage(
+                "Exam timetable updated successfully",
+                "success"
+            );
+
+        }
+        else{
+
+            data.createdAt =
+                serverTimestamp();
+
+
+            await addDoc(
+
+                collection(
+                    db,
+                    COLLECTION_NAME
+                ),
+
+                data
+
+            );
+
+
+            showMessage(
+                "Exam timetable saved successfully for ALL sections",
+                "success"
+            );
+
+        }
+
+
+        clearForm();
+
+        await loadTimetables();
+
+    }
+    catch(error){
+
+        console.error(
+            "SAVE ERROR:",
+            error
+        );
+
+
+        showMessage(
+            "Failed to save timetable: " +
+            error.message,
+            "error"
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+LOAD
+===================================================== */
+
+async function loadTimetables(){
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    COLLECTION_NAME
+                )
+            );
+
+
+        timetableData = [];
+
+
+        snapshot.forEach(
+            item => {
+
+                timetableData.push({
+
+                    id:item.id,
+
+                    ...item.data()
+
+                });
+
+            }
+        );
+
+
+        timetableData.sort(
+            (a,b) =>
+                getFirstDate(a)
+                .localeCompare(
+                    getFirstDate(b)
+                )
+        );
+
+
+        renderTimetables(
+            timetableData
+        );
+
+
+        updateStats();
+
+    }
+    catch(error){
+
+        console.error(
+            "LOAD ERROR:",
+            error
+        );
+
+
+        document.getElementById(
+            "timetableList"
+        ).innerHTML = `
+
+            <div class="empty">
+
+                Unable to load examination timetables.
+
+                <br><br>
+
+                ${escapeHTML(
+                    error.message
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+RENDER
+===================================================== */
+
+function renderTimetables(data){
+
+    const container =
+        document.getElementById(
+            "timetableList"
+        );
+
+
+    if(!data.length){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                No examination timetables found.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    data.forEach(item => {
+
+        const completed =
+            item.completed === true ||
+            item.status === "completed";
+
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "card timetable-card";
+
+
+        const statusHTML =
+            completed
+
+            ?
+
+            `
+            <span class="status status-completed">
+                ✓ Completed
+            </span>
+            `
+
+            :
+
+            `
+            <span class="status status-pending">
+                Pending
+            </span>
+            `;
+
+
+        let actions = "";
+
+
+        if(completed){
+
+            actions += `
+
+                <button
+                    class="btn-warning"
+                    onclick="undoComplete('${item.id}')"
+                >
+                    Undo Complete
+                </button>
+
+            `;
+
+        }
+        else{
+
+            actions += `
+
+                <button
+                    class="btn-success"
+                    onclick="markComplete('${item.id}')"
+                >
+                    Mark as Complete
+                </button>
+
+            `;
+
+        }
+
+
+        actions += `
+
+            <button
+                class="btn-primary"
+                onclick="editTimetable('${item.id}')"
+            >
+                Edit
+            </button>
+
+            <button
+                class="btn-danger"
+                onclick="deleteTimetable('${item.id}')"
+            >
+                Delete
+            </button>
+
+        `;
+
+
+        card.innerHTML = `
+
+            <div class="subject-header">
+
+                <h2>
+                    ${escapeHTML(
+                        item.examType || ""
+                    )}
+                </h2>
+
+                <div>
+                    ${statusHTML}
+                </div>
+
+            </div>
+
+
+            <div class="timetable-info">
+
+
+                <div class="info-box">
+
+                    <span>
+                        Department
+                    </span>
+
+                    <strong>
+                        ${escapeHTML(
+                            item.department || "-"
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span>
+                        Year
+                    </span>
+
+                    <strong>
+                        ${escapeHTML(
+                            item.year || "-"
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span>
+                        Assigned To
+                    </span>
+
+                    <strong>
+                        ALL SECTIONS
+                    </strong>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span>
+                        Total Subjects
+                    </span>
+
+                    <strong>
+                        ${
+                            Array.isArray(
+                                item.subjects
+                            )
+                            ?
+                            item.subjects.length
+                            :
+                            0
+                        }
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                S.No
+                            </th>
+
+                            <th>
+                                Subject
+                            </th>
+
+                            <th>
+                                Subject Code
+                            </th>
+
+                            <th>
+                                Portion
+                            </th>
+
+                            <th>
+                                Exam Date
+                            </th>
+
+                            <th>
+                                Session
+                            </th>
+
+                            <th>
+                                Time
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        ${
+                            renderSubjectRows(
+                                item.subjects || []
+                            )
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="button-row">
+
+                ${actions}
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+SUBJECT TABLE
+===================================================== */
+
+function renderSubjectRows(subjects){
+
+    if(!subjects.length){
+
+        return `
+
+            <tr>
+
+                <td colspan="7">
+
+                    No subjects
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+
+    return subjects.map(
+        (s,index) => `
+
+            <tr>
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+                    <strong>
+                        ${escapeHTML(
+                            s.subjectName || "-"
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        s.subjectCode || "-"
+                    )}
+                </td>
+
+                <td class="portion-cell">
+                    ${escapeHTML(
+                        s.portion || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${formatDate(
+                        s.examDate
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        s.session || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${formatTime(
+                        s.startTime
+                    )}
+                    -
+                    ${formatTime(
+                        s.endTime
+                    )}
+                </td>
+
+            </tr>
+
+        `
+    ).join("");
+
+}
+
+
+/* =====================================================
+EDIT
+===================================================== */
+
+window.editTimetable =
+function(id){
+
+    const item =
+        timetableData.find(
+            x => x.id === id
+        );
+
+
+    if(!item){
+
+        showMessage(
+            "Timetable not found",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    editingId =
+        item.id;
+
+
+    document.getElementById(
+        "examType"
+    ).value =
+        item.examType || "";
+
+
+    document.getElementById(
+        "department"
+    ).value =
+        item.department || "";
+
+
+    document.getElementById(
+        "year"
+    ).value =
+        item.year || "";
+
+
+    const container =
+        document.getElementById(
+            "subjectsContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    subjectCounter = 0;
+
+
+    if(
+        Array.isArray(
+            item.subjects
+        ) &&
+        item.subjects.length
+    ){
+
+        item.subjects.forEach(
+            subject =>
+                addSubjectRow(
+                    subject
+                )
+        );
+
+    }
+    else{
+
+        addSubjectRow();
+
+    }
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "Update Exam Timetable";
+
+
+    document.getElementById(
+        "cancelEditBtn"
+    ).style.display =
+        "inline-block";
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+};
+
+
+/* =====================================================
+CLEAR
+===================================================== */
+
+window.clearForm =
+function(){
+
+    editingId = "";
+
+
+    document.getElementById(
+        "examType"
+    ).value = "";
+
+
+    document.getElementById(
+        "department"
+    ).value = "";
+
+
+    document.getElementById(
+        "year"
+    ).value = "";
+
+
+    document.getElementById(
+        "subjectsContainer"
+    ).innerHTML = "";
+
+
+    subjectCounter = 0;
+
+
+    addSubjectRow();
+
+
+    document.getElementById(
+        "saveBtn"
+    ).textContent =
+        "Save Exam Timetable";
+
+
+    document.getElementById(
+        "cancelEditBtn"
+    ).style.display =
+        "none";
+
+};
+
+
+window.cancelEdit =
+function(){
+
+    clearForm();
+
+};
+
+
+/* =====================================================
+MARK COMPLETE
+===================================================== */
+
+window.markComplete =
+async function(id){
+
+    const item =
+        timetableData.find(
+            x => x.id === id
+        );
+
+
+    if(!item){
+
+        return;
+
+    }
+
+
+    const answer =
+        confirm(
+
+            "Mark this ENTIRE examination timetable as COMPLETE?\n\n" +
+
+            item.department +
+            "\n" +
+            item.year +
+            "\n\n" +
+            "This applies to ALL sections."
+
+        );
+
+
+    if(!answer){
+
+        return;
+
+    }
+
+
+    try{
+
+        await updateDoc(
+
+            doc(
+                db,
+                COLLECTION_NAME,
+                id
+            ),
+
+            {
+
+                status:
+                    "completed",
+
+                completed:
+                    true,
+
+                completedAt:
+                    serverTimestamp(),
+
+                updatedAt:
+                    serverTimestamp()
+
+            }
+
+        );
+
+
+        showMessage(
+            "Timetable marked as complete",
+            "success"
+        );
+
+
+        await loadTimetables();
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        showMessage(
+            "Unable to mark complete",
+            "error"
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+UNDO COMPLETE
+===================================================== */
+
+window.undoComplete =
+async function(id){
+
+    if(
+        !confirm(
+            "Change this timetable back to Pending?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        await updateDoc(
+
+            doc(
+                db,
+                COLLECTION_NAME,
+                id
+            ),
+
+            {
+
+                status:
+                    "pending",
+
+                completed:
+                    false,
+
+                completedAt:
+                    null,
+
+                updatedAt:
+                    serverTimestamp()
+
+            }
+
+        );
+
+
+        showMessage(
+            "Timetable changed to Pending",
+            "info"
+        );
+
+
+        await loadTimetables();
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        showMessage(
+            "Unable to undo completion",
+            "error"
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+DELETE
+===================================================== */
+
+window.deleteTimetable =
+async function(id){
+
+    const item =
+        timetableData.find(
+            x => x.id === id
+        );
+
+
+    if(!item){
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+
+            "Delete this entire examination timetable?\n\n" +
+
+            item.examType +
+            "\n" +
+            item.department +
+            "\n" +
+            item.year +
+            "\n\n" +
+            "This timetable is assigned to ALL sections."
+
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        await deleteDoc(
+
+            doc(
+                db,
+                COLLECTION_NAME,
+                id
+            )
+
+        );
+
+
+        showMessage(
+            "Exam timetable deleted",
+            "success"
+        );
+
+
+        await loadTimetables();
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        showMessage(
+            "Unable to delete timetable",
+            "error"
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+FILTER
+===================================================== */
+
+window.filterTimetables =
+function(){
+
+    const search =
+        document.getElementById(
+            "searchBox"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    const exam =
+        document.getElementById(
+            "filterExam"
+        ).value;
+
+
+    const status =
+        document.getElementById(
+            "filterStatus"
+        ).value;
+
+
+    const year =
+        document.getElementById(
+            "filterYear"
+        ).value;
+
+
+    const filtered =
+        timetableData.filter(
+            item => {
+
+                const completed =
+                    item.completed === true ||
+                    item.status === "completed";
+
+
+                const currentStatus =
+                    completed
+                    ?
+                    "completed"
+                    :
+                    "pending";
+
+
+                const subjectsText =
+                    Array.isArray(
+                        item.subjects
+                    )
+                    ?
+                    item.subjects
+                        .map(
+                            s =>
+                                (
+                                    s.subjectName || ""
+                                ) +
+                                " " +
+                                (
+                                    s.subjectCode || ""
+                                ) +
+                                " " +
+                                (
+                                    s.portion || ""
+                                )
+                        )
+                        .join(" ")
+                    :
+                    "";
+
+
+                const searchable = (
+
+                    (item.examType || "") +
+                    " " +
+                    (item.department || "") +
+                    " " +
+                    (item.year || "") +
+                    " " +
+                    subjectsText
+
+                ).toLowerCase();
+
+
+                return (
+
+                    (!search ||
+                        searchable.includes(
+                            search
+                        ))
+
+                    &&
+
+                    (!exam ||
+                        item.examType === exam)
+
+                    &&
+
+                    (!status ||
+                        currentStatus === status)
+
+                    &&
+
+                    (!year ||
+                        item.year === year)
+
+                );
+
+            }
+        );
+
+
+    renderTimetables(
+        filtered
+    );
+
+};
+
+
+/* =====================================================
+STATS
+===================================================== */
+
+function updateStats(){
+
+    const total =
+        timetableData.length;
+
+
+    const completed =
+        timetableData.filter(
+            item =>
+                item.completed === true ||
+                item.status === "completed"
+        ).length;
+
+
+    const pending =
+        total - completed;
+
+
+    const subjects =
+        timetableData.reduce(
+            (sum,item) =>
+
+                sum +
+                (
+                    Array.isArray(
+                        item.subjects
+                    )
+                    ?
+                    item.subjects.length
+                    :
+                    0
+                ),
+
+            0
+        );
+
+
+    document.getElementById(
+        "totalTimetables"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "pendingTimetables"
+    ).textContent =
+        pending;
+
+
+    document.getElementById(
+        "completedTimetables"
+    ).textContent =
+        completed;
+
+
+    document.getElementById(
+        "totalSubjects"
+    ).textContent =
+        subjects;
+
+}
+
+
+/* =====================================================
+DATE
+===================================================== */
+
+function getFirstDate(item){
+
+    if(
+        !Array.isArray(
+            item.subjects
+        )
+    ){
+
+        return "";
+
+    }
+
+
+    const dates =
+        item.subjects
+
+            .map(
+                s => s.examDate || ""
+            )
+
+            .filter(
+                d => d
+            )
+
+            .sort();
+
+
+    return dates[0] || "";
+
+}
+
+
+function formatDate(date){
+
+    if(!date){
+
+        return "-";
+
+    }
+
+
+    const p =
+        date.split("-");
+
+
+    if(p.length !== 3){
+
+        return date;
+
+    }
+
+
+    return (
+
+        p[2] +
+        "-" +
+        p[1] +
+        "-" +
+        p[0]
+
+    );
+
+}
+
+
+function formatTime(time){
+
+    if(!time){
+
+        return "-";
+
+    }
+
+
+    const p =
+        time.split(":");
+
+
+    let hour =
+        parseInt(
+            p[0],
+            10
+        );
+
+
+    const minute =
+        p[1] || "00";
+
+
+    const ampm =
+        hour >= 12
+        ?
+        "PM"
+        :
+        "AM";
+
+
+    hour =
+        hour % 12 || 12;
+
+
+    return (
+
+        hour +
+        ":" +
+        minute +
+        " " +
+        ampm
+
+    );
+
+}
+
+
+/* =====================================================
+ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+function escapeAttribute(value){
+
+    return escapeHTML(
+        value || ""
+    );
+
+}
+
+
+/* =====================================================
+START
+===================================================== */
+
+addSubjectRow();
+
+loadTimetables();
+
+
+</script>
+
+</body>
+
+</html>
