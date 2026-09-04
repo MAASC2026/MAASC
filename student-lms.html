@@ -1,0 +1,4971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student LMS</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f3f5f8;
+    color:#222;
+    min-height:100vh;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.top-header{
+    height:68px;
+    background:#092b55;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 8px rgba(0,0,0,.18);
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.menu-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:6px;
+    background:rgba(255,255,255,.1);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.logo-box{
+    display:flex;
+    flex-direction:column;
+}
+
+.logo-title{
+    font-size:19px;
+    font-weight:bold;
+    letter-spacing:.4px;
+}
+
+.logo-subtitle{
+    font-size:11px;
+    opacity:.8;
+    margin-top:2px;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.header-item{
+    font-size:13px;
+    white-space:nowrap;
+}
+
+.student-mini{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    cursor:pointer;
+}
+
+.student-avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#f0a329;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.student-mini-info{
+    display:flex;
+    flex-direction:column;
+}
+
+.student-mini-name{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.student-mini-id{
+    font-size:10px;
+    opacity:.8;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:68px;
+    width:255px;
+    height:calc(100vh - 68px);
+    background:#fff;
+    border-right:1px solid #ddd;
+    overflow-y:auto;
+    z-index:900;
+    transition:.25s;
+}
+
+.sidebar.closed{
+    transform:translateX(-100%);
+}
+
+.sidebar-title{
+    padding:18px 18px 10px;
+    font-size:11px;
+    font-weight:bold;
+    color:#888;
+    text-transform:uppercase;
+}
+
+.side-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 18px;
+    color:#333;
+    text-decoration:none;
+    font-size:14px;
+    border-left:4px solid transparent;
+    cursor:pointer;
+}
+
+.side-link:hover{
+    background:#f2f5f9;
+}
+
+.side-link.active{
+    background:#eaf1fa;
+    color:#092b55;
+    border-left-color:#f0a329;
+    font-weight:bold;
+}
+
+.side-icon{
+    width:22px;
+    text-align:center;
+}
+
+.sidebar-divider{
+    height:1px;
+    background:#eee;
+    margin:10px 15px;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+    margin-left:255px;
+    padding:25px;
+    transition:.25s;
+}
+
+.main.full{
+    margin-left:0;
+}
+
+.page-title{
+    color:#092b55;
+    font-size:26px;
+    font-weight:bold;
+}
+
+.page-subtitle{
+    color:#777;
+    font-size:13px;
+    margin-top:6px;
+}
+
+/* =========================================================
+   STUDENT INFORMATION
+========================================================= */
+
+.student-info{
+    margin-top:20px;
+    background:#fff;
+    border-radius:10px;
+    padding:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+}
+
+.info-box{
+    border-right:1px solid #eee;
+    padding-right:10px;
+}
+
+.info-box:last-child{
+    border-right:none;
+}
+
+.info-label{
+    font-size:11px;
+    color:#888;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+
+.info-value{
+    color:#092b55;
+    font-size:14px;
+    font-weight:bold;
+    word-break:break-word;
+}
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.toolbar{
+    margin-top:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.section-heading{
+    font-size:18px;
+    color:#092b55;
+    font-weight:bold;
+}
+
+.count-badge{
+    background:#092b55;
+    color:#fff;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:11px;
+}
+
+.search-box{
+    width:280px;
+    position:relative;
+}
+
+.search-box input{
+    width:100%;
+    padding:11px 14px 11px 38px;
+    border:1px solid #d7dce3;
+    border-radius:7px;
+    outline:none;
+    background:white;
+}
+
+.search-box input:focus{
+    border-color:#092b55;
+}
+
+.search-icon{
+    position:absolute;
+    left:13px;
+    top:11px;
+    color:#888;
+}
+
+/* =========================================================
+   SUBJECT GRID
+========================================================= */
+
+.subject-grid{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.subject-card{
+    background:#fff;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+    cursor:pointer;
+    transition:.2s;
+    border:1px solid #e5e8ed;
+}
+
+.subject-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 20px rgba(0,0,0,.12);
+}
+
+.subject-top{
+    min-height:118px;
+    background:#092b55;
+    color:#fff;
+    position:relative;
+    padding:18px;
+    overflow:hidden;
+}
+
+.subject-top:after{
+    content:"";
+    position:absolute;
+    width:170px;
+    height:170px;
+    right:-70px;
+    top:-90px;
+    background:#f0a329;
+    transform:rotate(25deg);
+    opacity:.9;
+}
+
+.subject-top:before{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    right:-30px;
+    bottom:-100px;
+    background:#48a7c5;
+    transform:rotate(30deg);
+    opacity:.85;
+}
+
+.subject-code{
+    position:relative;
+    z-index:2;
+    font-size:13px;
+    font-weight:bold;
+    color:#fff;
+}
+
+.subject-name{
+    position:relative;
+    z-index:2;
+    margin-top:10px;
+    font-size:16px;
+    line-height:1.35;
+    font-weight:bold;
+    max-width:85%;
+}
+
+.subject-body{
+    padding:15px;
+}
+
+.subject-detail{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.detail-icon{
+    width:25px;
+    color:#092b55;
+    font-size:15px;
+}
+
+.detail-text{
+    flex:1;
+}
+
+.detail-label{
+    color:#999;
+    font-size:10px;
+    text-transform:uppercase;
+}
+
+.detail-value{
+    color:#333;
+    font-size:12px;
+    margin-top:2px;
+    font-weight:bold;
+}
+
+.subject-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid #eee;
+    padding-top:12px;
+    margin-top:8px;
+}
+
+.assignment-count{
+    font-size:11px;
+    color:#777;
+}
+
+.open-btn{
+    border:none;
+    background:#092b55;
+    color:white;
+    padding:8px 14px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:11px;
+}
+
+.open-btn:hover{
+    background:#123d70;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+========================================================= */
+
+.loading{
+    text-align:center;
+    padding:60px 20px;
+    color:#777;
+}
+
+.spinner{
+    width:38px;
+    height:38px;
+    border:4px solid #ddd;
+    border-top-color:#092b55;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:0 auto 15px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.empty-box{
+    background:#fff;
+    padding:55px 20px;
+    border-radius:10px;
+    text-align:center;
+    color:#777;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+.empty-icon{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.error-box{
+    background:#fff0f0;
+    border:1px solid #ffcaca;
+    color:#b00020;
+    padding:18px;
+    border-radius:8px;
+    margin-top:20px;
+    line-height:1.6;
+}
+
+/* =========================================================
+   COURSE DETAIL
+========================================================= */
+
+.course-page{
+    display:none;
+}
+
+.course-header{
+    margin-top:20px;
+    background:#092b55;
+    color:#fff;
+    border-radius:10px;
+    overflow:hidden;
+    position:relative;
+    min-height:175px;
+    padding:28px;
+}
+
+.course-header:after{
+    content:"";
+    position:absolute;
+    right:-80px;
+    top:-120px;
+    width:320px;
+    height:320px;
+    background:#f0a329;
+    transform:rotate(28deg);
+}
+
+.course-header:before{
+    content:"";
+    position:absolute;
+    right:80px;
+    bottom:-170px;
+    width:300px;
+    height:300px;
+    background:#42a9c5;
+    transform:rotate(28deg);
+}
+
+.course-header-content{
+    position:relative;
+    z-index:5;
+    max-width:75%;
+}
+
+.back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    color:#fff;
+    text-decoration:none;
+    font-size:12px;
+    margin-bottom:15px;
+    cursor:pointer;
+}
+
+.course-code{
+    font-size:14px;
+    font-weight:bold;
+    opacity:.9;
+}
+
+.course-title{
+    font-size:25px;
+    margin-top:7px;
+    line-height:1.3;
+}
+
+.course-meta{
+    display:flex;
+    gap:18px;
+    margin-top:13px;
+    flex-wrap:wrap;
+}
+
+.course-meta span{
+    font-size:11px;
+    background:rgba(255,255,255,.12);
+    padding:6px 10px;
+    border-radius:4px;
+}
+
+/* =========================================================
+   COURSE NAV
+========================================================= */
+
+.course-nav{
+    margin-top:15px;
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 2px 7px rgba(0,0,0,.06);
+    display:flex;
+    overflow:auto;
+}
+
+.course-nav button{
+    border:none;
+    background:none;
+    padding:15px 22px;
+    font-size:13px;
+    color:#555;
+    cursor:pointer;
+    white-space:nowrap;
+    border-bottom:3px solid transparent;
+}
+
+.course-nav button.active{
+    color:#092b55;
+    font-weight:bold;
+    border-bottom-color:#f0a329;
+}
+
+/* =========================================================
+   COURSE CONTENT
+========================================================= */
+
+.course-content{
+    margin-top:18px;
+}
+
+.content-panel{
+    display:none;
+}
+
+.content-panel.active{
+    display:block;
+}
+
+.panel-title{
+    color:#092b55;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:13px;
+}
+
+.assignment-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.assignment-card{
+    background:#fff;
+    border:1px solid #e4e7eb;
+    border-radius:9px;
+    padding:17px;
+    box-shadow:0 2px 6px rgba(0,0,0,.05);
+}
+
+.assignment-main{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+}
+
+.assignment-left{
+    flex:1;
+}
+
+.assignment-title-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.assignment-title{
+    font-size:15px;
+    font-weight:bold;
+    color:#092b55;
+}
+
+.new-badge{
+    background:#e63b3b;
+    color:white;
+    font-size:9px;
+    font-weight:bold;
+    padding:4px 7px;
+    border-radius:4px;
+}
+
+.assignment-description{
+    color:#666;
+    font-size:12px;
+    margin-top:7px;
+    line-height:1.5;
+}
+
+.assignment-meta{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:13px;
+}
+
+.meta-item{
+    font-size:11px;
+    color:#777;
+}
+
+.meta-item strong{
+    color:#333;
+}
+
+.assignment-action{
+    min-width:90px;
+    text-align:right;
+}
+
+.view-btn{
+    border:none;
+    background:#092b55;
+    color:white;
+    padding:9px 16px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:11px;
+}
+
+.view-btn:hover{
+    background:#174579;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-badge{
+    display:inline-block;
+    margin-top:10px;
+    padding:5px 9px;
+    border-radius:4px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+.status-not-submitted{
+    background:#fff0f0;
+    color:#d62828;
+}
+
+.status-submitted{
+    background:#eaf8ef;
+    color:#18864b;
+}
+
+/* =========================================================
+   MCQ / OPINION
+========================================================= */
+
+.template-box{
+    background:#fff;
+    border-radius:9px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 2px 7px rgba(0,0,0,.05);
+}
+
+.template-icon{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.template-box h3{
+    color:#092b55;
+    margin-bottom:7px;
+}
+
+.template-box p{
+    color:#777;
+    font-size:13px;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:3000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-overlay.show{
+    display:flex;
+}
+
+.modal{
+    background:#fff;
+    width:100%;
+    max-width:650px;
+    max-height:90vh;
+    overflow:auto;
+    border-radius:10px;
+    box-shadow:0 15px 50px rgba(0,0,0,.25);
+}
+
+.modal-header{
+    background:#092b55;
+    color:white;
+    padding:17px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.modal-title{
+    font-size:17px;
+    font-weight:bold;
+}
+
+.close-btn{
+    border:none;
+    background:none;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.modal-body{
+    padding:22px;
+}
+
+.modal-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.modal-field{
+    margin-bottom:17px;
+}
+
+.modal-label{
+    font-size:11px;
+    color:#888;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+
+.modal-value{
+    font-size:14px;
+    color:#222;
+    line-height:1.5;
+    word-break:break-word;
+}
+
+.modal-footer{
+    padding:15px 20px;
+    border-top:1px solid #eee;
+    text-align:right;
+}
+
+.close-modal{
+    border:none;
+    background:#092b55;
+    color:#fff;
+    padding:9px 17px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#222;
+    color:white;
+    padding:13px 18px;
+    border-radius:6px;
+    font-size:12px;
+    opacity:0;
+    transform:translateY(20px);
+    pointer-events:none;
+    transition:.25s;
+    z-index:5000;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .subject-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .student-info{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:800px){
+
+    .sidebar{
+        transform:translateX(-100%);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+        padding:18px;
+    }
+
+    .header-right .header-item{
+        display:none;
+    }
+
+    .student-mini-info{
+        display:none;
+    }
+
+    .subject-grid{
+        grid-template-columns:1fr;
+    }
+
+    .student-info{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .course-title{
+        font-size:20px;
+    }
+
+    .course-header-content{
+        max-width:100%;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .top-header{
+        padding:0 12px;
+    }
+
+    .logo-subtitle{
+        display:none;
+    }
+
+    .main{
+        padding:13px;
+    }
+
+    .page-title{
+        font-size:21px;
+    }
+
+    .student-info{
+        grid-template-columns:1fr;
+    }
+
+    .info-box{
+        border-right:none;
+        border-bottom:1px solid #eee;
+        padding-bottom:8px;
+    }
+
+    .info-box:last-child{
+        border-bottom:none;
+    }
+
+    .search-box{
+        width:100%;
+    }
+
+    .toolbar{
+        align-items:stretch;
+    }
+
+    .toolbar-left{
+        width:100%;
+    }
+
+    .assignment-main{
+        flex-direction:column;
+    }
+
+    .assignment-action{
+        text-align:left;
+    }
+
+    .modal-row{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="top-header">
+
+    <div class="header-left">
+
+        <button class="menu-btn" id="menuBtn">
+            ☰
+        </button>
+
+        <div class="logo-box">
+            <div class="logo-title">
+                LMS Classroom
+            </div>
+
+            <div class="logo-subtitle">
+                MAASC Student Learning Management System
+            </div>
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+        <div class="header-item" id="clock">
+            --:--:--
+        </div>
+
+        <div class="header-item">
+            E-Varsity
+        </div>
+
+        <div class="student-mini">
+
+            <div class="student-avatar" id="headerAvatar">
+                S
+            </div>
+
+            <div class="student-mini-info">
+
+                <div class="student-mini-name" id="headerStudentName">
+                    Loading...
+                </div>
+
+                <div class="student-mini-id" id="headerStudentId">
+                    --
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-title">
+        Student Portal
+    </div>
+
+    <div class="side-link" onclick="goHome()">
+        <span class="side-icon">⌂</span>
+        <span>Home</span>
+    </div>
+
+    <div class="side-link">
+        <span class="side-icon">▣</span>
+        <span>Dashboard</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-title">
+        Academic
+    </div>
+
+    <div class="side-link">
+        <span class="side-icon">📅</span>
+        <span>Timetable</span>
+    </div>
+
+    <div class="side-link">
+        <span class="side-icon">✓</span>
+        <span>Attendance</span>
+    </div>
+
+    <div class="side-link">
+        <span class="side-icon">📝</span>
+        <span>Internal Marks</span>
+    </div>
+
+    <div class="side-link">
+        <span class="side-icon">📋</span>
+        <span>Examination</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-title">
+        Learning
+    </div>
+
+    <div class="side-link active">
+        <span class="side-icon">🎓</span>
+        <span>LMS</span>
+    </div>
+
+    <div class="side-link">
+        <span class="side-icon">📚</span>
+        <span>LMS Archive</span>
+    </div>
+
+    <div class="side-link">
+        <span class="side-icon">💬</span>
+        <span>Chat</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="side-link" onclick="logoutStudent()">
+        <span class="side-icon">↪</span>
+        <span>Logout</span>
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main" id="main">
+
+    <!-- =========================
+         SUBJECT PAGE
+    ========================== -->
+
+    <section id="subjectsPage">
+
+        <h1 class="page-title">
+            My LMS Classroom
+        </h1>
+
+        <div class="page-subtitle">
+            Access your assigned subjects, class work and learning activities.
+        </div>
+
+
+        <!-- STUDENT INFORMATION -->
+
+        <div class="student-info">
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Student Name
+                </div>
+
+                <div class="info-value" id="studentName">
+                    Loading...
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Register Number
+                </div>
+
+                <div class="info-value" id="studentRegisterNo">
+                    --
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Department
+                </div>
+
+                <div class="info-value" id="studentDepartment">
+                    --
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Year
+                </div>
+
+                <div class="info-value" id="studentYear">
+                    --
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Section
+                </div>
+
+                <div class="info-value" id="studentSection">
+                    --
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOOLBAR -->
+
+        <div class="toolbar">
+
+            <div class="toolbar-left">
+
+                <div class="section-heading">
+                    My Subjects
+                </div>
+
+                <div class="count-badge" id="subjectCount">
+                    0 Subjects
+                </div>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <span class="search-icon">
+                    🔍
+                </span>
+
+                <input
+                    type="text"
+                    id="subjectSearch"
+                    placeholder="Search subject..."
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- SUBJECTS -->
+
+        <div id="subjectsContainer">
+
+            <div class="loading">
+
+                <div class="spinner"></div>
+
+                <div>
+                    Loading your subjects...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         COURSE DETAIL PAGE
+    ====================================================== -->
+
+    <section id="coursePage" class="course-page">
+
+        <div class="course-header">
+
+            <div class="course-header-content">
+
+                <div class="back-link" onclick="showSubjectsPage()">
+                    ← Back to My Subjects
+                </div>
+
+                <div class="course-code" id="courseCode">
+                    --
+                </div>
+
+                <div class="course-title" id="courseTitle">
+                    --
+                </div>
+
+                <div class="course-meta">
+
+                    <span id="courseFaculty">
+                        Faculty: --
+                    </span>
+
+                    <span id="courseClass">
+                        Class: --
+                    </span>
+
+                    <span id="courseSection">
+                        Section: --
+                    </span>
+
+                    <span id="courseStudentCount">
+                        Students: --
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- COURSE NAVIGATION -->
+
+        <div class="course-nav">
+
+            <button
+                class="active"
+                id="classWorkTab"
+                onclick="openCourseTab('classwork',this)"
+            >
+                Class Work
+            </button>
+
+            <button
+                id="mcqTab"
+                onclick="openCourseTab('mcq',this)"
+            >
+                MCQ Template
+            </button>
+
+            <button
+                id="opinionTab"
+                onclick="openCourseTab('opinion',this)"
+            >
+                Opinion Template
+            </button>
+
+        </div>
+
+
+        <!-- COURSE CONTENT -->
+
+        <div class="course-content">
+
+            <!-- CLASSWORK -->
+
+            <div
+                class="content-panel active"
+                id="classworkPanel"
+            >
+
+                <div class="panel-title">
+                    Class Work
+                </div>
+
+                <div id="assignmentContainer">
+
+                    <div class="loading">
+
+                        <div class="spinner"></div>
+
+                        Loading class work...
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MCQ -->
+
+            <div
+                class="content-panel"
+                id="mcqPanel"
+            >
+
+                <div class="template-box">
+
+                    <div class="template-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        MCQ Template
+                    </h3>
+
+                    <p>
+                        MCQ activities assigned for this subject will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- OPINION -->
+
+            <div
+                class="content-panel"
+                id="opinionPanel"
+            >
+
+                <div class="template-box">
+
+                    <div class="template-icon">
+                        💭
+                    </div>
+
+                    <h3>
+                        Opinion Template
+                    </h3>
+
+                    <p>
+                        Opinion and feedback activities assigned for this subject will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     ASSIGNMENT MODAL
+========================================================= -->
+
+<div class="modal-overlay" id="assignmentModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                Assignment Details
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeAssignmentModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="modal-field">
+
+                <div class="modal-label">
+                    Assignment
+                </div>
+
+                <div
+                    class="modal-value"
+                    id="modalAssignmentTitle"
+                >
+                    --
+                </div>
+
+            </div>
+
+
+            <div class="modal-row">
+
+                <div class="modal-field">
+
+                    <div class="modal-label">
+                        Work Type
+                    </div>
+
+                    <div
+                        class="modal-value"
+                        id="modalWorkType"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+
+                <div class="modal-field">
+
+                    <div class="modal-label">
+                        Assigned Date
+                    </div>
+
+                    <div
+                        class="modal-value"
+                        id="modalAssignedDate"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-row">
+
+                <div class="modal-field">
+
+                    <div class="modal-label">
+                        Last Submission Date
+                    </div>
+
+                    <div
+                        class="modal-value"
+                        id="modalSubmissionDate"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+
+                <div class="modal-field">
+
+                    <div class="modal-label">
+                        Status
+                    </div>
+
+                    <div
+                        class="modal-value"
+                        id="modalStatus"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-field">
+
+                <div class="modal-label">
+                    Description
+                </div>
+
+                <div
+                    class="modal-value"
+                    id="modalDescription"
+                >
+                    --
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="close-modal"
+                onclick="closeAssignmentModal()"
+            >
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div class="toast" id="toast">
+    Message
+</div>
+
+
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    query,
+    where
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAIv3091VM-gkmdwEAn7OhXWd9Cm2zh2bo",
+
+    authDomain:
+        "maasc-2026.firebaseapp.com",
+
+    projectId:
+        "maasc-2026",
+
+    storageBucket:
+        "maasc-2026.appspot.com",
+
+    messagingSenderId:
+        "585813001586",
+
+    appId:
+        "1:585813001586:web:664e0e90ff"
+
+};
+
+
+/* =========================================================
+   INITIALIZE FIREBASE
+========================================================= */
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
+
+let currentStudent = null;
+
+let allSubjects = [];
+
+let currentCourse = null;
+
+let allAssignments = [];
+
+let allSubmissions = [];
+
+
+/* =========================================================
+   HELPER FUNCTIONS
+========================================================= */
+
+function cleanValue(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+        return "";
+    }
+
+    return String(value).trim();
+
+}
+
+
+function normalize(value){
+
+    return cleanValue(value)
+        .toLowerCase()
+        .replace(/\s+/g," ")
+        .trim();
+
+}
+
+
+function firstValue(obj,keys){
+
+    if(!obj){
+        return "";
+    }
+
+    for(const key of keys){
+
+        if(
+            obj[key] !== undefined &&
+            obj[key] !== null &&
+            String(obj[key]).trim() !== ""
+        ){
+
+            return obj[key];
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+function getStorageValue(keys){
+
+    for(const key of keys){
+
+        const sessionValue =
+            sessionStorage.getItem(key);
+
+        if(
+            sessionValue !== null &&
+            sessionValue.trim() !== ""
+        ){
+
+            return sessionValue.trim();
+
+        }
+
+
+        const localValue =
+            localStorage.getItem(key);
+
+        if(
+            localValue !== null &&
+            localValue.trim() !== ""
+        ){
+
+            return localValue.trim();
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+function timestampToDate(value){
+
+    if(!value){
+        return null;
+    }
+
+    try{
+
+        if(
+            typeof value === "object" &&
+            value.seconds !== undefined
+        ){
+
+            return new Date(
+                value.seconds * 1000
+            );
+
+        }
+
+        if(
+            typeof value === "object" &&
+            typeof value.toDate === "function"
+        ){
+
+            return value.toDate();
+
+        }
+
+        const date = new Date(value);
+
+        if(!isNaN(date.getTime())){
+            return date;
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "DATE CONVERSION ERROR:",
+            error
+        );
+
+    }
+
+    return null;
+
+}
+
+
+function formatDate(value){
+
+    const date =
+        timestampToDate(value);
+
+    if(!date){
+        return "--";
+    }
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+function isNewAssignment(data){
+
+    const assignedDate =
+        timestampToDate(
+            firstValue(
+                data,
+                [
+                    "assignedAt",
+                    "createdAt",
+                    "assignedDate"
+                ]
+            )
+        );
+
+    if(!assignedDate){
+        return false;
+    }
+
+    const difference =
+        Date.now() - assignedDate.getTime();
+
+    return difference <=
+        (7 * 24 * 60 * 60 * 1000);
+
+}
+
+
+/* =========================================================
+   SHOW TOAST
+========================================================= */
+
+window.showToast = function(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(
+        ()=>{
+            toast.classList.remove("show");
+        },
+        2500
+    );
+
+};
+
+
+/* =========================================================
+   CLOCK
+========================================================= */
+
+function updateClock(){
+
+    const now = new Date();
+
+    document.getElementById("clock")
+        .textContent =
+        now.toLocaleTimeString(
+            "en-IN",
+            {
+                hour:"2-digit",
+                minute:"2-digit",
+                second:"2-digit"
+            }
+        );
+
+}
+
+setInterval(
+    updateClock,
+    1000
+);
+
+updateClock();
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+document
+    .getElementById("menuBtn")
+    .addEventListener(
+        "click",
+        ()=>{
+            document
+                .getElementById("sidebar")
+                .classList.toggle("open");
+
+            document
+                .getElementById("sidebar")
+                .classList.toggle("closed");
+        }
+    );
+
+
+/* =========================================================
+   GET STUDENT IDENTIFIER
+========================================================= */
+
+function getPossibleStudentIdentifiers(){
+
+    const values = [];
+
+    const storageKeys = [
+
+        "registerNo",
+        "registerNumber",
+        "studentRegisterNo",
+        "studentRegNo",
+        "regNo",
+        "studentId",
+        "studentID",
+        "student_id",
+        "currentStudentId",
+        "loggedInStudentId",
+        "loggedStudentId",
+        "userStudentId",
+        "rollNo",
+        "rollNumber"
+
+    ];
+
+    storageKeys.forEach(key=>{
+
+        const value =
+            getStorageValue([key]);
+
+        if(
+            value &&
+            !values.includes(value)
+        ){
+
+            values.push(value);
+
+        }
+
+    });
+
+
+    /* URL PARAMETER SUPPORT */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    [
+
+        "registerNo",
+        "registerNumber",
+        "regNo",
+        "studentId",
+        "rollNo"
+
+    ].forEach(key=>{
+
+        const value =
+            params.get(key);
+
+        if(
+            value &&
+            !values.includes(value)
+        ){
+
+            values.push(value);
+
+        }
+
+    });
+
+
+    return values;
+
+}
+
+
+/* =========================================================
+   FIND STUDENT BY FIRESTORE ID
+========================================================= */
+
+async function findStudentByDocumentId(identifier){
+
+    try{
+
+        const studentRef =
+            doc(
+                db,
+                "students",
+                identifier
+            );
+
+        const snapshot =
+            await getDoc(studentRef);
+
+        if(snapshot.exists()){
+
+            return {
+                id:snapshot.id,
+                ...snapshot.data()
+            };
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "DOCUMENT LOOKUP FAILED:",
+            identifier,
+            error
+        );
+
+    }
+
+    return null;
+
+}
+
+
+/* =========================================================
+   FIND STUDENT BY FIELD
+========================================================= */
+
+async function findStudentByField(
+    field,
+    value
+){
+
+    try{
+
+        const q =
+            query(
+                collection(db,"students"),
+                where(field,"==",value)
+            );
+
+        const snapshot =
+            await getDocs(q);
+
+        if(!snapshot.empty){
+
+            const item =
+                snapshot.docs[0];
+
+            return {
+                id:item.id,
+                ...item.data()
+            };
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "FIELD LOOKUP FAILED:",
+            field,
+            value,
+            error
+        );
+
+    }
+
+    return null;
+
+}
+
+
+/* =========================================================
+   FIND STUDENT
+========================================================= */
+
+async function findStudent(){
+
+    console.log(
+        "========================================"
+    );
+
+    console.log(
+        "STUDENT LMS INITIALIZATION"
+    );
+
+    console.log(
+        "========================================"
+    );
+
+
+    const identifiers =
+        getPossibleStudentIdentifiers();
+
+
+    console.log(
+        "STUDENT IDENTIFIERS:",
+        identifiers
+    );
+
+
+    /* -----------------------------------------------------
+       1. FIREBASE AUTH EMAIL
+    ----------------------------------------------------- */
+
+    const firebaseUser =
+        auth.currentUser;
+
+
+    if(firebaseUser){
+
+        console.log(
+            "FIREBASE USER:",
+            firebaseUser.uid,
+            firebaseUser.email
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       2. STORAGE / URL IDENTIFIER
+    ----------------------------------------------------- */
+
+    for(const identifier of identifiers){
+
+        let student =
+            await findStudentByDocumentId(
+                identifier
+            );
+
+        if(student){
+
+            return student;
+
+        }
+
+
+        const fields = [
+
+            "registerNo",
+            "registerNumber",
+            "regNo",
+            "studentId",
+            "studentID",
+            "rollNo",
+            "rollNumber"
+
+        ];
+
+
+        for(const field of fields){
+
+            student =
+                await findStudentByField(
+                    field,
+                    identifier
+                );
+
+            if(student){
+
+                return student;
+
+            }
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       3. FIREBASE EMAIL
+    ----------------------------------------------------- */
+
+    if(firebaseUser && firebaseUser.email){
+
+        const emailFields = [
+
+            "email",
+            "mail",
+            "studentEmail",
+            "officialMail",
+            "officialMailId",
+            "officialEmail",
+            "officialEmailId"
+
+        ];
+
+
+        for(const field of emailFields){
+
+            const student =
+                await findStudentByField(
+                    field,
+                    firebaseUser.email
+                );
+
+            if(student){
+
+                return student;
+
+            }
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       4. FALLBACK SCAN
+    ----------------------------------------------------- */
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "students"
+                )
+            );
+
+
+        for(const item of snapshot.docs){
+
+            const data =
+                item.data();
+
+
+            if(
+                firebaseUser &&
+                firebaseUser.email
+            ){
+
+                const email =
+                    normalize(
+                        firstValue(
+                            data,
+                            [
+                                "email",
+                                "mail",
+                                "studentEmail",
+                                "officialMail",
+                                "officialEmail"
+                            ]
+                        )
+                    );
+
+
+                if(
+                    email ===
+                    normalize(
+                        firebaseUser.email
+                    )
+                ){
+
+                    return {
+                        id:item.id,
+                        ...data
+                    };
+
+                }
+
+            }
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "STUDENT FALLBACK ERROR:",
+            error
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   NORMALIZE STUDENT
+========================================================= */
+
+function normalizeStudent(student){
+
+    if(!student){
+        return null;
+    }
+
+
+    const registerNo =
+        cleanValue(
+            firstValue(
+                student,
+                [
+                    "registerNo",
+                    "registerNumber",
+                    "regNo",
+                    "studentId",
+                    "studentID"
+                ]
+            )
+        ) ||
+        cleanValue(student.id);
+
+
+    const name =
+        cleanValue(
+            firstValue(
+                student,
+                [
+                    "studentName",
+                    "name",
+                    "fullName",
+                    "student_name",
+                    "candidateName"
+                ]
+            )
+        ) ||
+        "Student";
+
+
+    const department =
+        cleanValue(
+            firstValue(
+                student,
+                [
+                    "department",
+                    "dept",
+                    "studentDepartment"
+                ]
+            )
+        );
+
+
+    const year =
+        cleanValue(
+            firstValue(
+                student,
+                [
+                    "classYear",
+                    "year",
+                    "studentYear",
+                    "academicYear"
+                ]
+            )
+        );
+
+
+    const section =
+        cleanValue(
+            firstValue(
+                student,
+                [
+                    "section",
+                    "studentSection"
+                ]
+            )
+        );
+
+
+    const rollNo =
+        cleanValue(
+            firstValue(
+                student,
+                [
+                    "rollNo",
+                    "rollNumber",
+                    "roll"
+                ]
+            )
+        );
+
+
+    return {
+
+        id:student.id,
+
+        ...student,
+
+        registerNo,
+        name,
+        department,
+        year,
+        section,
+        rollNo
+
+    };
+
+}
+
+
+/* =========================================================
+   DISPLAY STUDENT
+========================================================= */
+
+function displayStudent(){
+
+    document.getElementById(
+        "studentName"
+    ).textContent =
+        currentStudent.name || "--";
+
+
+    document.getElementById(
+        "studentRegisterNo"
+    ).textContent =
+        currentStudent.registerNo || "--";
+
+
+    document.getElementById(
+        "studentDepartment"
+    ).textContent =
+        currentStudent.department || "--";
+
+
+    document.getElementById(
+        "studentYear"
+    ).textContent =
+        currentStudent.year || "--";
+
+
+    document.getElementById(
+        "studentSection"
+    ).textContent =
+        currentStudent.section || "--";
+
+
+    document.getElementById(
+        "headerStudentName"
+    ).textContent =
+        currentStudent.name || "Student";
+
+
+    document.getElementById(
+        "headerStudentId"
+    ).textContent =
+        currentStudent.registerNo || "--";
+
+
+    const firstLetter =
+        (currentStudent.name || "S")
+            .trim()
+            .charAt(0)
+            .toUpperCase();
+
+
+    document.getElementById(
+        "headerAvatar"
+    ).textContent =
+        firstLetter;
+
+}
+
+
+/* =========================================================
+   LOAD STUDENT SUBJECT ASSIGNMENTS
+========================================================= */
+
+async function loadStudentSubjects(){
+
+    console.log(
+        "========================================"
+    );
+
+    console.log(
+        "LOADING STUDENT SUBJECT ASSIGNMENTS"
+    );
+
+    console.log(
+        "REGISTER NO:",
+        currentStudent.registerNo
+    );
+
+    console.log(
+        "========================================"
+    );
+
+
+    allSubjects = [];
+
+
+    let assignmentData = null;
+
+
+    /* -----------------------------------------------------
+       FIRST: student_subjects DOCUMENT ID = REGISTER NUMBER
+    ----------------------------------------------------- */
+
+    const possibleIds = [
+
+        currentStudent.registerNo,
+        currentStudent.id
+
+    ];
+
+
+    for(const id of possibleIds){
+
+        if(!id){
+            continue;
+        }
+
+        try{
+
+            const ref =
+                doc(
+                    db,
+                    "student_subjects",
+                    id
+                );
+
+            const snapshot =
+                await getDoc(ref);
+
+
+            if(snapshot.exists()){
+
+                assignmentData =
+                    snapshot.data();
+
+                console.log(
+                    "FOUND STUDENT SUBJECT DOCUMENT:",
+                    id,
+                    assignmentData
+                );
+
+                break;
+
+            }
+
+        }
+        catch(error){
+
+            console.warn(
+                "student_subjects DOCUMENT ERROR:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       SECOND: SEARCH BY REGISTER NO
+    ----------------------------------------------------- */
+
+    if(!assignmentData){
+
+        const fields = [
+
+            "registerNo",
+            "registerNumber",
+            "regNo",
+            "studentRegisterNo",
+            "studentId"
+
+        ];
+
+
+        for(const field of fields){
+
+            try{
+
+                const q =
+                    query(
+                        collection(
+                            db,
+                            "student_subjects"
+                        ),
+                        where(
+                            field,
+                            "==",
+                            currentStudent.registerNo
+                        )
+                    );
+
+
+                const snapshot =
+                    await getDocs(q);
+
+
+                if(!snapshot.empty){
+
+                    assignmentData =
+                        snapshot.docs[0].data();
+
+                    console.log(
+                        "FOUND SUBJECT ASSIGNMENT:",
+                        field
+                    );
+
+                    break;
+
+                }
+
+            }
+            catch(error){
+
+                console.warn(
+                    "SUBJECT FIELD ERROR:",
+                    field,
+                    error
+                );
+
+            }
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       THIRD: SCAN ALL student_subjects
+    ----------------------------------------------------- */
+
+    if(!assignmentData){
+
+        try{
+
+            const snapshot =
+                await getDocs(
+                    collection(
+                        db,
+                        "student_subjects"
+                    )
+                );
+
+
+            for(const item of snapshot.docs){
+
+                const data =
+                    item.data();
+
+
+                const register =
+                    cleanValue(
+                        firstValue(
+                            data,
+                            [
+                                "registerNo",
+                                "registerNumber",
+                                "regNo",
+                                "studentRegisterNo",
+                                "studentId"
+                            ]
+                        )
+                    );
+
+
+                if(
+                    normalize(register) ===
+                    normalize(
+                        currentStudent.registerNo
+                    )
+                ){
+
+                    assignmentData =
+                        data;
+
+                    break;
+
+                }
+
+            }
+
+        }
+        catch(error){
+
+            console.error(
+                "SUBJECT ASSIGNMENT SCAN ERROR:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       PROCESS SUBJECT DATA
+    ----------------------------------------------------- */
+
+    if(assignmentData){
+
+        console.log(
+            "STUDENT SUBJECT DATA:",
+            assignmentData
+        );
+
+
+        /*
+         * Subject Assignment Portal normally stores
+         * assigned subject objects in an array.
+         *
+         * Support several possible array names.
+         */
+
+        const possibleArrays = [
+
+            "subjects",
+            "assignedSubjects",
+            "subjectAssignments",
+            "assignedSubject",
+            "subjectList",
+            "courses"
+
+        ];
+
+
+        let subjectArray = null;
+
+
+        for(const key of possibleArrays){
+
+            if(
+                Array.isArray(
+                    assignmentData[key]
+                )
+            ){
+
+                subjectArray =
+                    assignmentData[key];
+
+                break;
+
+            }
+
+        }
+
+
+        if(subjectArray){
+
+            subjectArray.forEach(
+                (subject,index)=>{
+
+                    if(
+                        subject &&
+                        typeof subject === "object"
+                    ){
+
+                        allSubjects.push({
+
+                            assignmentId:
+                                subject.assignmentId ||
+                                subject.subjectAssignmentId ||
+                                subject.id ||
+                                String(index),
+
+                            subjectId:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "subjectId",
+                                            "id",
+                                            "subjectID"
+                                        ]
+                                    )
+                                ),
+
+                            subjectCode:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "subjectCode",
+                                            "code"
+                                        ]
+                                    )
+                                ),
+
+                            subjectName:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "subjectName",
+                                            "name",
+                                            "title"
+                                        ]
+                                    )
+                                ),
+
+                            department:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "department",
+                                            "dept"
+                                        ]
+                                    )
+                                ) ||
+                                currentStudent.department,
+
+                            classYear:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "classYear",
+                                            "year"
+                                        ]
+                                    )
+                                ) ||
+                                currentStudent.year,
+
+                            section:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "section"
+                                        ]
+                                    )
+                                ) ||
+                                currentStudent.section,
+
+                            staffId:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "staffId",
+                                            "facultyId",
+                                            "assignedStaffId"
+                                        ]
+                                    )
+                                ),
+
+                            staffName:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "staffName",
+                                            "facultyName",
+                                            "faculty"
+                                        ]
+                                    )
+                                ),
+
+                            credits:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "credits"
+                                        ]
+                                    )
+                                ),
+
+                            roomNo:
+                                cleanValue(
+                                    firstValue(
+                                        subject,
+                                        [
+                                            "roomNo",
+                                            "room"
+                                        ]
+                                    )
+                                )
+
+                        });
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       IF ARRAY WAS NOT FOUND, CHECK OTHER DATA SHAPES
+    ----------------------------------------------------- */
+
+    if(
+        allSubjects.length === 0 &&
+        assignmentData
+    ){
+
+        /*
+         * Sometimes assignments may be stored as
+         * individual subject fields or maps.
+         */
+
+        const mapKeys = [
+
+            "subjectAssignments",
+            "assignedSubjects",
+            "subjects"
+
+        ];
+
+
+        for(const key of mapKeys){
+
+            const value =
+                assignmentData[key];
+
+
+            if(
+                value &&
+                typeof value === "object" &&
+                !Array.isArray(value)
+            ){
+
+                Object.keys(value)
+                    .forEach(key2=>{
+
+                        const subject =
+                            value[key2];
+
+
+                        if(
+                            subject &&
+                            typeof subject === "object"
+                        ){
+
+                            allSubjects.push({
+
+                                assignmentId:key2,
+
+                                subjectId:
+                                    cleanValue(
+                                        firstValue(
+                                            subject,
+                                            [
+                                                "subjectId",
+                                                "id"
+                                            ]
+                                        )
+                                    ),
+
+                                subjectCode:
+                                    cleanValue(
+                                        firstValue(
+                                            subject,
+                                            [
+                                                "subjectCode",
+                                                "code"
+                                            ]
+                                        )
+                                    ),
+
+                                subjectName:
+                                    cleanValue(
+                                        firstValue(
+                                            subject,
+                                            [
+                                                "subjectName",
+                                                "name",
+                                                "title"
+                                            ]
+                                        )
+                                    ),
+
+                                department:
+                                    cleanValue(
+                                        firstValue(
+                                            subject,
+                                            [
+                                                "department",
+                                                "dept"
+                                            ]
+                                        )
+                                    ) ||
+                                    currentStudent.department,
+
+                                classYear:
+                                    cleanValue(
+                                        firstValue(
+                                            subject,
+                                            [
+                                                "classYear",
+                                                "year"
+                                            ]
+                                        )
+                                    ) ||
+                                    currentStudent.year,
+
+                                section:
+                                    cleanValue(
+                                        firstValue(
+                                            subject,
+                                            [
+                                                "section"
+                                            ]
+                                        )
+                                    ) ||
+                                    currentStudent.section,
+
+                                staffId:
+                                    cleanValue(
+                                        firstValue(
+                                            subject,
+                                            [
+                                                "staffId",
+                                                "facultyId"
+                                            ]
+                                        )
+                                    ),
+
+                                staffName:
+                                    cleanValue(
+                                        firstValue(
+                                            subject,
+                                            [
+                                                "staffName",
+                                                "facultyName",
+                                                "faculty"
+                                            ]
+                                        )
+                                    )
+
+                            });
+
+                        }
+
+                    });
+
+            }
+
+        }
+
+    }
+
+
+    /* -----------------------------------------------------
+       REMOVE DUPLICATES
+    ----------------------------------------------------- */
+
+    const unique = new Map();
+
+
+    allSubjects.forEach(subject=>{
+
+        const key =
+            subject.subjectId ||
+            subject.subjectCode ||
+            subject.subjectName;
+
+
+        if(
+            key &&
+            !unique.has(
+                normalize(key)
+            )
+        ){
+
+            unique.set(
+                normalize(key),
+                subject
+            );
+
+        }
+
+    });
+
+
+    allSubjects =
+        Array.from(
+            unique.values()
+        );
+
+
+    console.log(
+        "FINAL STUDENT SUBJECTS:",
+        allSubjects
+    );
+
+
+    renderSubjects();
+
+}
+
+
+/* =========================================================
+   RENDER SUBJECTS
+========================================================= */
+
+function renderSubjects(){
+
+    const container =
+        document.getElementById(
+            "subjectsContainer"
+        );
+
+
+    const search =
+        normalize(
+            document.getElementById(
+                "subjectSearch"
+            ).value
+        );
+
+
+    const filtered =
+        allSubjects.filter(subject=>{
+
+            if(!search){
+                return true;
+            }
+
+
+            const text = [
+
+                subject.subjectCode,
+                subject.subjectName,
+                subject.department,
+                subject.classYear,
+                subject.section,
+                subject.staffName
+
+            ]
+            .join(" ");
+
+
+            return normalize(text)
+                .includes(search);
+
+        });
+
+
+    document.getElementById(
+        "subjectCount"
+    ).textContent =
+        `${allSubjects.length} Subject${allSubjects.length === 1 ? "" : "s"}`;
+
+
+    if(filtered.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty-box">
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+                <h3>
+                    No Subjects Found
+                </h3>
+
+                <p style="margin-top:7px;font-size:13px;">
+                    ${
+                        allSubjects.length === 0
+                        ? "No subjects have been assigned to your account yet."
+                        : "No subject matches your search."
+                    }
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const grid =
+        document.createElement(
+            "div"
+        );
+
+    grid.className =
+        "subject-grid";
+
+
+    filtered.forEach(subject=>{
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+        card.className =
+            "subject-card";
+
+
+        card.innerHTML = `
+
+            <div class="subject-top">
+
+                <div class="subject-code">
+                    ${escapeHtml(
+                        subject.subjectCode || "SUBJECT"
+                    )}
+                </div>
+
+                <div class="subject-name">
+                    ${escapeHtml(
+                        subject.subjectName ||
+                        "Untitled Subject"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="subject-body">
+
+                <div class="subject-detail">
+
+                    <div class="detail-icon">
+                        👨‍🏫
+                    </div>
+
+                    <div class="detail-text">
+
+                        <div class="detail-label">
+                            Faculty
+                        </div>
+
+                        <div class="detail-value">
+                            ${escapeHtml(
+                                subject.staffName ||
+                                "Faculty"
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="subject-detail">
+
+                    <div class="detail-icon">
+                        🎓
+                    </div>
+
+                    <div class="detail-text">
+
+                        <div class="detail-label">
+                            Class
+                        </div>
+
+                        <div class="detail-value">
+                            ${escapeHtml(
+                                subject.department ||
+                                currentStudent.department ||
+                                "--"
+                            )}
+                            -
+                            ${escapeHtml(
+                                subject.classYear ||
+                                currentStudent.year ||
+                                "--"
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="subject-detail">
+
+                    <div class="detail-icon">
+                        👥
+                    </div>
+
+                    <div class="detail-text">
+
+                        <div class="detail-label">
+                            Section
+                        </div>
+
+                        <div class="detail-value">
+                            ${escapeHtml(
+                                subject.section ||
+                                currentStudent.section ||
+                                "--"
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="subject-footer">
+
+                    <div
+                        class="assignment-count"
+                        id="count-${escapeHtml(
+                            subject.subjectId ||
+                            subject.subjectCode
+                        )}"
+                    >
+                        Class work
+                    </div>
+
+                    <button
+                        class="open-btn"
+                    >
+                        View
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        card.addEventListener(
+            "click",
+            ()=>{
+                openCourse(subject);
+            }
+        );
+
+
+        grid.appendChild(card);
+
+    });
+
+
+    container.innerHTML = "";
+
+    container.appendChild(grid);
+
+
+    /*
+     * Load assignment counts without blocking
+     * subject rendering.
+     */
+
+    filtered.forEach(
+        subject=>{
+            loadAssignmentCount(
+                subject
+            );
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   LOAD ASSIGNMENT COUNT
+========================================================= */
+
+async function loadAssignmentCount(subject){
+
+    try{
+
+        let count = 0;
+
+
+        if(subject.subjectId){
+
+            const q =
+                query(
+                    collection(
+                        db,
+                        "lmsAssignments"
+                    ),
+                    where(
+                        "subjectId",
+                        "==",
+                        subject.subjectId
+                    )
+                );
+
+
+            const snapshot =
+                await getDocs(q);
+
+
+            count =
+                snapshot.size;
+
+        }
+
+
+        if(
+            count === 0 &&
+            subject.subjectCode
+        ){
+
+            const q =
+                query(
+                    collection(
+                        db,
+                        "lmsAssignments"
+                    ),
+                    where(
+                        "subjectCode",
+                        "==",
+                        subject.subjectCode
+                    )
+                );
+
+
+            const snapshot =
+                await getDocs(q);
+
+
+            count =
+                snapshot.size;
+
+        }
+
+
+        const safeId =
+            escapeHtml(
+                subject.subjectId ||
+                subject.subjectCode
+            );
+
+
+        const element =
+            document.getElementById(
+                `count-${safeId}`
+            );
+
+
+        if(element){
+
+            element.textContent =
+                `${count} Class Work${count === 1 ? "" : "s"}`;
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "ASSIGNMENT COUNT ERROR:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN COURSE
+========================================================= */
+
+window.openCourse = async function(subject){
+
+    currentCourse =
+        subject;
+
+
+    document.getElementById(
+        "subjectsPage"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "coursePage"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "courseCode"
+    ).textContent =
+        subject.subjectCode || "--";
+
+
+    document.getElementById(
+        "courseTitle"
+    ).textContent =
+        subject.subjectName || "--";
+
+
+    document.getElementById(
+        "courseFaculty"
+    ).textContent =
+        "Faculty: " +
+        (
+            subject.staffName ||
+            "Faculty"
+        );
+
+
+    document.getElementById(
+        "courseClass"
+    ).textContent =
+        "Class: " +
+        (
+            subject.department ||
+            currentStudent.department ||
+            "--"
+        ) +
+        " - " +
+        (
+            subject.classYear ||
+            currentStudent.year ||
+            "--"
+        );
+
+
+    document.getElementById(
+        "courseSection"
+    ).textContent =
+        "Section: " +
+        (
+            subject.section ||
+            currentStudent.section ||
+            "--"
+        );
+
+
+    document.getElementById(
+        "courseStudentCount"
+    ).textContent =
+        "Students: --";
+
+
+    openCourseTab(
+        "classwork",
+        document.getElementById(
+            "classWorkTab"
+        )
+    );
+
+
+    await loadCourseAssignments(
+        subject
+    );
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+};
+
+
+/* =========================================================
+   LOAD COURSE ASSIGNMENTS
+========================================================= */
+
+async function loadCourseAssignments(subject){
+
+    const container =
+        document.getElementById(
+            "assignmentContainer"
+        );
+
+
+    container.innerHTML = `
+
+        <div class="loading">
+
+            <div class="spinner"></div>
+
+            Loading class work...
+
+        </div>
+
+    `;
+
+
+    allAssignments = [];
+
+
+    try{
+
+        const results = [];
+
+
+        /* -------------------------------------------------
+           SEARCH BY SUBJECT ID
+        ------------------------------------------------- */
+
+        if(subject.subjectId){
+
+            try{
+
+                const q =
+                    query(
+                        collection(
+                            db,
+                            "lmsAssignments"
+                        ),
+                        where(
+                            "subjectId",
+                            "==",
+                            subject.subjectId
+                        )
+                    );
+
+
+                const snapshot =
+                    await getDocs(q);
+
+
+                snapshot.docs.forEach(
+                    item=>{
+
+                        results.push({
+
+                            id:item.id,
+                            ...item.data()
+
+                        });
+
+                    }
+                );
+
+            }
+            catch(error){
+
+                console.warn(
+                    "SUBJECT ID QUERY ERROR:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* -------------------------------------------------
+           SEARCH BY SUBJECT CODE
+        ------------------------------------------------- */
+
+        if(
+            results.length === 0 &&
+            subject.subjectCode
+        ){
+
+            try{
+
+                const q =
+                    query(
+                        collection(
+                            db,
+                            "lmsAssignments"
+                        ),
+                        where(
+                            "subjectCode",
+                            "==",
+                            subject.subjectCode
+                        )
+                    );
+
+
+                const snapshot =
+                    await getDocs(q);
+
+
+                snapshot.docs.forEach(
+                    item=>{
+
+                        results.push({
+
+                            id:item.id,
+                            ...item.data()
+
+                        });
+
+                    }
+                );
+
+            }
+            catch(error){
+
+                console.warn(
+                    "SUBJECT CODE QUERY ERROR:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* -------------------------------------------------
+           REMOVE DUPLICATES
+        ------------------------------------------------- */
+
+        const unique =
+            new Map();
+
+
+        results.forEach(item=>{
+
+            if(
+                !unique.has(item.id)
+            ){
+
+                unique.set(
+                    item.id,
+                    item
+                );
+
+            }
+
+        });
+
+
+        allAssignments =
+            Array.from(
+                unique.values()
+            );
+
+
+        /* -------------------------------------------------
+           LOAD SUBMISSIONS
+        ------------------------------------------------- */
+
+        await loadStudentSubmissions();
+
+
+        renderAssignments();
+
+
+        /*
+         * Attempt to calculate student count.
+         */
+
+        loadCourseStudentCount(
+            subject
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "LOAD COURSE ASSIGNMENTS ERROR:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="error-box">
+
+                <strong>
+                    Unable to load class work.
+                </strong>
+
+                <br>
+
+                ${escapeHtml(
+                    error.message ||
+                    "Unknown Firebase error"
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD STUDENT SUBMISSIONS
+========================================================= */
+
+async function loadStudentSubmissions(){
+
+    allSubmissions = [];
+
+
+    /*
+     * The LMS submission collection may contain different
+     * field names depending on the submission implementation.
+     */
+
+    const possibleFields = [
+
+        "studentRegisterNo",
+        "registerNo",
+        "studentId"
+
+    ];
+
+
+    for(const field of possibleFields){
+
+        try{
+
+            const q =
+                query(
+                    collection(
+                        db,
+                        "lmsSubmissions"
+                    ),
+                    where(
+                        field,
+                        "==",
+                        currentStudent.registerNo
+                    )
+                );
+
+
+            const snapshot =
+                await getDocs(q);
+
+
+            if(
+                !snapshot.empty
+            ){
+
+                snapshot.docs.forEach(
+                    item=>{
+
+                        allSubmissions.push({
+
+                            id:item.id,
+                            ...item.data()
+
+                        });
+
+                    }
+                );
+
+
+                break;
+
+            }
+
+        }
+        catch(error){
+
+            console.warn(
+                "SUBMISSION QUERY ERROR:",
+                field,
+                error
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   CHECK SUBMISSION
+========================================================= */
+
+function isAssignmentSubmitted(assignment){
+
+    const assignmentId =
+        assignment.id;
+
+
+    const subjectAssignmentId =
+        firstValue(
+            assignment,
+            [
+                "assignmentId",
+                "lmsAssignmentId",
+                "classWorkId"
+            ]
+        );
+
+
+    return allSubmissions.some(
+        submission=>{
+
+            const linkedId =
+                firstValue(
+                    submission,
+                    [
+                        "assignmentId",
+                        "lmsAssignmentId",
+                        "classWorkId"
+                    ]
+                );
+
+
+            return (
+                linkedId === assignmentId ||
+                (
+                    subjectAssignmentId &&
+                    linkedId === subjectAssignmentId
+                )
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RENDER ASSIGNMENTS
+========================================================= */
+
+function renderAssignments(){
+
+    const container =
+        document.getElementById(
+            "assignmentContainer"
+        );
+
+
+    if(allAssignments.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty-box">
+
+                <div class="empty-icon">
+                    📝
+                </div>
+
+                <h3>
+                    No Class Work
+                </h3>
+
+                <p style="margin-top:7px;font-size:13px;">
+                    No class work has been assigned for this subject yet.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+     * Latest assignments first.
+     */
+
+    allAssignments.sort(
+        (a,b)=>{
+
+            const dateA =
+                timestampToDate(
+                    firstValue(
+                        a,
+                        [
+                            "assignedAt",
+                            "createdAt",
+                            "assignedDate"
+                        ]
+                    )
+                );
+
+            const dateB =
+                timestampToDate(
+                    firstValue(
+                        b,
+                        [
+                            "assignedAt",
+                            "createdAt",
+                            "assignedDate"
+                        ]
+                    )
+                );
+
+
+            return (
+                (dateB?.getTime() || 0) -
+                (dateA?.getTime() || 0)
+            );
+
+        }
+    );
+
+
+    const list =
+        document.createElement(
+            "div"
+        );
+
+    list.className =
+        "assignment-list";
+
+
+    allAssignments.forEach(
+        assignment=>{
+
+            const submitted =
+                isAssignmentSubmitted(
+                    assignment
+                );
+
+
+            const title =
+                cleanValue(
+                    firstValue(
+                        assignment,
+                        [
+                            "title",
+                            "assignmentTitle",
+                            "workTitle",
+                            "name"
+                        ]
+                    )
+                ) ||
+                "Untitled Class Work";
+
+
+            const workType =
+                cleanValue(
+                    firstValue(
+                        assignment,
+                        [
+                            "workType",
+                            "type",
+                            "assignmentType"
+                        ]
+                    )
+                ) ||
+                "Class Work";
+
+
+            const description =
+                cleanValue(
+                    firstValue(
+                        assignment,
+                        [
+                            "description",
+                            "instructions",
+                            "details"
+                        ]
+                    )
+                );
+
+
+            const assignedDate =
+                firstValue(
+                    assignment,
+                    [
+                        "assignedAt",
+                        "createdAt",
+                        "assignedDate"
+                    ]
+                );
+
+
+            const lastDate =
+                firstValue(
+                    assignment,
+                    [
+                        "lastSubmissionDate",
+                        "submissionDate",
+                        "dueDate",
+                        "lastDate"
+                    ]
+                );
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "assignment-card";
+
+
+            card.innerHTML = `
+
+                <div class="assignment-main">
+
+                    <div class="assignment-left">
+
+                        <div class="assignment-title-row">
+
+                            <div class="assignment-title">
+                                ${escapeHtml(title)}
+                            </div>
+
+                            ${
+                                isNewAssignment(assignment)
+                                ?
+                                `
+                                <span class="new-badge">
+                                    NEW
+                                </span>
+                                `
+                                :
+                                ""
+                            }
+
+                        </div>
+
+
+                        ${
+                            description
+                            ?
+                            `
+                            <div class="assignment-description">
+                                ${escapeHtml(description)}
+                            </div>
+                            `
+                            :
+                            ""
+                        }
+
+
+                        <div class="assignment-meta">
+
+                            <div class="meta-item">
+                                Work Type:
+                                <strong>
+                                    ${escapeHtml(workType)}
+                                </strong>
+                            </div>
+
+                            <div class="meta-item">
+                                Assigned:
+                                <strong>
+                                    ${formatDate(assignedDate)}
+                                </strong>
+                            </div>
+
+                            <div class="meta-item">
+                                Last Date:
+                                <strong>
+                                    ${formatDate(lastDate)}
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="
+                            status-badge
+                            ${
+                                submitted
+                                ?
+                                "status-submitted"
+                                :
+                                "status-not-submitted"
+                            }
+                        ">
+
+                            ${
+                                submitted
+                                ?
+                                "SUBMITTED"
+                                :
+                                "NOT SUBMITTED"
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="assignment-action">
+
+                        <button
+                            class="view-btn"
+                        >
+                            View
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            card
+                .querySelector(
+                    ".view-btn"
+                )
+                .addEventListener(
+                    "click",
+                    event=>{
+
+                        event.stopPropagation();
+
+                        openAssignment(
+                            assignment,
+                            submitted
+                        );
+
+                    }
+                );
+
+
+            card.addEventListener(
+                "click",
+                ()=>{
+                    openAssignment(
+                        assignment,
+                        submitted
+                    );
+                }
+            );
+
+
+            list.appendChild(card);
+
+        }
+    );
+
+
+    container.innerHTML = "";
+
+    container.appendChild(list);
+
+}
+
+
+/* =========================================================
+   OPEN ASSIGNMENT
+========================================================= */
+
+window.openAssignment = function(
+    assignment,
+    submitted
+){
+
+    const title =
+        firstValue(
+            assignment,
+            [
+                "title",
+                "assignmentTitle",
+                "workTitle",
+                "name"
+            ]
+        ) ||
+        "Untitled Class Work";
+
+
+    const workType =
+        firstValue(
+            assignment,
+            [
+                "workType",
+                "type",
+                "assignmentType"
+            ]
+        ) ||
+        "Class Work";
+
+
+    const description =
+        firstValue(
+            assignment,
+            [
+                "description",
+                "instructions",
+                "details"
+            ]
+        ) ||
+        "No instructions provided.";
+
+
+    const assignedDate =
+        firstValue(
+            assignment,
+            [
+                "assignedAt",
+                "createdAt",
+                "assignedDate"
+            ]
+        );
+
+
+    const submissionDate =
+        firstValue(
+            assignment,
+            [
+                "lastSubmissionDate",
+                "submissionDate",
+                "dueDate",
+                "lastDate"
+            ]
+        );
+
+
+    document.getElementById(
+        "modalAssignmentTitle"
+    ).textContent =
+        title;
+
+
+    document.getElementById(
+        "modalWorkType"
+    ).textContent =
+        workType;
+
+
+    document.getElementById(
+        "modalAssignedDate"
+    ).textContent =
+        formatDate(
+            assignedDate
+        );
+
+
+    document.getElementById(
+        "modalSubmissionDate"
+    ).textContent =
+        formatDate(
+            submissionDate
+        );
+
+
+    document.getElementById(
+        "modalDescription"
+    ).textContent =
+        description;
+
+
+    document.getElementById(
+        "modalStatus"
+    ).innerHTML =
+        submitted
+        ?
+        `
+        <span class="status-badge status-submitted">
+            SUBMITTED
+        </span>
+        `
+        :
+        `
+        <span class="status-badge status-not-submitted">
+            NOT SUBMITTED
+        </span>
+        `;
+
+
+    document.getElementById(
+        "assignmentModal"
+    ).classList.add("show");
+
+};
+
+
+/* =========================================================
+   CLOSE ASSIGNMENT MODAL
+========================================================= */
+
+window.closeAssignmentModal =
+function(){
+
+    document
+        .getElementById(
+            "assignmentModal"
+        )
+        .classList.remove("show");
+
+};
+
+
+/* =========================================================
+   COURSE STUDENT COUNT
+========================================================= */
+
+async function loadCourseStudentCount(subject){
+
+    try{
+
+        /*
+         * Student subject assignments are stored per student.
+         * We scan them and count students having this subject.
+         */
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "student_subjects"
+                )
+            );
+
+
+        let count = 0;
+
+
+        snapshot.docs.forEach(
+            item=>{
+
+                const data =
+                    item.data();
+
+
+                const arrays = [
+
+                    data.subjects,
+                    data.assignedSubjects,
+                    data.subjectAssignments,
+                    data.subjectList,
+                    data.courses
+
+                ];
+
+
+                for(const arr of arrays){
+
+                    if(
+                        !Array.isArray(arr)
+                    ){
+
+                        continue;
+
+                    }
+
+
+                    const found =
+                        arr.some(
+                            s=>{
+
+                                if(
+                                    !s ||
+                                    typeof s !== "object"
+                                ){
+
+                                    return false;
+
+                                }
+
+
+                                const sid =
+                                    cleanValue(
+                                        firstValue(
+                                            s,
+                                            [
+                                                "subjectId",
+                                                "id",
+                                                "subjectID"
+                                            ]
+                                        )
+                                    );
+
+
+                                const code =
+                                    cleanValue(
+                                        firstValue(
+                                            s,
+                                            [
+                                                "subjectCode",
+                                                "code"
+                                            ]
+                                        )
+                                    );
+
+
+                                return (
+
+                                    (
+                                        subject.subjectId &&
+                                        sid &&
+                                        sid ===
+                                        subject.subjectId
+                                    )
+
+                                    ||
+
+                                    (
+                                        subject.subjectCode &&
+                                        code &&
+                                        normalize(code) ===
+                                        normalize(
+                                            subject.subjectCode
+                                        )
+                                    )
+
+                                );
+
+                            }
+                        );
+
+
+                    if(found){
+
+                        count++;
+
+                        break;
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        document.getElementById(
+            "courseStudentCount"
+        ).textContent =
+            "Students: " +
+            count;
+
+    }
+    catch(error){
+
+        console.warn(
+            "COURSE STUDENT COUNT ERROR:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   COURSE TABS
+========================================================= */
+
+window.openCourseTab =
+function(
+    tab,
+    button
+){
+
+    document
+        .querySelectorAll(
+            ".course-nav button"
+        )
+        .forEach(
+            btn=>{
+                btn.classList.remove(
+                    "active"
+                );
+            }
+        );
+
+
+    if(button){
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(
+            ".content-panel"
+        )
+        .forEach(
+            panel=>{
+                panel.classList.remove(
+                    "active"
+                );
+            }
+        );
+
+
+    if(tab === "classwork"){
+
+        document
+            .getElementById(
+                "classworkPanel"
+            )
+            .classList.add(
+                "active"
+            );
+
+    }
+
+
+    if(tab === "mcq"){
+
+        document
+            .getElementById(
+                "mcqPanel"
+            )
+            .classList.add(
+                "active"
+            );
+
+    }
+
+
+    if(tab === "opinion"){
+
+        document
+            .getElementById(
+                "opinionPanel"
+            )
+            .classList.add(
+                "active"
+            );
+
+    }
+
+};
+
+
+/* =========================================================
+   SHOW SUBJECT PAGE
+========================================================= */
+
+window.showSubjectsPage =
+function(){
+
+    document.getElementById(
+        "coursePage"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "subjectsPage"
+    ).style.display =
+        "block";
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+};
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+window.goHome =
+function(){
+
+    /*
+     * Change this filename if your student dashboard
+     * uses another filename.
+     */
+
+    window.location.href =
+        "student-dashboard.html";
+
+};
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+window.logoutStudent =
+async function(){
+
+    try{
+
+        await signOut(auth);
+
+    }
+    catch(error){
+
+        console.error(
+            "LOGOUT ERROR:",
+            error
+        );
+
+    }
+
+
+    sessionStorage.clear();
+
+    /*
+     * Do not clear localStorage because other student
+     * portal pages may use the login session.
+     */
+
+    window.location.href =
+        "student-login.html";
+
+};
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+document
+    .getElementById(
+        "subjectSearch"
+    )
+    .addEventListener(
+        "input",
+        renderSubjects
+    );
+
+
+/* =========================================================
+   MODAL OUTSIDE CLICK
+========================================================= */
+
+document
+    .getElementById(
+        "assignmentModal"
+    )
+    .addEventListener(
+        "click",
+        event=>{
+
+            if(
+                event.target.id ===
+                "assignmentModal"
+            ){
+
+                closeAssignmentModal();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   FIREBASE AUTH INITIALIZATION
+========================================================= */
+
+let initializationStarted = false;
+
+
+async function initializeStudentLMS(){
+
+    if(initializationStarted){
+
+        return;
+
+    }
+
+    initializationStarted = true;
+
+
+    try{
+
+        currentStudent =
+            await findStudent();
+
+
+        if(!currentStudent){
+
+            console.error(
+                "NO STUDENT FOUND"
+            );
+
+
+            document.getElementById(
+                "subjectsContainer"
+            ).innerHTML = `
+
+                <div class="error-box">
+
+                    <strong>
+                        Student details could not be loaded.
+                    </strong>
+
+                    <br><br>
+
+                    The LMS could not identify the logged-in
+                    student from Firebase Authentication or
+                    the saved student session.
+
+                    <br><br>
+
+                    Please return to the student login page
+                    and login again.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        currentStudent =
+            normalizeStudent(
+                currentStudent
+            );
+
+
+        console.log(
+            "CURRENT STUDENT:",
+            currentStudent
+        );
+
+
+        displayStudent();
+
+
+        await loadStudentSubjects();
+
+    }
+    catch(error){
+
+        console.error(
+            "STUDENT LMS INITIALIZATION ERROR:",
+            error
+        );
+
+
+        document.getElementById(
+            "subjectsContainer"
+        ).innerHTML = `
+
+            <div class="error-box">
+
+                <strong>
+                    LMS Initialization Error
+                </strong>
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message ||
+                    "Unknown error"
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+onAuthStateChanged(
+    auth,
+    async user=>{
+
+        console.log(
+            "AUTH STATE:",
+            user
+                ?
+                {
+                    uid:user.uid,
+                    email:user.email
+                }
+                :
+                "NO AUTH USER"
+        );
+
+
+        /*
+         * Important:
+         *
+         * Even when Firebase Auth has no user, the existing
+         * student portal may use sessionStorage/localStorage
+         * to identify the student.
+         *
+         * Therefore we still initialize the LMS.
+         */
+
+        await initializeStudentLMS();
+
+    }
+);
+
+
+/* =========================================================
+   FALLBACK INITIALIZATION
+========================================================= */
+
+setTimeout(
+    ()=>{
+
+        initializeStudentLMS();
+
+    },
+    1200
+);
+
+
+console.log(
+    "========================================"
+);
+
+console.log(
+    "STUDENT LMS READY"
+);
+
+console.log(
+    "========================================"
+);
+
+</script>
+
+</body>
+</html>
