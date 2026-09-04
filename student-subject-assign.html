@@ -1,0 +1,3206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Subject Assignment Portal</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f6f9;
+    color:#222;
+}
+
+.header{
+    background:linear-gradient(135deg,#173b7a,#2563b8);
+    color:white;
+    padding:22px 30px;
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
+}
+
+.header h1{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.header p{
+    opacity:.9;
+    font-size:14px;
+}
+
+.container{
+    width:96%;
+    max-width:1600px;
+    margin:22px auto;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.card-title{
+    font-size:18px;
+    font-weight:bold;
+    color:#173b7a;
+    margin-bottom:16px;
+}
+
+.filters{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:14px;
+}
+
+.form-group label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:6px;
+    color:#555;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid #d3d8df;
+    border-radius:7px;
+    font-size:14px;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#2563b8;
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:16px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    border-radius:7px;
+    padding:10px 17px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.btn-primary{
+    background:#2563b8;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#174d98;
+}
+
+.btn-secondary{
+    background:#e8edf5;
+    color:#173b7a;
+}
+
+.btn-success{
+    background:#198754;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-warning{
+    background:#f0ad4e;
+    color:white;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:white;
+    border-radius:10px;
+    padding:18px;
+    box-shadow:0 3px 10px rgba(0,0,0,.07);
+    border-left:5px solid #2563b8;
+}
+
+.stat h3{
+    font-size:25px;
+    color:#173b7a;
+}
+
+.stat p{
+    color:#666;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.two-column{
+    display:grid;
+    grid-template-columns:1.7fr 1fr;
+    gap:20px;
+}
+
+.table-wrapper{
+    width:100%;
+    overflow:auto;
+    max-height:600px;
+    border:1px solid #e1e5eb;
+    border-radius:8px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px;
+}
+
+thead{
+    position:sticky;
+    top:0;
+    z-index:2;
+}
+
+th{
+    background:#173b7a;
+    color:white;
+    padding:12px 9px;
+    text-align:left;
+    font-size:12px;
+    white-space:nowrap;
+}
+
+td{
+    padding:10px 9px;
+    border-bottom:1px solid #edf0f3;
+    font-size:13px;
+}
+
+tbody tr:hover{
+    background:#f7faff;
+}
+
+.student-row-selected{
+    background:#eef5ff !important;
+}
+
+.subject-search{
+    display:flex;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.subject-search input{
+    flex:1;
+    padding:10px;
+    border:1px solid #d3d8df;
+    border-radius:7px;
+}
+
+.subject-list{
+    max-height:500px;
+    overflow:auto;
+    border:1px solid #e1e5eb;
+    border-radius:8px;
+}
+
+.subject-item{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:12px;
+    border-bottom:1px solid #edf0f3;
+    cursor:pointer;
+}
+
+.subject-item:last-child{
+    border-bottom:none;
+}
+
+.subject-item:hover{
+    background:#f6f9ff;
+}
+
+.subject-item input{
+    margin-top:3px;
+}
+
+.subject-code{
+    font-weight:bold;
+    color:#173b7a;
+    font-size:13px;
+}
+
+.subject-name{
+    margin-top:3px;
+    font-size:13px;
+}
+
+.subject-meta{
+    margin-top:4px;
+    color:#777;
+    font-size:11px;
+}
+
+.selected-subject{
+    background:#eef5ff;
+}
+
+.subject-header-tools{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.subject-count{
+    font-size:12px;
+    color:#666;
+}
+
+.progress-area{
+    display:none;
+    margin-top:15px;
+}
+
+.progress-bar{
+    height:12px;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:#198754;
+    transition:.3s;
+}
+
+.progress-text{
+    text-align:center;
+    font-size:12px;
+    margin-top:6px;
+    color:#555;
+}
+
+.empty{
+    padding:35px 20px;
+    text-align:center;
+    color:#777;
+    font-size:13px;
+}
+
+.status{
+    padding:12px 15px;
+    border-radius:7px;
+    background:#eef5ff;
+    color:#173b7a;
+    margin-bottom:18px;
+    display:none;
+    font-size:13px;
+}
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+}
+
+.modal{
+    background:white;
+    width:92%;
+    max-width:550px;
+    border-radius:12px;
+    padding:25px;
+    box-shadow:0 10px 40px rgba(0,0,0,.25);
+}
+
+.modal h2{
+    color:#173b7a;
+    margin-bottom:12px;
+    font-size:20px;
+}
+
+.modal p{
+    font-size:14px;
+    line-height:1.6;
+    color:#555;
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+}
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#173b7a;
+    color:white;
+    padding:13px 18px;
+    border-radius:8px;
+    display:none;
+    z-index:2000;
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+    font-size:13px;
+}
+
+.loading{
+    text-align:center;
+    padding:25px;
+    color:#666;
+}
+
+.badge{
+    display:inline-block;
+    padding:4px 8px;
+    border-radius:20px;
+    background:#e8edf5;
+    color:#173b7a;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.badge-green{
+    background:#dff5e8;
+    color:#198754;
+}
+
+@media(max-width:1100px){
+    .filters{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .two-column{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:700px){
+    .filters{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .header{
+        padding:18px;
+    }
+
+    .container{
+        width:94%;
+    }
+}
+
+@media(max-width:450px){
+    .stats{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Student Subject Assignment Portal</h1>
+    <p>MAASC Student Management System</p>
+</div>
+
+<div class="container">
+
+    <div id="statusBox" class="status"></div>
+
+    <!-- FILTERS -->
+    <div class="card">
+
+        <div class="card-title">
+            Student Filters
+        </div>
+
+        <div class="filters">
+
+            <div class="form-group">
+                <label>Department</label>
+                <select id="departmentFilter">
+                    <option value="">All Departments</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Year</label>
+                <select id="yearFilter">
+                    <option value="">All Years</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Section</label>
+                <select id="sectionFilter">
+                    <option value="">All Sections</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Roll No Search</label>
+                <input
+                    type="text"
+                    id="rollSearch"
+                    placeholder="Enter Roll No">
+            </div>
+
+            <div class="form-group">
+                <label>Student Search</label>
+                <input
+                    type="text"
+                    id="studentSearch"
+                    placeholder="Name / Register No">
+            </div>
+
+        </div>
+
+        <div class="buttons">
+            <button class="btn-primary" id="loadStudentsBtn">
+                Load Students
+            </button>
+
+            <button class="btn-secondary" id="clearFiltersBtn">
+                Clear Filters
+            </button>
+
+            <button class="btn-secondary" id="refreshBtn">
+                Refresh
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+    <div class="stats">
+
+        <div class="stat">
+            <h3 id="totalStudents">0</h3>
+            <p>Total Students</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="visibleStudents">0</h3>
+            <p>Visible Students</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="selectedStudents">0</h3>
+            <p>Selected Students</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="selectedSubjects">0</h3>
+            <p>Selected Subjects</p>
+        </div>
+
+    </div>
+
+
+    <div class="two-column">
+
+        <!-- STUDENTS -->
+        <div class="card">
+
+            <div class="card-title">
+                Students
+            </div>
+
+            <div class="buttons" style="margin-top:0;margin-bottom:12px;">
+
+                <button
+                    class="btn-secondary"
+                    id="selectAllStudentsBtn">
+                    Select All Visible
+                </button>
+
+                <button
+                    class="btn-secondary"
+                    id="clearStudentSelectionBtn">
+                    Clear Selection
+                </button>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>
+                                <input
+                                    type="checkbox"
+                                    id="selectAllStudentsCheck">
+                            </th>
+
+                            <th>Roll No</th>
+
+                            <th>Register No</th>
+
+                            <th>Student Name</th>
+
+                            <th>Department</th>
+
+                            <th>Year</th>
+
+                            <th>Section</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="studentTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUBJECTS -->
+        <div class="card">
+
+            <div class="subject-header-tools">
+
+                <div class="card-title" style="margin:0;">
+                    Subjects
+                </div>
+
+                <div class="subject-count">
+                    <span id="subjectContext">
+                        All Departments
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="subject-search">
+
+                <input
+                    type="text"
+                    id="subjectSearch"
+                    placeholder="Search subject code or subject name">
+
+            </div>
+
+            <div class="buttons" style="margin-top:0;margin-bottom:12px;">
+
+                <button
+                    class="btn-secondary"
+                    id="selectAllSubjectsBtn">
+                    Select All Visible
+                </button>
+
+                <button
+                    class="btn-secondary"
+                    id="clearSubjectSelectionBtn">
+                    Clear Selection
+                </button>
+
+            </div>
+
+            <div class="subject-list" id="subjectList">
+            </div>
+
+            <div class="buttons">
+
+                <button
+                    class="btn-success"
+                    id="assignBtn">
+                    Assign Selected Subjects
+                </button>
+
+            </div>
+
+            <div class="progress-area" id="progressArea">
+
+                <div class="progress-bar">
+                    <div
+                        class="progress-fill"
+                        id="progressFill">
+                    </div>
+                </div>
+
+                <div
+                    class="progress-text"
+                    id="progressText">
+                    0%
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CONFIRMATION MODAL -->
+<div class="modal-overlay" id="confirmModal">
+
+    <div class="modal">
+
+        <h2>Confirm Subject Assignment</h2>
+
+        <p id="confirmText"></p>
+
+        <div class="modal-actions">
+
+            <button
+                class="btn-secondary"
+                id="cancelModalBtn">
+                Cancel
+            </button>
+
+            <button
+                class="btn-success"
+                id="confirmAssignBtn">
+                Confirm Assignment
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    getDoc,
+    writeBatch,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAIv3091VM-gkmdwEAn7OhXWd9Cm2zh2bo",
+
+    authDomain:
+        "maasc-2026.firebaseapp.com",
+
+    projectId:
+        "maasc-2026",
+
+    storageBucket:
+        "maasc-2026.appspot.com",
+
+    messagingSenderId:
+        "585813001586",
+
+    appId:
+        "1:585813001586:web:664e0e90ff"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+/* =========================================================
+   COLLECTIONS
+========================================================= */
+
+const STUDENTS_COLLECTION = "students";
+
+const SUBJECTS_COLLECTION = "subjects";
+
+const ASSIGNMENT_COLLECTION = "student_subjects";
+
+
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
+
+let allStudents = [];
+
+let filteredStudents = [];
+
+let allSubjects = [];
+
+let filteredSubjects = [];
+
+let selectedStudentIds = new Set();
+
+let selectedSubjectIds = new Set();
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const departmentFilter =
+    document.getElementById("departmentFilter");
+
+const yearFilter =
+    document.getElementById("yearFilter");
+
+const sectionFilter =
+    document.getElementById("sectionFilter");
+
+const rollSearch =
+    document.getElementById("rollSearch");
+
+const studentSearch =
+    document.getElementById("studentSearch");
+
+const subjectSearch =
+    document.getElementById("subjectSearch");
+
+const studentTableBody =
+    document.getElementById("studentTableBody");
+
+const subjectList =
+    document.getElementById("subjectList");
+
+const totalStudents =
+    document.getElementById("totalStudents");
+
+const visibleStudents =
+    document.getElementById("visibleStudents");
+
+const selectedStudents =
+    document.getElementById("selectedStudents");
+
+const selectedSubjects =
+    document.getElementById("selectedSubjects");
+
+const statusBox =
+    document.getElementById("statusBox");
+
+const toast =
+    document.getElementById("toast");
+
+const confirmModal =
+    document.getElementById("confirmModal");
+
+const confirmText =
+    document.getElementById("confirmText");
+
+const progressArea =
+    document.getElementById("progressArea");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const progressText =
+    document.getElementById("progressText");
+
+const selectAllStudentsCheck =
+    document.getElementById("selectAllStudentsCheck");
+
+const subjectContext =
+    document.getElementById("subjectContext");
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function getField(data, aliases, fallback = "") {
+
+    for (const key of aliases) {
+
+        if (
+            data &&
+            data[key] !== undefined &&
+            data[key] !== null &&
+            String(data[key]).trim() !== ""
+        ) {
+            return data[key];
+        }
+
+    }
+
+    return fallback;
+}
+
+
+/* =========================================================
+   NORMALIZE DEPARTMENT
+========================================================= */
+
+function normalizeDepartment(value) {
+
+    if (
+        value === undefined ||
+        value === null
+    ) {
+        return "";
+    }
+
+    return String(value)
+        .trim()
+        .replace(/\s+/g, " ")
+        .toUpperCase();
+
+}
+
+
+/* =========================================================
+   NORMALIZE YEAR
+========================================================= */
+
+function normalizeYear(value) {
+
+    if (
+        value === undefined ||
+        value === null
+    ) {
+        return "";
+    }
+
+    let v = String(value)
+        .trim()
+        .toUpperCase()
+        .replace(/\s+/g, " ");
+
+    if (
+        v === "1" ||
+        v === "I" ||
+        v === "1ST" ||
+        v === "1ST YEAR" ||
+        v === "FIRST" ||
+        v === "FIRST YEAR"
+    ) {
+        return "1";
+    }
+
+    if (
+        v === "2" ||
+        v === "II" ||
+        v === "2ND" ||
+        v === "2ND YEAR" ||
+        v === "SECOND" ||
+        v === "SECOND YEAR"
+    ) {
+        return "2";
+    }
+
+    if (
+        v === "3" ||
+        v === "III" ||
+        v === "3RD" ||
+        v === "3RD YEAR" ||
+        v === "THIRD" ||
+        v === "THIRD YEAR"
+    ) {
+        return "3";
+    }
+
+    if (
+        v === "4" ||
+        v === "IV" ||
+        v === "4TH" ||
+        v === "4TH YEAR" ||
+        v === "FOURTH" ||
+        v === "FOURTH YEAR"
+    ) {
+        return "4";
+    }
+
+    return v;
+
+}
+
+
+/* =========================================================
+   NORMALIZE SECTION
+========================================================= */
+
+function normalizeSection(value) {
+
+    if (
+        value === undefined ||
+        value === null
+    ) {
+        return "";
+    }
+
+    let v = String(value)
+        .trim()
+        .toUpperCase()
+        .replace(/\s+/g, " ");
+
+    v = v
+        .replace(/^SECTION\s+/i, "")
+        .replace(/\s+SECTION$/i, "")
+        .trim();
+
+    return v;
+
+}
+
+
+/* =========================================================
+   NATURAL ROLL NUMBER SORT
+========================================================= */
+
+function compareRollNumbers(a, b) {
+
+    const x = String(a || "")
+        .trim()
+        .toUpperCase();
+
+    const y = String(b || "")
+        .trim()
+        .toUpperCase();
+
+    if (!x && !y) return 0;
+
+    if (!x) return 1;
+
+    if (!y) return -1;
+
+    const xParts =
+        x.match(/\d+|\D+/g) || [];
+
+    const yParts =
+        y.match(/\d+|\D+/g) || [];
+
+    const length =
+        Math.max(xParts.length, yParts.length);
+
+    for (
+        let i = 0;
+        i < length;
+        i++
+    ) {
+
+        const xp = xParts[i] || "";
+
+        const yp = yParts[i] || "";
+
+        const xn = /^\d+$/.test(xp);
+
+        const yn = /^\d+$/.test(yp);
+
+        if (xn && yn) {
+
+            const diff =
+                Number(xp) - Number(yp);
+
+            if (diff !== 0) {
+                return diff;
+            }
+
+        }
+        else {
+
+            const diff =
+                xp.localeCompare(
+                    yp,
+                    undefined,
+                    {
+                        numeric:true,
+                        sensitivity:"base"
+                    }
+                );
+
+            if (diff !== 0) {
+                return diff;
+            }
+
+        }
+
+    }
+
+    return x.localeCompare(y);
+
+}
+
+
+/* =========================================================
+   CREATE STUDENT OBJECT
+========================================================= */
+
+function makeStudent(id, data) {
+
+    const registerNo =
+        getField(
+            data,
+            [
+                "registerNo",
+                "regNo",
+                "registrationNo",
+                "registrationNumber",
+                "registerNumber",
+                "reg_number",
+                "register_number",
+                "RegisterNo",
+                "Register Number",
+                "REGNO",
+                "REG_NO"
+            ],
+            id
+        );
+
+    const rollNo =
+        getField(
+            data,
+            [
+                "rollNo",
+                "rollNumber",
+                "roll_number",
+                "RollNo",
+                "Roll Number",
+                "ROLLNO",
+                "ROLL_NO"
+            ],
+            ""
+        );
+
+    const name =
+        getField(
+            data,
+            [
+                "name",
+                "studentName",
+                "student_name",
+                "fullName",
+                "displayName",
+                "studentFullName",
+                "Name",
+                "Student Name"
+            ],
+            "Unknown Student"
+        );
+
+    const department =
+        getField(
+            data,
+            [
+                "department",
+                "dept",
+                "Department",
+                "DEPARTMENT",
+                "program",
+                "course",
+                "courseName",
+                "Programme",
+                "programme"
+            ],
+            ""
+        );
+
+    const year =
+        getField(
+            data,
+            [
+                "year",
+                "Year",
+                "YEAR",
+                "studyYear",
+                "academicYear",
+                "studentYear",
+                "YearOfStudy"
+            ],
+            ""
+        );
+
+    const section =
+        getField(
+            data,
+            [
+                "section",
+                "Section",
+                "SECTION",
+                "sec",
+                "classSection",
+                "SectionName"
+            ],
+            ""
+        );
+
+    return {
+
+        id,
+
+        registerNo:
+            String(registerNo).trim(),
+
+        rollNo:
+            String(rollNo).trim(),
+
+        name:
+            String(name).trim(),
+
+        department:
+            String(department).trim(),
+
+        departmentKey:
+            normalizeDepartment(department),
+
+        year:
+            normalizeYear(year),
+
+        section:
+            normalizeSection(section)
+
+    };
+
+}
+
+
+/* =========================================================
+   CREATE SUBJECT OBJECT
+========================================================= */
+
+function makeSubject(id, data) {
+
+    const code =
+        getField(
+            data,
+            [
+                "subjectCode",
+                "code",
+                "subject_code",
+                "paperCode",
+                "paper_code",
+                "SubjectCode"
+            ],
+            ""
+        );
+
+    const name =
+        getField(
+            data,
+            [
+                "subjectName",
+                "name",
+                "title",
+                "subject",
+                "paperName",
+                "paper_name",
+                "SubjectName"
+            ],
+            "Unnamed Subject"
+        );
+
+    const department =
+        getField(
+            data,
+            [
+                "department",
+                "dept",
+                "Department",
+                "DEPARTMENT",
+                "program",
+                "course",
+                "courseName",
+                "Programme",
+                "programme"
+            ],
+            ""
+        );
+
+    const year =
+        getField(
+            data,
+            [
+                "year",
+                "Year",
+                "YEAR",
+                "studyYear",
+                "academicYear"
+            ],
+            ""
+        );
+
+    return {
+
+        id,
+
+        code:
+            String(code).trim(),
+
+        name:
+            String(name).trim(),
+
+        department:
+            String(department).trim(),
+
+        departmentKey:
+            normalizeDepartment(department),
+
+        year:
+            normalizeYear(year)
+
+    };
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function showStatus(message) {
+
+    statusBox.textContent = message;
+
+    statusBox.style.display = "block";
+
+}
+
+function hideStatus() {
+
+    statusBox.style.display = "none";
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message) {
+
+    toast.textContent = message;
+
+    toast.style.display = "block";
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+    window.toastTimer =
+        setTimeout(
+            () => {
+                toast.style.display =
+                    "none";
+            },
+            3000
+        );
+
+}
+
+
+/* =========================================================
+   LOAD STUDENTS
+========================================================= */
+
+async function loadStudents() {
+
+    try {
+
+        showStatus(
+            "Loading students from Firestore..."
+        );
+
+        console.log(
+            "========================================"
+        );
+
+        console.log(
+            "LOADING STUDENTS"
+        );
+
+        console.log(
+            "Collection:",
+            STUDENTS_COLLECTION
+        );
+
+        console.log(
+            "========================================"
+        );
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    STUDENTS_COLLECTION
+                )
+            );
+
+        allStudents = [];
+
+        snapshot.forEach(
+            documentSnapshot => {
+
+                const data =
+                    documentSnapshot.data();
+
+                console.log(
+                    "STUDENT:",
+                    documentSnapshot.id,
+                    data
+                );
+
+                allStudents.push(
+                    makeStudent(
+                        documentSnapshot.id,
+                        data
+                    )
+                );
+
+            }
+        );
+
+        allStudents.sort(
+            (a,b) =>
+                compareRollNumbers(
+                    a.rollNo,
+                    b.rollNo
+                )
+        );
+
+        totalStudents.textContent =
+            allStudents.length;
+
+        buildFilters();
+
+        applyStudentFilters();
+
+        showStatus(
+            `${allStudents.length} students loaded successfully.`
+        );
+
+        setTimeout(
+            hideStatus,
+            2500
+        );
+
+        console.log(
+            "TOTAL STUDENTS:",
+            allStudents.length
+        );
+
+    }
+    catch(error) {
+
+        console.error(
+            "STUDENT LOAD ERROR:",
+            error
+        );
+
+        showStatus(
+            "Error loading students: " +
+            error.message
+        );
+
+        showToast(
+            "Failed to load students."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD SUBJECTS
+========================================================= */
+
+async function loadSubjects() {
+
+    try {
+
+        console.log(
+            "========================================"
+        );
+
+        console.log(
+            "LOADING SUBJECTS"
+        );
+
+        console.log(
+            "Collection:",
+            SUBJECTS_COLLECTION
+        );
+
+        console.log(
+            "========================================"
+        );
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    SUBJECTS_COLLECTION
+                )
+            );
+
+        allSubjects = [];
+
+        snapshot.forEach(
+            documentSnapshot => {
+
+                const data =
+                    documentSnapshot.data();
+
+                console.log(
+                    "SUBJECT:",
+                    documentSnapshot.id,
+                    data
+                );
+
+                allSubjects.push(
+                    makeSubject(
+                        documentSnapshot.id,
+                        data
+                    )
+                );
+
+            }
+        );
+
+        allSubjects.sort(
+            (a,b) => {
+
+                const codeCompare =
+                    a.code.localeCompare(
+                        b.code,
+                        undefined,
+                        {
+                            numeric:true,
+                            sensitivity:"base"
+                        }
+                    );
+
+                if (codeCompare !== 0) {
+                    return codeCompare;
+                }
+
+                return a.name.localeCompare(
+                    b.name
+                );
+
+            }
+        );
+
+        applySubjectSearch();
+
+        console.log(
+            "TOTAL SUBJECTS:",
+            allSubjects.length
+        );
+
+    }
+    catch(error) {
+
+        console.error(
+            "SUBJECT LOAD ERROR:",
+            error
+        );
+
+        subjectList.innerHTML =
+            `
+            <div class="empty">
+                Error loading subjects.<br><br>
+                ${escapeHtml(error.message)}
+            </div>
+            `;
+
+    }
+
+}
+
+
+/* =========================================================
+   BUILD FILTERS
+========================================================= */
+
+function buildFilters() {
+
+    const departments =
+        [...new Set(
+            allStudents
+                .map(
+                    student =>
+                        student.department
+                )
+                .filter(Boolean)
+        )].sort(
+            (a,b) =>
+                a.localeCompare(b)
+        );
+
+
+    const years =
+        [...new Set(
+            allStudents
+                .map(
+                    student =>
+                        student.year
+                )
+                .filter(Boolean)
+        )].sort(
+            (a,b) =>
+                Number(a) - Number(b)
+        );
+
+
+    const sections =
+        [...new Set(
+            allStudents
+                .map(
+                    student =>
+                        student.section
+                )
+                .filter(Boolean)
+        )].sort(
+            (a,b) =>
+                a.localeCompare(b)
+        );
+
+
+    departmentFilter.innerHTML =
+        `<option value="">All Departments</option>`;
+
+    departments.forEach(
+        department => {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                department;
+
+            option.textContent =
+                department;
+
+            departmentFilter.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    yearFilter.innerHTML =
+        `<option value="">All Years</option>`;
+
+    years.forEach(
+        year => {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                year;
+
+            option.textContent =
+                `Year ${year}`;
+
+            yearFilter.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    sectionFilter.innerHTML =
+        `<option value="">All Sections</option>`;
+
+    sections.forEach(
+        section => {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                section;
+
+            option.textContent =
+                `Section ${section}`;
+
+            sectionFilter.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   APPLY STUDENT FILTERS
+========================================================= */
+
+function applyStudentFilters() {
+
+    const department =
+        normalizeDepartment(
+            departmentFilter.value
+        );
+
+    const year =
+        normalizeYear(
+            yearFilter.value
+        );
+
+    const section =
+        normalizeSection(
+            sectionFilter.value
+        );
+
+    const roll =
+        rollSearch.value
+            .trim()
+            .toUpperCase();
+
+    const search =
+        studentSearch.value
+            .trim()
+            .toUpperCase();
+
+
+    filteredStudents =
+        allStudents.filter(
+            student => {
+
+                const matchesDepartment =
+                    !department ||
+                    student.departmentKey ===
+                    department;
+
+                const matchesYear =
+                    !year ||
+                    student.year === year;
+
+                const matchesSection =
+                    !section ||
+                    student.section === section;
+
+                const matchesRoll =
+                    !roll ||
+                    student.rollNo
+                        .toUpperCase()
+                        .includes(roll);
+
+                const searchText =
+                    (
+                        student.name +
+                        " " +
+                        student.registerNo +
+                        " " +
+                        student.rollNo
+                    ).toUpperCase();
+
+                const matchesSearch =
+                    !search ||
+                    searchText.includes(search);
+
+
+                return (
+                    matchesDepartment &&
+                    matchesYear &&
+                    matchesSection &&
+                    matchesRoll &&
+                    matchesSearch
+                );
+
+            }
+        );
+
+
+    filteredStudents.sort(
+        (a,b) =>
+            compareRollNumbers(
+                a.rollNo,
+                b.rollNo
+            )
+    );
+
+
+    visibleStudents.textContent =
+        filteredStudents.length;
+
+    renderStudents();
+
+    updateStudentSelectionUI();
+
+}
+
+
+/* =========================================================
+   APPLY SUBJECT FILTER
+   IMPORTANT:
+   SUBJECTS FILTER BY DEPARTMENT
+========================================================= */
+
+function applySubjectSearch() {
+
+    const selectedDepartment =
+        normalizeDepartment(
+            departmentFilter.value
+        );
+
+    const selectedYear =
+        normalizeYear(
+            yearFilter.value
+        );
+
+    const search =
+        subjectSearch.value
+            .trim()
+            .toUpperCase();
+
+
+    filteredSubjects =
+        allSubjects.filter(
+            subject => {
+
+                /*
+                 * When a department is selected,
+                 * ONLY subjects belonging to that
+                 * department are shown.
+                 *
+                 * Subjects without a department
+                 * are NOT shown when a department
+                 * is selected.
+                 */
+
+                const matchesDepartment =
+                    !selectedDepartment ||
+                    subject.departmentKey ===
+                    selectedDepartment;
+
+
+                /*
+                 * If Year is selected, restrict
+                 * subjects to that year.
+                 *
+                 * Blank subject year is allowed
+                 * so that common/general subjects
+                 * are not unnecessarily hidden.
+                 */
+
+                const matchesYear =
+                    !selectedYear ||
+                    !subject.year ||
+                    subject.year === selectedYear;
+
+
+                const searchText =
+                    (
+                        subject.code +
+                        " " +
+                        subject.name +
+                        " " +
+                        subject.department
+                    ).toUpperCase();
+
+                const matchesSearch =
+                    !search ||
+                    searchText.includes(search);
+
+
+                return (
+                    matchesDepartment &&
+                    matchesYear &&
+                    matchesSearch
+                );
+
+            }
+        );
+
+
+    subjectContext.textContent =
+        selectedDepartment
+            ? (
+                selectedYear
+                    ? `${departmentFilter.value} - Year ${selectedYear}`
+                    : departmentFilter.value
+              )
+            : "All Departments";
+
+
+    renderSubjects();
+
+    updateSubjectSelectionUI();
+
+}
+
+
+/* =========================================================
+   RENDER STUDENTS
+========================================================= */
+
+function renderStudents() {
+
+    studentTableBody.innerHTML = "";
+
+
+    if (filteredStudents.length === 0) {
+
+        studentTableBody.innerHTML =
+            `
+            <tr>
+                <td colspan="7">
+                    <div class="empty">
+                        No students found.
+                    </div>
+                </td>
+            </tr>
+            `;
+
+        return;
+
+    }
+
+
+    filteredStudents.forEach(
+        student => {
+
+            const tr =
+                document.createElement("tr");
+
+            if (
+                selectedStudentIds.has(
+                    student.registerNo
+                )
+            ) {
+                tr.classList.add(
+                    "student-row-selected"
+                );
+            }
+
+
+            const tdCheck =
+                document.createElement("td");
+
+            const checkbox =
+                document.createElement("input");
+
+            checkbox.type = "checkbox";
+
+            checkbox.checked =
+                selectedStudentIds.has(
+                    student.registerNo
+                );
+
+
+            checkbox.addEventListener(
+                "change",
+                () => {
+
+                    if (checkbox.checked) {
+
+                        selectedStudentIds.add(
+                            student.registerNo
+                        );
+
+                    }
+                    else {
+
+                        selectedStudentIds.delete(
+                            student.registerNo
+                        );
+
+                    }
+
+                    updateStudentSelectionUI();
+
+                    tr.classList.toggle(
+                        "student-row-selected",
+                        checkbox.checked
+                    );
+
+                }
+            );
+
+
+            tdCheck.appendChild(
+                checkbox
+            );
+
+
+            const tdRoll =
+                document.createElement("td");
+
+            tdRoll.textContent =
+                student.rollNo || "-";
+
+
+            const tdRegister =
+                document.createElement("td");
+
+            tdRegister.textContent =
+                student.registerNo;
+
+
+            const tdName =
+                document.createElement("td");
+
+            tdName.textContent =
+                student.name;
+
+
+            const tdDepartment =
+                document.createElement("td");
+
+            tdDepartment.textContent =
+                student.department || "-";
+
+
+            const tdYear =
+                document.createElement("td");
+
+            tdYear.textContent =
+                student.year
+                    ? `Year ${student.year}`
+                    : "-";
+
+
+            const tdSection =
+                document.createElement("td");
+
+            tdSection.textContent =
+                student.section
+                    ? `Section ${student.section}`
+                    : "-";
+
+
+            tr.appendChild(tdCheck);
+
+            tr.appendChild(tdRoll);
+
+            tr.appendChild(tdRegister);
+
+            tr.appendChild(tdName);
+
+            tr.appendChild(tdDepartment);
+
+            tr.appendChild(tdYear);
+
+            tr.appendChild(tdSection);
+
+
+            studentTableBody.appendChild(
+                tr
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RENDER SUBJECTS
+========================================================= */
+
+function renderSubjects() {
+
+    subjectList.innerHTML = "";
+
+
+    if (filteredSubjects.length === 0) {
+
+        const selectedDepartment =
+            normalizeDepartment(
+                departmentFilter.value
+            );
+
+        const message =
+            selectedDepartment
+                ? "No subjects found for the selected department/year."
+                : "No subjects found.";
+
+        subjectList.innerHTML =
+            `
+            <div class="empty">
+                ${message}
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    filteredSubjects.forEach(
+        subject => {
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "subject-item";
+
+
+            if (
+                selectedSubjectIds.has(
+                    subject.id
+                )
+            ) {
+
+                div.classList.add(
+                    "selected-subject"
+                );
+
+            }
+
+
+            const checkbox =
+                document.createElement("input");
+
+            checkbox.type =
+                "checkbox";
+
+            checkbox.checked =
+                selectedSubjectIds.has(
+                    subject.id
+                );
+
+
+            checkbox.addEventListener(
+                "change",
+                () => {
+
+                    if (checkbox.checked) {
+
+                        selectedSubjectIds.add(
+                            subject.id
+                        );
+
+                    }
+                    else {
+
+                        selectedSubjectIds.delete(
+                            subject.id
+                        );
+
+                    }
+
+                    div.classList.toggle(
+                        "selected-subject",
+                        checkbox.checked
+                    );
+
+                    updateSubjectSelectionUI();
+
+                }
+            );
+
+
+            const content =
+                document.createElement("div");
+
+            const code =
+                document.createElement("div");
+
+            code.className =
+                "subject-code";
+
+            code.textContent =
+                subject.code || "NO CODE";
+
+
+            const name =
+                document.createElement("div");
+
+            name.className =
+                "subject-name";
+
+            name.textContent =
+                subject.name;
+
+
+            const meta =
+                document.createElement("div");
+
+            meta.className =
+                "subject-meta";
+
+            let metaText =
+                subject.department || "Department not specified";
+
+            if (subject.year) {
+
+                metaText +=
+                    ` • Year ${subject.year}`;
+
+            }
+
+            meta.textContent =
+                metaText;
+
+
+            content.appendChild(code);
+
+            content.appendChild(name);
+
+            content.appendChild(meta);
+
+
+            div.appendChild(checkbox);
+
+            div.appendChild(content);
+
+
+            div.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target === checkbox
+                    ) {
+                        return;
+                    }
+
+                    checkbox.checked =
+                        !checkbox.checked;
+
+                    checkbox.dispatchEvent(
+                        new Event("change")
+                    );
+
+                }
+            );
+
+
+            subjectList.appendChild(div);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE STUDENT SELECTION
+========================================================= */
+
+function updateStudentSelectionUI() {
+
+    selectedStudents.textContent =
+        selectedStudentIds.size;
+
+
+    const visibleIds =
+        filteredStudents.map(
+            student =>
+                student.registerNo
+        );
+
+
+    const selectedVisibleCount =
+        visibleIds.filter(
+            id =>
+                selectedStudentIds.has(id)
+        ).length;
+
+
+    selectAllStudentsCheck.checked =
+        filteredStudents.length > 0 &&
+        selectedVisibleCount ===
+        filteredStudents.length;
+
+
+    selectAllStudentsCheck.indeterminate =
+        selectedVisibleCount > 0 &&
+        selectedVisibleCount <
+        filteredStudents.length;
+
+}
+
+
+/* =========================================================
+   UPDATE SUBJECT SELECTION
+========================================================= */
+
+function updateSubjectSelectionUI() {
+
+    selectedSubjects.textContent =
+        selectedSubjectIds.size;
+
+
+    const visibleIds =
+        filteredSubjects.map(
+            subject =>
+                subject.id
+        );
+
+
+    const selectedVisibleCount =
+        visibleIds.filter(
+            id =>
+                selectedSubjectIds.has(id)
+        ).length;
+
+
+    document.getElementById(
+        "selectAllSubjectsBtn"
+    ).textContent =
+        filteredSubjects.length > 0 &&
+        selectedVisibleCount ===
+        filteredSubjects.length
+            ? "Clear All Visible"
+            : "Select All Visible";
+
+}
+
+
+/* =========================================================
+   GET EXISTING ASSIGNMENT
+========================================================= */
+
+async function getExistingAssignment(
+    registerNo
+) {
+
+    try {
+
+        const assignmentRef =
+            doc(
+                db,
+                ASSIGNMENT_COLLECTION,
+                registerNo
+            );
+
+        const snapshot =
+            await getDoc(
+                assignmentRef
+            );
+
+
+        if (!snapshot.exists()) {
+
+            return {
+                subjectIds: [],
+                subjects: []
+            };
+
+        }
+
+
+        const data =
+            snapshot.data();
+
+
+        const existingIds =
+            Array.isArray(
+                data.subjectIds
+            )
+                ? data.subjectIds
+                : [];
+
+
+        const existingSubjects =
+            Array.isArray(
+                data.subjects
+            )
+                ? data.subjects
+                : [];
+
+
+        return {
+
+            subjectIds:
+                existingIds,
+
+            subjects:
+                existingSubjects
+
+        };
+
+    }
+    catch(error) {
+
+        console.error(
+            "GET ASSIGNMENT ERROR:",
+            registerNo,
+            error
+        );
+
+        return {
+            subjectIds: [],
+            subjects: []
+        };
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN ASSIGNMENT CONFIRMATION
+========================================================= */
+
+function openAssignmentModal() {
+
+    if (
+        selectedStudentIds.size === 0
+    ) {
+
+        showToast(
+            "Please select at least one student."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        selectedSubjectIds.size === 0
+    ) {
+
+        showToast(
+            "Please select at least one subject."
+        );
+
+        return;
+
+    }
+
+
+    const studentCount =
+        selectedStudentIds.size;
+
+    const subjectCount =
+        selectedSubjectIds.size;
+
+
+    confirmText.innerHTML =
+        `
+        You are about to assign
+        <strong>${subjectCount}</strong>
+        subject(s) to
+        <strong>${studentCount}</strong>
+        student(s).
+        <br><br>
+        Existing subjects will be preserved
+        and duplicate subjects will not be added.
+        `;
+
+
+    confirmModal.style.display =
+        "flex";
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    confirmModal.style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   ASSIGN SUBJECTS
+========================================================= */
+
+async function assignSubjects() {
+
+    closeModal();
+
+
+    if (
+        selectedStudentIds.size === 0 ||
+        selectedSubjectIds.size === 0
+    ) {
+
+        return;
+
+    }
+
+
+    const studentsToAssign =
+        allStudents.filter(
+            student =>
+                selectedStudentIds.has(
+                    student.registerNo
+                )
+        );
+
+
+    const subjectsToAssign =
+        allSubjects.filter(
+            subject =>
+                selectedSubjectIds.has(
+                    subject.id
+                )
+        );
+
+
+    progressArea.style.display =
+        "block";
+
+    progressFill.style.width =
+        "0%";
+
+    progressText.textContent =
+        "Starting...";
+
+
+    let completed = 0;
+
+    let successCount = 0;
+
+    let errorCount = 0;
+
+
+    for (
+        const student
+        of studentsToAssign
+    ) {
+
+        try {
+
+            console.log(
+                "ASSIGNING SUBJECTS TO:",
+                student
+            );
+
+
+            const existing =
+                await getExistingAssignment(
+                    student.registerNo
+                );
+
+
+            const subjectIdSet =
+                new Set(
+                    existing.subjectIds
+                );
+
+
+            const subjectObjects =
+                Array.isArray(
+                    existing.subjects
+                )
+                    ? [...existing.subjects]
+                    : [];
+
+
+            for (
+                const subject
+                of subjectsToAssign
+            ) {
+
+                if (
+                    !subjectIdSet.has(
+                        subject.id
+                    )
+                ) {
+
+                    subjectIdSet.add(
+                        subject.id
+                    );
+
+
+                    const alreadyObject =
+                        subjectObjects.some(
+                            existingSubject =>
+                                existingSubject.id ===
+                                subject.id
+                        );
+
+
+                    if (!alreadyObject) {
+
+                        subjectObjects.push({
+
+                            id:
+                                subject.id,
+
+                            code:
+                                subject.code,
+
+                            name:
+                                subject.name,
+
+                            department:
+                                subject.department,
+
+                            year:
+                                subject.year
+
+                        });
+
+                    }
+
+                }
+
+            }
+
+
+            const assignmentRef =
+                doc(
+                    db,
+                    ASSIGNMENT_COLLECTION,
+                    student.registerNo
+                );
+
+
+            const batch =
+                writeBatch(db);
+
+
+            batch.set(
+                assignmentRef,
+                {
+
+                    registerNo:
+                        student.registerNo,
+
+                    rollNo:
+                        student.rollNo,
+
+                    studentName:
+                        student.name,
+
+                    department:
+                        student.department,
+
+                    year:
+                        student.year,
+
+                    section:
+                        student.section,
+
+                    subjectIds:
+                        [...subjectIdSet],
+
+                    subjects:
+                        subjectObjects,
+
+                    updatedAt:
+                        serverTimestamp()
+
+                },
+                {
+                    merge:true
+                }
+            );
+
+
+            await batch.commit();
+
+
+            successCount++;
+
+        }
+        catch(error) {
+
+            errorCount++;
+
+            console.error(
+                "ASSIGNMENT ERROR:",
+                student.registerNo,
+                error
+            );
+
+        }
+
+
+        completed++;
+
+        const percentage =
+            Math.round(
+                (
+                    completed /
+                    studentsToAssign.length
+                ) * 100
+            );
+
+
+        progressFill.style.width =
+            percentage + "%";
+
+        progressText.textContent =
+            `${percentage}% (${completed}/${studentsToAssign.length})`;
+
+    }
+
+
+    if (errorCount === 0) {
+
+        showToast(
+            `Successfully processed ${successCount} student(s).`
+        );
+
+    }
+    else {
+
+        showToast(
+            `${successCount} succeeded, ${errorCount} failed.`
+        );
+
+    }
+
+
+    progressText.textContent =
+        "Completed";
+
+
+    setTimeout(
+        () => {
+
+            progressArea.style.display =
+                "none";
+
+        },
+        2500
+    );
+
+}
+
+
+/* =========================================================
+   SELECT ALL STUDENTS
+========================================================= */
+
+function selectAllVisibleStudents() {
+
+    filteredStudents.forEach(
+        student => {
+
+            selectedStudentIds.add(
+                student.registerNo
+            );
+
+        }
+    );
+
+    renderStudents();
+
+    updateStudentSelectionUI();
+
+}
+
+
+/* =========================================================
+   CLEAR STUDENTS
+========================================================= */
+
+function clearStudentSelection() {
+
+    selectedStudentIds.clear();
+
+    renderStudents();
+
+    updateStudentSelectionUI();
+
+}
+
+
+/* =========================================================
+   SELECT ALL SUBJECTS
+========================================================= */
+
+function selectAllVisibleSubjects() {
+
+    const allVisibleSelected =
+        filteredSubjects.length > 0 &&
+        filteredSubjects.every(
+            subject =>
+                selectedSubjectIds.has(
+                    subject.id
+                )
+        );
+
+
+    if (allVisibleSelected) {
+
+        filteredSubjects.forEach(
+            subject => {
+
+                selectedSubjectIds.delete(
+                    subject.id
+                );
+
+            }
+        );
+
+    }
+    else {
+
+        filteredSubjects.forEach(
+            subject => {
+
+                selectedSubjectIds.add(
+                    subject.id
+                );
+
+            }
+        );
+
+    }
+
+
+    renderSubjects();
+
+    updateSubjectSelectionUI();
+
+}
+
+
+/* =========================================================
+   CLEAR SUBJECTS
+========================================================= */
+
+function clearSubjectSelection() {
+
+    selectedSubjectIds.clear();
+
+    renderSubjects();
+
+    updateSubjectSelectionUI();
+
+}
+
+
+/* =========================================================
+   CLEAR FILTERS
+========================================================= */
+
+function clearFilters() {
+
+    departmentFilter.value =
+        "";
+
+    yearFilter.value =
+        "";
+
+    sectionFilter.value =
+        "";
+
+    rollSearch.value =
+        "";
+
+    studentSearch.value =
+        "";
+
+    subjectSearch.value =
+        "";
+
+
+    selectedStudentIds.clear();
+
+    selectedSubjectIds.clear();
+
+
+    applyStudentFilters();
+
+    applySubjectSearch();
+
+
+    showToast(
+        "Filters cleared."
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   DEPARTMENT / YEAR CHANGE
+========================================================= */
+
+function studentContextChanged() {
+
+    /*
+     * Student list changes according to
+     * Department / Year / Section.
+     */
+
+    applyStudentFilters();
+
+
+    /*
+     * Subject list MUST also change when
+     * Department or Year changes.
+     */
+
+    selectedSubjectIds.clear();
+
+    applySubjectSearch();
+
+    updateSubjectSelectionUI();
+
+}
+
+
+/* =========================================================
+   EVENT LISTENERS
+========================================================= */
+
+
+/* Department */
+
+departmentFilter.addEventListener(
+    "change",
+    () => {
+
+        studentContextChanged();
+
+    }
+);
+
+
+/* Year */
+
+yearFilter.addEventListener(
+    "change",
+    () => {
+
+        studentContextChanged();
+
+    }
+);
+
+
+/* Section */
+
+sectionFilter.addEventListener(
+    "change",
+    () => {
+
+        applyStudentFilters();
+
+    }
+);
+
+
+/* Roll Search */
+
+rollSearch.addEventListener(
+    "input",
+    () => {
+
+        applyStudentFilters();
+
+    }
+);
+
+
+/* Student Search */
+
+studentSearch.addEventListener(
+    "input",
+    () => {
+
+        applyStudentFilters();
+
+    }
+);
+
+
+/* Subject Search */
+
+subjectSearch.addEventListener(
+    "input",
+    () => {
+
+        applySubjectSearch();
+
+    }
+);
+
+
+/* Load Students */
+
+document.getElementById(
+    "loadStudentsBtn"
+).addEventListener(
+    "click",
+    loadStudents
+);
+
+
+/* Refresh */
+
+document.getElementById(
+    "refreshBtn"
+).addEventListener(
+    "click",
+    async () => {
+
+        selectedStudentIds.clear();
+
+        selectedSubjectIds.clear();
+
+        await loadStudents();
+
+        await loadSubjects();
+
+        showToast(
+            "Data refreshed."
+        );
+
+    }
+);
+
+
+/* Clear Filters */
+
+document.getElementById(
+    "clearFiltersBtn"
+).addEventListener(
+    "click",
+    clearFilters
+);
+
+
+/* Select All Students Button */
+
+document.getElementById(
+    "selectAllStudentsBtn"
+).addEventListener(
+    "click",
+    selectAllVisibleStudents
+);
+
+
+/* Clear Student Selection */
+
+document.getElementById(
+    "clearStudentSelectionBtn"
+).addEventListener(
+    "click",
+    clearStudentSelection
+);
+
+
+/* Select All Students Checkbox */
+
+selectAllStudentsCheck.addEventListener(
+    "change",
+    () => {
+
+        if (
+            selectAllStudentsCheck.checked
+        ) {
+
+            selectAllVisibleStudents();
+
+        }
+        else {
+
+            clearStudentSelection();
+
+        }
+
+    }
+);
+
+
+/* Select All Subjects */
+
+document.getElementById(
+    "selectAllSubjectsBtn"
+).addEventListener(
+    "click",
+    selectAllVisibleSubjects
+);
+
+
+/* Clear Subject Selection */
+
+document.getElementById(
+    "clearSubjectSelectionBtn"
+).addEventListener(
+    "click",
+    clearSubjectSelection
+);
+
+
+/* Assign */
+
+document.getElementById(
+    "assignBtn"
+).addEventListener(
+    "click",
+    openAssignmentModal
+);
+
+
+/* Cancel Modal */
+
+document.getElementById(
+    "cancelModalBtn"
+).addEventListener(
+    "click",
+    closeModal
+);
+
+
+/* Confirm Assignment */
+
+document.getElementById(
+    "confirmAssignBtn"
+).addEventListener(
+    "click",
+    assignSubjects
+);
+
+
+/* Close modal outside */
+
+confirmModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            confirmModal
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+(async function init() {
+
+    try {
+
+        console.log(
+            "========================================"
+        );
+
+        console.log(
+            "STUDENT SUBJECT ASSIGNMENT PORTAL"
+        );
+
+        console.log(
+            "INITIALIZING..."
+        );
+
+        console.log(
+            "========================================"
+        );
+
+
+        await Promise.all([
+            loadStudents(),
+            loadSubjects()
+        ]);
+
+
+        console.log(
+            "PORTAL INITIALIZATION COMPLETE"
+        );
+
+    }
+    catch(error) {
+
+        console.error(
+            "INITIALIZATION ERROR:",
+            error
+        );
+
+        showStatus(
+            "Initialization error: " +
+            error.message
+        );
+
+    }
+
+})();
+
+</script>
+
+</body>
+</html>
