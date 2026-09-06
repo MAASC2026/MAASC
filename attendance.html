@@ -5,11 +5,9 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Attendance Entry</title>
+<title>Staff Attendance Entry</title>
 
 <style>
 
@@ -24,10 +22,6 @@ body{
     background:#f4f6f9;
     color:#1f2937;
 }
-
-/* =========================
-   HEADER
-========================= */
 
 .header{
     background:#500454;
@@ -46,19 +40,11 @@ body{
     opacity:.9;
 }
 
-/* =========================
-   MAIN CONTAINER
-========================= */
-
 .container{
     max-width:1500px;
     margin:20px auto;
     padding:0 15px;
 }
-
-/* =========================
-   STAFF CARD
-========================= */
 
 .staff-card{
     background:white;
@@ -101,10 +87,6 @@ body{
     font-size:15px;
     color:#111827;
 }
-
-/* =========================
-   CONTROL CARD
-========================= */
 
 .control-card{
     background:white;
@@ -184,10 +166,6 @@ button{
     margin-top:15px;
 }
 
-/* =========================
-   MESSAGE
-========================= */
-
 .message{
     display:none;
     margin-top:15px;
@@ -215,10 +193,6 @@ button{
     color:#92400e;
 }
 
-/* =========================
-   TIMETABLE CARD
-========================= */
-
 .timetable-card{
     background:white;
     border-radius:12px;
@@ -235,10 +209,6 @@ button{
     font-size:18px;
     font-weight:bold;
 }
-
-/* =========================
-   SESSION
-========================= */
 
 .session-info{
     display:flex;
@@ -258,10 +228,6 @@ button{
     background:#16a34a;
     color:white;
 }
-
-/* =========================
-   TABLE
-========================= */
 
 .table-wrapper{
     overflow:auto;
@@ -298,10 +264,6 @@ thead th{
     font-weight:bold;
 }
 
-/* =========================
-   SLOT
-========================= */
-
 .slot{
     height:105px;
     background:#e0f7fa;
@@ -324,10 +286,6 @@ thead th{
     transform:scale(.99);
 }
 
-/* =========================
-   GREEN ATTENDANCE MARKED
-========================= */
-
 .slot.attendance-marked{
     background:#bbf7d0 !important;
     border:2px solid #16a34a !important;
@@ -337,19 +295,6 @@ thead th{
 .slot.attendance-marked:hover{
     background:#86efac !important;
 }
-
-.slot.attendance-marked .slot-class,
-.slot.attendance-marked .slot-year,
-.slot.attendance-marked .slot-section,
-.slot.attendance-marked .slot-subject,
-.slot.attendance-marked .slot-code,
-.slot.attendance-marked .slot-session{
-    color:#166534;
-}
-
-/* =========================
-   SLOT CONTENT
-========================= */
 
 .slot-class{
     font-size:12px;
@@ -395,42 +340,12 @@ thead th{
     font-size:11px;
 }
 
-/* =========================
-   STATS
-========================= */
-
-.stats{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:15px;
-}
-
-.stat{
-    background:#f1f5f9;
-    padding:10px 14px;
-    border-radius:7px;
-    font-size:12px;
-}
-
-.stat b{
-    color:#500454;
-}
-
-/* =========================
-   LOADING
-========================= */
-
-.loading{
-    text-align:center;
-    padding:40px;
-    color:#64748b;
+.blocked-row{
+    padding:40px !important;
+    color:#94a3b8;
+    font-weight:bold;
     font-size:14px;
 }
-
-/* =========================
-   RESPONSIVE
-========================= */
 
 @media(max-width:1100px){
 
@@ -463,10 +378,6 @@ thead th{
     }
 
 }
-
-/* =========================
-   PRINT
-========================= */
 
 @media print{
 
@@ -509,9 +420,6 @@ thead th{
 
 <body>
 
-<!-- =====================================================
-     HEADER
-====================================================== -->
 
 <div class="header">
 
@@ -529,10 +437,6 @@ thead th{
 
 <div class="container">
 
-
-<!-- =====================================================
-     LOGGED IN STAFF
-====================================================== -->
 
 <div class="staff-card">
 
@@ -598,10 +502,6 @@ thead th{
 </div>
 
 
-<!-- =====================================================
-     CONTROLS
-====================================================== -->
-
 <div class="control-card">
 
     <div class="control-title">
@@ -610,6 +510,7 @@ thead th{
 
 
     <div class="controls">
+
 
         <div class="field">
 
@@ -673,6 +574,7 @@ thead th{
 
         </div>
 
+
     </div>
 
 
@@ -718,6 +620,7 @@ thead th{
 
     <div class="stats">
 
+
         <div class="stat">
 
             Staff:
@@ -752,7 +655,7 @@ thead th{
 
             Empty:
             <b id="emptyStat">
-                30
+                5
             </b>
 
         </div>
@@ -767,23 +670,24 @@ thead th{
 
         </div>
 
+
     </div>
 
 </div>
 
 
-<!-- =====================================================
-     TIMETABLE
-====================================================== -->
-
 <div class="timetable-card">
 
+
     <div class="timetable-title">
+
         MY STAFF TIMETABLE
+
     </div>
 
 
     <div class="session-info">
+
 
         <div
             id="fnBadge"
@@ -802,14 +706,18 @@ thead th{
 
         </div>
 
+
     </div>
 
 
     <div class="table-wrapper">
 
+
         <table>
 
+
             <thead>
+
 
                 <tr>
 
@@ -868,27 +776,28 @@ thead th{
 
                 </tr>
 
+
             </thead>
 
 
             <tbody id="timetableBody">
             </tbody>
 
+
         </table>
+
 
     </div>
 
-</div>
-
 
 </div>
 
 
-<!-- =====================================================
-     FIREBASE
-====================================================== -->
+</div>
+
 
 <script type="module">
+
 
 import { db }
 from "./firebase-config.js";
@@ -921,6 +830,8 @@ let attendanceDate = "";
 let timetableAssignments = {};
 
 let markedAttendancePeriods = new Set();
+
+let selectedDayOrder = "";
 
 
 /* =====================================================
@@ -999,7 +910,7 @@ function normalizeStaffId(value){
 
 
 /* =====================================================
-   STAFF ID FROM FIRESTORE
+   GET STAFF ID
 ===================================================== */
 
 function getStaffId(data){
@@ -1018,7 +929,7 @@ function getStaffId(data){
 
 
 /* =====================================================
-   STAFF NAME
+   GET STAFF NAME
 ===================================================== */
 
 function getStaffName(data){
@@ -1037,7 +948,7 @@ function getStaffName(data){
 
 
 /* =====================================================
-   DEPARTMENT
+   GET DEPARTMENT
 ===================================================== */
 
 function getDepartment(data){
@@ -1056,7 +967,7 @@ function getDepartment(data){
 
 
 /* =====================================================
-   YEAR
+   GET YEAR
 ===================================================== */
 
 function getYear(data){
@@ -1075,7 +986,7 @@ function getYear(data){
 
 
 /* =====================================================
-   SECTION
+   GET SECTION
 ===================================================== */
 
 function getSection(data){
@@ -1094,7 +1005,7 @@ function getSection(data){
 
 
 /* =====================================================
-   SUBJECT
+   GET SUBJECT
 ===================================================== */
 
 function getSubject(data){
@@ -1113,7 +1024,7 @@ function getSubject(data){
 
 
 /* =====================================================
-   SUBJECT CODE
+   GET SUBJECT CODE
 ===================================================== */
 
 function getSubjectCode(data){
@@ -1132,7 +1043,7 @@ function getSubjectCode(data){
 
 
 /* =====================================================
-   SESSION
+   GET SESSION
 ===================================================== */
 
 function getSession(data){
@@ -1149,7 +1060,7 @@ function getSession(data){
 
 
 /* =====================================================
-   DAY
+   GET DAY
 ===================================================== */
 
 function getDay(data){
@@ -1178,7 +1089,10 @@ function getDay(data){
             "DAY " +
             String(
                 Number(match[1])
-            ).padStart(2,"0")
+            ).padStart(
+                2,
+                "0"
+            )
         );
 
     }
@@ -1190,7 +1104,10 @@ function getDay(data){
 
         return (
             "DAY " +
-            value.padStart(2,"0")
+            value.padStart(
+                2,
+                "0"
+            )
         );
 
     }
@@ -1202,7 +1119,7 @@ function getDay(data){
 
 
 /* =====================================================
-   HOUR
+   GET HOUR
 ===================================================== */
 
 function getHour(data){
@@ -1227,7 +1144,7 @@ function getHour(data){
 
 
 /* =====================================================
-   HTML ESCAPE
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(value){
@@ -1265,7 +1182,7 @@ function escapeHTML(value){
 
 
 /* =====================================================
-   MESSAGE
+   SHOW MESSAGE
 ===================================================== */
 
 function showMessage(
@@ -1313,7 +1230,111 @@ function clearMessage(){
 
 
 /* =====================================================
-   GET LOGGED-IN STAFF
+   CHECK FUTURE DATE
+===================================================== */
+
+function isFutureDate(dateString){
+
+    if(!dateString){
+
+        return false;
+
+    }
+
+
+    const selected =
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
+
+
+    const today =
+        new Date();
+
+
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    return selected > today;
+
+}
+
+
+/* =====================================================
+   GET TODAY STRING
+===================================================== */
+
+function getTodayString(){
+
+    const today =
+        new Date();
+
+
+    const year =
+        today.getFullYear();
+
+
+    const month =
+        String(
+            today.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            today.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+/* =====================================================
+   SET MAX DATE
+===================================================== */
+
+function setDateLimit(){
+
+    const dateInput =
+        document.getElementById(
+            "attendanceDate"
+        );
+
+
+    /*
+     * IMPORTANT:
+     * Today is the maximum date.
+     * Previous dates remain allowed.
+     */
+
+    dateInput.max =
+        getTodayString();
+
+}
+
+
+/* =====================================================
+   LOAD LOGGED-IN STAFF
 ===================================================== */
 
 function loadLoggedInStaff(){
@@ -1347,21 +1368,21 @@ function loadLoggedInStaff(){
     );
 
     console.log(
-        "ATTENDANCE DASHBOARD STAFF"
+        "ATTENDANCE STAFF"
     );
 
     console.log(
-        "Staff ID:",
+        "STAFF ID:",
         currentStaffId
     );
 
     console.log(
-        "Staff Name:",
+        "STAFF NAME:",
         currentStaffName
     );
 
     console.log(
-        "Department:",
+        "DEPARTMENT:",
         currentDepartment
     );
 
@@ -1411,7 +1432,8 @@ function loadLoggedInStaff(){
         currentStaffId +
         (
             currentStaffName
-                ? " — " + currentStaffName
+                ? " — " +
+                  currentStaffName
                 : ""
         );
 
@@ -1423,7 +1445,8 @@ function loadLoggedInStaff(){
         currentStaffId +
         (
             currentStaffName
-                ? " — " + currentStaffName
+                ? " — " +
+                  currentStaffName
                 : ""
         );
 
@@ -1434,33 +1457,13 @@ function loadLoggedInStaff(){
 
 
 /* =====================================================
-   DEFAULT DATE
+   SET DEFAULT DATE
 ===================================================== */
 
 function setDefaultDate(){
 
-    const today =
-        new Date();
-
-
-    const year =
-        today.getFullYear();
-
-
-    const month =
-        String(
-            today.getMonth()+1
-        ).padStart(2,"0");
-
-
-    const day =
-        String(
-            today.getDate()
-        ).padStart(2,"0");
-
-
     attendanceDate =
-        `${year}-${month}-${day}`;
+        getTodayString();
 
 
     document.getElementById(
@@ -1468,11 +1471,14 @@ function setDefaultDate(){
     ).value =
         attendanceDate;
 
+
+    setDateLimit();
+
 }
 
 
 /* =====================================================
-   LOAD DAY ORDER FROM ACADEMIC CALENDAR
+   LOAD DAY ORDER FOR DATE
 ===================================================== */
 
 async function loadDayOrderForDate(){
@@ -1489,41 +1495,51 @@ async function loadDayOrderForDate(){
         );
 
 
+    selectedDayOrder =
+        "";
+
+
     if(!date){
 
         dayOrderDisplay.value =
             "-";
 
-        return;
+        return false;
+
+    }
+
+
+    /*
+     * =================================================
+     * FUTURE DATE BLOCK
+     * =================================================
+     */
+
+    if(
+        isFutureDate(date)
+    ){
+
+        selectedDayOrder =
+            "";
+
+
+        dayOrderDisplay.value =
+            "NOT ALLOWED";
+
+
+        showMessage(
+            "Attendance can be entered only for today or previous dates. Future dates are not allowed.",
+            "warn"
+        );
+
+
+        return false;
 
     }
 
 
     dayOrderDisplay.value =
         "Loading...";
-
-
-    console.log(
-        "========================================"
-    );
-
-    console.log(
-        "LOADING DAY ORDER FROM ACADEMIC CALENDAR"
-    );
-
-    console.log(
-        "SELECTED DATE:",
-        date
-    );
-
-    console.log(
-        "COLLECTION:",
-        "academicCalendars"
-    );
-
-    console.log(
-        "========================================"
-    );
 
 
     try{
@@ -1539,9 +1555,12 @@ async function loadDayOrderForDate(){
             );
 
 
-        let foundDayOrder = "";
+        let foundDayOrder =
+            "";
 
-        let foundHoliday = false;
+
+        let isHoliday =
+            false;
 
 
         snapshot.forEach(
@@ -1549,7 +1568,7 @@ async function loadDayOrderForDate(){
 
                 if(
                     foundDayOrder ||
-                    foundHoliday
+                    isHoliday
                 ){
 
                     return;
@@ -1558,7 +1577,8 @@ async function loadDayOrderForDate(){
 
 
                 const data =
-                    calendarDoc.data() || {};
+                    calendarDoc.data() ||
+                    {};
 
 
                 const dates =
@@ -1574,7 +1594,7 @@ async function loadDayOrderForDate(){
 
                         if(
                             foundDayOrder ||
-                            foundHoliday
+                            isHoliday
                         ){
 
                             return;
@@ -1613,7 +1633,7 @@ async function loadDayOrderForDate(){
                             "HOLIDAY"
                         ){
 
-                            foundHoliday =
+                            isHoliday =
                                 true;
 
                             return;
@@ -1659,54 +1679,69 @@ async function loadDayOrderForDate(){
         );
 
 
-        if(foundHoliday){
+        /*
+         * HOLIDAY
+         */
+
+        if(isHoliday){
+
+            selectedDayOrder =
+                "HOLIDAY";
+
 
             dayOrderDisplay.value =
                 "HOLIDAY";
 
 
-            console.log(
-                "SELECTED DATE IS HOLIDAY"
-            );
-
-            return;
+            return false;
 
         }
 
 
+        /*
+         * DAY ORDER FOUND
+         */
+
         if(foundDayOrder){
+
+            selectedDayOrder =
+                foundDayOrder;
+
 
             dayOrderDisplay.value =
                 foundDayOrder;
 
 
-            console.log(
-                "DAY ORDER FOUND:",
-                foundDayOrder
-            );
+            return true;
 
         }
 
-        else{
 
-            dayOrderDisplay.value =
-                "NOT SET";
+        /*
+         * NOT FOUND
+         */
+
+        selectedDayOrder =
+            "";
 
 
-            console.warn(
-                "DAY ORDER NOT FOUND FOR:",
-                date
-            );
+        dayOrderDisplay.value =
+            "NOT SET";
 
-        }
+
+        return false;
 
     }
     catch(error){
 
         console.error(
-            "DAY ORDER LOAD ERROR:",
+            "DAY ORDER ERROR:",
             error
         );
+
+
+        selectedDayOrder =
+            "";
 
 
         dayOrderDisplay.value =
@@ -1718,6 +1753,9 @@ async function loadDayOrderForDate(){
             error.message,
             "err"
         );
+
+
+        return false;
 
     }
 
@@ -1777,7 +1815,7 @@ function updateTimingHeaders(){
 
 
 /* =====================================================
-   CREATE EMPTY TABLE
+   CREATE EMPTY TIMETABLE
 ===================================================== */
 
 function createEmptyTimetable(){
@@ -1791,10 +1829,13 @@ function createEmptyTimetable(){
     body.innerHTML = "";
 
 
-    for(
-        let dayNumber=1;
-        dayNumber<=6;
-        dayNumber++
+    /*
+     * No valid day
+     */
+
+    if(
+        !selectedDayOrder ||
+        selectedDayOrder === "HOLIDAY"
     ){
 
         const row =
@@ -1803,76 +1844,156 @@ function createEmptyTimetable(){
             );
 
 
-        const day =
-            "DAY " +
-            String(dayNumber)
-                .padStart(2,"0");
-
-
-        const dayCell =
+        const cell =
             document.createElement(
                 "td"
             );
 
 
-        dayCell.className =
-            "day";
+        cell.colSpan =
+            6;
 
 
-        dayCell.textContent =
-            day;
+        cell.className =
+            "blocked-row";
+
+
+        if(
+            selectedDayOrder ===
+            "HOLIDAY"
+        ){
+
+            cell.textContent =
+                "HOLIDAY — ATTENDANCE NOT AVAILABLE";
+
+        }
+        else{
+
+            cell.textContent =
+                "ATTENDANCE NOT AVAILABLE FOR THIS DATE";
+
+        }
 
 
         row.appendChild(
-            dayCell
+            cell
         );
-
-
-        for(
-            let hour=1;
-            hour<=5;
-            hour++
-        ){
-
-            const cell =
-                document.createElement(
-                    "td"
-                );
-
-
-            cell.className =
-                "slot empty";
-
-
-            cell.dataset.day =
-                day;
-
-
-            cell.dataset.hour =
-                hour;
-
-
-            cell.innerHTML = `
-
-                <div class="slot-empty">
-                    EMPTY
-                </div>
-
-            `;
-
-
-            row.appendChild(
-                cell
-            );
-
-        }
 
 
         body.appendChild(
             row
         );
 
+
+        updateTimingHeaders();
+
+
+        return;
+
     }
+
+
+    /*
+     * Convert DAY 03 → 3
+     */
+
+    const match =
+        selectedDayOrder.match(
+            /DAY\s*0?([1-6])/
+        );
+
+
+    if(!match){
+
+        return;
+
+    }
+
+
+    const dayNumber =
+        Number(
+            match[1]
+        );
+
+
+    const day =
+        "DAY " +
+        String(
+            dayNumber
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const row =
+        document.createElement(
+            "tr"
+        );
+
+
+    const dayCell =
+        document.createElement(
+            "td"
+        );
+
+
+    dayCell.className =
+        "day";
+
+
+    dayCell.textContent =
+        day;
+
+
+    row.appendChild(
+        dayCell
+    );
+
+
+    for(
+        let hour=1;
+        hour<=5;
+        hour++
+    ){
+
+        const cell =
+            document.createElement(
+                "td"
+            );
+
+
+        cell.className =
+            "slot empty";
+
+
+        cell.dataset.day =
+            day;
+
+
+        cell.dataset.hour =
+            hour;
+
+
+        cell.innerHTML = `
+
+            <div class="slot-empty">
+                EMPTY
+            </div>
+
+        `;
+
+
+        row.appendChild(
+            cell
+        );
+
+    }
+
+
+    body.appendChild(
+        row
+    );
 
 
     updateTimingHeaders();
@@ -1881,7 +2002,7 @@ function createEmptyTimetable(){
 
 
 /* =====================================================
-   PERIOD KEY FOR TIMETABLE ITEM
+   PERIOD KEY
 ===================================================== */
 
 function periodKeyForItem(item){
@@ -1937,18 +2058,12 @@ function periodKeyForItem(item){
 
     return (
 
-        day
-        +
-        "_"
-        +
-        session
-        +
-        "_H"
-        +
-        hour
-        +
-        "_"
-        +
+        day +
+        "_" +
+        session +
+        "_H" +
+        hour +
+        "_" +
         subjectCode
 
     );
@@ -1979,30 +2094,6 @@ async function loadMarkedAttendance(){
     }
 
 
-    console.log(
-        "========================================"
-    );
-
-    console.log(
-        "CHECKING ATTENDANCE FOR DATE:",
-        date
-    );
-
-    console.log(
-        "STAFF:",
-        currentStaffId
-    );
-
-    console.log(
-        "SESSION:",
-        currentSession
-    );
-
-    console.log(
-        "========================================"
-    );
-
-
     try{
 
         const snapshot =
@@ -2014,12 +2105,6 @@ async function loadMarkedAttendance(){
                 )
 
             );
-
-
-        console.log(
-            "TOTAL ATTENDANCE DOCUMENTS:",
-            snapshot.size
-        );
 
 
         snapshot.forEach(
@@ -2055,12 +2140,8 @@ async function loadMarkedAttendance(){
 
 
                 if(
-                    upper(
-                        data.session
-                    ) !==
-                    upper(
-                        currentSession
-                    )
+                    upper(data.session) !==
+                    upper(currentSession)
                 ){
 
                     return;
@@ -2131,7 +2212,6 @@ async function loadMarkedAttendance(){
                                 itemCode;
 
                         }
-
                         else{
 
                             subjectMatch =
@@ -2170,13 +2250,6 @@ async function loadMarkedAttendance(){
                                 slotKey
                             );
 
-
-                            console.log(
-                                "GREEN SLOT:",
-                                slotKey,
-                                item.subjectName
-                            );
-
                         }
 
                     }
@@ -2191,17 +2264,11 @@ async function loadMarkedAttendance(){
         ).textContent =
             markedAttendancePeriods.size;
 
-
-        console.log(
-            "TOTAL GREEN SLOTS:",
-            markedAttendancePeriods.size
-        );
-
     }
     catch(error){
 
         console.error(
-            "ATTENDANCE STATUS LOAD ERROR:",
+            "ATTENDANCE STATUS ERROR:",
             error
         );
 
@@ -2217,7 +2284,7 @@ async function loadMarkedAttendance(){
 
 
 /* =====================================================
-   LOAD STAFF TIMETABLE
+   LOAD MY TIMETABLE
 ===================================================== */
 
 async function loadMyTimetable(){
@@ -2235,49 +2302,94 @@ async function loadMyTimetable(){
     createEmptyTimetable();
 
 
+    /*
+     * =================================================
+     * FUTURE DATE BLOCK
+     * =================================================
+     */
+
+    if(
+        isFutureDate(
+            attendanceDate
+        )
+    ){
+
+        showMessage(
+            "Future date attendance is not allowed.",
+            "warn"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * =================================================
+     * HOLIDAY / NO DAY ORDER
+     * =================================================
+     */
+
+    if(
+        !selectedDayOrder ||
+        selectedDayOrder === "HOLIDAY"
+    ){
+
+        document.getElementById(
+            "recordCount"
+        ).textContent =
+            "0";
+
+
+        document.getElementById(
+            "assignedStat"
+        ).textContent =
+            "0";
+
+
+        document.getElementById(
+            "emptyStat"
+        ).textContent =
+            "0";
+
+
+        document.getElementById(
+            "markedStat"
+        ).textContent =
+            "0";
+
+
+        if(
+            selectedDayOrder ===
+            "HOLIDAY"
+        ){
+
+            showMessage(
+                "Attendance is not available on a Holiday.",
+                "warn"
+            );
+
+        }
+        else{
+
+            showMessage(
+                "Day Order is not configured for the selected date.",
+                "warn"
+            );
+
+        }
+
+
+        return;
+
+    }
+
+
     document.getElementById(
         "recordCount"
     ).textContent =
         "Loading...";
-
-
-    console.log(
-        "========================================"
-    );
-
-    console.log(
-        "LOADING STAFF TIMETABLE"
-    );
-
-    console.log(
-        "CURRENT STAFF ID:",
-        currentStaffId
-    );
-
-    console.log(
-        "CURRENT STAFF NAME:",
-        currentStaffName
-    );
-
-    console.log(
-        "CURRENT SESSION:",
-        currentSession
-    );
-
-    console.log(
-        "ATTENDANCE DATE:",
-        document.getElementById(
-            "attendanceDate"
-        ).value
-    );
-
-    console.log(
-        "COLLECTION: timetableAssignments"
-    );
-
-    console.log(
-        "========================================"
-    );
 
 
     try{
@@ -2293,13 +2405,8 @@ async function loadMyTimetable(){
             );
 
 
-        console.log(
-            "TOTAL TIMETABLE DOCUMENTS:",
-            snapshot.size
-        );
-
-
-        let matchedCount = 0;
+        let matchedCount =
+            0;
 
 
         snapshot.forEach(
@@ -2325,49 +2432,8 @@ async function loadMyTimetable(){
                     getHour(data);
 
 
-                console.log(
-                    "TIMETABLE RECORD:",
-                    {
-
-                        documentId:
-                            timetableDoc.id,
-
-                        staffId:
-                            firestoreStaffId,
-
-                        staffName:
-                            getStaffName(data),
-
-                        department:
-                            getDepartment(data),
-
-                        year:
-                            getYear(data),
-
-                        section:
-                            getSection(data),
-
-                        subject:
-                            getSubject(data),
-
-                        subjectCode:
-                            getSubjectCode(data),
-
-                        session:
-                            firestoreSession,
-
-                        day:
-                            day,
-
-                        hour:
-                            hour
-
-                    }
-                );
-
-
                 /*
-                 * STAFF ID CHECK
+                 * STAFF
                  */
 
                 if(
@@ -2385,7 +2451,7 @@ async function loadMyTimetable(){
 
 
                 /*
-                 * SESSION CHECK
+                 * SESSION
                  */
 
                 if(
@@ -2399,8 +2465,20 @@ async function loadMyTimetable(){
 
 
                 /*
-                 * VALID DAY/HOUR
+                 * =================================================
+                 * ONLY SELECTED DAY ORDER
+                 * =================================================
                  */
+
+                if(
+                    upper(day) !==
+                    upper(selectedDayOrder)
+                ){
+
+                    return;
+
+                }
+
 
                 if(
                     !day ||
@@ -2474,17 +2552,6 @@ async function loadMyTimetable(){
             matchedCount;
 
 
-        console.log(
-            "MATCHED STAFF TIMETABLE RECORDS:",
-            matchedCount
-        );
-
-
-        /*
-         * FIRST LOAD ATTENDANCE STATUS
-         * THEN RENDER.
-         */
-
         await loadMarkedAttendance();
 
 
@@ -2497,7 +2564,11 @@ async function loadMyTimetable(){
 
                 "No timetable assigned for " +
                 currentStaffId +
-                " in " +
+                " on " +
+                attendanceDate +
+                " (" +
+                selectedDayOrder +
+                ") in " +
                 currentSession +
                 ".",
 
@@ -2506,14 +2577,15 @@ async function loadMyTimetable(){
             );
 
         }
-
         else{
 
             showMessage(
 
                 matchedCount +
                 " timetable period(s) loaded for " +
-                currentStaffId +
+                attendanceDate +
+                " — " +
+                selectedDayOrder +
                 ".",
 
                 "ok"
@@ -2560,13 +2632,24 @@ function renderTimetable(){
     createEmptyTimetable();
 
 
+    if(
+        !selectedDayOrder ||
+        selectedDayOrder === "HOLIDAY"
+    ){
+
+        return;
+
+    }
+
+
     const slots =
         document.querySelectorAll(
             ".slot"
         );
 
 
-    let assignedCount = 0;
+    let assignedCount =
+        0;
 
 
     slots.forEach(
@@ -2589,6 +2672,20 @@ function renderTimetable(){
             }
 
 
+            /*
+             * EXTRA DAY CHECK
+             */
+
+            if(
+                upper(item.day) !==
+                upper(selectedDayOrder)
+            ){
+
+                return;
+
+            }
+
+
             assignedCount++;
 
 
@@ -2602,10 +2699,6 @@ function renderTimetable(){
             );
 
 
-            /*
-             * GREEN HIGHLIGHT
-             */
-
             if(
                 markedAttendancePeriods.has(
                     key
@@ -2613,14 +2706,6 @@ function renderTimetable(){
             ){
 
                 slot.classList.add(
-                    "attendance-marked"
-                );
-
-            }
-
-            else{
-
-                slot.classList.remove(
                     "attendance-marked"
                 );
 
@@ -2681,8 +2766,11 @@ function renderTimetable(){
                     ${escapeHTML(
                         item.session || "-"
                     )}
+
                     |
+
                     HOUR
+
                     ${escapeHTML(
                         item.hour
                     )}
@@ -2692,13 +2780,9 @@ function renderTimetable(){
             `;
 
 
-            /*
-             * CLICK SUBJECT
-             */
-
             slot.addEventListener(
                 "click",
-                () => {
+                function(){
 
                     openAttendanceStudents(
                         item
@@ -2720,7 +2804,7 @@ function renderTimetable(){
     document.getElementById(
         "emptyStat"
     ).textContent =
-        30 - assignedCount;
+        5 - assignedCount;
 
 
     document.getElementById(
@@ -2737,8 +2821,120 @@ function renderTimetable(){
 
 function openAttendanceStudents(item){
 
+    const selectedDate =
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+
+    const displayedDayOrder =
+        document.getElementById(
+            "dayOrderDisplay"
+        ).value;
+
+
     /*
-     * FINAL SECURITY CHECK
+     * =================================================
+     * FUTURE DATE SECURITY
+     * =================================================
+     */
+
+    if(
+        isFutureDate(
+            selectedDate
+        )
+    ){
+
+        alert(
+            "Attendance can be entered only for today or previous dates. Future dates are not allowed."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * DATE CHECK
+     */
+
+    if(!selectedDate){
+
+        alert(
+            "Please select an Attendance Date."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * HOLIDAY
+     */
+
+    if(
+        displayedDayOrder ===
+        "HOLIDAY"
+    ){
+
+        alert(
+            "Attendance cannot be entered on a Holiday."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * DAY ORDER CHECK
+     */
+
+    if(
+        !/^DAY\s*0?[1-6]$/i.test(
+            displayedDayOrder
+        )
+    ){
+
+        alert(
+            "Day Order is not available for the selected date."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * TIMETABLE DAY MUST MATCH
+     */
+
+    if(
+        upper(item.day) !==
+        upper(displayedDayOrder)
+    ){
+
+        alert(
+            "Attendance is allowed only for " +
+            displayedDayOrder +
+            " on " +
+            selectedDate +
+            "."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * STAFF CHECK
      */
 
     if(
@@ -2755,46 +2951,13 @@ function openAttendanceStudents(item){
         );
 
 
-        console.error(
-            "STAFF MISMATCH:",
-            {
-
-                loggedInStaff:
-                    currentStaffId,
-
-                timetableStaff:
-                    item.staffId
-
-            }
-        );
-
-
         return;
 
     }
 
 
-    /*
-     * CURRENT DATE
-     */
-
     attendanceDate =
-        document.getElementById(
-            "attendanceDate"
-        ).value;
-
-
-    if(!attendanceDate){
-
-        setDefaultDate();
-
-
-        attendanceDate =
-            document.getElementById(
-                "attendanceDate"
-            ).value;
-
-    }
+        selectedDate;
 
 
     /*
@@ -2860,6 +3023,12 @@ function openAttendanceStudents(item){
 
 
     params.set(
+        "dayOrder",
+        displayedDayOrder
+    );
+
+
+    params.set(
         "hour",
         String(
             item.hour || ""
@@ -2867,21 +3036,13 @@ function openAttendanceStudents(item){
     );
 
 
-    params.set(
-        "date",
-        attendanceDate
-    );
-
-
     /*
-     * ALSO SEND DAY ORDER FROM ACADEMIC CALENDAR
+     * SELECTED DATE
      */
 
     params.set(
-        "dayOrder",
-        document.getElementById(
-            "dayOrderDisplay"
-        ).value || ""
+        "date",
+        selectedDate
     );
 
 
@@ -2890,52 +3051,37 @@ function openAttendanceStudents(item){
     );
 
     console.log(
-        "OPENING attendance-students.html"
+        "OPENING ATTENDANCE STUDENTS"
     );
 
     console.log(
-        "PARAMETERS:",
-        {
+        "DATE:",
+        selectedDate
+    );
 
-            staffId:
-                currentStaffId,
+    console.log(
+        "DAY ORDER:",
+        displayedDayOrder
+    );
 
-            staffName:
-                currentStaffName,
+    console.log(
+        "TIMETABLE DAY:",
+        item.day
+    );
 
-            department:
-                item.department,
+    console.log(
+        "SESSION:",
+        item.session
+    );
 
-            year:
-                item.year,
+    console.log(
+        "HOUR:",
+        item.hour
+    );
 
-            section:
-                item.section,
-
-            subject:
-                item.subjectName,
-
-            subjectCode:
-                item.subjectCode,
-
-            session:
-                item.session,
-
-            day:
-                item.day,
-
-            hour:
-                item.hour,
-
-            date:
-                attendanceDate,
-
-            dayOrder:
-                document.getElementById(
-                    "dayOrderDisplay"
-                ).value
-
-        }
+    console.log(
+        "SUBJECT:",
+        item.subjectName
     );
 
     console.log(
@@ -2951,7 +3097,7 @@ function openAttendanceStudents(item){
 
 
 /* =====================================================
-   STAFF ID CHANGE PROTECTION
+   VERIFY STAFF
 ===================================================== */
 
 function verifyStaffIdentity(){
@@ -2972,11 +3118,6 @@ function verifyStaffIdentity(){
             currentStaffId
         )
     ){
-
-        console.error(
-            "STAFF ID CHANGED OR INVALID"
-        );
-
 
         alert(
             "Staff login changed. Please login again."
@@ -3060,20 +3201,139 @@ document.getElementById(
 
 
         /*
-         * FIRST:
-         * Automatically load Day Order
-         * from Academic Calendar.
+         * FUTURE DATE BLOCK
          */
 
-        await loadDayOrderForDate();
+        if(
+            isFutureDate(
+                attendanceDate
+            )
+        ){
+
+            alert(
+                "Attendance can be entered only for today or previous dates. Future dates are not allowed."
+            );
+
+
+            /*
+             * Reset to today
+             */
+
+            this.value =
+                getTodayString();
+
+
+            attendanceDate =
+                this.value;
+
+
+            selectedDayOrder =
+                "";
+
+
+            document.getElementById(
+                "dayOrderDisplay"
+            ).value =
+                "-";
+
+
+            timetableAssignments = {};
+
+
+            markedAttendancePeriods =
+                new Set();
+
+
+            createEmptyTimetable();
+
+
+            document.getElementById(
+                "recordCount"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "assignedStat"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "emptyStat"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "markedStat"
+            ).textContent =
+                "0";
+
+
+            await loadDayOrderForDate();
+
+
+            await loadMyTimetable();
+
+
+            return;
+
+        }
 
 
         /*
-         * SECOND:
-         * Existing timetable logic.
+         * Load selected date Day Order
          */
 
-        await loadMyTimetable();
+        const validDayOrder =
+            await loadDayOrderForDate();
+
+
+        /*
+         * Load only that Day Order
+         */
+
+        if(validDayOrder){
+
+            await loadMyTimetable();
+
+        }
+        else{
+
+            timetableAssignments = {};
+
+            markedAttendancePeriods =
+                new Set();
+
+
+            createEmptyTimetable();
+
+
+            document.getElementById(
+                "recordCount"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "assignedStat"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "emptyStat"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "markedStat"
+            ).textContent =
+                "0";
+
+        }
 
     }
 );
@@ -3100,17 +3360,42 @@ document.getElementById(
 
 
         /*
-         * Load Day Order first.
+         * Future date check
          */
 
-        await loadDayOrderForDate();
+        if(
+            isFutureDate(
+                document.getElementById(
+                    "attendanceDate"
+                ).value
+            )
+        ){
+
+            showMessage(
+                "Future date attendance is not allowed.",
+                "warn"
+            );
 
 
-        /*
-         * Then timetable.
-         */
+            return;
 
-        await loadMyTimetable();
+        }
+
+
+        const validDayOrder =
+            await loadDayOrderForDate();
+
+
+        if(validDayOrder){
+
+            await loadMyTimetable();
+
+        }
+        else{
+
+            createEmptyTimetable();
+
+        }
 
     }
 );
@@ -3136,10 +3421,34 @@ document.getElementById(
         }
 
 
-        await loadDayOrderForDate();
+        if(
+            isFutureDate(
+                document.getElementById(
+                    "attendanceDate"
+                ).value
+            )
+        ){
+
+            showMessage(
+                "Future date attendance is not allowed.",
+                "warn"
+            );
 
 
-        await loadMyTimetable();
+            return;
+
+        }
+
+
+        const validDayOrder =
+            await loadDayOrderForDate();
+
+
+        if(validDayOrder){
+
+            await loadMyTimetable();
+
+        }
 
     }
 );
@@ -3192,19 +3501,7 @@ async function initialize(){
     }
 
 
-    /*
-     * Set today's date.
-     */
-
     setDefaultDate();
-
-
-    /*
-     * Automatically load today's
-     * Day Order from Academic Calendar.
-     */
-
-    await loadDayOrderForDate();
 
 
     currentSession =
@@ -3220,19 +3517,30 @@ async function initialize(){
     updateTimingHeaders();
 
 
-    createEmptyTimetable();
-
-
     /*
-     * Automatically load timetable.
+     * Load today's Day Order
      */
 
-    await loadMyTimetable();
+    const validDayOrder =
+        await loadDayOrderForDate();
+
+
+    if(validDayOrder){
+
+        await loadMyTimetable();
+
+    }
+    else{
+
+        createEmptyTimetable();
+
+    }
 
 }
 
 
 initialize();
+
 
 </script>
 
