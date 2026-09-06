@@ -1676,7 +1676,7 @@ const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_E3y8efSouYf4DFK7Q7q86g_LKwmpLAi";
 
 const SUPABASE_BUCKET =
-    "lms-assignments";
+    "lms-assignment";
 
 const supabase = window.supabase.createClient(
     SUPABASE_URL,
@@ -3056,7 +3056,7 @@ const supabase = window.supabase.createClient(
         /*
          * Supabase Storage browser upload.
          *
-         * The lms-assignments bucket is public for reading.
+         * The lms-assignment bucket is public for reading.
          * INSERT permission is provided by the Storage policy.
          */
         const { data, error } =
