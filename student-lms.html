@@ -1988,6 +1988,15 @@ body{
                     >
                     </div>
 
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        id="deleteStudentAttachmentButton"
+                        style="display:none; margin-top:10px;"
+                    >
+                        🗑️ Delete Attached File
+                    </button>
+
 
                     <div
                         class="progress-container"
@@ -4949,6 +4958,8 @@ async function openAssignment(
         currentSubmission?.fileName ||
         "No file selected";
 
+    updateDeleteAttachmentButton();
+
     /* -----------------------------------------------------
        SUBMIT BUTTON
     ----------------------------------------------------- */
@@ -5083,10 +5094,209 @@ document.getElementById(
             ?
             file.name
             :
-            "No file selected";
+            (currentSubmission?.fileName || "No file selected");
+
+        updateDeleteAttachmentButton();
 
     }
 );
+
+
+/* =========================================================
+   DELETE / REMOVE STUDENT ATTACHMENT
+========================================================= */
+
+function updateDeleteAttachmentButton(){
+
+    const button =
+        document.getElementById(
+            "deleteStudentAttachmentButton"
+        );
+
+    if(!button){
+        return;
+    }
+
+    const fileInput =
+        document.getElementById(
+            "studentFile"
+        );
+
+    const hasSelectedFile =
+        !!fileInput?.files?.length;
+
+    const hasUploadedFile =
+        !!currentSubmission?.fileUrl;
+
+    button.style.display =
+        hasSelectedFile || hasUploadedFile
+        ? "inline-block"
+        : "none";
+
+    button.textContent =
+        hasSelectedFile && !hasUploadedFile
+        ? "🗑️ Remove Selected File"
+        : "🗑️ Delete Attached File";
+}
+
+
+document.getElementById(
+    "deleteStudentAttachmentButton"
+).addEventListener(
+    "click",
+    deleteStudentAttachment
+);
+
+
+async function deleteStudentAttachment(){
+
+    if(!currentAssignment || !currentStudent){
+        return;
+    }
+
+    const fileInput =
+        document.getElementById(
+            "studentFile"
+        );
+
+    /* If the student only selected a file but has not submitted it,
+       simply remove the local selection. */
+    if(
+        fileInput?.files?.length &&
+        !currentSubmission?.fileUrl
+    ){
+
+        fileInput.value = "";
+
+        document.getElementById(
+            "studentFileName"
+        ).textContent = "No file selected";
+
+        updateDeleteAttachmentButton();
+
+        showToast(
+            "Selected file removed.",
+            "success",
+            2500
+        );
+
+        return;
+    }
+
+    if(!currentSubmission?.fileUrl){
+        updateDeleteAttachmentButton();
+        return;
+    }
+
+    const confirmed =
+        window.confirm(
+            "Delete the attached file from your submission?\n\nYou can attach another file before submitting again."
+        );
+
+    if(!confirmed){
+        return;
+    }
+
+    const button =
+        document.getElementById(
+            "deleteStudentAttachmentButton"
+        );
+
+    button.disabled = true;
+    button.textContent = "Deleting...";
+
+    try{
+
+        /* Delete the physical file from Supabase Storage when a path
+           was saved with the submission. */
+        if(currentSubmission.filePath){
+
+            const { error: storageError } =
+                await supabase.storage
+                    .from(SUPABASE_BUCKET)
+                    .remove([
+                        currentSubmission.filePath
+                    ]);
+
+            if(storageError){
+                console.error(
+                    "SUPABASE ATTACHMENT DELETE ERROR:",
+                    storageError
+                );
+
+                throw new Error(
+                    storageError.message ||
+                    "Unable to delete the file from Supabase Storage."
+                );
+            }
+        }
+
+        const submissionId =
+            safe(currentAssignment.id) +
+            "_" +
+            safe(currentStudent.registerNo);
+
+        /* Keep the submission record, comment and other data, but clear
+           only the attachment fields. */
+        await setDoc(
+            doc(
+                db,
+                "lmsSubmissions",
+                submissionId
+            ),
+            {
+                fileName: "",
+                fileUrl: "",
+                filePath: "",
+                updatedAt: serverTimestamp()
+            },
+            {
+                merge: true
+            }
+        );
+
+        currentSubmission =
+            await getStudentSubmission(
+                currentAssignment.id
+            );
+
+        fileInput.value = "";
+
+        document.getElementById(
+            "studentFileName"
+        ).textContent = "No file selected";
+
+        updateDeleteAttachmentButton();
+
+        showToast(
+            "Attached file deleted successfully.",
+            "success",
+            3500
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "DELETE ATTACHMENT ERROR:",
+            error
+        );
+
+        showToast(
+            "Unable to delete attached file: " +
+            (error?.message || "Unknown error"),
+            "error",
+            6000
+        );
+
+    }
+    finally{
+
+        button.disabled = false;
+        updateDeleteAttachmentButton();
+
+    }
+}
 
 
 /* =========================================================
