@@ -4618,9 +4618,7 @@ async function openAssignment(
     submission=null
 ){
 
-    currentAssignment =
-        assignment;
-
+    currentAssignment = assignment;
 
     currentSubmission =
         submission ||
@@ -4628,97 +4626,67 @@ async function openAssignment(
             assignment.id
         );
 
-
-    document.getElementById(
-        "modalTitle"
-    ).textContent =
+    document.getElementById("modalTitle").textContent =
         assignment.title ||
         assignment.topic ||
         "Assignment";
 
-
-    document.getElementById(
-        "detailWorkType"
-    ).textContent =
+    document.getElementById("detailWorkType").textContent =
         assignment.workType ||
         "Assignment";
 
-
-    document.getElementById(
-        "detailTopic"
-    ).textContent =
+    document.getElementById("detailTopic").textContent =
         assignment.topic ||
         assignment.title ||
         "-";
 
-
-    document.getElementById(
-        "detailStartDate"
-    ).textContent =
+    document.getElementById("detailStartDate").textContent =
         formatDate(
             assignment.startDate
         );
 
-
-    document.getElementById(
-        "detailEndDate"
-    ).textContent =
+    document.getElementById("detailEndDate").textContent =
         formatDate(
             assignment.endDate ||
             assignment.lastSubmissionDate
         );
 
-
-    document.getElementById(
-        "detailInstructions"
-    ).textContent =
+    document.getElementById("detailInstructions").textContent =
         assignment.instructions ||
         assignment.description ||
         "No instructions provided.";
-
 
     /* -----------------------------------------------------
        FACULTY ATTACHMENT
     ----------------------------------------------------- */
 
     const facultyAttachment =
-        document.getElementById(
-            "detailAttachment"
-        );
-
+        document.getElementById("detailAttachment");
 
     const attachmentUrl =
         assignment.fileUrl ||
         assignment.attachmentUrl;
 
-
     if(attachmentUrl){
 
         facultyAttachment.innerHTML = `
-
             <button
                 class="btn btn-primary"
                 id="facultyAttachmentButton"
+                type="button"
             >
                 📎
-                ${
-                    escapeHtml(
-                        assignment.fileName ||
-                        "View Attachment"
-                    )
-                }
+                ${escapeHtml(
+                    assignment.fileName ||
+                    "View Attachment"
+                )}
             </button>
-
         `;
-
 
         document.getElementById(
             "facultyAttachmentButton"
-        ).onclick =
-            () =>
-                openAttachment(
-                    assignment
-                );
+        ).onclick = () =>
+            openAttachment(assignment);
 
     }
     else{
@@ -4728,12 +4696,16 @@ async function openAssignment(
 
     }
 
-
     /* -----------------------------------------------------
-       COMMENT
+       COMMENT REQUIREMENT
+       Supports:
+       commentRequired
+       allowComment
+       comment
+       Values: Required / Yes / True / Available / 1
     ----------------------------------------------------- */
 
-    const commentAllowed =
+    const commentRequired =
         isRequiredOption(
             assignment.commentRequired
         ) ||
@@ -4744,40 +4716,66 @@ async function openAssignment(
             assignment.comment
         );
 
-
-    document.getElementById(
-        "detailComment"
-    ).textContent =
-        commentAllowed
-        ?
-        "Required"
-        :
-        "Not Required";
-
+    const detailComment =
+        document.getElementById("detailComment");
 
     const commentGroup =
-        document.getElementById(
-            "studentCommentGroup"
-        );
+        document.getElementById("studentCommentGroup");
 
+    const commentInput =
+        document.getElementById("studentComment");
 
-    commentGroup.style.display =
-        commentAllowed
-        ?
-        "block"
-        :
-        "none";
+    detailComment.textContent =
+        commentRequired
+        ? "Required"
+        : "Not Required";
 
+    if(commentRequired){
 
-    document.getElementById(
-        "studentComment"
-    ).value =
+        commentGroup.style.display = "block";
+
+        commentInput.required = true;
+
+        commentInput.placeholder =
+            "Enter your comment (Required)...";
+
+        commentInput.style.borderColor = "";
+
+        const label =
+            commentGroup.querySelector("label");
+
+        if(label){
+            label.innerHTML =
+                'Comment <span style="color:#c9302c;">* Required</span>';
+        }
+
+    }
+    else{
+
+        commentGroup.style.display = "none";
+
+        commentInput.required = false;
+
+        commentInput.placeholder =
+            "Enter your comment...";
+
+        commentInput.style.borderColor = "";
+
+        const label =
+            commentGroup.querySelector("label");
+
+        if(label){
+            label.textContent = "Comment";
+        }
+
+    }
+
+    commentInput.value =
         currentSubmission?.comment ||
         "";
 
-
     /* -----------------------------------------------------
-       CHAT
+       CHAT WITH FACULTY
     ----------------------------------------------------- */
 
     const chatAllowed =
@@ -4791,29 +4789,22 @@ async function openAssignment(
             assignment.chat
         );
 
-
     document.getElementById(
         "detailChat"
     ).textContent =
         chatAllowed
-        ?
-        "Available"
-        :
-        "Not Required";
-
+        ? "Available"
+        : "Not Required";
 
     document.getElementById(
         "chatFacultyButton"
     ).style.display =
         chatAllowed
-        ?
-        "inline-block"
-        :
-        "none";
-
+        ? "inline-block"
+        : "none";
 
     /* -----------------------------------------------------
-       ATTACHMENT RULE
+       STUDENT ATTACHMENT RULE
     ----------------------------------------------------- */
 
     const attachmentRule =
@@ -4821,71 +4812,57 @@ async function openAssignment(
             assignment
         );
 
-
     document.getElementById(
         "detailAllowAttachment"
     ).textContent =
         attachmentRule;
-
 
     const fileGroup =
         document.getElementById(
             "studentFileGroup"
         );
 
-
     const requiredText =
         document.getElementById(
             "fileRequiredText"
         );
 
+    const fileInput =
+        document.getElementById(
+            "studentFile"
+        );
+
+    fileInput.value = "";
 
     if(
-        attachmentRule.toLowerCase()
-        ===
+        attachmentRule.toLowerCase() ===
         "required"
     ){
 
-        fileGroup.style.display =
-            "block";
+        fileGroup.style.display = "block";
 
         requiredText.textContent =
             "Attachment is required for this assignment.";
 
     }
     else if(
-        attachmentRule.toLowerCase()
-        ===
+        attachmentRule.toLowerCase() ===
         "not required"
     ){
 
-        fileGroup.style.display =
-            "none";
+        fileGroup.style.display = "none";
 
-        requiredText.textContent =
-            "";
+        requiredText.textContent = "";
 
     }
     else{
 
-        fileGroup.style.display =
-            "block";
+        fileGroup.style.display = "block";
 
         requiredText.textContent =
             "Attachment is optional.";
 
     }
-
-
-    /* -----------------------------------------------------
-       FILE
-    ----------------------------------------------------- */
-
-    document.getElementById(
-        "studentFile"
-    ).value =
-        "";
-
 
     document.getElementById(
         "studentFileName"
@@ -4893,9 +4870,8 @@ async function openAssignment(
         currentSubmission?.fileName ||
         "No file selected";
 
-
     /* -----------------------------------------------------
-       BUTTON
+       SUBMIT BUTTON
     ----------------------------------------------------- */
 
     const submitButton =
@@ -4903,26 +4879,26 @@ async function openAssignment(
             "submitAssignmentButton"
         );
 
+    submitButton.disabled = false;
 
-    if(
+    submitButton.textContent =
         currentSubmission
-    ){
+        ? "Update Submission"
+        : "Submit Assignment";
 
-        submitButton.textContent =
-            "Update Submission";
+    document.getElementById(
+        "submissionProgressContainer"
+    ).style.display = "none";
 
-    }
-    else{
+    document.getElementById(
+        "submissionProgress"
+    ).style.width = "0%";
 
-        submitButton.textContent =
-            "Submit Assignment";
+    document.getElementById(
+        "submissionProgressText"
+    ).textContent = "0%";
 
-    }
-
-
-    assignmentModal.classList.add(
-        "show"
-    );
+    assignmentModal.classList.add("show");
 
 }
 
@@ -4984,25 +4960,25 @@ function getAttachmentRule(
    REQUIRED OPTION
 ========================================================= */
 
-function isRequiredOption(
-    value
-){
+function isRequiredOption(value){
 
-    const text =
-        lower(value);
+    if(
+        value === true ||
+        value === 1
+    ){
+        return true;
+    }
 
+    const textValue = lower(value);
 
-    return (
-
-        text === "required" ||
-
-        text === "yes" ||
-
-        text === "true" ||
-
-        text === "available"
-
-    );
+    return [
+        "required",
+        "yes",
+        "true",
+        "available",
+        "on",
+        "1"
+    ].includes(textValue);
 
 }
 
@@ -5053,90 +5029,156 @@ async function submitAssignment(){
         !currentStudent
     ){
 
+        showToast(
+            "Student or assignment information is missing.",
+            "error"
+        );
+
         return;
 
     }
-
 
     const attachmentRule =
         getAttachmentRule(
             currentAssignment
         );
 
-
     const fileInput =
         document.getElementById(
             "studentFile"
         );
 
-
     const file =
-        fileInput.files[0];
+        fileInput.files[0] || null;
 
-
-    const comment =
+    const commentInput =
         document.getElementById(
             "studentComment"
-        ).value.trim();
+        );
 
-
-    const commentAllowed =
-        document.getElementById(
-            "studentCommentGroup"
-        ).style.display !==
-        "none";
-
+    const comment =
+        commentInput.value.trim();
 
     /* -----------------------------------------------------
-       VALIDATION
+       COMMENT REQUIREMENT
+    ----------------------------------------------------- */
+
+    const commentRequired =
+        isRequiredOption(
+            currentAssignment.commentRequired
+        ) ||
+        isRequiredOption(
+            currentAssignment.allowComment
+        ) ||
+        isRequiredOption(
+            currentAssignment.comment
+        );
+
+    if(
+        commentRequired &&
+        !comment
+    ){
+
+        document.getElementById(
+            "studentCommentGroup"
+        ).style.display = "block";
+
+        commentInput.required = true;
+
+        commentInput.focus();
+
+        commentInput.style.borderColor =
+            "#c9302c";
+
+        showToast(
+            "Comment is required. Please enter your comment.",
+            "warning",
+            5000
+        );
+
+        return;
+
+    }
+
+    commentInput.style.borderColor = "";
+
+    /* -----------------------------------------------------
+       ATTACHMENT VALIDATION
     ----------------------------------------------------- */
 
     if(
-        attachmentRule ===
-        "Required" &&
+        attachmentRule === "Required" &&
         !file &&
         !currentSubmission?.fileUrl
     ){
 
         showToast(
             "Please attach your file before submitting.",
-            "warning"
+            "warning",
+            5000
         );
 
         return;
 
     }
 
+    /* -----------------------------------------------------
+       FILE SIZE
+    ----------------------------------------------------- */
+
+    const MAX_FILE_SIZE =
+        25 * 1024 * 1024;
 
     if(
         file &&
-        file.size >
-        25 * 1024 * 1024
+        file.size > MAX_FILE_SIZE
     ){
 
         showToast(
             "File size must not exceed 25 MB.",
-            "warning"
+            "warning",
+            5000
         );
 
         return;
 
     }
-
 
     const button =
         document.getElementById(
             "submitAssignmentButton"
         );
 
-
-    button.disabled =
-        true;
-
+    button.disabled = true;
 
     button.textContent =
-        "Submitting...";
+        file
+        ? "Uploading..."
+        : "Saving...";
 
+    const progressContainer =
+        document.getElementById(
+            "submissionProgressContainer"
+        );
+
+    const progressBar =
+        document.getElementById(
+            "submissionProgress"
+        );
+
+    const progressText =
+        document.getElementById(
+            "submissionProgressText"
+        );
+
+    progressContainer.style.display =
+        file
+        ? "block"
+        : "none";
+
+    progressBar.style.width = "0%";
+
+    progressText.textContent = "0%";
 
     try{
 
@@ -5144,22 +5186,35 @@ async function submitAssignment(){
             currentSubmission?.fileUrl ||
             "";
 
-
         let filePath =
             currentSubmission?.filePath ||
             "";
-
 
         let fileName =
             currentSubmission?.fileName ||
             "";
 
-
         /* -------------------------------------------------
-           UPLOAD FILE
+           FILE UPLOAD
         ------------------------------------------------- */
 
         if(file){
+
+            const safeRegister =
+                safe(
+                    currentStudent.registerNo
+                ).replace(
+                    /[^a-zA-Z0-9_-]/g,
+                    "_"
+                );
+
+            const safeAssignmentId =
+                safe(
+                    currentAssignment.id
+                ).replace(
+                    /[^a-zA-Z0-9_-]/g,
+                    "_"
+                );
 
             const safeName =
                 file.name.replace(
@@ -5167,25 +5222,29 @@ async function submitAssignment(){
                     "_"
                 );
 
-
             const filePathValue =
-
                 "lmsSubmissions/" +
-
-                currentStudent.registerNo +
-
+                safeRegister +
                 "/" +
-
-                currentAssignment.id +
-
+                safeAssignmentId +
                 "/" +
-
                 Date.now() +
-
                 "_" +
-
                 safeName;
 
+            console.log(
+                "LMS UPLOAD PATH:",
+                filePathValue
+            );
+
+            console.log(
+                "LMS UPLOAD FILE:",
+                {
+                    name:file.name,
+                    type:file.type,
+                    size:file.size
+                }
+            );
 
             const storageRef =
                 ref(
@@ -5193,19 +5252,30 @@ async function submitAssignment(){
                     filePathValue
                 );
 
+            const metadata = {
+                contentType:
+                    file.type ||
+                    "application/octet-stream",
+
+                customMetadata:{
+                    studentRegisterNo:
+                        safe(
+                            currentStudent.registerNo
+                        ),
+
+                    assignmentId:
+                        safe(
+                            currentAssignment.id
+                        )
+                }
+            };
 
             const uploadTask =
                 uploadBytesResumable(
                     storageRef,
-                    file
+                    file,
+                    metadata
                 );
-
-
-            document.getElementById(
-                "submissionProgressContainer"
-            ).style.display =
-                "block";
-
 
             await new Promise(
                 (
@@ -5214,30 +5284,30 @@ async function submitAssignment(){
                 ) => {
 
                     uploadTask.on(
-
                         "state_changed",
 
                         snapshot => {
 
+                            const total =
+                                snapshot.totalBytes || 0;
+
                             const percent =
+                                total > 0
+                                ?
                                 Math.round(
                                     (
                                         snapshot.bytesTransferred /
-                                        snapshot.totalBytes
+                                        total
                                     ) * 100
-                                );
+                                )
+                                :
+                                0;
 
+                            progressBar.style.width =
+                                percent + "%";
 
-                            document.getElementById(
-                                "submissionProgress"
-                            ).style.width =
-                                percent +
-                                "%";
-
-
-                            document.getElementById(
-                                "submissionProgressText"
-                            ).textContent =
+                            progressText.textContent =
+                                "Uploading " +
                                 percent +
                                 "%";
 
@@ -5245,9 +5315,12 @@ async function submitAssignment(){
 
                         error => {
 
-                            reject(
+                            console.error(
+                                "FIREBASE STORAGE UPLOAD ERROR:",
                                 error
                             );
+
+                            reject(error);
 
                         },
 
@@ -5260,28 +5333,33 @@ async function submitAssignment(){
                                         uploadTask.snapshot.ref
                                     );
 
-
                                 filePath =
                                     filePathValue;
-
 
                                 fileName =
                                     file.name;
 
+                                progressBar.style.width =
+                                    "100%";
+
+                                progressText.textContent =
+                                    "Upload complete";
 
                                 resolve();
 
                             }
                             catch(error){
 
-                                reject(
+                                console.error(
+                                    "DOWNLOAD URL ERROR:",
                                     error
                                 );
+
+                                reject(error);
 
                             }
 
                         }
-
                     );
 
                 }
@@ -5289,19 +5367,18 @@ async function submitAssignment(){
 
         }
 
-
         /* -------------------------------------------------
            SAVE SUBMISSION
         ------------------------------------------------- */
 
         const submissionId =
-
-            currentAssignment.id +
-
+            safe(
+                currentAssignment.id
+            ) +
             "_" +
-
-            currentStudent.registerNo;
-
+            safe(
+                currentStudent.registerNo
+            );
 
         const submissionData = {
 
@@ -5314,24 +5391,43 @@ async function submitAssignment(){
             studentName:
                 currentStudent.name,
 
+            studentId:
+                currentStudent.studentId ||
+                currentStudent.studentID ||
+                "",
+
             subjectId:
                 currentAssignment.subjectId ||
-                currentCourse.subjectId,
+                currentCourse?.subjectId ||
+                "",
 
             subjectCode:
                 currentAssignment.subjectCode ||
-                currentCourse.subjectCode,
+                currentCourse?.subjectCode ||
+                "",
 
             subjectName:
                 currentAssignment.subjectName ||
-                currentCourse.subjectName,
+                currentCourse?.subjectName ||
+                "",
+
+            staffId:
+                currentAssignment.staffId ||
+                currentCourse?.staffId ||
+                "",
+
+            staffName:
+                currentAssignment.staffName ||
+                currentCourse?.staffName ||
+                "",
 
             comment:
-                commentAllowed
-                ?
-                comment
-                :
-                "",
+                commentRequired
+                ? comment
+                : "",
+
+            commentRequired:
+                commentRequired,
 
             fileName:
                 fileName,
@@ -5345,52 +5441,52 @@ async function submitAssignment(){
             submitted:
                 true,
 
-            submittedAt:
-                serverTimestamp(),
-
             updatedAt:
                 serverTimestamp()
 
         };
 
+        if(!currentSubmission){
+
+            submissionData.submittedAt =
+                serverTimestamp();
+
+        }
+
+        console.log(
+            "SAVING LMS SUBMISSION:",
+            submissionId,
+            submissionData
+        );
 
         await setDoc(
-
             doc(
                 db,
                 "lmsSubmissions",
                 submissionId
             ),
-
             submissionData,
-
             {
                 merge:true
             }
-
         );
-
 
         currentSubmission =
             await getStudentSubmission(
                 currentAssignment.id
             );
 
-
         showToast(
             "Assignment submitted successfully.",
-            "success"
+            "success",
+            4000
         );
-
 
         await renderAssignmentsForCourse();
 
-
         setTimeout(
             () => {
-
                 closeAssignmentModal();
-
             },
             700
         );
@@ -5399,31 +5495,97 @@ async function submitAssignment(){
     catch(error){
 
         console.error(
-            "SUBMISSION ERROR:",
+            "========================================"
+        );
+
+        console.error(
+            "LMS SUBMISSION ERROR:",
             error
         );
 
+        console.error(
+            "ERROR CODE:",
+            error?.code
+        );
+
+        console.error(
+            "ERROR MESSAGE:",
+            error?.message
+        );
+
+        let message =
+            error?.message ||
+            "Unknown error";
+
+        if(
+            error?.code ===
+            "storage/unauthorized"
+        ){
+
+            message =
+                "File upload permission denied. Check Firebase Storage Rules.";
+
+        }
+        else if(
+            error?.code ===
+            "storage/quota-exceeded"
+        ){
+
+            message =
+                "Firebase Storage quota has been exceeded.";
+
+        }
+        else if(
+            error?.code ===
+            "storage/canceled"
+        ){
+
+            message =
+                "File upload was cancelled.";
+
+        }
+        else if(
+            error?.code ===
+            "permission-denied"
+        ){
+
+            message =
+                "Firestore permission denied while saving the submission.";
+
+        }
 
         showToast(
             "Unable to submit assignment: " +
-            error.message,
+            message,
             "error",
-            6000
+            8000
         );
 
     }
     finally{
 
-        button.disabled =
-            false;
-
+        button.disabled = false;
 
         button.textContent =
             currentSubmission
-            ?
-            "Update Submission"
-            :
-            "Submit Assignment";
+            ? "Update Submission"
+            : "Submit Assignment";
+
+        if(
+            !currentSubmission
+        ){
+
+            setTimeout(
+                () => {
+
+                    progressContainer.style.display =
+                        "none";
+
+                },
+                1200
+            );
+
+        }
 
     }
 
@@ -5808,9 +5970,7 @@ async function loadChatMessages(){
             "chatMessages"
         );
 
-
     container.innerHTML = `
-
         <div
             style="
                 text-align:center;
@@ -5820,51 +5980,86 @@ async function loadChatMessages(){
         >
             Loading messages...
         </div>
-
     `;
 
+    if(
+        !currentAssignment ||
+        !currentStudent
+    ){
+
+        container.innerHTML = `
+            <div
+                style="
+                    text-align:center;
+                    color:#c9302c;
+                    padding:20px;
+                "
+            >
+                Student or assignment information is missing.
+            </div>
+        `;
+
+        return;
+
+    }
 
     try{
 
         const q =
             query(
-
                 collection(
                     db,
                     "lmsChats"
                 ),
-
                 where(
                     "assignmentId",
                     "==",
                     currentAssignment.id
                 )
-
             );
-
 
         const snap =
             await getDocs(q);
 
+        const studentRegisterNo =
+            upper(
+                currentStudent.registerNo
+            );
 
         const messages = [];
-
 
         snap.forEach(
             item => {
 
-                messages.push({
+                const data =
+                    item.data();
 
-                    id:
-                        item.id,
+                /*
+                 * IMPORTANT:
+                 * Only show this student's conversation.
+                 * This prevents another student's chat
+                 * for the same assignment appearing here.
+                 */
 
-                    ...item.data()
+                if(
+                    upper(
+                        data.studentRegisterNo
+                    ) ===
+                    studentRegisterNo
+                ){
 
-                });
+                    messages.push({
+
+                        id:item.id,
+
+                        ...data
+
+                    });
+
+                }
 
             }
         );
-
 
         messages.sort(
             (a,b) => {
@@ -5873,24 +6068,20 @@ async function loadChatMessages(){
                     a.createdAt?.seconds ||
                     0;
 
-
                 const bTime =
                     b.createdAt?.seconds ||
                     0;
-
 
                 return aTime - bTime;
 
             }
         );
 
-
         if(
             messages.length === 0
         ){
 
             container.innerHTML = `
-
                 <div
                     style="
                         text-align:center;
@@ -5899,17 +6090,16 @@ async function loadChatMessages(){
                     "
                 >
                     No messages yet.
+                    <br>
+                    Start the conversation with your faculty.
                 </div>
-
             `;
 
             return;
 
         }
 
-
         container.innerHTML = "";
-
 
         messages.forEach(
             message => {
@@ -5919,22 +6109,16 @@ async function loadChatMessages(){
                         "div"
                     );
 
-
                 const isStudent =
                     upper(
                         message.senderType
                     ) ===
                     "STUDENT";
 
-
                 div.style.cssText = `
-
                     margin-bottom:10px;
-
                     padding:10px;
-
-                    border-radius:6px;
-
+                    border-radius:8px;
                     background:
                         ${
                             isStudent
@@ -5943,14 +6127,10 @@ async function loadChatMessages(){
                             :
                             "#f1f1f1"
                         };
-
                 `;
 
-
                 div.innerHTML = `
-
                     <strong>
-
                         ${escapeHtml(
                             message.senderName ||
                             (
@@ -5961,20 +6141,19 @@ async function loadChatMessages(){
                                 "Faculty"
                             )
                         )}
-
                     </strong>
 
                     <div
                         style="
                             margin-top:5px;
                             font-size:13px;
+                            white-space:pre-wrap;
+                            word-break:break-word;
                         "
                     >
-
                         ${escapeHtml(
                             message.message
                         )}
-
                     </div>
 
                     <div
@@ -5984,17 +6163,13 @@ async function loadChatMessages(){
                             font-size:10px;
                         "
                     >
-
                         ${escapeHtml(
                             formatDate(
                                 message.createdAt
                             )
                         )}
-
                     </div>
-
                 `;
-
 
                 container.appendChild(
                     div
@@ -6002,6 +6177,9 @@ async function loadChatMessages(){
 
             }
         );
+
+        container.scrollTop =
+            container.scrollHeight;
 
     }
     catch(error){
@@ -6011,20 +6189,20 @@ async function loadChatMessages(){
             error
         );
 
-
         container.innerHTML = `
-
             <div
                 style="
                     color:#c9302c;
                     padding:15px;
                 "
             >
-
                 Unable to load messages.
-
+                <br><br>
+                ${escapeHtml(
+                    error?.message ||
+                    "Unknown error"
+                )}
             </div>
-
         `;
 
     }
