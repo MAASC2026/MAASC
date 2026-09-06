@@ -2396,6 +2396,82 @@ const supabase = window.supabase.createClient(
 
          assignments = result;
 
+         /* =====================================================
+            LOAD LIVE SUBMISSION COUNTS
+            Do not rely on the cached submittedCount field because
+            student submissions are saved in lmsSubmissions separately.
+         ===================================================== */
+         await Promise.all(assignments.map(async item => {
+
+             const students = Array.isArray(item.selectedStudents)
+                 ? item.selectedStudents
+                 : [];
+
+             // Keep the stored count for assignments that have no
+             // selectedStudents array, for backward compatibility.
+             if(!students.length){
+                 item.submittedCount = Number(item.submittedCount || 0);
+                 item.notSubmittedCount = Math.max(
+                     0,
+                     Number(item.assignedCount || 0) - item.submittedCount
+                 );
+                 return;
+             }
+
+             try{
+                 // Read the exact submission document used by the Review section.
+                 // This avoids relying on a collection query/index and keeps the
+                 // card count consistent with what the staff sees in Review.
+                 const submissionChecks = await Promise.all(
+                     students.map(async student => {
+                         const reg = clean(
+                             student.registerNo || student.rollNo || ""
+                         );
+                         if(!reg) return {submitted:false};
+
+                         const submissionId = clean(item.id) + "_" + reg;
+                         try{
+                             const snap = await getDoc(
+                                 doc(db, "lmsSubmissions", submissionId)
+                             );
+                             if(!snap.exists()) return {submitted:false};
+                             const data = snap.data() || {};
+                             return {
+                                 submitted: data.submitted === true,
+                                 completed: data.completed === true
+                             };
+                         }catch(studentError){
+                             console.error(
+                                 "SUBMISSION COUNT STUDENT ERROR:",
+                                 item.id,
+                                 reg,
+                                 studentError
+                             );
+                             return {submitted:false};
+                         }
+                     })
+                 );
+
+                 item.submittedCount = submissionChecks.filter(x => x.submitted).length;
+                 item.completedCount = submissionChecks.filter(x => x.completed).length;
+                 item.notSubmittedCount = Math.max(
+                     0,
+                     students.length - item.submittedCount
+                 );
+
+             }catch(error){
+                 console.error(
+                     "LIVE SUBMISSION COUNT ERROR:",
+                     item.id,
+                     error
+                 );
+
+                 item.submittedCount = 0;
+                 item.completedCount = 0;
+                 item.notSubmittedCount = students.length;
+             }
+         }));
+
 
          assignments.sort((a,b)=>{
 
@@ -4060,12 +4136,14 @@ async function(id){
 
         const submittedCount = rows.filter(x => x.submission?.submitted).length;
         const markedCount = rows.filter(x => x.submission && x.submission.mark !== null && x.submission.mark !== undefined && x.submission.mark !== "").length;
+        const completedCount = rows.filter(x => x.submission?.completed === true).length;
 
         content.innerHTML = `
             <div class="review-summary">
                 <div class="review-stat"><strong>Assigned:</strong> ${rows.length}</div>
                 <div class="review-stat"><strong>Submitted:</strong> ${submittedCount}</div>
                 <div class="review-stat"><strong>Not Submitted:</strong> ${rows.length-submittedCount}</div>
+                <div class="review-stat"><strong>Completed:</strong> ${completedCount}</div>
                 <div class="review-stat"><strong>Marks:</strong> ${marksRequired ? `Required / ${maxMark}` : "Not Required"}</div>
                 ${marksRequired ? `<div class="review-stat"><strong>Marked:</strong> ${markedCount}</div>` : ""}
             </div>
@@ -4073,7 +4151,8 @@ async function(id){
                 <table class="review-table">
                     <thead><tr>
                         <th>Reg. No</th><th>Roll No.</th><th>Student Name</th><th>Status</th><th>Submitted File</th><th>Student Comment</th>
-                        ${marksRequired ? `<th>Mark / ${maxMark}</th><th>Action</th>` : ""}
+                        ${marksRequired ? `<th>Mark / ${maxMark}</th><th>Mark Action</th>` : ""}
+                        <th>Completion</th>
                     </tr></thead>
                     <tbody>
                         ${rows.map((row,index) => {
@@ -4084,6 +4163,7 @@ async function(id){
                             const fileName=sub.fileName||sub.attachmentName||"View File";
                             const comment=sub.comment||"";
                             const reg=student.registerNo||student.rollNo||"";
+                            const completed=sub.completed===true;
                             return `<tr>
                                 <td>${escapeHTML(student.registerNo||"-")}</td>
                                 <td>${escapeHTML(student.rollNo||"-")}</td>
@@ -4092,6 +4172,7 @@ async function(id){
                                 <td>${fileUrl?`<a class="review-file-link" href="${escapeHTML(fileUrl)}" target="_blank" rel="noopener">📎 ${escapeHTML(fileName)}</a>`:"-"}</td>
                                 <td class="review-comment">${comment?escapeHTML(comment):"-"}</td>
                                 ${marksRequired?`<td><input type="number" class="review-mark-input" id="reviewMark_${index}" value="${escapeHTML(existingMark)}" min="0" max="${maxMark}" step="0.01" ${submitted?"":"disabled"} placeholder="0-${maxMark}"></td><td><button class="save-mark-btn" id="saveMark_${index}" onclick="saveStudentMark('${escapeHTML(id)}','${escapeHTML(reg)}',${index})" ${submitted?"":"disabled"}>Save Mark</button></td>`:""}
+                                <td><button class="save-mark-btn" id="completeBtn_${index}" onclick="toggleStudentCompleted('${escapeHTML(id)}','${escapeHTML(reg)}',${index})" ${submitted?"":"disabled"}>${completed?"Completed ✓":"Mark as Completed"}</button></td>
                             </tr>`;
                         }).join("")}
                     </tbody>
@@ -4105,6 +4186,52 @@ async function(id){
         content.innerHTML=`<div class="empty">Unable to load student submissions.<br><br>${escapeHTML(error.message||"Unknown error")}</div>`;
     }
 };
+
+window.toggleStudentCompleted =
+async function(assignmentId,registerNo,index){
+    const item=assignments.find(a=>a.id===assignmentId);
+    if(!item){showToast("Assignment not found.","error");return;}
+
+    const button=document.getElementById(`completeBtn_${index}`);
+    const submissionId=clean(assignmentId)+"_"+clean(registerNo);
+    if(button){button.disabled=true;button.textContent="Saving...";}
+
+    try{
+        const submissionRef=doc(db,"lmsSubmissions",submissionId);
+        const submissionSnap=await getDoc(submissionRef);
+        if(!submissionSnap.exists() || submissionSnap.data()?.submitted!==true){
+            throw new Error("Student has not submitted this class work.");
+        }
+
+        const currentCompleted=submissionSnap.data()?.completed===true;
+        const nextCompleted=!currentCompleted;
+
+        await updateDoc(submissionRef,{
+            completed:nextCompleted,
+            completedAt:nextCompleted?Timestamp.now():null,
+            completedByStaffId:nextCompleted?(currentStaff?.staffId||""):"",
+            completedByStaffName:nextCompleted?(currentStaff?.staffName||""):""
+        });
+
+        showToast(
+            nextCompleted
+                ? `Marked ${clean(registerNo)} as completed.`
+                : `Completion removed for ${clean(registerNo)}.`,
+            "success",
+            3500
+        );
+
+        if(button){
+            button.disabled=false;
+            button.textContent=nextCompleted?"Completed ✓":"Mark as Completed";
+        }
+    }catch(error){
+        console.error("MARK COMPLETED ERROR:",error);
+        showToast("Unable to update completion: "+(error.message||"Unknown error"),"error",6000);
+        if(button){button.disabled=false;button.textContent="Mark as Completed";}
+    }
+};
+
 
 window.saveStudentMark =
 async function(assignmentId,registerNo,index){
