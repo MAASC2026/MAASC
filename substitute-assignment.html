@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +18,6 @@ body{
     background:#f4f6f9;
     color:#1f2937;
 }
-
-/* ================= HEADER ================= */
 
 .header{
     height:70px;
@@ -45,14 +42,10 @@ body{
     margin-left:5px;
 }
 
-/* ================= MAIN ================= */
-
 .main{
     width:min(1350px,96%);
     margin:25px auto;
 }
-
-/* ================= PAGE TITLE ================= */
 
 .page-title{
     margin-bottom:20px;
@@ -69,8 +62,6 @@ body{
     font-size:14px;
 }
 
-/* ================= CARD ================= */
-
 .card{
     background:white;
     border-radius:11px;
@@ -85,8 +76,6 @@ body{
     font-weight:bold;
     margin-bottom:18px;
 }
-
-/* ================= STAFF INFO ================= */
 
 .staff-info{
     display:grid;
@@ -113,8 +102,6 @@ body{
     color:#111827;
     font-size:15px;
 }
-
-/* ================= FILTERS ================= */
 
 .filter-grid{
     display:grid;
@@ -147,7 +134,19 @@ body{
     box-shadow:0 0 0 2px rgba(80,4,84,.08);
 }
 
-/* ================= MESSAGE ================= */
+.field select:disabled{
+    background:#f8fafc;
+    color:#500454;
+    font-weight:bold;
+    cursor:not-allowed;
+    opacity:1;
+}
+
+.field input[readonly]{
+    background:#f8fafc;
+    color:#500454;
+    font-weight:bold;
+}
 
 .message{
     display:none;
@@ -176,7 +175,11 @@ body{
     color:#1e40af;
 }
 
-/* ================= TIMETABLE ================= */
+.message.warning{
+    display:block;
+    background:#fef3c7;
+    color:#92400e;
+}
 
 .timetable-wrapper{
     overflow-x:auto;
@@ -251,8 +254,6 @@ body{
     color:#6b7280;
 }
 
-/* ================= SELECTED PERIOD ================= */
-
 .selected-card{
     display:none;
     border:2px solid #500454;
@@ -284,8 +285,6 @@ body{
     font-size:13px;
     color:#111827;
 }
-
-/* ================= FREE STAFF ================= */
 
 .free-card{
     display:none;
@@ -370,8 +369,6 @@ body{
     font-weight:bold;
 }
 
-/* ================= REASON ================= */
-
 .reason-area{
     display:none;
 }
@@ -390,8 +387,6 @@ body{
 .reason-area textarea:focus{
     border-color:#500454;
 }
-
-/* ================= BUTTON ================= */
 
 .submit-area{
     display:none;
@@ -417,8 +412,6 @@ body{
     opacity:.55;
     cursor:not-allowed;
 }
-
-/* ================= REQUEST TABLE ================= */
 
 .requests-card{
     margin-top:20px;
@@ -474,8 +467,6 @@ body{
     background:#faf5fb;
 }
 
-/* ================= STATUS ================= */
-
 .status{
     display:inline-block;
     padding:5px 10px;
@@ -503,8 +494,6 @@ body{
     background:#fee2e2;
     color:#991b1b;
 }
-
-/* ================= LOADING ================= */
 
 .loading{
     position:fixed;
@@ -545,8 +534,6 @@ body{
         transform:rotate(360deg);
     }
 }
-
-/* ================= RESPONSIVE ================= */
 
 @media(max-width:900px){
 
@@ -594,8 +581,6 @@ body{
 
 <body>
 
-<!-- ================= LOADING ================= -->
-
 <div class="loading" id="loading">
 
     <div class="loading-box">
@@ -611,8 +596,6 @@ body{
 </div>
 
 
-<!-- ================= HEADER ================= -->
-
 <div class="header">
 
     <h2>
@@ -627,8 +610,6 @@ body{
 </div>
 
 
-<!-- ================= MAIN ================= -->
-
 <div class="main">
 
     <div class="page-title">
@@ -638,7 +619,7 @@ body{
         </h1>
 
         <p>
-            Select Date, Day Order and Session to load your timetable.
+            Select Date and Session. Day Order will load automatically from the Academic Calendar.
         </p>
 
     </div>
@@ -646,8 +627,6 @@ body{
 
     <div id="message" class="message"></div>
 
-
-    <!-- ================= STAFF INFORMATION ================= -->
 
     <div class="card">
 
@@ -677,8 +656,6 @@ body{
     </div>
 
 
-    <!-- ================= SELECT PERIOD ================= -->
-
     <div class="card">
 
         <div class="card-title">
@@ -707,10 +684,13 @@ body{
                     Day Order
                 </label>
 
-                <select id="dayOrder">
+                <select
+                    id="dayOrder"
+                    disabled
+                >
 
                     <option value="">
-                        Select Day Order
+                        Loading Day Order...
                     </option>
 
                     <option value="DAY 01">
@@ -735,6 +715,10 @@ body{
 
                     <option value="DAY 06">
                         DAY 06
+                    </option>
+
+                    <option value="HOLIDAY">
+                        HOLIDAY
                     </option>
 
                 </select>
@@ -771,8 +755,6 @@ body{
     </div>
 
 
-    <!-- ================= MY TIMETABLE ================= -->
-
     <div
         class="card"
         id="timetableCard"
@@ -803,25 +785,11 @@ body{
 
                     <tr>
 
-                        <th>
-                            Hour
-                        </th>
-
-                        <th>
-                            Time
-                        </th>
-
-                        <th>
-                            Subject
-                        </th>
-
-                        <th>
-                            Department / Year
-                        </th>
-
-                        <th>
-                            Section / Room
-                        </th>
+                        <th>Hour</th>
+                        <th>Time</th>
+                        <th>Subject</th>
+                        <th>Department / Year</th>
+                        <th>Section / Room</th>
 
                     </tr>
 
@@ -836,8 +804,6 @@ body{
     </div>
 
 
-    <!-- ================= SELECTED PERIOD ================= -->
-
     <div
         class="card selected-card"
         id="selectedCard"
@@ -846,7 +812,6 @@ body{
         <div class="card-title">
             Selected Period
         </div>
-
 
         <div class="selected-grid">
 
@@ -900,8 +865,6 @@ body{
     </div>
 
 
-    <!-- ================= FREE STAFF ================= -->
-
     <div
         class="card free-card"
         id="freeStaffCard"
@@ -922,7 +885,6 @@ body{
 
         </div>
 
-
         <div
             id="freeStaffList"
             class="free-staff-grid"
@@ -930,8 +892,6 @@ body{
 
     </div>
 
-
-    <!-- ================= REASON ================= -->
 
     <div
         class="card reason-area"
@@ -942,12 +902,10 @@ body{
             Reason for Substitute
         </div>
 
-
         <textarea
             id="reason"
             placeholder="Enter reason for requesting substitute..."
         ></textarea>
-
 
         <div
             class="submit-area"
@@ -966,8 +924,6 @@ body{
     </div>
 
 
-    <!-- ================= MY REQUESTS ================= -->
-
     <div class="card requests-card">
 
         <div class="requests-header">
@@ -985,7 +941,6 @@ body{
 
         </div>
 
-
         <div class="table-wrapper">
 
             <table class="requests-table">
@@ -993,7 +948,6 @@ body{
                 <thead>
 
                     <tr>
-
                         <th>Date</th>
                         <th>Day</th>
                         <th>Session</th>
@@ -1005,7 +959,6 @@ body{
                         <th>Room</th>
                         <th>Requested Staff</th>
                         <th>Status</th>
-
                     </tr>
 
                 </thead>
@@ -1038,8 +991,6 @@ body{
 </div>
 
 
-<!-- ================= FIREBASE ================= -->
-
 <script type="module">
 
 import { db } from "./firebase-config.js";
@@ -1048,10 +999,9 @@ import {
     collection,
     getDocs,
     addDoc,
-    query,
-    where,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 /* =========================================================
@@ -1158,9 +1108,7 @@ function normalizeText(value){
 
 function firstValue(...values){
 
-    for(
-        const value of values
-    ){
+    for(const value of values){
 
         if(
             value !== undefined &&
@@ -1188,15 +1136,27 @@ function normalizeDay(value){
     const text =
         normalizeText(value);
 
+    if(!text){
+        return "";
+    }
+
     const match =
         text.match(/(?:DAY\s*)?0*(\d+)/);
 
     if(match){
 
-        return "DAY " +
-            String(
-                Number(match[1])
-            ).padStart(2,"0");
+        const number =
+            Number(match[1]);
+
+        if(
+            number >= 1 &&
+            number <= 6
+        ){
+
+            return "DAY " +
+                String(number).padStart(2,"0");
+
+        }
 
     }
 
@@ -1235,6 +1195,122 @@ function normalizeSession(value){
     }
 
     return text;
+
+}
+
+
+/* =========================================================
+DATE NORMALIZATION
+IMPORTANT
+Supports:
+YYYY-MM-DD
+DD-MM-YYYY
+DD/MM/YYYY
+YYYY/MM/DD
+========================================================= */
+
+function normalizeCalendarDate(value){
+
+    if(!value){
+        return "";
+    }
+
+    const text =
+        clean(value);
+
+    if(
+        /^\d{4}-\d{2}-\d{2}$/.test(text)
+    ){
+
+        return text;
+
+    }
+
+    if(
+        /^\d{4}\/\d{2}\/\d{2}$/.test(text)
+    ){
+
+        return text.replace(/\//g,"-");
+
+    }
+
+    if(
+        /^\d{2}-\d{2}-\d{4}$/.test(text)
+    ){
+
+        const parts =
+            text.split("-");
+
+        return (
+            parts[2] +
+            "-" +
+            parts[1] +
+            "-" +
+            parts[0]
+        );
+
+    }
+
+    if(
+        /^\d{2}\/\d{2}\/\d{4}$/.test(text)
+    ){
+
+        const parts =
+            text.split("/");
+
+        return (
+            parts[2] +
+            "-" +
+            parts[1] +
+            "-" +
+            parts[0]
+        );
+
+    }
+
+    return text;
+
+}
+
+
+/* =========================================================
+TODAY
+========================================================= */
+
+function getTodayString(){
+
+    const now =
+        new Date();
+
+    return (
+        now.getFullYear() +
+        "-" +
+        String(
+            now.getMonth()+1
+        ).padStart(2,"0") +
+        "-" +
+        String(
+            now.getDate()
+        ).padStart(2,"0")
+    );
+
+}
+
+
+/* =========================================================
+FUTURE DATE
+========================================================= */
+
+function isFutureDate(date){
+
+    if(!date){
+        return false;
+    }
+
+    return (
+        normalizeCalendarDate(date) >
+        getTodayString()
+    );
 
 }
 
@@ -1337,9 +1413,8 @@ function getHour(data){
     }
 
     const match =
-        String(
-            raw ?? ""
-        ).match(/\d+/);
+        String(raw ?? "")
+        .match(/\d+/);
 
     return match
         ? Number(match[0])
@@ -1477,7 +1552,7 @@ MESSAGE
 
 function showMessage(
     text,
-    type
+    type="info"
 ){
 
     message.textContent =
@@ -1524,6 +1599,31 @@ function hideLoading(){
 
 
 /* =========================================================
+ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+    return escapeHTML(value);
+
+}
+
+
+/* =========================================================
 CURRENT STAFF ID
 ========================================================= */
 
@@ -1539,10 +1639,7 @@ function getCurrentStaffId(){
 
     ];
 
-
-    for(
-        const key of keys
-    ){
+    for(const key of keys){
 
         const value =
             clean(
@@ -1551,9 +1648,7 @@ function getCurrentStaffId(){
             );
 
         if(value){
-
             return value;
-
         }
 
     }
@@ -1571,21 +1666,15 @@ function getCurrentStaffId(){
 
     ];
 
-
-    for(
-        const key of objectKeys
-    ){
+    for(const key of objectKeys){
 
         const raw =
             sessionStorage.getItem(key) ||
             localStorage.getItem(key);
 
         if(!raw){
-
             continue;
-
         }
-
 
         try{
 
@@ -1596,9 +1685,7 @@ function getCurrentStaffId(){
                 getStaffId(obj);
 
             if(id){
-
                 return id;
-
             }
 
         }
@@ -1612,7 +1699,6 @@ function getCurrentStaffId(){
         }
 
     }
-
 
     return "";
 
@@ -1659,7 +1745,6 @@ async function loadStaff(){
 
             };
 
-
             if(staff.id){
 
                 allStaff.push(
@@ -1670,7 +1755,6 @@ async function loadStaff(){
 
         }
     );
-
 
     console.log(
         "STAFF LOADED:",
@@ -1689,7 +1773,6 @@ async function loadCurrentStaff(){
     const storedStaffId =
         getCurrentStaffId();
 
-
     if(!storedStaffId){
 
         throw new Error(
@@ -1698,12 +1781,10 @@ async function loadCurrentStaff(){
 
     }
 
-
     const normalizedId =
         normalizeText(
             storedStaffId
         );
-
 
     let staff =
         allStaff.find(
@@ -1712,11 +1793,6 @@ async function loadCurrentStaff(){
                     item.id
                 ) === normalizedId
         );
-
-
-    /*
-     * Also allow document ID / case differences.
-     */
 
     if(!staff){
 
@@ -1729,7 +1805,6 @@ async function loadCurrentStaff(){
 
     }
 
-
     if(!staff){
 
         throw new Error(
@@ -1740,33 +1815,29 @@ async function loadCurrentStaff(){
 
     }
 
-
-    currentStaff = staff;
-
+    currentStaff =
+        staff;
 
     document.getElementById(
         "staffId"
     ).textContent =
         staff.id || "-";
 
-
     document.getElementById(
         "staffName"
     ).textContent =
         staff.name || "-";
-
 
     document.getElementById(
         "department"
     ).textContent =
         staff.department || "-";
 
-
     document.getElementById(
         "headerStaffName"
     ).textContent =
-        staff.name || staff.id;
-
+        staff.name ||
+        staff.id;
 
     console.log(
         "CURRENT STAFF:",
@@ -1790,9 +1861,7 @@ async function loadTimetable(){
             )
         );
 
-
     allTimetable = [];
-
 
     snapshot.forEach(
         documentSnapshot => {
@@ -1806,7 +1875,6 @@ async function loadTimetable(){
                     data
                 );
 
-
             if(record.staffId){
 
                 allTimetable.push(
@@ -1818,7 +1886,6 @@ async function loadTimetable(){
         }
     );
 
-
     console.log(
         "TIMETABLE LOADED:",
         allTimetable
@@ -1828,30 +1895,371 @@ async function loadTimetable(){
 
 
 /* =========================================================
-DATE
+SET DATE
 ========================================================= */
 
 function setToday(){
 
-    const now =
-        new Date();
-
-    const year =
-        now.getFullYear();
-
-    const month =
-        String(
-            now.getMonth()+1
-        ).padStart(2,"0");
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(2,"0");
-
+    const today =
+        getTodayString();
 
     requestDate.value =
-        `${year}-${month}-${day}`;
+        today;
+
+    requestDate.max =
+        today;
+
+}
+
+
+/* =========================================================
+GET DAY ORDER FROM ACADEMIC CALENDAR
+========================================================= */
+
+async function loadDayOrderForDate(){
+
+    const selectedDate =
+        normalizeCalendarDate(
+            requestDate.value
+        );
+
+    console.log(
+        "========================================"
+    );
+
+    console.log(
+        "LOADING DAY ORDER"
+    );
+
+    console.log(
+        "SELECTED DATE:",
+        selectedDate
+    );
+
+    console.log(
+        "========================================"
+    );
+
+
+    dayOrder.value =
+        "";
+
+
+    if(!selectedDate){
+
+        dayOrder.innerHTML = `
+
+            <option value="">
+                Select Date First
+            </option>
+
+        `;
+
+        return false;
+
+    }
+
+
+    if(isFutureDate(selectedDate)){
+
+        dayOrder.innerHTML = `
+
+            <option value="">
+                FUTURE DATE NOT ALLOWED
+            </option>
+
+        `;
+
+        showMessage(
+            "Future dates are not allowed. Substitute requests can be made only for today or previous dates.",
+            "warning"
+        );
+
+        return false;
+
+    }
+
+
+    dayOrder.innerHTML = `
+
+        <option value="">
+            Loading Day Order...
+        </option>
+
+    `;
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "academicCalendars"
+                )
+            );
+
+
+        let found =
+            null;
+
+
+        snapshot.forEach(
+            calendarDoc => {
+
+                if(found){
+                    return;
+                }
+
+                const data =
+                    calendarDoc.data() || {};
+
+                const dates =
+                    Array.isArray(data.dates)
+                        ? data.dates
+                        : [];
+
+
+                dates.forEach(
+                    dateData => {
+
+                        if(found){
+                            return;
+                        }
+
+                        const calendarDate =
+                            normalizeCalendarDate(
+                                firstValue(
+                                    dateData.date,
+                                    dateData.calendarDate,
+                                    dateData.fullDate
+                                )
+                            );
+
+
+                        if(
+                            calendarDate !==
+                            selectedDate
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const dayType =
+                            normalizeText(
+                                firstValue(
+                                    dateData.dayType,
+                                    dateData.type
+                                )
+                            );
+
+
+                        const rawDayOrder =
+                            firstValue(
+                                dateData.dayOrder,
+                                dateData.day_order,
+                                dateData.day,
+                                dateData.dayNo
+                            );
+
+
+                        /*
+                         * HOLIDAY
+                         */
+
+                        if(
+                            dayType ===
+                            "HOLIDAY"
+                        ){
+
+                            found = {
+                                holiday:true,
+                                dayOrder:"HOLIDAY"
+                            };
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * DAY ORDER
+                         */
+
+                        const normalized =
+                            normalizeDay(
+                                rawDayOrder
+                            );
+
+
+                        if(
+                            /^DAY\s*0?[1-6]$/i.test(
+                                normalized
+                            )
+                        ){
+
+                            found = {
+                                holiday:false,
+                                dayOrder:normalized
+                            };
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        /*
+         * NO CALENDAR DATE
+         */
+
+        if(!found){
+
+            dayOrder.innerHTML = `
+
+                <option value="">
+                    DAY ORDER NOT SET
+                </option>
+
+            `;
+
+            showMessage(
+                "No Academic Calendar entry was found for " +
+                formatDate(selectedDate) +
+                ".",
+                "warning"
+            );
+
+            timetableCard.style.display =
+                "none";
+
+            resetSelection();
+
+            return false;
+
+        }
+
+
+        /*
+         * HOLIDAY
+         */
+
+        if(found.holiday){
+
+            dayOrder.innerHTML = `
+
+                <option value="HOLIDAY">
+                    HOLIDAY
+                </option>
+
+            `;
+
+            dayOrder.value =
+                "HOLIDAY";
+
+            showMessage(
+                formatDate(selectedDate) +
+                " is a Holiday. Substitute assignment is not available.",
+                "warning"
+            );
+
+            timetableCard.style.display =
+                "none";
+
+            resetSelection();
+
+            return false;
+
+        }
+
+
+        /*
+         * VALID DAY ORDER
+         */
+
+        dayOrder.innerHTML = `
+
+            <option value="${found.dayOrder}">
+                ${found.dayOrder}
+            </option>
+
+        `;
+
+        dayOrder.value =
+            found.dayOrder;
+
+
+        console.log(
+            "DAY ORDER AUTO LOADED:",
+            found.dayOrder
+        );
+
+
+        /*
+         * IMPORTANT:
+         * SESSION IS NOT TOUCHED HERE.
+         */
+
+        if(session.value){
+
+            loadMyTimetable();
+
+        }
+        else{
+
+            timetableCard.style.display =
+                "none";
+
+            showMessage(
+                formatDate(selectedDate) +
+                " → " +
+                found.dayOrder +
+                " loaded. Now select FN or AN manually.",
+                "info"
+            );
+
+        }
+
+
+        return true;
+
+    }
+    catch(error){
+
+        console.error(
+            "ACADEMIC CALENDAR ERROR:",
+            error
+        );
+
+
+        dayOrder.innerHTML = `
+
+            <option value="">
+                ERROR LOADING DAY ORDER
+            </option>
+
+        `;
+
+
+        timetableCard.style.display =
+            "none";
+
+
+        showMessage(
+            "Unable to load Day Order from Academic Calendar: " +
+            error.message,
+            "error"
+        );
+
+
+        return false;
+
+    }
 
 }
 
@@ -1870,13 +2278,69 @@ function loadMyTimetable(){
         "";
 
 
+    /*
+     * DATE
+     */
+
+    if(!requestDate.value){
+
+        timetableCard.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    /*
+     * FUTURE DATE
+     */
+
     if(
-        !dayOrder.value ||
-        !session.value
+        isFutureDate(
+            requestDate.value
+        )
     ){
 
         timetableCard.style.display =
             "none";
+
+        return;
+
+    }
+
+
+    /*
+     * DAY ORDER
+     */
+
+    if(
+        !dayOrder.value ||
+        dayOrder.value ===
+        "HOLIDAY"
+    ){
+
+        timetableCard.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    /*
+     * SESSION MUST BE MANUAL
+     */
+
+    if(!session.value){
+
+        timetableCard.style.display =
+            "none";
+
+        showMessage(
+            "Day Order is loaded. Please select FN or AN manually.",
+            "info"
+        );
 
         return;
 
@@ -1903,36 +2367,36 @@ function loadMyTimetable(){
 
     const records =
         allTimetable
-            .filter(
-                record => {
+        .filter(
+            record => {
 
-                    return (
+                return (
 
-                        normalizeText(
-                            record.staffId
-                        ) === currentId
+                    normalizeText(
+                        record.staffId
+                    ) === currentId
 
-                        &&
+                    &&
 
-                        normalizeDay(
-                            record.day
-                        ) === selectedDay
+                    normalizeDay(
+                        record.day
+                    ) === selectedDay
 
-                        &&
+                    &&
 
-                        normalizeSession(
-                            record.session
-                        ) === selectedSession
+                    normalizeSession(
+                        record.session
+                    ) === selectedSession
 
-                    );
+                );
 
-                }
-            )
-            .sort(
-                (a,b) =>
-                    Number(a.hour) -
-                    Number(b.hour)
-            );
+            }
+        )
+        .sort(
+            (a,b) =>
+                Number(a.hour) -
+                Number(b.hour)
+        );
 
 
     timetableCard.style.display =
@@ -1958,9 +2422,9 @@ function loadMyTimetable(){
                 >
 
                     No timetable assigned for
-                    ${selectedDay}
+                    ${escapeHTML(selectedDay)}
                     -
-                    ${selectedSession}.
+                    ${escapeHTML(selectedSession)}.
 
                 </td>
 
@@ -2060,7 +2524,7 @@ function loadMyTimetable(){
 
                 <td>
                     <b>
-                        Hour ${record.hour}
+                        Hour ${escapeHTML(record.hour)}
                     </b>
                 </td>
 
@@ -2270,8 +2734,7 @@ async function loadFreeStaff(
 
 
     /*
-     * Staff who have a timetable assignment
-     * for the selected period.
+     * Staff busy in timetable
      */
 
     const busyIds =
@@ -2323,9 +2786,7 @@ async function loadFreeStaff(
 
 
     /*
-     * Also remove staff who already have an
-     * approved/assigned substitute request
-     * for the same period.
+     * Staff already assigned as substitute
      */
 
     const requestedBusyIds =
@@ -2348,6 +2809,36 @@ async function loadFreeStaff(
 
                 const data =
                     documentSnapshot.data() || {};
+
+
+                const requestDateValue =
+                    normalizeCalendarDate(
+                        firstValue(
+                            data.date,
+                            data.requestDate
+                        )
+                    );
+
+
+                const currentDate =
+                    normalizeCalendarDate(
+                        requestDate.value
+                    );
+
+
+                /*
+                 * IMPORTANT:
+                 * Same DATE + DAY + SESSION + HOUR
+                 */
+
+                if(
+                    requestDateValue !==
+                    currentDate
+                ){
+
+                    return;
+
+                }
 
 
                 const requestDay =
@@ -2463,10 +2954,6 @@ async function loadFreeStaff(
                     );
 
 
-                /*
-                 * Never show requester.
-                 */
-
                 if(
                     staffId ===
                     currentStaffId
@@ -2476,10 +2963,6 @@ async function loadFreeStaff(
 
                 }
 
-
-                /*
-                 * Remove timetable-busy staff.
-                 */
 
                 if(
                     busyIds.has(
@@ -2491,11 +2974,6 @@ async function loadFreeStaff(
 
                 }
 
-
-                /*
-                 * Remove staff already assigned
-                 * as substitute.
-                 */
 
                 if(
                     requestedBusyIds.has(
@@ -2528,17 +3006,11 @@ async function loadFreeStaff(
             >
 
                 No free staff available for
-                ${escapeHTML(
-                    selectedDay
-                )}
+                ${escapeHTML(selectedDay)}
                 -
-                ${escapeHTML(
-                    selectedSession
-                )}
+                ${escapeHTML(selectedSession)}
                 -
-                Hour ${escapeHTML(
-                    selectedHour
-                )}.
+                Hour ${escapeHTML(selectedHour)}.
 
             </div>
 
@@ -2744,22 +3216,18 @@ DATE FORMAT
 function formatDate(value){
 
     if(!value){
-
         return "-";
-
     }
 
+    const normalized =
+        normalizeCalendarDate(value);
 
     const parts =
-        value.split("-");
-
+        normalized.split("-");
 
     if(parts.length !== 3){
-
         return value;
-
     }
-
 
     return (
         parts[2] +
@@ -2768,31 +3236,6 @@ function formatDate(value){
         "-" +
         parts[0]
     );
-
-}
-
-
-/* =========================================================
-ESCAPE HTML
-========================================================= */
-
-function escapeHTML(value){
-
-    return String(
-        value ?? ""
-    )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function escapeAttribute(value){
-
-    return escapeHTML(value);
 
 }
 
@@ -2820,7 +3263,13 @@ submitBtn.addEventListener(
         }
 
 
-        if(!requestDate.value){
+        const selectedDate =
+            normalizeCalendarDate(
+                requestDate.value
+            );
+
+
+        if(!selectedDate){
 
             showMessage(
                 "Please select the date.",
@@ -2834,14 +3283,39 @@ submitBtn.addEventListener(
         }
 
 
-        if(!dayOrder.value){
+        if(isFutureDate(selectedDate)){
 
             showMessage(
-                "Please select the day order.",
+                "Future dates are not allowed.",
                 "error"
             );
 
-            dayOrder.focus();
+            return;
+
+        }
+
+
+        if(!dayOrder.value){
+
+            showMessage(
+                "Day Order has not loaded for the selected date.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            dayOrder.value ===
+            "HOLIDAY"
+        ){
+
+            showMessage(
+                "Substitute assignment is not available on a Holiday.",
+                "error"
+            );
 
             return;
 
@@ -2851,7 +3325,7 @@ submitBtn.addEventListener(
         if(!session.value){
 
             showMessage(
-                "Please select the session.",
+                "Please select the session manually.",
                 "error"
             );
 
@@ -2935,10 +3409,6 @@ submitBtn.addEventListener(
 
         try{
 
-            /*
-             * Check duplicate requests.
-             */
-
             const existingSnapshot =
                 await getDocs(
                     collection(
@@ -2948,7 +3418,8 @@ submitBtn.addEventListener(
                 );
 
 
-            let duplicate = false;
+            let duplicate =
+                false;
 
 
             existingSnapshot.forEach(
@@ -2969,7 +3440,7 @@ submitBtn.addEventListener(
 
 
                     const existingDate =
-                        clean(
+                        normalizeCalendarDate(
                             firstValue(
                                 data.date,
                                 data.requestDate
@@ -2988,9 +3459,7 @@ submitBtn.addEventListener(
 
                     const existingSession =
                         normalizeSession(
-                            firstValue(
-                                data.session
-                            )
+                            data.session
                         );
 
 
@@ -3020,7 +3489,7 @@ submitBtn.addEventListener(
                         &&
 
                         existingDate ===
-                        requestDate.value
+                        selectedDate
 
                         &&
 
@@ -3050,7 +3519,8 @@ submitBtn.addEventListener(
 
                     ){
 
-                        duplicate = true;
+                        duplicate =
+                            true;
 
                     }
 
@@ -3074,15 +3544,7 @@ submitBtn.addEventListener(
                 "Submitting...";
 
 
-            /*
-             * Store all important fields so that
-             * the Admin portal can process the request
-             * without depending on one particular field name.
-             */
-
             const requestData = {
-
-                /* requester */
 
                 staffId:
                     currentStaff.id,
@@ -3103,16 +3565,12 @@ submitBtn.addEventListener(
                     currentStaff.department,
 
 
-                /* date */
-
                 date:
-                    requestDate.value,
+                    selectedDate,
 
                 requestDate:
-                    requestDate.value,
+                    selectedDate,
 
-
-                /* timetable */
 
                 day:
                     normalizeDay(
@@ -3161,8 +3619,6 @@ submitBtn.addEventListener(
                     selectedPeriod.room || "",
 
 
-                /* selected substitute */
-
                 requestedStaffId:
                     selectedFreeStaff.id,
 
@@ -3185,17 +3641,11 @@ submitBtn.addEventListener(
                     selectedFreeStaff.name,
 
 
-                /* reason */
-
                 reason:
                     reasonText,
 
-
-                /* initial status */
-
                 status:
                     "Pending",
-
 
                 createdAt:
                     serverTimestamp(),
@@ -3254,7 +3704,6 @@ submitBtn.addEventListener(
             submitBtn.disabled =
                 false;
 
-
             submitBtn.textContent =
                 "Submit Substitute Request";
 
@@ -3271,9 +3720,7 @@ LOAD MY REQUESTS
 async function loadMyRequests(){
 
     if(!currentStaff){
-
         return;
-
     }
 
 
@@ -3350,10 +3797,6 @@ async function loadMyRequests(){
         );
 
 
-        /*
-         * Newest first.
-         */
-
         requests.sort(
             (a,b) => {
 
@@ -3387,9 +3830,7 @@ async function loadMyRequests(){
                         color:#777;
                         "
                     >
-
                         No substitute requests found.
-
                     </td>
 
                 </tr>
@@ -3531,17 +3972,13 @@ async function loadMyRequests(){
 
                     <td>
                         ${escapeHTML(
-                            formatStoredDate(
-                                date
-                            )
+                            formatStoredDate(date)
                         )}
                     </td>
 
                     <td>
                         ${escapeHTML(
-                            normalizeDay(
-                                day
-                            )
+                            normalizeDay(day)
                         )}
                     </td>
 
@@ -3554,39 +3991,27 @@ async function loadMyRequests(){
                     </td>
 
                     <td>
-                        ${escapeHTML(
-                            hour
-                        )}
+                        ${escapeHTML(hour)}
                     </td>
 
                     <td>
-                        ${escapeHTML(
-                            department
-                        )}
+                        ${escapeHTML(department)}
                     </td>
 
                     <td>
-                        ${escapeHTML(
-                            year
-                        )}
+                        ${escapeHTML(year)}
                     </td>
 
                     <td>
-                        ${escapeHTML(
-                            section
-                        )}
+                        ${escapeHTML(section)}
                     </td>
 
                     <td>
-                        ${escapeHTML(
-                            subject
-                        )}
+                        ${escapeHTML(subject)}
                     </td>
 
                     <td>
-                        ${escapeHTML(
-                            room
-                        )}
+                        ${escapeHTML(room)}
                     </td>
 
                     <td>
@@ -3601,9 +4026,7 @@ async function loadMyRequests(){
                         <span
                             class="status ${statusClass}"
                         >
-                            ${escapeHTML(
-                                status
-                            )}
+                            ${escapeHTML(status)}
                         </span>
 
                     </td>
@@ -3660,17 +4083,14 @@ async function loadMyRequests(){
 
 
 /* =========================================================
-TIMESTAMP HELPER
+TIMESTAMP
 ========================================================= */
 
 function getTimestampValue(value){
 
     if(!value){
-
         return 0;
-
     }
-
 
     if(
         typeof value.toMillis ===
@@ -3681,17 +4101,13 @@ function getTimestampValue(value){
 
     }
 
-
-    if(
-        value.seconds
-    ){
+    if(value.seconds){
 
         return Number(
             value.seconds
         ) * 1000;
 
     }
-
 
     return 0;
 
@@ -3705,25 +4121,21 @@ STORED DATE
 function formatStoredDate(value){
 
     if(!value){
-
         return "-";
-
     }
 
-
-    /*
-     * YYYY-MM-DD
-     */
+    const normalized =
+        normalizeCalendarDate(value);
 
     if(
-        /^\d{4}-\d{2}-\d{2}$/
-        .test(value)
+        /^\d{4}-\d{2}-\d{2}$/.test(
+            normalized
+        )
     ){
 
-        return formatDate(value);
+        return formatDate(normalized);
 
     }
-
 
     return value;
 
@@ -3732,24 +4144,77 @@ function formatStoredDate(value){
 
 /* =========================================================
 DATE CHANGE
+IMPORTANT:
+DATE CHANGES DAY ORDER.
+DATE DOES NOT CHANGE SESSION.
 ========================================================= */
 
 requestDate.addEventListener(
     "change",
-    function(){
+    async function(){
 
-        /*
-         * Date is the actual substitute
-         * request date.
-         */
+        clearMessage();
 
         clearSelectedPeriod();
 
         clearFreeStaff();
 
+        timetableCard.style.display =
+            "none";
+
+
+        const selectedDate =
+            normalizeCalendarDate(
+                this.value
+            );
+
+
+        if(!selectedDate){
+
+            dayOrder.innerHTML = `
+
+                <option value="">
+                    Select Date First
+                </option>
+
+            `;
+
+            return;
+
+        }
+
+
+        if(isFutureDate(selectedDate)){
+
+            alert(
+                "Future dates are not allowed. Only today and previous dates can be selected."
+            );
+
+
+            this.value =
+                getTodayString();
+
+        }
+
+
+        /*
+         * THIS LOADS DAY ORDER IMMEDIATELY.
+         */
+
+        const valid =
+            await loadDayOrderForDate();
+
+
+        /*
+         * IMPORTANT:
+         * We DO NOT set session here.
+         *
+         * Whatever FN/AN the staff selected
+         * remains selected.
+         */
 
         if(
-            dayOrder.value &&
+            valid &&
             session.value
         ){
 
@@ -3763,32 +4228,19 @@ requestDate.addEventListener(
 
 /* =========================================================
 DAY ORDER CHANGE
+=========================================================
+
+DAY ORDER IS AUTOMATIC.
+
+No manual change event is required.
+The select is disabled.
 ========================================================= */
-
-dayOrder.addEventListener(
-    "change",
-    function(){
-
-        clearSelectedPeriod();
-
-        clearFreeStaff();
-
-
-        if(
-            dayOrder.value &&
-            session.value
-        ){
-
-            loadMyTimetable();
-
-        }
-
-    }
-);
 
 
 /* =========================================================
 SESSION CHANGE
+IMPORTANT:
+SESSION IS MANUAL.
 ========================================================= */
 
 session.addEventListener(
@@ -3799,13 +4251,32 @@ session.addEventListener(
 
         clearFreeStaff();
 
+        clearMessage();
+
+
+        /*
+         * Session is the ONLY field here
+         * that the staff manually changes.
+         */
 
         if(
             dayOrder.value &&
+            dayOrder.value !== "HOLIDAY" &&
             session.value
         ){
 
             loadMyTimetable();
+
+        }
+        else if(
+            session.value &&
+            dayOrder.value === "HOLIDAY"
+        ){
+
+            showMessage(
+                "The selected date is a Holiday.",
+                "warning"
+            );
 
         }
 
@@ -3818,9 +4289,7 @@ REFRESH
 ========================================================= */
 
 document
-    .getElementById(
-        "refreshBtn"
-    )
+    .getElementById("refreshBtn")
     .addEventListener(
         "click",
         async function(){
@@ -3828,7 +4297,7 @@ document
             try{
 
                 showLoading(
-                    "Refreshing requests..."
+                    "Refreshing..."
                 );
 
 
@@ -3841,8 +4310,21 @@ document
                 await loadMyRequests();
 
 
+                /*
+                 * Reload Day Order for the
+                 * currently selected date.
+                 */
+
+                const valid =
+                    await loadDayOrderForDate();
+
+
+                /*
+                 * Session is NOT changed.
+                 */
+
                 if(
-                    dayOrder.value &&
+                    valid &&
                     session.value
                 ){
 
@@ -3850,11 +4332,11 @@ document
 
                 }
 
-
             }
             catch(error){
 
                 console.error(
+                    "REFRESH ERROR:",
                     error
                 );
 
@@ -3891,26 +4373,88 @@ async function start(){
         clearMessage();
 
 
+        /*
+         * Today is default date.
+         */
+
         setToday();
 
+
+        /*
+         * SESSION IS INTENTIONALLY EMPTY.
+         *
+         * Staff must manually choose FN or AN.
+         */
+
+        session.value =
+            "";
+
+
+        /*
+         * Load staff
+         */
 
         await loadStaff();
 
 
+        /*
+         * Load current staff
+         */
+
         await loadCurrentStaff();
 
+
+        /*
+         * Load timetable
+         */
 
         await loadTimetable();
 
 
+        /*
+         * Load previous requests
+         */
+
         await loadMyRequests();
+
+
+        /*
+         * IMPORTANT:
+         * Automatically load today's Day Order.
+         */
+
+        await loadDayOrderForDate();
 
 
         hideLoading();
 
 
         console.log(
+            "========================================"
+        );
+
+        console.log(
             "SUBSTITUTE PORTAL READY"
+        );
+
+        console.log(
+            "DATE:",
+            requestDate.value
+        );
+
+        console.log(
+            "DAY ORDER:",
+            dayOrder.value
+        );
+
+        console.log(
+            "SESSION:",
+            session.value ||
+            "MANUAL SELECTION REQUIRED"
+        );
+
+        console.log(
+            "========================================"
         );
 
     }
@@ -3941,4 +4485,3 @@ start();
 
 </body>
 </html>
-```
