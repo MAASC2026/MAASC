@@ -1,5 +1,3 @@
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -125,7 +123,7 @@ body{
 
 .controls{
     display:grid;
-    grid-template-columns:1fr 1fr 1fr;
+    grid-template-columns:1fr 1fr 1fr 1fr;
     gap:15px;
 }
 
@@ -144,6 +142,16 @@ input{
     border-radius:7px;
     background:white;
     font-size:14px;
+}
+
+input[readonly]{
+    background:#f8fafc;
+}
+
+#dayOrderDisplay{
+    font-weight:bold;
+    color:#500454;
+    text-align:center;
 }
 
 button{
@@ -424,6 +432,14 @@ thead th{
    RESPONSIVE
 ========================= */
 
+@media(max-width:1100px){
+
+    .controls{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
 @media(max-width:900px){
 
     .staff-grid{
@@ -625,6 +641,21 @@ thead th{
             <input
                 type="date"
                 id="attendanceDate">
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Day Order
+            </label>
+
+            <input
+                type="text"
+                id="dayOrderDisplay"
+                value="-"
+                readonly>
 
         </div>
 
@@ -888,18 +919,6 @@ let currentSession = "FN";
 let attendanceDate = "";
 
 let timetableAssignments = {};
-
-
-/*
- * Stores timetable slots for which attendance
- * has already been marked on the selected date.
- *
- * Example:
- *
- * DAY 01_1
- * DAY 02_3
- * DAY 04_5
- */
 
 let markedAttendancePeriods = new Set();
 
@@ -1453,6 +1472,259 @@ function setDefaultDate(){
 
 
 /* =====================================================
+   LOAD DAY ORDER FROM ACADEMIC CALENDAR
+===================================================== */
+
+async function loadDayOrderForDate(){
+
+    const date =
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+
+    const dayOrderDisplay =
+        document.getElementById(
+            "dayOrderDisplay"
+        );
+
+
+    if(!date){
+
+        dayOrderDisplay.value =
+            "-";
+
+        return;
+
+    }
+
+
+    dayOrderDisplay.value =
+        "Loading...";
+
+
+    console.log(
+        "========================================"
+    );
+
+    console.log(
+        "LOADING DAY ORDER FROM ACADEMIC CALENDAR"
+    );
+
+    console.log(
+        "SELECTED DATE:",
+        date
+    );
+
+    console.log(
+        "COLLECTION:",
+        "academicCalendars"
+    );
+
+    console.log(
+        "========================================"
+    );
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+
+                collection(
+                    db,
+                    "academicCalendars"
+                )
+
+            );
+
+
+        let foundDayOrder = "";
+
+        let foundHoliday = false;
+
+
+        snapshot.forEach(
+            calendarDoc => {
+
+                if(
+                    foundDayOrder ||
+                    foundHoliday
+                ){
+
+                    return;
+
+                }
+
+
+                const data =
+                    calendarDoc.data() || {};
+
+
+                const dates =
+                    Array.isArray(
+                        data.dates
+                    )
+                    ? data.dates
+                    : [];
+
+
+                dates.forEach(
+                    dayData => {
+
+                        if(
+                            foundDayOrder ||
+                            foundHoliday
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const calendarDate =
+                            clean(
+                                dayData.date
+                            );
+
+
+                        if(
+                            calendarDate !==
+                            date
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const dayType =
+                            upper(
+                                dayData.dayType
+                            );
+
+
+                        /*
+                         * HOLIDAY
+                         */
+
+                        if(
+                            dayType ===
+                            "HOLIDAY"
+                        ){
+
+                            foundHoliday =
+                                true;
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * DAY ORDER
+                         */
+
+                        const rawDayOrder =
+                            upper(
+                                dayData.dayOrder
+                            );
+
+
+                        const match =
+                            rawDayOrder.match(
+                                /DAY\s*0?([1-6])/
+                            );
+
+
+                        if(match){
+
+                            foundDayOrder =
+                                "DAY " +
+                                String(
+                                    Number(
+                                        match[1]
+                                    )
+                                ).padStart(
+                                    2,
+                                    "0"
+                                );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        if(foundHoliday){
+
+            dayOrderDisplay.value =
+                "HOLIDAY";
+
+
+            console.log(
+                "SELECTED DATE IS HOLIDAY"
+            );
+
+            return;
+
+        }
+
+
+        if(foundDayOrder){
+
+            dayOrderDisplay.value =
+                foundDayOrder;
+
+
+            console.log(
+                "DAY ORDER FOUND:",
+                foundDayOrder
+            );
+
+        }
+
+        else{
+
+            dayOrderDisplay.value =
+                "NOT SET";
+
+
+            console.warn(
+                "DAY ORDER NOT FOUND FOR:",
+                date
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "DAY ORDER LOAD ERROR:",
+            error
+        );
+
+
+        dayOrderDisplay.value =
+            "ERROR";
+
+
+        showMessage(
+            "Unable to load Day Order: " +
+            error.message,
+            "err"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    UPDATE TIMING HEADERS
 ===================================================== */
 
@@ -1758,10 +2030,6 @@ async function loadMarkedAttendance(){
                     {};
 
 
-                /*
-                 * DATE CHECK
-                 */
-
                 if(
                     clean(data.date) !==
                     clean(date)
@@ -1771,10 +2039,6 @@ async function loadMarkedAttendance(){
 
                 }
 
-
-                /*
-                 * STAFF CHECK
-                 */
 
                 if(
                     normalizeStaffId(
@@ -1790,10 +2054,6 @@ async function loadMarkedAttendance(){
                 }
 
 
-                /*
-                 * SESSION CHECK
-                 */
-
                 if(
                     upper(
                         data.session
@@ -1808,18 +2068,10 @@ async function loadMarkedAttendance(){
                 }
 
 
-                /*
-                 * Check each timetable slot.
-                 */
-
                 Object.entries(
                     timetableAssignments
                 ).forEach(
                     ([slotKey,item]) => {
-
-                        /*
-                         * DAY
-                         */
 
                         if(
                             upper(data.day) !==
@@ -1831,10 +2083,6 @@ async function loadMarkedAttendance(){
                         }
 
 
-                        /*
-                         * HOUR
-                         */
-
                         if(
                             Number(data.hour) !==
                             Number(item.hour)
@@ -1844,10 +2092,6 @@ async function loadMarkedAttendance(){
 
                         }
 
-
-                        /*
-                         * SUBJECT
-                         */
 
                         const savedCode =
                             upper(
@@ -1904,11 +2148,6 @@ async function loadMarkedAttendance(){
                         }
 
 
-                        /*
-                         * Build the same attendance key
-                         * used by attendance-students.html.
-                         */
-
                         const key =
                             periodKeyForItem(
                                 item
@@ -1919,11 +2158,6 @@ async function loadMarkedAttendance(){
                             data.attendance ||
                             {};
 
-
-                        /*
-                         * Attendance is considered marked
-                         * if the key exists.
-                         */
 
                         if(
                             Object.prototype.hasOwnProperty.call(
@@ -2369,12 +2603,7 @@ function renderTimetable(){
 
 
             /*
-             * =================================================
              * GREEN HIGHLIGHT
-             * =================================================
-             *
-             * If attendance was already marked for this
-             * exact date + period, make the slot green.
              */
 
             if(
@@ -2644,6 +2873,18 @@ function openAttendanceStudents(item){
     );
 
 
+    /*
+     * ALSO SEND DAY ORDER FROM ACADEMIC CALENDAR
+     */
+
+    params.set(
+        "dayOrder",
+        document.getElementById(
+            "dayOrderDisplay"
+        ).value || ""
+    );
+
+
     console.log(
         "========================================"
     );
@@ -2687,7 +2928,12 @@ function openAttendanceStudents(item){
                 item.hour,
 
             date:
-                attendanceDate
+                attendanceDate,
+
+            dayOrder:
+                document.getElementById(
+                    "dayOrderDisplay"
+                ).value
 
         }
     );
@@ -2814,8 +3060,17 @@ document.getElementById(
 
 
         /*
-         * Reload timetable so the green highlight
-         * changes according to the selected date.
+         * FIRST:
+         * Automatically load Day Order
+         * from Academic Calendar.
+         */
+
+        await loadDayOrderForDate();
+
+
+        /*
+         * SECOND:
+         * Existing timetable logic.
          */
 
         await loadMyTimetable();
@@ -2844,6 +3099,17 @@ document.getElementById(
         }
 
 
+        /*
+         * Load Day Order first.
+         */
+
+        await loadDayOrderForDate();
+
+
+        /*
+         * Then timetable.
+         */
+
         await loadMyTimetable();
 
     }
@@ -2868,6 +3134,9 @@ document.getElementById(
             return;
 
         }
+
+
+        await loadDayOrderForDate();
 
 
         await loadMyTimetable();
@@ -2923,7 +3192,19 @@ async function initialize(){
     }
 
 
+    /*
+     * Set today's date.
+     */
+
     setDefaultDate();
+
+
+    /*
+     * Automatically load today's
+     * Day Order from Academic Calendar.
+     */
+
+    await loadDayOrderForDate();
 
 
     currentSession =
@@ -2958,4 +3239,3 @@ initialize();
 </body>
 
 </html>
-```
