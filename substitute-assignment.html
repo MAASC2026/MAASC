@@ -1,18 +1,13 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Substitute Assignment Request</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -28,23 +23,14 @@ body{
 /* ================= HEADER ================= */
 
 .header{
-
     height:70px;
-
     background:#500454;
-
     color:white;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     padding:0 28px;
-
     box-shadow:0 2px 10px rgba(0,0,0,.25);
-
 }
 
 .header h2{
@@ -62,844 +48,502 @@ body{
 /* ================= MAIN ================= */
 
 .main{
-
     width:min(1350px,96%);
-
     margin:25px auto;
-
 }
 
 /* ================= PAGE TITLE ================= */
 
 .page-title{
-
     margin-bottom:20px;
-
 }
 
 .page-title h1{
-
     color:#500454;
-
     font-size:26px;
-
     margin-bottom:6px;
-
 }
 
 .page-title p{
-
     color:#6b7280;
-
     font-size:14px;
-
 }
 
 /* ================= CARD ================= */
 
 .card{
-
     background:white;
-
     border-radius:11px;
-
     padding:22px;
-
     margin-bottom:20px;
-
-    box-shadow:
-    0 3px 12px rgba(0,0,0,.09);
-
+    box-shadow:0 3px 12px rgba(0,0,0,.09);
 }
 
 .card-title{
-
     color:#500454;
-
     font-size:19px;
-
     font-weight:bold;
-
     margin-bottom:18px;
-
 }
 
 /* ================= STAFF INFO ================= */
 
 .staff-info{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:15px;
-
 }
 
 .info-box{
-
     background:#f8fafc;
-
     border:1px solid #e5e7eb;
-
     border-radius:8px;
-
     padding:14px;
-
 }
 
 .info-box span{
-
     display:block;
-
     color:#6b7280;
-
     font-size:12px;
-
     font-weight:bold;
-
     margin-bottom:5px;
-
 }
 
 .info-box strong{
-
     color:#111827;
-
     font-size:15px;
-
 }
 
 /* ================= FILTERS ================= */
 
 .filter-grid{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:16px;
-
 }
 
 .field label{
-
     display:block;
-
     font-size:13px;
-
     font-weight:bold;
-
     margin-bottom:7px;
-
     color:#374151;
-
 }
 
 .field input,
 .field select{
-
     width:100%;
-
     padding:11px 12px;
-
     border:1px solid #d1d5db;
-
     border-radius:7px;
-
     outline:none;
-
     background:white;
-
     font-size:14px;
-
 }
 
 .field input:focus,
 .field select:focus{
-
     border-color:#500454;
-
-    box-shadow:
-    0 0 0 2px
-    rgba(80,4,84,.08);
-
+    box-shadow:0 0 0 2px rgba(80,4,84,.08);
 }
 
 /* ================= MESSAGE ================= */
 
 .message{
-
     display:none;
-
     padding:12px 15px;
-
     border-radius:7px;
-
     margin-bottom:18px;
-
     font-size:14px;
-
     font-weight:bold;
-
 }
 
 .message.success{
-
     display:block;
-
     background:#dcfce7;
-
     color:#166534;
-
 }
 
 .message.error{
-
     display:block;
-
     background:#fee2e2;
-
     color:#991b1b;
-
 }
 
 .message.info{
-
     display:block;
-
     background:#dbeafe;
-
     color:#1e40af;
-
 }
 
 /* ================= TIMETABLE ================= */
 
 .timetable-wrapper{
-
     overflow-x:auto;
-
 }
 
 .timetable{
-
     width:100%;
-
     min-width:1000px;
-
     border-collapse:collapse;
-
 }
 
 .timetable th{
-
     background:#500454;
-
     color:white;
-
     padding:12px 8px;
-
     border:1px solid #ddd;
-
     font-size:12px;
-
 }
 
 .timetable td{
-
     border:1px solid #d1d5db;
-
     padding:8px;
-
     text-align:center;
-
     vertical-align:middle;
-
     height:135px;
-
     min-width:180px;
-
-}
-
-.hour-title{
-
-    font-weight:bold;
-
-    color:white;
-
 }
 
 .period{
-
     min-height:105px;
-
     padding:10px;
-
     border-radius:7px;
-
     cursor:pointer;
-
     transition:.2s;
-
 }
 
 .period:hover{
-
     transform:translateY(-2px);
-
 }
 
 .period.assigned{
-
     background:#fef3c7;
-
     border-left:5px solid #d97706;
-
 }
 
 .period.empty{
-
     background:#f0fdf4;
-
     border-left:5px solid #16a34a;
-
 }
 
 .period.selected{
-
     outline:3px solid #500454;
-
-    box-shadow:
-    0 0 0 3px
-    rgba(80,4,84,.12);
-
+    box-shadow:0 0 0 3px rgba(80,4,84,.12);
 }
 
 .period-subject{
-
     font-weight:bold;
-
     color:#92400e;
-
     margin-bottom:7px;
-
     font-size:14px;
-
 }
 
 .period-details{
-
     font-size:12px;
-
     line-height:1.6;
-
     color:#374151;
-
 }
 
 .period-time{
-
     margin-top:7px;
-
     font-size:11px;
-
     color:#6b7280;
-
 }
 
 /* ================= SELECTED PERIOD ================= */
 
 .selected-card{
-
     display:none;
-
     border:2px solid #500454;
-
     background:#faf5fb;
-
 }
 
 .selected-grid{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(5,1fr);
-
+    grid-template-columns:repeat(5,1fr);
     gap:12px;
-
 }
 
 .selected-box{
-
     background:white;
-
     border:1px solid #e5e7eb;
-
     border-radius:7px;
-
     padding:11px;
-
 }
 
 .selected-box span{
-
     display:block;
-
     color:#6b7280;
-
     font-size:11px;
-
     font-weight:bold;
-
     margin-bottom:4px;
-
 }
 
 .selected-box strong{
-
     font-size:13px;
-
     color:#111827;
-
 }
 
 /* ================= FREE STAFF ================= */
 
 .free-card{
-
     display:none;
-
 }
 
 .free-title{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     margin-bottom:15px;
-
 }
 
 .free-title h2{
-
     color:#500454;
-
     font-size:19px;
-
 }
 
 .free-count{
-
     background:#dcfce7;
-
     color:#166534;
-
     padding:6px 11px;
-
     border-radius:20px;
-
     font-size:12px;
-
     font-weight:bold;
-
 }
 
 .free-staff-grid{
-
     display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:12px;
-
 }
 
 .free-staff{
-
     border:2px solid #e5e7eb;
-
     border-radius:9px;
-
     padding:15px;
-
     background:white;
-
     cursor:pointer;
-
     transition:.2s;
-
 }
 
 .free-staff:hover{
-
     border-color:#500454;
-
     background:#faf5fb;
-
 }
 
 .free-staff.selected{
-
     border-color:#500454;
-
     background:#faf5fb;
-
-    box-shadow:
-    0 0 0 2px
-    rgba(80,4,84,.10);
-
+    box-shadow:0 0 0 2px rgba(80,4,84,.10);
 }
 
 .free-staff input{
-
     margin-right:8px;
-
 }
 
 .free-staff-name{
-
     font-weight:bold;
-
     color:#111827;
-
 }
 
 .free-staff-id{
-
     font-size:12px;
-
     color:#6b7280;
-
     margin-top:5px;
-
 }
 
 .free-staff-department{
-
     font-size:11px;
-
     color:#500454;
-
     margin-top:4px;
-
     font-weight:bold;
-
 }
 
 .no-free{
-
     background:#fff7ed;
-
     color:#9a3412;
-
     border:1px solid #fed7aa;
-
     padding:15px;
-
     border-radius:8px;
-
     font-size:14px;
-
     font-weight:bold;
-
 }
 
 /* ================= REASON ================= */
 
 .reason-area{
-
     display:none;
-
 }
 
 .reason-area textarea{
-
     width:100%;
-
     min-height:110px;
-
     resize:vertical;
-
     padding:12px;
-
     border:1px solid #d1d5db;
-
     border-radius:7px;
-
     outline:none;
-
     font-size:14px;
-
 }
 
 .reason-area textarea:focus{
-
     border-color:#500454;
-
 }
 
 /* ================= BUTTON ================= */
 
 .submit-area{
-
     display:none;
-
     text-align:right;
-
     margin-top:18px;
-
 }
 
 .submit-btn{
-
     background:#500454;
-
     color:white;
-
     border:none;
-
     border-radius:7px;
-
     padding:13px 24px;
-
     font-weight:bold;
-
     cursor:pointer;
-
 }
 
 .submit-btn:hover{
-
     background:#6e0a75;
-
 }
 
 .submit-btn:disabled{
-
     opacity:.55;
-
     cursor:not-allowed;
-
 }
 
 /* ================= REQUEST TABLE ================= */
 
 .requests-card{
-
     margin-top:20px;
-
 }
 
 .requests-header{
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     margin-bottom:15px;
-
 }
 
 .requests-header h2{
-
     color:#500454;
-
     font-size:19px;
-
 }
 
 .refresh-btn{
-
     border:none;
-
     background:#500454;
-
     color:white;
-
     border-radius:6px;
-
     padding:9px 15px;
-
     cursor:pointer;
-
     font-weight:bold;
-
 }
 
 .table-wrapper{
-
     overflow-x:auto;
-
 }
 
 .requests-table{
-
     width:100%;
-
-    min-width:1100px;
-
+    min-width:1200px;
     border-collapse:collapse;
-
 }
 
 .requests-table th{
-
     background:#500454;
-
     color:white;
-
     padding:11px;
-
     text-align:left;
-
     font-size:12px;
-
 }
 
 .requests-table td{
-
     padding:10px;
-
     border-bottom:1px solid #eee;
-
     font-size:12px;
-
 }
 
 .requests-table tr:hover{
-
     background:#faf5fb;
-
 }
 
 /* ================= STATUS ================= */
 
 .status{
-
     display:inline-block;
-
     padding:5px 10px;
-
     border-radius:20px;
-
     font-size:11px;
-
     font-weight:bold;
-
 }
 
 .status-pending{
-
     background:#fff3cd;
-
     color:#856404;
-
 }
 
 .status-assigned{
-
     background:#dbeafe;
-
     color:#1d4ed8;
-
 }
 
 .status-completed{
-
     background:#dcfce7;
-
     color:#166534;
-
 }
 
 .status-rejected{
-
     background:#fee2e2;
-
     color:#991b1b;
-
 }
 
 /* ================= LOADING ================= */
 
 .loading{
-
     position:fixed;
-
     inset:0;
-
-    background:
-    rgba(255,255,255,.82);
-
+    background:rgba(255,255,255,.82);
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     z-index:5000;
-
 }
 
 .loading-box{
-
     background:white;
-
     padding:25px 35px;
-
     border-radius:10px;
-
-    box-shadow:
-    0 5px 20px rgba(0,0,0,.2);
-
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
     text-align:center;
-
 }
 
 .spinner{
-
     width:35px;
-
     height:35px;
-
     border:4px solid #ddd;
-
     border-top-color:#500454;
-
     border-radius:50%;
-
     animation:spin .8s linear infinite;
-
     margin:auto;
-
 }
 
 .loading-box p{
-
     margin-top:12px;
-
     color:#500454;
-
     font-weight:bold;
-
 }
 
 @keyframes spin{
-
     to{
         transform:rotate(360deg);
     }
-
 }
 
 /* ================= RESPONSIVE ================= */
@@ -908,79 +552,51 @@ body{
 
     .staff-info,
     .filter-grid{
-
-        grid-template-columns:
-        repeat(2,1fr);
-
+        grid-template-columns:repeat(2,1fr);
     }
 
     .selected-grid{
-
-        grid-template-columns:
-        repeat(3,1fr);
-
+        grid-template-columns:repeat(3,1fr);
     }
 
     .free-staff-grid{
-
-        grid-template-columns:
-        repeat(2,1fr);
-
+        grid-template-columns:repeat(2,1fr);
     }
-
 }
 
 @media(max-width:600px){
 
     .header{
-
         padding:0 15px;
-
     }
 
     .header h2{
-
         font-size:17px;
-
     }
 
     .header-user{
-
         font-size:12px;
-
     }
 
     .main{
-
         width:94%;
-
     }
 
     .staff-info,
     .filter-grid,
     .selected-grid,
     .free-staff-grid{
-
         grid-template-columns:1fr;
-
     }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
+<!-- ================= LOADING ================= -->
 
-<!-- =====================================================
-     LOADING
-===================================================== -->
-
-<div
-class="loading"
-id="loading">
+<div class="loading" id="loading">
 
     <div class="loading-box">
 
@@ -995,9 +611,7 @@ id="loading">
 </div>
 
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<!-- ================= HEADER ================= -->
 
 <div class="header">
 
@@ -1006,24 +620,16 @@ id="loading">
     </h2>
 
     <div class="header-user">
-
         Welcome
-
-        <b id="headerStaffName">
-            -
-        </b>
-
+        <b id="headerStaffName">-</b>
     </div>
 
 </div>
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
+<!-- ================= MAIN ================= -->
 
 <div class="main">
-
 
     <div class="page-title">
 
@@ -1038,15 +644,10 @@ id="loading">
     </div>
 
 
-    <div
-    id="message"
-    class="message">
-    </div>
+    <div id="message" class="message"></div>
 
 
-    <!-- =================================================
-         STAFF INFORMATION
-    ================================================== -->
+    <!-- ================= STAFF INFORMATION ================= -->
 
     <div class="card">
 
@@ -1057,39 +658,18 @@ id="loading">
         <div class="staff-info">
 
             <div class="info-box">
-
-                <span>
-                    Staff ID
-                </span>
-
-                <strong id="staffId">
-                    -
-                </strong>
-
+                <span>Staff ID</span>
+                <strong id="staffId">-</strong>
             </div>
 
             <div class="info-box">
-
-                <span>
-                    Staff Name
-                </span>
-
-                <strong id="staffName">
-                    -
-                </strong>
-
+                <span>Staff Name</span>
+                <strong id="staffName">-</strong>
             </div>
 
             <div class="info-box">
-
-                <span>
-                    Department
-                </span>
-
-                <strong id="department">
-                    -
-                </strong>
-
+                <span>Department</span>
+                <strong id="department">-</strong>
             </div>
 
         </div>
@@ -1097,9 +677,7 @@ id="loading">
     </div>
 
 
-    <!-- =================================================
-         DATE + DAY ORDER + SESSION
-    ================================================== -->
+    <!-- ================= SELECT PERIOD ================= -->
 
     <div class="card">
 
@@ -1109,7 +687,6 @@ id="loading">
 
         <div class="filter-grid">
 
-
             <div class="field">
 
                 <label>
@@ -1117,8 +694,9 @@ id="loading">
                 </label>
 
                 <input
-                type="date"
-                id="requestDate">
+                    type="date"
+                    id="requestDate"
+                >
 
             </div>
 
@@ -1129,8 +707,7 @@ id="loading">
                     Day Order
                 </label>
 
-                <select
-                id="dayOrder">
+                <select id="dayOrder">
 
                     <option value="">
                         Select Day Order
@@ -1171,8 +748,7 @@ id="loading">
                     Session
                 </label>
 
-                <select
-                id="session">
+                <select id="session">
 
                     <option value="">
                         Select Session
@@ -1195,36 +771,33 @@ id="loading">
     </div>
 
 
-    <!-- =================================================
-         MY TIMETABLE
-    ================================================== -->
+    <!-- ================= MY TIMETABLE ================= -->
 
     <div
-    class="card"
-    id="timetableCard"
-    style="display:none;">
+        class="card"
+        id="timetableCard"
+        style="display:none;"
+    >
 
         <div class="card-title">
 
             My Timetable
 
             <span
-            id="timetableTitle"
-            style="
-            font-size:13px;
-            color:#6b7280;
-            margin-left:8px;
-            ">
-
-            </span>
+                id="timetableTitle"
+                style="
+                font-size:13px;
+                color:#6b7280;
+                margin-left:8px;
+                "
+            ></span>
 
         </div>
 
 
         <div class="timetable-wrapper">
 
-            <table
-            class="timetable">
+            <table class="timetable">
 
                 <thead>
 
@@ -1254,10 +827,7 @@ id="loading">
 
                 </thead>
 
-                <tbody
-                id="timetableBody">
-
-                </tbody>
+                <tbody id="timetableBody"></tbody>
 
             </table>
 
@@ -1266,147 +836,63 @@ id="loading">
     </div>
 
 
-    <!-- =================================================
-         SELECTED PERIOD
-    ================================================== -->
+    <!-- ================= SELECTED PERIOD ================= -->
 
     <div
-    class="card selected-card"
-    id="selectedCard">
+        class="card selected-card"
+        id="selectedCard"
+    >
 
         <div class="card-title">
-
             Selected Period
-
         </div>
 
-        <div
-        class="selected-grid">
 
+        <div class="selected-grid">
 
             <div class="selected-box">
-
-                <span>
-                    Date
-                </span>
-
-                <strong
-                id="selectedDate">
-                    -
-                </strong>
-
+                <span>Date</span>
+                <strong id="selectedDate">-</strong>
             </div>
 
-
             <div class="selected-box">
-
-                <span>
-                    Day Order
-                </span>
-
-                <strong
-                id="selectedDay">
-                    -
-                </strong>
-
+                <span>Day Order</span>
+                <strong id="selectedDay">-</strong>
             </div>
 
-
             <div class="selected-box">
-
-                <span>
-                    Session
-                </span>
-
-                <strong
-                id="selectedSession">
-                    -
-                </strong>
-
+                <span>Session</span>
+                <strong id="selectedSession">-</strong>
             </div>
 
-
             <div class="selected-box">
-
-                <span>
-                    Hour
-                </span>
-
-                <strong
-                id="selectedHour">
-                    -
-                </strong>
-
+                <span>Hour</span>
+                <strong id="selectedHour">-</strong>
             </div>
 
-
             <div class="selected-box">
-
-                <span>
-                    Subject
-                </span>
-
-                <strong
-                id="selectedSubject">
-                    -
-                </strong>
-
+                <span>Subject</span>
+                <strong id="selectedSubject">-</strong>
             </div>
 
-
             <div class="selected-box">
-
-                <span>
-                    Department
-                </span>
-
-                <strong
-                id="selectedDepartment">
-                    -
-                </strong>
-
+                <span>Department</span>
+                <strong id="selectedDepartment">-</strong>
             </div>
 
-
             <div class="selected-box">
-
-                <span>
-                    Year
-                </span>
-
-                <strong
-                id="selectedYear">
-                    -
-                </strong>
-
+                <span>Year</span>
+                <strong id="selectedYear">-</strong>
             </div>
 
-
             <div class="selected-box">
-
-                <span>
-                    Section
-                </span>
-
-                <strong
-                id="selectedSection">
-                    -
-                </strong>
-
+                <span>Section</span>
+                <strong id="selectedSection">-</strong>
             </div>
 
-
             <div class="selected-box">
-
-                <span>
-                    Room
-                </span>
-
-                <strong
-                id="selectedRoom">
-                    -
-                </strong>
-
+                <span>Room</span>
+                <strong id="selectedRoom">-</strong>
             </div>
 
         </div>
@@ -1414,13 +900,12 @@ id="loading">
     </div>
 
 
-    <!-- =================================================
-         FREE STAFF
-    ================================================== -->
+    <!-- ================= FREE STAFF ================= -->
 
     <div
-    class="card free-card"
-    id="freeStaffCard">
+        class="card free-card"
+        id="freeStaffCard"
+    >
 
         <div class="free-title">
 
@@ -1429,52 +914,51 @@ id="loading">
             </h2>
 
             <span
-            class="free-count"
-            id="freeCount">
-
+                class="free-count"
+                id="freeCount"
+            >
                 0 Available
-
             </span>
 
         </div>
 
 
         <div
-        id="freeStaffList"
-        class="free-staff-grid">
-
-        </div>
+            id="freeStaffList"
+            class="free-staff-grid"
+        ></div>
 
     </div>
 
 
-    <!-- =================================================
-         REASON
-    ================================================== -->
+    <!-- ================= REASON ================= -->
 
     <div
-    class="card reason-area"
-    id="reasonCard">
+        class="card reason-area"
+        id="reasonCard"
+    >
 
         <div class="card-title">
             Reason for Substitute
         </div>
 
+
         <textarea
-        id="reason"
-        placeholder="Enter reason for requesting substitute..."></textarea>
+            id="reason"
+            placeholder="Enter reason for requesting substitute..."
+        ></textarea>
 
 
         <div
-        class="submit-area"
-        id="submitArea">
+            class="submit-area"
+            id="submitArea"
+        >
 
             <button
-            class="submit-btn"
-            id="submitBtn">
-
+                class="submit-btn"
+                id="submitBtn"
+            >
                 Submit Substitute Request
-
             </button>
 
         </div>
@@ -1482,9 +966,7 @@ id="loading">
     </div>
 
 
-    <!-- =================================================
-         MY REQUESTS
-    ================================================== -->
+    <!-- ================= MY REQUESTS ================= -->
 
     <div class="card requests-card">
 
@@ -1495,11 +977,10 @@ id="loading">
             </h2>
 
             <button
-            class="refresh-btn"
-            id="refreshBtn">
-
+                class="refresh-btn"
+                id="refreshBtn"
+            >
                 Refresh
-
             </button>
 
         </div>
@@ -1507,8 +988,7 @@ id="loading">
 
         <div class="table-wrapper">
 
-            <table
-            class="requests-table">
+            <table class="requests-table">
 
                 <thead>
 
@@ -1530,21 +1010,19 @@ id="loading">
 
                 </thead>
 
-                <tbody
-                id="requestsBody">
+                <tbody id="requestsBody">
 
                     <tr>
 
                         <td
-                        colspan="11"
-                        style="
-                        text-align:center;
-                        padding:25px;
-                        color:#777;
-                        ">
-
+                            colspan="11"
+                            style="
+                            text-align:center;
+                            padding:25px;
+                            color:#777;
+                            "
+                        >
                             Loading...
-
                         </td>
 
                     </tr>
@@ -1560,133 +1038,97 @@ id="loading">
 </div>
 
 
-<!-- =====================================================
-     FIREBASE
-===================================================== -->
+<!-- ================= FIREBASE ================= -->
 
 <script type="module">
 
 import { db } from "./firebase-config.js";
 
 import {
-
     collection,
     getDocs,
     addDoc,
+    query,
+    where,
     serverTimestamp
-
-} from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* =====================================================
-   DATA
-===================================================== */
+/* =========================================================
+DATA
+========================================================= */
 
 let allStaff = [];
-
 let allTimetable = [];
 
 let currentStaff = null;
 
 let selectedPeriod = null;
-
 let selectedFreeStaff = null;
 
 
-/* =====================================================
-   DOM
-===================================================== */
+/* =========================================================
+DOM
+========================================================= */
 
 const loading =
-document.getElementById(
-    "loading"
-);
+    document.getElementById("loading");
 
 const loadingText =
-document.getElementById(
-    "loadingText"
-);
+    document.getElementById("loadingText");
 
 const message =
-document.getElementById(
-    "message"
-);
+    document.getElementById("message");
 
 const requestDate =
-document.getElementById(
-    "requestDate"
-);
+    document.getElementById("requestDate");
 
 const dayOrder =
-document.getElementById(
-    "dayOrder"
-);
+    document.getElementById("dayOrder");
 
 const session =
-document.getElementById(
-    "session"
-);
+    document.getElementById("session");
 
 const timetableCard =
-document.getElementById(
-    "timetableCard"
-);
+    document.getElementById("timetableCard");
 
 const timetableBody =
-document.getElementById(
-    "timetableBody"
-);
+    document.getElementById("timetableBody");
+
+const timetableTitle =
+    document.getElementById("timetableTitle");
 
 const selectedCard =
-document.getElementById(
-    "selectedCard"
-);
+    document.getElementById("selectedCard");
 
 const freeStaffCard =
-document.getElementById(
-    "freeStaffCard"
-);
+    document.getElementById("freeStaffCard");
 
 const freeStaffList =
-document.getElementById(
-    "freeStaffList"
-);
+    document.getElementById("freeStaffList");
 
 const freeCount =
-document.getElementById(
-    "freeCount"
-);
+    document.getElementById("freeCount");
 
 const reasonCard =
-document.getElementById(
-    "reasonCard"
-);
+    document.getElementById("reasonCard");
 
 const reason =
-document.getElementById(
-    "reason"
-);
+    document.getElementById("reason");
 
 const submitArea =
-document.getElementById(
-    "submitArea"
-);
+    document.getElementById("submitArea");
 
 const submitBtn =
-document.getElementById(
-    "submitBtn"
-);
+    document.getElementById("submitBtn");
 
 const requestsBody =
-document.getElementById(
-    "requestsBody"
-);
+    document.getElementById("requestsBody");
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+/* =========================================================
+HELPERS
+========================================================= */
 
 function clean(value){
 
@@ -1714,22 +1156,47 @@ function normalizeText(value){
 }
 
 
+function firstValue(...values){
+
+    for(
+        const value of values
+    ){
+
+        if(
+            value !== undefined &&
+            value !== null &&
+            String(value).trim() !== ""
+        ){
+
+            return value;
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+/* =========================================================
+DAY NORMALIZATION
+========================================================= */
+
 function normalizeDay(value){
 
     const text =
-    normalizeText(value);
+        normalizeText(value);
 
     const match =
-    text.match(
-        /(?:DAY\s*)?0*(\d+)/
-    );
+        text.match(/(?:DAY\s*)?0*(\d+)/);
 
     if(match){
 
         return "DAY " +
-        String(
-            Number(match[1])
-        ).padStart(2,"0");
+            String(
+                Number(match[1])
+            ).padStart(2,"0");
 
     }
 
@@ -1738,10 +1205,14 @@ function normalizeDay(value){
 }
 
 
+/* =========================================================
+SESSION NORMALIZATION
+========================================================= */
+
 function normalizeSession(value){
 
     const text =
-    normalizeText(value);
+        normalizeText(value);
 
     if(
         text === "FN" ||
@@ -1768,32 +1239,9 @@ function normalizeSession(value){
 }
 
 
-function firstValue(...values){
-
-    for(
-        const value of values
-    ){
-
-        if(
-            value !== undefined &&
-            value !== null &&
-            String(value).trim() !== ""
-        ){
-
-            return value;
-
-        }
-
-    }
-
-    return "";
-
-}
-
-
-/* =====================================================
-   STAFF FIELD HELPERS
-===================================================== */
+/* =========================================================
+STAFF HELPERS
+========================================================= */
 
 function getStaffId(
     data,
@@ -1802,7 +1250,6 @@ function getStaffId(
 
     return clean(
         firstValue(
-
             data.staffId,
             data.staffID,
             data.staff_id,
@@ -1816,7 +1263,6 @@ function getStaffId(
             data.id,
             data.ID,
             docId
-
         )
     );
 
@@ -1827,7 +1273,6 @@ function getStaffName(data){
 
     return clean(
         firstValue(
-
             data.staffName,
             data.staff_name,
             data.name,
@@ -1838,7 +1283,6 @@ function getStaffName(data){
             data.teacherName,
             data.teacher_name,
             data.teacher
-
         )
     );
 
@@ -1849,7 +1293,6 @@ function getDepartment(data){
 
     return clean(
         firstValue(
-
             data.department,
             data.dept,
             data.departmentName,
@@ -1862,31 +1305,28 @@ function getDepartment(data){
             data.branchName,
             data.programDepartment,
             data.staffDepartment
-
         )
     );
 
 }
 
 
-/* =====================================================
-   TIMETABLE FIELD HELPERS
-===================================================== */
+/* =========================================================
+TIMETABLE HELPERS
+========================================================= */
 
 function getHour(data){
 
     const raw =
-    firstValue(
-
-        data.hour,
-        data.period,
-        data.hourNo,
-        data.hourNumber,
-        data.periodNo,
-        data.periodNumber,
-        data.hourIndex
-
-    );
+        firstValue(
+            data.hour,
+            data.period,
+            data.hourNo,
+            data.hourNumber,
+            data.periodNo,
+            data.periodNumber,
+            data.hourIndex
+        );
 
     if(
         typeof raw === "number"
@@ -1897,9 +1337,9 @@ function getHour(data){
     }
 
     const match =
-    String(
-        raw ?? ""
-    ).match(/\d+/);
+        String(
+            raw ?? ""
+        ).match(/\d+/);
 
     return match
         ? Number(match[0])
@@ -1912,13 +1352,11 @@ function getSubject(data){
 
     return clean(
         firstValue(
-
             data.subject,
             data.subjectName,
             data.subject_name,
             data.title,
             data.name
-
         )
     );
 
@@ -1929,7 +1367,6 @@ function getClassYear(data){
 
     return clean(
         firstValue(
-
             data.classYear,
             data.class,
             data.year,
@@ -1937,7 +1374,6 @@ function getClassYear(data){
             data.class_name,
             data.yearName,
             data.year_name
-
         )
     );
 
@@ -1948,80 +1384,96 @@ function getSection(data){
 
     return clean(
         firstValue(
-
             data.section,
             data.sec,
             data.Section,
             data.SECTION
-
         )
     );
 
 }
 
+
 function getRoom(data){
 
-    return String(
-        data.roomNo ?? ""
-    ).trim();
+    return clean(
+        firstValue(
+            data.roomNo,
+            data.room,
+            data.roomNumber,
+            data.classRoom
+        )
+    );
 
 }
 
 
-/* =====================================================
-   NORMALIZE TIMETABLE
-===================================================== */
+/* =========================================================
+NORMALIZE TIMETABLE
+========================================================= */
 
-function normalizeTimetableRecord(id, data){
+function normalizeTimetableRecord(
+    id,
+    data
+){
 
     return {
 
-        id: id,
+        id:id,
 
-        staffId: getStaffId(data, id),
+        staffId:
+            getStaffId(data,id),
 
-        staffName: getStaffName(data),
+        staffName:
+            getStaffName(data),
 
-        department: getDepartment(data),
+        department:
+            getDepartment(data),
 
-        day: normalizeDay(
-            firstValue(
-                data.day,
-                data.dayName,
-                data.dayNo,
-                data.dayNumber,
-                data.dayOrder,
-                data.day_order
-            )
-        ),
+        day:
+            normalizeDay(
+                firstValue(
+                    data.day,
+                    data.dayName,
+                    data.dayNo,
+                    data.dayNumber,
+                    data.dayOrder,
+                    data.day_order
+                )
+            ),
 
-        session: normalizeSession(
-            firstValue(
-                data.session,
-                data.shift,
-                data.sessionName
-            )
-        ),
+        session:
+            normalizeSession(
+                firstValue(
+                    data.session,
+                    data.shift,
+                    data.sessionName
+                )
+            ),
 
-        hour: getHour(data),
+        hour:
+            getHour(data),
 
-        subject: getSubject(data),
+        subject:
+            getSubject(data),
 
-        classYear: getClassYear(data),
+        classYear:
+            getClassYear(data),
 
-        section: getSection(data),
+        section:
+            getSection(data),
 
-        room: String(
-            data.roomNo ?? ""
-        ).trim()
+        room:
+            getRoom(data)
 
     };
 
 }
 
-/* =====================================================
-   MESSAGE
-===================================================== */
+
+/* =========================================================
+MESSAGE
+========================================================= */
 
 function showMessage(
     text,
@@ -2029,10 +1481,10 @@ function showMessage(
 ){
 
     message.textContent =
-    text;
+        text;
 
     message.className =
-    "message " + type;
+        "message " + type;
 
 }
 
@@ -2040,27 +1492,25 @@ function showMessage(
 function clearMessage(){
 
     message.textContent =
-    "";
+        "";
 
     message.className =
-    "message";
+        "message";
 
 }
 
 
-/* =====================================================
-   LOADING
-===================================================== */
+/* =========================================================
+LOADING
+========================================================= */
 
-function showLoading(
-    text
-){
+function showLoading(text){
 
     loadingText.textContent =
-    text;
+        text;
 
     loading.style.display =
-    "flex";
+        "flex";
 
 }
 
@@ -2068,14 +1518,14 @@ function showLoading(
 function hideLoading(){
 
     loading.style.display =
-    "none";
+        "none";
 
 }
 
 
-/* =====================================================
-   GET CURRENT STAFF ID
-===================================================== */
+/* =========================================================
+CURRENT STAFF ID
+========================================================= */
 
 function getCurrentStaffId(){
 
@@ -2095,18 +1545,10 @@ function getCurrentStaffId(){
     ){
 
         const value =
-        clean(
-
-            sessionStorage.getItem(
-                key
-            ) ||
-
-            localStorage.getItem(
-                key
-            )
-
-        );
-
+            clean(
+                sessionStorage.getItem(key) ||
+                localStorage.getItem(key)
+            );
 
         if(value){
 
@@ -2134,42 +1576,24 @@ function getCurrentStaffId(){
         const key of objectKeys
     ){
 
+        const raw =
+            sessionStorage.getItem(key) ||
+            localStorage.getItem(key);
+
+        if(!raw){
+
+            continue;
+
+        }
+
+
         try{
 
-            const raw =
-            sessionStorage.getItem(
-                key
-            ) ||
-
-            localStorage.getItem(
-                key
-            );
-
-
-            if(!raw){
-
-                continue;
-
-            }
-
-
             const obj =
-            JSON.parse(
-                raw
-            );
-
+                JSON.parse(raw);
 
             const id =
-            clean(
-
-                obj?.staffId ??
-                obj?.staffID ??
-                obj?.staff ??
-                obj?.staff_id ??
-                obj?.id
-
-            );
-
+                getStaffId(obj);
 
             if(id){
 
@@ -2178,7 +1602,14 @@ function getCurrentStaffId(){
             }
 
         }
-        catch(error){}
+        catch(error){
+
+            console.warn(
+                "Unable to parse storage:",
+                key
+            );
+
+        }
 
     }
 
@@ -2188,172 +1619,176 @@ function getCurrentStaffId(){
 }
 
 
-/* =====================================================
-   LOAD STAFF
-===================================================== */
+/* =========================================================
+LOAD STAFF
+========================================================= */
 
 async function loadStaff(){
 
     const snapshot =
-    await getDocs(
-        collection(
-            db,
-            "staff"
-        )
-    );
-
+        await getDocs(
+            collection(
+                db,
+                "staff"
+            )
+        );
 
     allStaff = [];
-
 
     snapshot.forEach(
         documentSnapshot => {
 
             const data =
-            documentSnapshot.data()
-            || {};
+                documentSnapshot.data() || {};
+
+            const staff = {
+
+                id:
+                    getStaffId(
+                        data,
+                        documentSnapshot.id
+                    ),
+
+                name:
+                    getStaffName(data),
+
+                department:
+                    getDepartment(data),
+
+                raw:data
+
+            };
 
 
-            const staffId =
-            getStaffId(
-                data,
-                documentSnapshot.id
-            );
+            if(staff.id){
 
-
-            if(!staffId){
-
-                return;
+                allStaff.push(
+                    staff
+                );
 
             }
 
-
-            allStaff.push({
-
-                firestoreId:
-                documentSnapshot.id,
-
-                staffId:
-                staffId,
-
-                staffName:
-                getStaffName(
-                    data
-                ),
-
-                department:
-                getDepartment(
-                    data
-                )
-
-            });
-
         }
+    );
+
+
+    console.log(
+        "STAFF LOADED:",
+        allStaff
     );
 
 }
 
 
-/* =====================================================
-   LOAD CURRENT STAFF
-===================================================== */
+/* =========================================================
+LOAD CURRENT STAFF
+========================================================= */
 
 async function loadCurrentStaff(){
 
     const storedStaffId =
-    getCurrentStaffId();
+        getCurrentStaffId();
 
 
     if(!storedStaffId){
 
         throw new Error(
-            "Staff login session not found."
+            "Logged-in staff ID was not found. Please login again."
         );
 
     }
 
 
-    currentStaff =
-    allStaff.find(
-        staff =>
-        upper(
-            staff.staffId
-        ) ===
-        upper(
+    const normalizedId =
+        normalizeText(
             storedStaffId
-        )
-    );
+        );
 
 
-    if(!currentStaff){
+    let staff =
+        allStaff.find(
+            item =>
+                normalizeText(
+                    item.id
+                ) === normalizedId
+        );
+
+
+    /*
+     * Also allow document ID / case differences.
+     */
+
+    if(!staff){
+
+        staff =
+            allStaff.find(
+                item =>
+                    upper(item.id) ===
+                    upper(storedStaffId)
+            );
+
+    }
+
+
+    if(!staff){
 
         throw new Error(
-            "Current logged-in staff could not be found."
+            "Staff ID " +
+            storedStaffId +
+            " was not found in staff collection."
         );
 
     }
+
+
+    currentStaff = staff;
 
 
     document.getElementById(
         "staffId"
     ).textContent =
-    currentStaff.staffId;
+        staff.id || "-";
 
 
     document.getElementById(
         "staffName"
     ).textContent =
-    currentStaff.staffName ||
-    "-";
+        staff.name || "-";
 
 
     document.getElementById(
         "department"
     ).textContent =
-    currentStaff.department ||
-    "-";
+        staff.department || "-";
 
 
     document.getElementById(
         "headerStaffName"
     ).textContent =
-    currentStaff.staffName ||
-    currentStaff.staffId;
+        staff.name || staff.id;
 
 
-    sessionStorage.setItem(
-        "staffId",
-        currentStaff.staffId
-    );
-
-
-    sessionStorage.setItem(
-        "staffName",
-        currentStaff.staffName || ""
-    );
-
-
-    sessionStorage.setItem(
-        "department",
-        currentStaff.department || ""
+    console.log(
+        "CURRENT STAFF:",
+        currentStaff
     );
 
 }
 
 
-/* =====================================================
-   LOAD ALL TIMETABLE
-===================================================== */
+/* =========================================================
+LOAD TIMETABLE
+========================================================= */
 
 async function loadTimetable(){
 
     const snapshot =
-    await getDocs(
-        collection(
-            db,
-            "timetableAssignments"
-        )
-    );
+        await getDocs(
+            collection(
+                db,
+                "timetableAssignments"
+            )
+        );
 
 
     allTimetable = [];
@@ -2363,15 +1798,13 @@ async function loadTimetable(){
         documentSnapshot => {
 
             const data =
-            documentSnapshot.data()
-            || {};
-
+                documentSnapshot.data() || {};
 
             const record =
-            normalizeTimetableRecord(
-                documentSnapshot.id,
-                data
-            );
+                normalizeTimetableRecord(
+                    documentSnapshot.id,
+                    data
+                );
 
 
             if(record.staffId){
@@ -2385,99 +1818,47 @@ async function loadTimetable(){
         }
     );
 
-}
 
-
-/* =====================================================
-   SESSION TIMES
-===================================================== */
-
-function getSessionTimes(
-    selectedSession
-){
-
-    if(
-        normalizeSession(
-            selectedSession
-        ) === "AN"
-    ){
-
-        return [
-
-            "1:30 - 2:20",
-            "2:20 - 3:10",
-            "3:30 - 4:20",
-            "4:20 - 5:10",
-            "5:10 - 6:00"
-
-        ];
-
-    }
-
-
-    return [
-
-        "8:30 - 9:20",
-        "9:20 - 10:10",
-        "10:10 - 11:00",
-        "11:30 - 12:20",
-        "12:20 - 1:10"
-
-    ];
+    console.log(
+        "TIMETABLE LOADED:",
+        allTimetable
+    );
 
 }
 
 
-/* =====================================================
-   FIND CURRENT STAFF PERIOD
-===================================================== */
+/* =========================================================
+DATE
+========================================================= */
 
-function findMyPeriod(
-    day,
-    selectedSession,
-    hour
-){
+function setToday(){
 
-    return allTimetable.find(
+    const now =
+        new Date();
 
-        item =>
+    const year =
+        now.getFullYear();
 
-        upper(
-            item.staffId
-        ) ===
-        upper(
-            currentStaff.staffId
-        ) &&
+    const month =
+        String(
+            now.getMonth()+1
+        ).padStart(2,"0");
 
-        normalizeDay(
-            item.day
-        ) ===
-        normalizeDay(
-            day
-        ) &&
+    const day =
+        String(
+            now.getDate()
+        ).padStart(2,"0");
 
-        normalizeSession(
-            item.session
-        ) ===
-        normalizeSession(
-            selectedSession
-        ) &&
 
-        Number(
-            item.hour
-        ) ===
-        Number(
-            hour
-        )
-
-    ) || null;
+    requestDate.value =
+        `${year}-${month}-${day}`;
 
 }
 
 
-/* =====================================================
-   LOAD MY TIMETABLE
-===================================================== */
+/* =========================================================
+LOAD MY TIMETABLE
+========================================================= */
 
 function loadMyTimetable(){
 
@@ -2485,7 +1866,8 @@ function loadMyTimetable(){
 
     clearFreeStaff();
 
-    timetableBody.innerHTML = "";
+    timetableBody.innerHTML =
+        "";
 
 
     if(
@@ -2494,162 +1876,168 @@ function loadMyTimetable(){
     ){
 
         timetableCard.style.display =
-        "none";
+            "none";
 
         return;
 
     }
 
 
+    const currentId =
+        normalizeText(
+            currentStaff.id
+        );
+
+
     const selectedDay =
-    normalizeDay(
-        dayOrder.value
-    );
+        normalizeDay(
+            dayOrder.value
+        );
 
 
     const selectedSession =
-    normalizeSession(
-        session.value
-    );
-
-
-    const times =
-    getSessionTimes(
-        selectedSession
-    );
-
-
-    document.getElementById(
-        "timetableTitle"
-    ).textContent =
-
-        "(" +
-        selectedDay +
-        " / " +
-        selectedSession +
-        ")";
-
-
-    for(
-        let hour = 1;
-        hour <= 5;
-        hour++
-    ){
-
-        const entry =
-        findMyPeriod(
-            selectedDay,
-            selectedSession,
-            hour
+        normalizeSession(
+            session.value
         );
 
 
-        const row =
-        document.createElement(
-            "tr"
-        );
+    const records =
+        allTimetable
+            .filter(
+                record => {
 
+                    return (
 
-        const hourCell =
-        document.createElement(
-            "td"
-        );
+                        normalizeText(
+                            record.staffId
+                        ) === currentId
 
+                        &&
 
-        hourCell.innerHTML =
+                        normalizeDay(
+                            record.day
+                        ) === selectedDay
 
-            "<b>Hour " +
-            hour +
-            "</b>";
+                        &&
 
+                        normalizeSession(
+                            record.session
+                        ) === selectedSession
 
-        row.appendChild(
-            hourCell
-        );
+                    );
 
-
-        const timeCell =
-        document.createElement(
-            "td"
-        );
-
-
-        timeCell.textContent =
-        times[hour - 1];
-
-
-        row.appendChild(
-            timeCell
-        );
-
-
-        const subjectCell =
-        document.createElement(
-            "td"
-        );
-
-
-        const detailsCell =
-        document.createElement(
-            "td"
-        );
-
-
-        const sectionCell =
-        document.createElement(
-            "td"
-        );
-
-
-        if(entry){
-
-            const period =
-            document.createElement(
-                "div"
+                }
+            )
+            .sort(
+                (a,b) =>
+                    Number(a.hour) -
+                    Number(b.hour)
             );
 
 
+    timetableCard.style.display =
+        "block";
+
+
+    timetableTitle.textContent =
+        `(${selectedDay} - ${selectedSession})`;
+
+
+    if(!records.length){
+
+        timetableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    style="
+                    padding:30px;
+                    color:#777;
+                    "
+                >
+
+                    No timetable assigned for
+                    ${selectedDay}
+                    -
+                    ${selectedSession}.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    records.forEach(
+        record => {
+
+            const row =
+                document.createElement("tr");
+
+
+            const period =
+                document.createElement("div");
+
+
             period.className =
-            "period assigned";
+                "period assigned";
 
 
-            period.dataset.hour =
-            hour;
+            period.dataset.id =
+                record.id;
 
 
             period.innerHTML = `
 
                 <div class="period-subject">
-
-                    ${escapeHtml(
-                        entry.subject ||
-                        "Subject"
+                    ${escapeHTML(
+                        record.subject ||
+                        "Assigned Period"
                     )}
-
                 </div>
 
                 <div class="period-details">
 
-                    Department:
-                    ${escapeHtml(
-                        entry.department ||
+                    <b>
+                        ${escapeHTML(
+                            record.department ||
+                            "-"
+                        )}
+                    </b>
+
+                    <br>
+
+                    Year:
+                    ${escapeHTML(
+                        record.classYear ||
                         "-"
                     )}
 
                     <br>
 
-                    Year:
-                    ${escapeHtml(
-                        entry.classYear ||
+                    Section:
+                    ${escapeHTML(
+                        record.section ||
+                        "-"
+                    )}
+
+                    <br>
+
+                    Room:
+                    ${escapeHTML(
+                        record.room ||
                         "-"
                     )}
 
                 </div>
 
                 <div class="period-time">
-
                     Click to request substitute
-
                 </div>
 
             `;
@@ -2660,232 +2048,191 @@ function loadMyTimetable(){
                 function(){
 
                     selectPeriod(
-                        entry
+                        record,
+                        period
                     );
 
                 }
             );
 
 
-            subjectCell.appendChild(
-                period
+            row.innerHTML = `
+
+                <td>
+                    <b>
+                        Hour ${record.hour}
+                    </b>
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td></td>
+
+                <td></td>
+
+                <td></td>
+
+            `;
+
+
+            row.children[2]
+                .appendChild(period);
+
+
+            row.children[3]
+                .innerHTML =
+                `
+                ${escapeHTML(
+                    record.department || "-"
+                )}
+                <br>
+                ${escapeHTML(
+                    record.classYear || "-"
+                )}
+                `;
+
+
+            row.children[4]
+                .innerHTML =
+                `
+                ${escapeHTML(
+                    record.section || "-"
+                )}
+                <br>
+                ${escapeHTML(
+                    record.room || "-"
+                )}
+                `;
+
+
+            timetableBody.appendChild(
+                row
             );
-
-
-            detailsCell.innerHTML = `
-
-                <b>
-                    ${escapeHtml(
-                        entry.department ||
-                        "-"
-                    )}
-                </b>
-
-                <br>
-
-                ${escapeHtml(
-                    entry.classYear ||
-                    "-"
-                )}
-
-            `;
-
-
-            sectionCell.innerHTML = `
-
-                <b>
-                    Section:
-                </b>
-
-                ${escapeHtml(
-                    entry.section ||
-                    "-"
-                )}
-
-                <br>
-
-                <b>
-                    Room:
-                </b>
-
-                ${escapeHtml(
-                    entry.room ||
-                    "-"
-                )}
-
-            `;
 
         }
-        else{
-
-            const period =
-            document.createElement(
-                "div"
-            );
-
-
-            period.className =
-            "period empty";
-
-
-            period.innerHTML = `
-
-                <div
-                class="period-subject"
-                style="color:#166534;">
-
-                    FREE
-
-                </div>
-
-                <div class="period-details">
-
-                    No timetable assigned
-
-                </div>
-
-            `;
-
-
-            subjectCell.appendChild(
-                period
-            );
-
-
-            detailsCell.textContent =
-            "-";
-
-
-            sectionCell.textContent =
-            "-";
-
-        }
-
-
-        row.appendChild(
-            subjectCell
-        );
-
-        row.appendChild(
-            detailsCell
-        );
-
-        row.appendChild(
-            sectionCell
-        );
-
-
-        timetableBody.appendChild(
-            row
-        );
-
-    }
-
-
-    timetableCard.style.display =
-    "block";
+    );
 
 }
 
 
-/* =====================================================
-   SELECT PERIOD
-===================================================== */
+/* =========================================================
+SELECT PERIOD
+========================================================= */
 
-async function selectPeriod(
-    entry
+function selectPeriod(
+    record,
+    element
 ){
 
+    clearMessage();
+
+    document
+        .querySelectorAll(
+            ".period.selected"
+        )
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "selected"
+                )
+        );
+
+
+    element.classList.add(
+        "selected"
+    );
+
+
     selectedPeriod =
-    entry;
+        record;
 
 
     document.getElementById(
         "selectedDate"
     ).textContent =
-    formatDate(
-        requestDate.value
-    );
+        formatDate(
+            requestDate.value
+        );
 
 
     document.getElementById(
         "selectedDay"
     ).textContent =
-    entry.day;
+        record.day;
 
 
     document.getElementById(
         "selectedSession"
     ).textContent =
-    entry.session;
+        record.session;
 
 
     document.getElementById(
         "selectedHour"
     ).textContent =
-    "Hour " +
-    entry.hour;
+        record.hour;
 
 
     document.getElementById(
         "selectedSubject"
     ).textContent =
-    entry.subject ||
-    "-";
+        record.subject || "-";
 
 
     document.getElementById(
         "selectedDepartment"
     ).textContent =
-    entry.department ||
-    "-";
+        record.department || "-";
 
 
     document.getElementById(
         "selectedYear"
     ).textContent =
-    entry.classYear ||
-    "-";
+        record.classYear || "-";
 
 
     document.getElementById(
         "selectedSection"
     ).textContent =
-    entry.section ||
-    "-";
+        record.section || "-";
 
 
     document.getElementById(
         "selectedRoom"
     ).textContent =
-    entry.room ||
-    "-";
+        record.room || "-";
 
 
     selectedCard.style.display =
-    "block";
+        "block";
 
 
     reasonCard.style.display =
-    "block";
+        "block";
 
 
     submitArea.style.display =
-    "none";
+        "none";
 
 
-    await loadFreeStaff(
-        entry.day,
-        entry.session,
-        entry.hour
+    reason.value =
+        "";
+
+
+    loadFreeStaff(
+        record.day,
+        record.session,
+        record.hour
     );
 
 }
 
 
-/* =====================================================
-   LOAD FREE STAFF
-===================================================== */
+/* =========================================================
+FREE STAFF
+========================================================= */
 
 async function loadFreeStaff(
     selectedDay,
@@ -2894,64 +2241,68 @@ async function loadFreeStaff(
 ){
 
     freeStaffCard.style.display =
-    "block";
+        "block";
 
 
     freeStaffList.innerHTML = `
 
         <div
-        style="
-        grid-column:1/-1;
-        padding:15px;
-        color:#666;
-        ">
-
+            style="
+            grid-column:1/-1;
+            padding:15px;
+            color:#666;
+            "
+        >
             Checking free staff...
-
         </div>
 
     `;
 
 
     selectedFreeStaff =
-    null;
+        null;
 
 
-    const requesterDepartment =
-    normalizeText(
-        currentStaff.department
-    );
+    const currentStaffId =
+        normalizeText(
+            currentStaff.id
+        );
 
 
-    /* ================================================
-       STAFF ALREADY BUSY AT THIS SLOT
-    ================================================= */
+    /*
+     * Staff who have a timetable assignment
+     * for the selected period.
+     */
 
-    const busyStaffIds =
-    new Set();
+    const busyIds =
+        new Set();
 
 
     allTimetable.forEach(
-        item => {
+        record => {
 
             if(
 
                 normalizeDay(
-                    item.day
+                    record.day
                 ) ===
                 normalizeDay(
                     selectedDay
-                ) &&
+                )
+
+                &&
 
                 normalizeSession(
-                    item.session
+                    record.session
                 ) ===
                 normalizeSession(
                     selectedSession
-                ) &&
+                )
+
+                &&
 
                 Number(
-                    item.hour
+                    record.hour
                 ) ===
                 Number(
                     selectedHour
@@ -2959,9 +2310,9 @@ async function loadFreeStaff(
 
             ){
 
-                busyStaffIds.add(
-                    upper(
-                        item.staffId
+                busyIds.add(
+                    normalizeText(
+                        record.staffId
                     )
                 );
 
@@ -2971,106 +2322,227 @@ async function loadFreeStaff(
     );
 
 
-    /* ================================================
-       FREE STAFF
-       SAME DEPARTMENT
-       EXCLUDE REQUESTER
-       EXCLUDE BUSY STAFF
-    ================================================= */
+    /*
+     * Also remove staff who already have an
+     * approved/assigned substitute request
+     * for the same period.
+     */
 
-    const freeStaff =
-    allStaff.filter(
-        staff => {
+    const requestedBusyIds =
+        new Set();
 
-            const staffId =
-            upper(
-                staff.staffId
+
+    try{
+
+        const requestSnapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "substituteRequests"
+                )
             );
 
 
-            if(
-                staffId ===
-                upper(
-                    currentStaff.staffId
-                )
-            ){
+        requestSnapshot.forEach(
+            documentSnapshot => {
 
-                return false;
+                const data =
+                    documentSnapshot.data() || {};
+
+
+                const requestDay =
+                    normalizeDay(
+                        firstValue(
+                            data.day,
+                            data.dayOrder,
+                            data.day_order
+                        )
+                    );
+
+
+                const requestSession =
+                    normalizeSession(
+                        firstValue(
+                            data.session,
+                            data.shift
+                        )
+                    );
+
+
+                const requestHour =
+                    Number(
+                        firstValue(
+                            data.hour,
+                            data.period,
+                            0
+                        )
+                    );
+
+
+                const status =
+                    normalizeText(
+                        data.status
+                    );
+
+
+                const assignedStaff =
+                    clean(
+                        firstValue(
+                            data.requestedStaffId,
+                            data.substituteStaffId,
+                            data.assignedStaffId,
+                            data.toStaffId
+                        )
+                    );
+
+
+                if(
+
+                    requestDay ===
+                    normalizeDay(
+                        selectedDay
+                    )
+
+                    &&
+
+                    requestSession ===
+                    normalizeSession(
+                        selectedSession
+                    )
+
+                    &&
+
+                    requestHour ===
+                    Number(
+                        selectedHour
+                    )
+
+                    &&
+
+                    assignedStaff
+
+                    &&
+
+                    (
+                        status === "ASSIGNED" ||
+                        status === "APPROVED" ||
+                        status === "COMPLETED"
+                    )
+
+                ){
+
+                    requestedBusyIds.add(
+                        normalizeText(
+                            assignedStaff
+                        )
+                    );
+
+                }
 
             }
+        );
+
+    }
+    catch(error){
+
+        console.warn(
+            "Unable to check substitute requests:",
+            error
+        );
+
+    }
 
 
-            if(
-                busyStaffIds.has(
-                    staffId
-                )
-            ){
+    const freeStaff =
+        allStaff.filter(
+            staff => {
 
-                return false;
+                const staffId =
+                    normalizeText(
+                        staff.id
+                    );
+
+
+                /*
+                 * Never show requester.
+                 */
+
+                if(
+                    staffId ===
+                    currentStaffId
+                ){
+
+                    return false;
+
+                }
+
+
+                /*
+                 * Remove timetable-busy staff.
+                 */
+
+                if(
+                    busyIds.has(
+                        staffId
+                    )
+                ){
+
+                    return false;
+
+                }
+
+
+                /*
+                 * Remove staff already assigned
+                 * as substitute.
+                 */
+
+                if(
+                    requestedBusyIds.has(
+                        staffId
+                    )
+                ){
+
+                    return false;
+
+                }
+
+
+                return true;
 
             }
-
-
-            if(
-                requesterDepartment &&
-                normalizeText(
-                    staff.department
-                ) !==
-                requesterDepartment
-            ){
-
-                return false;
-
-            }
-
-
-            return true;
-
-        }
-    );
+        );
 
 
     freeCount.textContent =
-    freeStaff.length +
-    (
-        freeStaff.length === 1
-        ? " Available"
-        : " Available"
-    );
+        `${freeStaff.length} Available`;
 
 
-    freeStaffList.innerHTML =
-    "";
-
-
-    if(
-        !freeStaff.length
-    ){
+    if(!freeStaff.length){
 
         freeStaffList.innerHTML = `
 
             <div
-            class="no-free"
-            style="grid-column:1/-1;">
+                class="no-free"
+                style="grid-column:1/-1;"
+            >
 
                 No free staff available for
-                ${escapeHtml(
+                ${escapeHTML(
+                    selectedDay
+                )}
+                -
+                ${escapeHTML(
                     selectedSession
                 )}
-                Hour
-                ${escapeHtml(
+                -
+                Hour ${escapeHTML(
                     selectedHour
-                )}
-                in your department.
+                )}.
 
             </div>
 
         `;
-
-
-        submitArea.style.display =
-        "none";
-
 
         return;
 
@@ -3081,13 +2553,15 @@ async function loadFreeStaff(
         staff => {
 
             const div =
-            document.createElement(
-                "div"
-            );
+                document.createElement("div");
 
 
             div.className =
-            "free-staff";
+                "free-staff";
+
+
+            div.dataset.staffId =
+                staff.id;
 
 
             div.innerHTML = `
@@ -3095,42 +2569,34 @@ async function loadFreeStaff(
                 <div>
 
                     <input
-                    type="radio"
-                    name="freeStaff"
-                    value="${escapeHtml(
-                        staff.staffId
-                    )}">
+                        type="radio"
+                        name="freeStaff"
+                        value="${escapeAttribute(
+                            staff.id
+                        )}"
+                    >
 
-                    <span
-                    class="free-staff-name">
-
-                        ${escapeHtml(
-                            staff.staffName ||
-                            staff.staffId
+                    <span class="free-staff-name">
+                        ${escapeHTML(
+                            staff.name ||
+                            "Unnamed Staff"
                         )}
-
                     </span>
 
                 </div>
 
-                <div
-                class="free-staff-id">
-
+                <div class="free-staff-id">
                     Staff ID:
-                    ${escapeHtml(
-                        staff.staffId
+                    ${escapeHTML(
+                        staff.id
                     )}
-
                 </div>
 
-                <div
-                class="free-staff-department">
-
-                    ${escapeHtml(
+                <div class="free-staff-department">
+                    ${escapeHTML(
                         staff.department ||
-                        "-"
+                        "Department not specified"
                     )}
-
                 </div>
 
             `;
@@ -3138,21 +2604,34 @@ async function loadFreeStaff(
 
             div.addEventListener(
                 "click",
-                function(){
+                function(event){
 
-                    document
-                    .querySelectorAll(
-                        ".free-staff"
-                    )
-                    .forEach(
-                        item => {
+                    if(
+                        event.target.tagName !==
+                        "INPUT"
+                    ){
 
-                            item.classList.remove(
-                                "selected"
+                        const radio =
+                            div.querySelector(
+                                "input"
                             );
 
-                        }
-                    );
+                        radio.checked =
+                            true;
+
+                    }
+
+
+                    document
+                        .querySelectorAll(
+                            ".free-staff.selected"
+                        )
+                        .forEach(
+                            item =>
+                                item.classList.remove(
+                                    "selected"
+                                )
+                        );
 
 
                     div.classList.add(
@@ -3160,22 +2639,12 @@ async function loadFreeStaff(
                     );
 
 
-                    const radio =
-                    div.querySelector(
-                        "input"
-                    );
-
-
-                    radio.checked =
-                    true;
-
-
                     selectedFreeStaff =
-                    staff;
+                        staff;
 
 
                     submitArea.style.display =
-                    "block";
+                        "block";
 
                 }
             );
@@ -3191,9 +2660,146 @@ async function loadFreeStaff(
 }
 
 
-/* =====================================================
-   SUBMIT REQUEST
-===================================================== */
+/* =========================================================
+CLEAR SELECTED PERIOD
+========================================================= */
+
+function clearSelectedPeriod(){
+
+    selectedPeriod =
+        null;
+
+
+    selectedCard.style.display =
+        "none";
+
+
+    document
+        .querySelectorAll(
+            ".period.selected"
+        )
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "selected"
+                )
+        );
+
+
+    reasonCard.style.display =
+        "none";
+
+
+    submitArea.style.display =
+        "none";
+
+
+    reason.value =
+        "";
+
+}
+
+
+/* =========================================================
+CLEAR FREE STAFF
+========================================================= */
+
+function clearFreeStaff(){
+
+    selectedFreeStaff =
+        null;
+
+
+    freeStaffCard.style.display =
+        "none";
+
+
+    freeStaffList.innerHTML =
+        "";
+
+
+    freeCount.textContent =
+        "0 Available";
+
+}
+
+
+/* =========================================================
+RESET SELECTION
+========================================================= */
+
+function resetSelection(){
+
+    clearSelectedPeriod();
+
+    clearFreeStaff();
+
+}
+
+
+/* =========================================================
+DATE FORMAT
+========================================================= */
+
+function formatDate(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+
+    const parts =
+        value.split("-");
+
+
+    if(parts.length !== 3){
+
+        return value;
+
+    }
+
+
+    return (
+        parts[2] +
+        "-" +
+        parts[1] +
+        "-" +
+        parts[0]
+    );
+
+}
+
+
+/* =========================================================
+ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+    return escapeHTML(value);
+
+}
+
+
+/* =========================================================
+SUBMIT REQUEST
+========================================================= */
 
 submitBtn.addEventListener(
     "click",
@@ -3202,12 +2808,26 @@ submitBtn.addEventListener(
         clearMessage();
 
 
+        if(!currentStaff){
+
+            showMessage(
+                "Staff information is not loaded.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
         if(!requestDate.value){
 
             showMessage(
-                "Please select Date.",
+                "Please select the date.",
                 "error"
             );
+
+            requestDate.focus();
 
             return;
 
@@ -3217,9 +2837,11 @@ submitBtn.addEventListener(
         if(!dayOrder.value){
 
             showMessage(
-                "Please select Day Order.",
+                "Please select the day order.",
                 "error"
             );
+
+            dayOrder.focus();
 
             return;
 
@@ -3229,9 +2851,11 @@ submitBtn.addEventListener(
         if(!session.value){
 
             showMessage(
-                "Please select Session.",
+                "Please select the session.",
                 "error"
             );
+
+            session.focus();
 
             return;
 
@@ -3262,8 +2886,29 @@ submitBtn.addEventListener(
         }
 
 
+        if(
+            normalizeText(
+                selectedFreeStaff.id
+            ) ===
+            normalizeText(
+                currentStaff.id
+            )
+        ){
+
+            showMessage(
+                "You cannot select yourself as substitute staff.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
         const reasonText =
-        reason.value.trim();
+            clean(
+                reason.value
+            );
 
 
         if(!reasonText){
@@ -3281,109 +2926,294 @@ submitBtn.addEventListener(
 
 
         submitBtn.disabled =
-        true;
+            true;
 
 
         submitBtn.textContent =
-        "Submitting...";
+            "Checking...";
 
 
         try{
 
+            /*
+             * Check duplicate requests.
+             */
+
+            const existingSnapshot =
+                await getDocs(
+                    collection(
+                        db,
+                        "substituteRequests"
+                    )
+                );
+
+
+            let duplicate = false;
+
+
+            existingSnapshot.forEach(
+                documentSnapshot => {
+
+                    const data =
+                        documentSnapshot.data() || {};
+
+
+                    const existingStaff =
+                        normalizeText(
+                            firstValue(
+                                data.staffId,
+                                data.requestedByStaffId,
+                                data.requesterStaffId
+                            )
+                        );
+
+
+                    const existingDate =
+                        clean(
+                            firstValue(
+                                data.date,
+                                data.requestDate
+                            )
+                        );
+
+
+                    const existingDay =
+                        normalizeDay(
+                            firstValue(
+                                data.day,
+                                data.dayOrder
+                            )
+                        );
+
+
+                    const existingSession =
+                        normalizeSession(
+                            firstValue(
+                                data.session
+                            )
+                        );
+
+
+                    const existingHour =
+                        Number(
+                            firstValue(
+                                data.hour,
+                                data.period,
+                                0
+                            )
+                        );
+
+
+                    const status =
+                        normalizeText(
+                            data.status
+                        );
+
+
+                    if(
+
+                        existingStaff ===
+                        normalizeText(
+                            currentStaff.id
+                        )
+
+                        &&
+
+                        existingDate ===
+                        requestDate.value
+
+                        &&
+
+                        existingDay ===
+                        normalizeDay(
+                            dayOrder.value
+                        )
+
+                        &&
+
+                        existingSession ===
+                        normalizeSession(
+                            session.value
+                        )
+
+                        &&
+
+                        existingHour ===
+                        Number(
+                            selectedPeriod.hour
+                        )
+
+                        &&
+
+                        status !==
+                        "REJECTED"
+
+                    ){
+
+                        duplicate = true;
+
+                    }
+
+                }
+            );
+
+
+            if(duplicate){
+
+                showMessage(
+                    "A substitute request already exists for this period.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            submitBtn.textContent =
+                "Submitting...";
+
+
+            /*
+             * Store all important fields so that
+             * the Admin portal can process the request
+             * without depending on one particular field name.
+             */
+
             const requestData = {
 
+                /* requester */
+
                 staffId:
-                currentStaff.staffId,
+                    currentStaff.id,
 
                 staffName:
-                currentStaff.staffName ||
-                "",
+                    currentStaff.name,
 
-                department:
-                currentStaff.department ||
-                "",
+                staffDepartment:
+                    currentStaff.department,
+
+                requesterStaffId:
+                    currentStaff.id,
+
+                requesterStaffName:
+                    currentStaff.name,
+
+                requesterDepartment:
+                    currentStaff.department,
+
+
+                /* date */
+
+                date:
+                    requestDate.value,
 
                 requestDate:
-                requestDate.value,
+                    requestDate.value,
+
+
+                /* timetable */
+
+                day:
+                    normalizeDay(
+                        selectedPeriod.day
+                    ),
 
                 dayOrder:
-                normalizeDay(
-                    dayOrder.value
-                ),
+                    normalizeDay(
+                        selectedPeriod.day
+                    ),
 
                 session:
-                normalizeSession(
-                    session.value
-                ),
+                    normalizeSession(
+                        selectedPeriod.session
+                    ),
 
                 hour:
-                Number(
-                    selectedPeriod.hour
-                ),
+                    Number(
+                        selectedPeriod.hour
+                    ),
+
+                period:
+                    Number(
+                        selectedPeriod.hour
+                    ),
 
                 subject:
-                selectedPeriod.subject ||
-                "",
+                    selectedPeriod.subject || "",
 
-                classYear:
-                selectedPeriod.classYear ||
-                "",
+                department:
+                    selectedPeriod.department || "",
 
                 year:
-                selectedPeriod.classYear ||
-                "",
+                    selectedPeriod.classYear || "",
+
+                classYear:
+                    selectedPeriod.classYear || "",
 
                 section:
-                selectedPeriod.section ||
-                "",
+                    selectedPeriod.section || "",
 
                 room:
-                selectedPeriod.room ||
-                "",
+                    selectedPeriod.room || "",
+
+                roomNo:
+                    selectedPeriod.room || "",
+
+
+                /* selected substitute */
+
+                requestedStaffId:
+                    selectedFreeStaff.id,
+
+                requestedStaffName:
+                    selectedFreeStaff.name,
+
+                requestedStaffDepartment:
+                    selectedFreeStaff.department,
 
                 substituteStaffId:
-                selectedFreeStaff.staffId,
+                    selectedFreeStaff.id,
 
                 substituteStaffName:
-                selectedFreeStaff.staffName ||
-                "",
+                    selectedFreeStaff.name,
 
-                substituteStaffDepartment:
-                selectedFreeStaff.department ||
-                "",
+                assignedStaffId:
+                    selectedFreeStaff.id,
+
+                assignedStaffName:
+                    selectedFreeStaff.name,
+
+
+                /* reason */
 
                 reason:
-                reasonText,
+                    reasonText,
+
+
+                /* initial status */
 
                 status:
-                "Pending",
+                    "Pending",
 
-                assignedBy:
-                "",
-
-                assignedAt:
-                null,
 
                 createdAt:
-                serverTimestamp(),
+                    serverTimestamp(),
 
                 updatedAt:
-                serverTimestamp()
+                    serverTimestamp()
 
             };
 
 
             const docRef =
-            await addDoc(
-
-                collection(
-                    db,
-                    "substituteRequests"
-                ),
-
-                requestData
-
-            );
+                await addDoc(
+                    collection(
+                        db,
+                        "substituteRequests"
+                    ),
+                    requestData
+                );
 
 
             console.log(
@@ -3422,10 +3252,11 @@ submitBtn.addEventListener(
         finally{
 
             submitBtn.disabled =
-            false;
+                false;
+
 
             submitBtn.textContent =
-            "Submit Substitute Request";
+                "Submit Substitute Request";
 
         }
 
@@ -3433,269 +3264,13 @@ submitBtn.addEventListener(
 );
 
 
-/* =====================================================
-   RESET SELECTION
-===================================================== */
-
-function resetSelection(){
-
-    selectedPeriod =
-    null;
-
-    selectedFreeStaff =
-    null;
-
-    reason.value =
-    "";
-
-    selectedCard.style.display =
-    "none";
-
-    freeStaffCard.style.display =
-    "none";
-
-    reasonCard.style.display =
-    "none";
-
-    submitArea.style.display =
-    "none";
-
-    document
-    .querySelectorAll(
-        ".period"
-    )
-    .forEach(
-        element => {
-
-            element.classList.remove(
-                "selected"
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   CLEAR FREE STAFF
-===================================================== */
-
-function clearFreeStaff(){
-
-    selectedFreeStaff =
-    null;
-
-    freeStaffList.innerHTML =
-    "";
-
-    freeStaffCard.style.display =
-    "none";
-
-}
-
-
-/* =====================================================
-   CLEAR SELECTED
-===================================================== */
-
-function clearSelectedPeriod(){
-
-    selectedPeriod =
-    null;
-
-    selectedCard.style.display =
-    "none";
-
-    reasonCard.style.display =
-    "none";
-
-    submitArea.style.display =
-    "none";
-
-    reason.value =
-    "";
-
-}
-
-
-/* =====================================================
-   DATE CHANGE
-===================================================== */
-
-requestDate.addEventListener(
-    "change",
-    function(){
-
-        /*
-         * IMPORTANT:
-         *
-         * Date does NOT change Day Order.
-         * Day Order does NOT change Date.
-         *
-         * Date is simply the actual
-         * substitute request date.
-         */
-
-        clearSelectedPeriod();
-
-        clearFreeStaff();
-
-        if(
-            dayOrder.value &&
-            session.value
-        ){
-
-            loadMyTimetable();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   DAY ORDER CHANGE
-===================================================== */
-
-dayOrder.addEventListener(
-    "change",
-    function(){
-
-        clearSelectedPeriod();
-
-        clearFreeStaff();
-
-        if(
-            dayOrder.value &&
-            session.value
-        ){
-
-            loadMyTimetable();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   SESSION CHANGE
-===================================================== */
-
-session.addEventListener(
-    "change",
-    function(){
-
-        clearSelectedPeriod();
-
-        clearFreeStaff();
-
-        if(
-            dayOrder.value &&
-            session.value
-        ){
-
-            loadMyTimetable();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   DATE FORMAT
-===================================================== */
-
-function formatDate(
-    value
-){
-
-    if(!value){
-
-        return "-";
-
-    }
-
-
-    const parts =
-    String(
-        value
-    ).split("-");
-
-
-    if(
-        parts.length !== 3
-    ){
-
-        return value;
-
-    }
-
-
-    return (
-
-        parts[2] +
-        "-" +
-        parts[1] +
-        "-" +
-        parts[0]
-
-    );
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(
-    value
-){
-
-    return String(
-        value ?? ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-/* =====================================================
-   LOAD MY REQUESTS
-===================================================== */
+/* =========================================================
+LOAD MY REQUESTS
+========================================================= */
 
 async function loadMyRequests(){
 
-    if(
-        !currentStaff
-    ){
+    if(!currentStaff){
 
         return;
 
@@ -3707,15 +3282,14 @@ async function loadMyRequests(){
         <tr>
 
             <td
-            colspan="11"
-            style="
-            text-align:center;
-            padding:25px;
-            color:#777;
-            ">
-
-                Loading requests...
-
+                colspan="11"
+                style="
+                text-align:center;
+                padding:25px;
+                color:#777;
+                "
+            >
+                Loading...
             </td>
 
         </tr>
@@ -3726,14 +3300,12 @@ async function loadMyRequests(){
     try{
 
         const snapshot =
-        await getDocs(
-
-            collection(
-                db,
-                "substituteRequests"
-            )
-
-        );
+            await getDocs(
+                collection(
+                    db,
+                    "substituteRequests"
+                )
+            );
 
 
         const requests = [];
@@ -3743,53 +3315,57 @@ async function loadMyRequests(){
             documentSnapshot => {
 
                 const data =
-                documentSnapshot.data()
-                || {};
+                    documentSnapshot.data() || {};
+
+
+                const requesterId =
+                    normalizeText(
+                        firstValue(
+                            data.staffId,
+                            data.requesterStaffId,
+                            data.requestedByStaffId
+                        )
+                    );
 
 
                 if(
-                    upper(
-                        data.staffId
-                    ) !==
-                    upper(
-                        currentStaff.staffId
+                    requesterId ===
+                    normalizeText(
+                        currentStaff.id
                     )
                 ){
 
-                    return;
+                    requests.push({
+
+                        id:
+                            documentSnapshot.id,
+
+                        ...data
+
+                    });
 
                 }
-
-
-                requests.push({
-
-                    id:
-                    documentSnapshot.id,
-
-                    ...data
-
-                });
 
             }
         );
 
 
+        /*
+         * Newest first.
+         */
+
         requests.sort(
-            function(a,b){
+            (a,b) => {
 
                 const aTime =
-                a.createdAt &&
-                a.createdAt.toMillis
-                ? a.createdAt.toMillis()
-                : 0;
-
+                    getTimestampValue(
+                        a.createdAt
+                    );
 
                 const bTime =
-                b.createdAt &&
-                b.createdAt.toMillis
-                ? b.createdAt.toMillis()
-                : 0;
-
+                    getTimestampValue(
+                        b.createdAt
+                    );
 
                 return bTime - aTime;
 
@@ -3797,8 +3373,249 @@ async function loadMyRequests(){
         );
 
 
-        renderRequests(
-            requests
+        if(!requests.length){
+
+            requestsBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="11"
+                        style="
+                        text-align:center;
+                        padding:25px;
+                        color:#777;
+                        "
+                    >
+
+                        No substitute requests found.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        requestsBody.innerHTML =
+            "";
+
+
+        requests.forEach(
+            request => {
+
+                const row =
+                    document.createElement("tr");
+
+
+                const status =
+                    clean(
+                        request.status ||
+                        "Pending"
+                    );
+
+
+                let statusClass =
+                    "status-pending";
+
+
+                const normalizedStatus =
+                    normalizeText(
+                        status
+                    );
+
+
+                if(
+                    normalizedStatus ===
+                    "ASSIGNED" ||
+                    normalizedStatus ===
+                    "APPROVED"
+                ){
+
+                    statusClass =
+                        "status-assigned";
+
+                }
+                else if(
+                    normalizedStatus ===
+                    "COMPLETED"
+                ){
+
+                    statusClass =
+                        "status-completed";
+
+                }
+                else if(
+                    normalizedStatus ===
+                    "REJECTED"
+                ){
+
+                    statusClass =
+                        "status-rejected";
+
+                }
+
+
+                const date =
+                    firstValue(
+                        request.date,
+                        request.requestDate
+                    );
+
+
+                const day =
+                    firstValue(
+                        request.day,
+                        request.dayOrder
+                    );
+
+
+                const requestSession =
+                    firstValue(
+                        request.session
+                    );
+
+
+                const hour =
+                    firstValue(
+                        request.hour,
+                        request.period
+                    );
+
+
+                const department =
+                    firstValue(
+                        request.department
+                    );
+
+
+                const year =
+                    firstValue(
+                        request.year,
+                        request.classYear
+                    );
+
+
+                const section =
+                    firstValue(
+                        request.section
+                    );
+
+
+                const subject =
+                    firstValue(
+                        request.subject
+                    );
+
+
+                const room =
+                    firstValue(
+                        request.room,
+                        request.roomNo
+                    );
+
+
+                const requestedStaff =
+                    firstValue(
+                        request.requestedStaffName,
+                        request.substituteStaffName,
+                        request.assignedStaffName
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${escapeHTML(
+                            formatStoredDate(
+                                date
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            normalizeDay(
+                                day
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            normalizeSession(
+                                requestSession
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            hour
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            department
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            year
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            section
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            subject
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            room
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            requestedStaff ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="status ${statusClass}"
+                        >
+                            ${escapeHTML(
+                                status
+                            )}
+                        </span>
+
+                    </td>
+
+                `;
+
+
+                requestsBody.appendChild(
+                    row
+                );
+
+            }
         );
 
     }
@@ -3815,15 +3632,22 @@ async function loadMyRequests(){
             <tr>
 
                 <td
-                colspan="11"
-                style="
-                text-align:center;
-                padding:25px;
-                color:#991b1b;
-                ">
+                    colspan="11"
+                    style="
+                    text-align:center;
+                    padding:25px;
+                    color:#991b1b;
+                    "
+                >
 
                     Unable to load requests.
 
+                    <br>
+
+                    ${escapeHTML(
+                        error.message
+                    )}
+
                 </td>
 
             </tr>
@@ -3835,262 +3659,225 @@ async function loadMyRequests(){
 }
 
 
-/* =====================================================
-   RENDER REQUESTS
-===================================================== */
+/* =========================================================
+TIMESTAMP HELPER
+========================================================= */
 
-function renderRequests(
-    requests
-){
+function getTimestampValue(value){
+
+    if(!value){
+
+        return 0;
+
+    }
+
 
     if(
-        !requests.length
+        typeof value.toMillis ===
+        "function"
     ){
 
-        requestsBody.innerHTML = `
-
-            <tr>
-
-                <td
-                colspan="11"
-                style="
-                text-align:center;
-                padding:25px;
-                color:#777;
-                ">
-
-                    No substitute requests found.
-
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
+        return value.toMillis();
 
     }
 
 
-    requestsBody.innerHTML =
-    "";
+    if(
+        value.seconds
+    ){
+
+        return Number(
+            value.seconds
+        ) * 1000;
+
+    }
 
 
-    requests.forEach(
-        request => {
-
-            const row =
-            document.createElement(
-                "tr"
-            );
-
-
-            const status =
-            request.status ||
-            "Pending";
-
-
-            let statusClass =
-            "status-pending";
-
-
-            if(
-                status ===
-                "Assigned"
-            ){
-
-                statusClass =
-                "status-assigned";
-
-            }
-
-
-            if(
-                status ===
-                "Completed"
-            ){
-
-                statusClass =
-                "status-completed";
-
-            }
-
-
-            if(
-                status ===
-                "Rejected"
-            ){
-
-                statusClass =
-                "status-rejected";
-
-            }
-
-
-            row.innerHTML = `
-
-                <td>
-                    ${escapeHtml(
-                        formatDate(
-                            request.requestDate
-                        )
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.dayOrder ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.session ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.hour ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.department ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.classYear ||
-                        request.year ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.section ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.subject ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.room ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        request.substituteStaffName ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-
-                    <span
-                    class="status
-                    ${statusClass}">
-
-                        ${escapeHtml(
-                            status
-                        )}
-
-                    </span>
-
-                </td>
-
-            `;
-
-
-            requestsBody.appendChild(
-                row
-            );
-
-        }
-    );
+    return 0;
 
 }
 
 
-/* =====================================================
-   REFRESH
-===================================================== */
+/* =========================================================
+STORED DATE
+========================================================= */
 
-document
-.getElementById(
-    "refreshBtn"
-)
-.addEventListener(
-    "click",
-    async function(){
+function formatStoredDate(value){
 
-        await loadMyRequests();
+    if(!value){
+
+        return "-";
+
+    }
+
+
+    /*
+     * YYYY-MM-DD
+     */
+
+    if(
+        /^\d{4}-\d{2}-\d{2}$/
+        .test(value)
+    ){
+
+        return formatDate(value);
+
+    }
+
+
+    return value;
+
+}
+
+
+/* =========================================================
+DATE CHANGE
+========================================================= */
+
+requestDate.addEventListener(
+    "change",
+    function(){
+
+        /*
+         * Date is the actual substitute
+         * request date.
+         */
+
+        clearSelectedPeriod();
+
+        clearFreeStaff();
+
+
+        if(
+            dayOrder.value &&
+            session.value
+        ){
+
+            loadMyTimetable();
+
+        }
 
     }
 );
 
 
-/* =====================================================
-   TODAY
-===================================================== */
+/* =========================================================
+DAY ORDER CHANGE
+========================================================= */
 
-function setToday(){
+dayOrder.addEventListener(
+    "change",
+    function(){
 
-    const today =
-    new Date();
+        clearSelectedPeriod();
+
+        clearFreeStaff();
 
 
-    const yyyy =
-    today.getFullYear();
+        if(
+            dayOrder.value &&
+            session.value
+        ){
+
+            loadMyTimetable();
+
+        }
+
+    }
+);
 
 
-    const mm =
-    String(
-        today.getMonth() + 1
-    ).padStart(
-        2,
-        "0"
+/* =========================================================
+SESSION CHANGE
+========================================================= */
+
+session.addEventListener(
+    "change",
+    function(){
+
+        clearSelectedPeriod();
+
+        clearFreeStaff();
+
+
+        if(
+            dayOrder.value &&
+            session.value
+        ){
+
+            loadMyTimetable();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+REFRESH
+========================================================= */
+
+document
+    .getElementById(
+        "refreshBtn"
+    )
+    .addEventListener(
+        "click",
+        async function(){
+
+            try{
+
+                showLoading(
+                    "Refreshing requests..."
+                );
+
+
+                await loadStaff();
+
+                await loadCurrentStaff();
+
+                await loadTimetable();
+
+                await loadMyRequests();
+
+
+                if(
+                    dayOrder.value &&
+                    session.value
+                ){
+
+                    loadMyTimetable();
+
+                }
+
+
+            }
+            catch(error){
+
+                console.error(
+                    error
+                );
+
+
+                showMessage(
+                    error.message,
+                    "error"
+                );
+
+            }
+            finally{
+
+                hideLoading();
+
+            }
+
+        }
     );
 
 
-    const dd =
-    String(
-        today.getDate()
-    ).padStart(
-        2,
-        "0"
-    );
-
-
-    requestDate.value =
-    yyyy +
-    "-" +
-    mm +
-    "-" +
-    dd;
-
-}
-
-
-/* =====================================================
-   INITIAL LOAD
-===================================================== */
+/* =========================================================
+START
+========================================================= */
 
 async function start(){
 
@@ -4099,6 +3886,9 @@ async function start(){
         showLoading(
             "Loading staff and timetable..."
         );
+
+
+        clearMessage();
 
 
         setToday();
@@ -4119,11 +3909,15 @@ async function start(){
         hideLoading();
 
 
+        console.log(
+            "SUBSTITUTE PORTAL READY"
+        );
+
     }
     catch(error){
 
         console.error(
-            "INITIAL LOAD ERROR:",
+            "START ERROR:",
             error
         );
 
@@ -4132,7 +3926,6 @@ async function start(){
 
 
         showMessage(
-            "Unable to load substitute request page: " +
             error.message,
             "error"
         );
@@ -4144,22 +3937,8 @@ async function start(){
 
 start();
 
-
-/* =====================================================
-   AUTO REFRESH REQUESTS
-===================================================== */
-
-setInterval(
-    function(){
-
-        loadMyRequests();
-
-    },
-    30000
-);
-
 </script>
 
 </body>
-
 </html>
+```
