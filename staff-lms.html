@@ -1,4461 +1,4464 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Staff LMS Classroom</title>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    background:#f3f5f8;
-    color:#222;
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header{
-    height:64px;
-    background:#092b49;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 24px;
-    box-shadow:0 2px 8px rgba(0,0,0,.25);
-}
-
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:20px;
-}
-
-.logo{
-    font-size:22px;
-    font-weight:bold;
-}
-
-.college-name{
-    font-size:18px;
-    font-weight:bold;
-}
-
-.header-right{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    font-size:14px;
-}
-
-.header-btn{
-    background:#0c5795;
-    border:none;
-    color:white;
-    padding:9px 15px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.header-btn:hover{
-    background:#0871bd;
-}
-
-/* =========================================================
-   PAGE
-========================================================= */
-
-.container{
-    width:94%;
-    max-width:1450px;
-    margin:25px auto;
-}
-
-/* =========================================================
-   PAGE TITLE
-========================================================= */
-
-.page-title{
-    background:#07538e;
-    color:white;
-    padding:18px 22px;
-    font-size:21px;
-    font-weight:bold;
-    border-radius:7px 7px 0 0;
-}
-
-/* =========================================================
-   STAFF INFO
-========================================================= */
-
-.staff-info{
-    background:white;
-    padding:15px 20px;
-    border-bottom:1px solid #ddd;
-    display:flex;
-    gap:30px;
-    flex-wrap:wrap;
-}
-
-.staff-info span{
-    font-size:14px;
-}
-
-.staff-info strong{
-    color:#07538e;
-}
-
-/* =========================================================
-   SUBJECT GRID
-========================================================= */
-
-.subject-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:18px;
-    margin-top:20px;
-}
-
-.subject-card{
-    background:white;
-    border-radius:8px;
-    overflow:hidden;
-    box-shadow:0 3px 10px rgba(0,0,0,.12);
-    cursor:pointer;
-    transition:.2s;
-}
-
-.subject-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 6px 18px rgba(0,0,0,.18);
-}
-
-.subject-header{
-    background:#07538e;
-    color:white;
-    padding:14px;
-    font-size:16px;
-    font-weight:bold;
-}
-
-.subject-body{
-    padding:15px;
-}
-
-.subject-code{
-    color:#07538e;
-    font-weight:bold;
-    margin-bottom:8px;
-}
-
-.subject-name{
-    font-size:16px;
-    font-weight:bold;
-    line-height:1.4;
-}
-
-.subject-meta{
-    margin-top:12px;
-    display:grid;
-    gap:6px;
-    font-size:13px;
-    color:#555;
-}
-
-.subject-footer{
-    padding:12px 15px;
-    border-top:1px solid #eee;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.course-btn{
-    background:#07538e;
-    color:white;
-    border:none;
-    padding:8px 14px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.course-btn:hover{
-    background:#063e69;
-}
-
-/* =========================================================
-   COURSE PAGE
-========================================================= */
-
-.course-page{
-    display:none;
-}
-
-.course-banner{
-    background:#07538e;
-    color:white;
-    padding:20px;
-    position:relative;
-    overflow:hidden;
-}
-
-.course-banner:after{
-    content:"";
-    position:absolute;
-    right:-50px;
-    top:-50px;
-    width:230px;
-    height:150px;
-    background:#f59d19;
-    transform:rotate(-18deg);
-    opacity:.9;
-}
-
-.course-code{
-    font-size:15px;
-    position:relative;
-    z-index:2;
-}
-
-.course-title{
-    font-size:23px;
-    font-weight:bold;
-    margin-top:7px;
-    position:relative;
-    z-index:2;
-}
-
-.course-details{
-    margin-top:8px;
-    font-size:14px;
-    position:relative;
-    z-index:2;
-}
-
-/* =========================================================
-   TABS
-========================================================= */
-
-.tabs{
-    display:flex;
-    background:white;
-    border-bottom:1px solid #ddd;
-}
-
-.tab{
-    padding:14px 22px;
-    cursor:pointer;
-    font-weight:bold;
-    color:#555;
-}
-
-.tab.active{
-    color:#07538e;
-    border-bottom:3px solid #07538e;
-}
-
-.tab-content{
-    display:none;
-}
-
-.tab-content.active{
-    display:block;
-}
-
-/* =========================================================
-   ACTION BAR
-========================================================= */
-
-.action-bar{
-    background:white;
-    padding:15px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-    border-bottom:1px solid #ddd;
-}
-
-.primary-btn{
-    background:#07538e;
-    color:white;
-    border:none;
-    padding:10px 17px;
-    border-radius:5px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.primary-btn:hover{
-    background:#063e69;
-}
-
-.secondary-btn{
-    background:#eee;
-    border:none;
-    padding:10px 17px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.search-box{
-    padding:10px 12px;
-    border:1px solid #ccc;
-    border-radius:5px;
-    width:250px;
-}
-
-/* =========================================================
-   ASSIGNMENT CARD
-========================================================= */
-
-.assignment-list{
-    padding:15px;
-}
-
-.assignment-card{
-    background:white;
-    margin-bottom:15px;
-    box-shadow:0 3px 12px rgba(0,0,0,.15);
-}
-
-.assignment-heading{
-    background:#07538e;
-    color:white;
-    padding:13px 17px;
-    font-weight:bold;
-    font-size:16px;
-}
-
-.assignment-row{
-    display:grid;
-    grid-template-columns:2fr 1fr 1fr 1fr 2fr;
-    gap:10px;
-    padding:15px;
-    align-items:center;
-}
-
-.assignment-title{
-    color:#0000aa;
-    font-weight:bold;
-    font-style:italic;
-}
-
-.assignment-meta{
-    font-size:14px;
-}
-
-.assignment-actions{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-
-.small-btn{
-    border:none;
-    background:#07538e;
-    color:white;
-    padding:8px 13px;
-    border-radius:5px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.small-btn.cancel{
-    background:#8c1d1d;
-}
-
-.small-btn.review{
-    background:#176c39;
-}
-
-.attachment-link{
-    display:inline-block;
-    margin-top:7px;
-    color:#07538e;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.attachment-link:hover{
-    text-decoration:underline;
-}
-
-/* =========================================================
-   EMPTY
-========================================================= */
-
-.empty{
-    padding:40px;
-    background:white;
-    text-align:center;
-    color:#777;
-}
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    z-index:1000;
-    overflow:auto;
-}
-
-.modal-box{
-    width:95%;
-    max-width:1400px;
-    margin:25px auto;
-    background:white;
-    box-shadow:0 5px 30px rgba(0,0,0,.35);
-}
-
-.modal-header{
-    background:#07538e;
-    color:white;
-    padding:15px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.modal-title{
-    font-size:17px;
-    font-weight:bold;
-}
-
-.close{
-    font-size:27px;
-    cursor:pointer;
-}
-
-/* =========================================================
-   MODIFY LAYOUT
-========================================================= */
-
-.modify-layout{
-    display:grid;
-    grid-template-columns:minmax(600px,2fr) minmax(400px,1fr);
-    min-height:600px;
-}
-
-/* =========================================================
-   FORM
-========================================================= */
-
-.form-area{
-    background:white;
-}
-
-.form-row{
-    display:grid;
-    grid-template-columns:130px 1fr;
-    min-height:48px;
-    border-bottom:1px solid #ddd;
-    align-items:center;
-}
-
-.form-label{
-    padding:10px 13px;
-    font-size:14px;
-}
-
-.form-control{
-    padding:8px;
-}
-
-.form-control input,
-.form-control select,
-.form-control textarea{
-    width:100%;
-    max-width:600px;
-    padding:8px 10px;
-    border:1px solid #c7c7c7;
-    border-radius:4px;
-    font-size:14px;
-}
-
-.form-control textarea{
-    min-height:100px;
-    resize:vertical;
-}
-
-.required{
-    color:red;
-}
-
-/* =========================================================
-   MARKS
-========================================================= */
-
-.mark-row{
-    display:flex;
-    gap:12px;
-    align-items:center;
-}
-
-.mark-input{
-    width:120px !important;
-    text-align:right;
-}
-
-/* =========================================================
-   FILE UPLOAD
-========================================================= */
-
-.file-upload-area{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.file-btn{
-    background:#07538e;
-    color:white;
-    padding:8px 14px;
-    border-radius:4px;
-    cursor:pointer;
-    display:inline-block;
-}
-
-.file-name{
-    color:#555;
-    font-size:13px;
-}
-
-.hidden-file{
-    display:none;
-}
-
-.progress-container{
-    width:100%;
-    max-width:600px;
-    display:none;
-    margin-top:8px;
-}
-
-.progress-bg{
-    width:100%;
-    height:8px;
-    background:#ddd;
-    border-radius:5px;
-    overflow:hidden;
-}
-
-.progress-bar{
-    width:0%;
-    height:100%;
-    background:#07538e;
-}
-
-.progress-text{
-    font-size:12px;
-    margin-top:4px;
-    color:#555;
-}
-
-/* =========================================================
-   STUDENT PANEL
-========================================================= */
-
-.student-panel{
-    border-left:1px solid #aaa;
-    background:rgba(255,255,255,.92);
-    display:flex;
-    flex-direction:column;
-}
-
-.student-header{
-    background:#092b49;
-    color:white;
-    padding:12px;
-}
-
-.student-controls{
-    padding:10px;
-    border-bottom:1px solid #ddd;
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-
-.student-search{
-    flex:1;
-    min-width:150px;
-    padding:8px;
-    border:1px solid #bbb;
-    border-radius:4px;
-}
-
-.student-table-wrap{
-    overflow:auto;
-    flex:1;
-    max-height:540px;
-}
-
-.student-table{
-    width:100%;
-    border-collapse:collapse;
-    font-size:13px;
-}
-
-.student-table th{
-    position:sticky;
-    top:0;
-    background:#07538e;
-    color:white;
-    padding:9px 6px;
-    text-align:left;
-    z-index:2;
-}
-
-.student-table td{
-    padding:8px 6px;
-    border-bottom:1px solid #ddd;
-    white-space:nowrap;
-}
-
-.student-table tr:hover{
-    background:#f1f6fb;
-}
-
-.student-table input[type="checkbox"]{
-    width:16px;
-    height:16px;
-}
-
-/* =========================================================
-   MODIFY FOOTER
-========================================================= */
-
-.modify-footer{
-    grid-column:1/-1;
-    background:white;
-    border-top:1px solid #ccc;
-    padding:10px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.total-box{
-    margin-left:auto;
-    background:#07538e;
-    color:white;
-    padding:10px 15px;
-    border-radius:5px;
-    font-weight:bold;
-}
-
-/* =========================================================
-   VIEW STUDENTS MODAL
-========================================================= */
-
-.review-box{
-    width:95%;
-    max-width:1000px;
-    margin:50px auto;
-    background:white;
-}
-
-.review-header{
-    background:#07538e;
-    color:white;
-    padding:15px;
-    font-weight:bold;
-}
-
-.review-content{
-    padding:20px;
-}
-
-.review-student{
-    display:grid;
-    grid-template-columns:1fr 1fr 2fr 1fr;
-    padding:10px;
-    border-bottom:1px solid #ddd;
-}
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading{
-    text-align:center;
-    padding:40px;
-    color:#777;
-}
-
-.spinner{
-    width:35px;
-    height:35px;
-    border:4px solid #ddd;
-    border-top:4px solid #07538e;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    margin:0 auto 12px;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-.toast{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    background:#092b49;
-    color:white;
-    padding:14px 20px;
-    border-radius:6px;
-    box-shadow:0 4px 15px rgba(0,0,0,.3);
-    display:none;
-    z-index:3000;
-}
-
-.toast.success{
-    background:#176c39;
-}
-
-.toast.error{
-    background:#9b2226;
-}
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:900px){
-
-    .modify-layout{
-        grid-template-columns:1fr;
-    }
-
-    .student-panel{
-        border-left:none;
-        border-top:1px solid #aaa;
-    }
-
-    .assignment-row{
-        grid-template-columns:1fr;
-    }
-
-    .header{
-        height:auto;
-        padding:12px;
-        gap:10px;
-        flex-wrap:wrap;
-    }
-}
-
-@media(max-width:600px){
-
-    .container{
-        width:98%;
-    }
-
-    .form-row{
-        grid-template-columns:1fr;
-    }
-
-    .form-label{
-        background:#f5f5f5;
-        font-weight:bold;
-    }
-
-    .search-box{
-        width:100%;
-    }
-
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
-<header class="header">
-
-    <div class="header-left">
-        <div class="logo">LMS Classroom</div>
-        <div class="college-name">MAASC</div>
-    </div>
-
-    <div class="header-right">
-        <span id="staffNameTop">Staff</span>
-        <span id="currentTime"></span>
-
-        <button class="header-btn" onclick="goHome()">
-            Home
-        </button>
-
-        <button class="header-btn" onclick="logout()">
-            Logout
-        </button>
-    </div>
-
-</header>
-
-
-<!-- =========================================================
-     MAIN CONTAINER
-========================================================= -->
-
-<div class="container">
-
-    <div class="page-title">
-        Staff LMS Classroom
-    </div>
-
-    <div class="staff-info">
-
-        <span>
-            Staff ID:
-            <strong id="staffIdText">Loading...</strong>
-        </span>
-
-        <span>
-            Staff Name:
-            <strong id="staffNameText">Loading...</strong>
-        </span>
-
-        <span>
-            Department:
-            <strong id="staffDepartmentText">Loading...</strong>
-        </span>
-
-    </div>
-
-
-    <!-- =====================================================
-         SUBJECT PAGE
-    ====================================================== -->
-
-    <div id="subjectPage">
-
-        <div class="action-bar">
-
-            <div>
-                <strong>My Subjects</strong>
-            </div>
-
-            <div>
-                <input
-                    type="text"
-                    id="subjectSearch"
-                    class="search-box"
-                    placeholder="Search subject..."
-                    oninput="filterSubjects()"
-                >
-
-                <button
-                    class="secondary-btn"
-                    onclick="loadSubjects()"
-                >
-                    Refresh
-                </button>
-            </div>
-
-        </div>
-
-        <div id="subjectGrid" class="subject-grid">
-
-            <div class="loading">
-                <div class="spinner"></div>
-                Loading subjects...
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         COURSE PAGE
-    ====================================================== -->
-
-    <div id="coursePage" class="course-page">
-
-        <div class="course-banner">
-
-            <div class="course-code" id="courseCode"></div>
-
-            <div class="course-title" id="courseTitle"></div>
-
-            <div class="course-details" id="courseDetails"></div>
-
-        </div>
-
-
-        <div class="tabs">
-
-            <div
-                class="tab active"
-                onclick="selectTab('classwork',this)"
-            >
-                Class Work
-            </div>
-
-            <div
-                class="tab"
-                onclick="selectTab('mcq',this)"
-            >
-                MCQ Template
-            </div>
-
-            <div
-                class="tab"
-                onclick="selectTab('opinion',this)"
-            >
-                Opinion Template
-            </div>
-
-            <div
-                class="tab"
-                onclick="closeCourse()"
-            >
-                Back
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             CLASS WORK
-        ================================================== -->
-
-        <div id="classwork" class="tab-content active">
-
-            <div class="action-bar">
-
-                <div>
-                    <strong>Class Work</strong>
-                </div>
-
-                <div>
-
-                    <input
-                        type="text"
-                        id="assignmentSearch"
-                        class="search-box"
-                        placeholder="Search class work..."
-                        oninput="filterAssignments()"
-                    >
-
-                    <button
-                        class="primary-btn"
-                        onclick="openAssignmentModal()"
-                    >
-                        + Add Class Work
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="assignmentList"
-                class="assignment-list"
-            >
-
-                <div class="loading">
-                    <div class="spinner"></div>
-                    Loading class work...
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             MCQ
-        ================================================== -->
-
-        <div id="mcq" class="tab-content">
-
-            <div class="empty">
-                MCQ Template
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             OPINION
-        ================================================== -->
-
-        <div id="opinion" class="tab-content">
-
-            <div class="empty">
-                Opinion Template
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     ASSIGNMENT MODIFY MODAL
-========================================================= -->
-
-<div id="assignmentModal" class="modal">
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <div class="modal-title" id="assignmentModalTitle">
-                Class Work Modify
-            </div>
-
-            <div
-                class="close"
-                onclick="closeAssignmentModal()"
-            >
-                &times;
-            </div>
-
-        </div>
-
-
-        <div class="modify-layout">
-
-            <!-- =================================================
-                 FORM
-            ================================================== -->
-
-            <div class="form-area">
-
-                <!-- WORK TYPE -->
-
-                <div class="form-row">
-
-                    <div class="form-label">
-                        Work Type
-                    </div>
-
-                    <div class="form-control">
-
-                        <select id="workType">
-
-                            <option value="Assignment">
-                                Assignment
-                            </option>
-
-                            <option value="Study Material">
-                                Study Material
-                            </option>
-
-                            <option value="Question Bank">
-                                Question Bank
-                            </option>
-
-                            <option value="Notes">
-                                Notes
-                            </option>
-
-                            <option value="Activity">
-                                Activity
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SECTION -->
-
-                <div class="form-row">
-
-                    <div class="form-label">
-                        Section
-                    </div>
-
-                    <div
-                        class="form-control"
-                        id="sectionDisplay"
-                    >
-                        -
-                    </div>
-
-                </div>
-
-
-                <!-- START DATE -->
-
-                <div class="form-row">
-
-                    <div class="form-label">
-                        Start Date
-                    </div>
-
-                    <div class="form-control">
-
-                        <input
-                            type="datetime-local"
-                            id="startDate"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- END DATE -->
-
-                <div class="form-row">
-
-                    <div class="form-label">
-                        End Date
-                    </div>
-
-                    <div class="form-control">
-
-                        <input
-                            type="datetime-local"
-                            id="endDate"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- MARK -->
-
-                <div class="form-row">
-
-                    <div class="form-label">
-                        Conducting Mark
-                    </div>
-
-                    <div class="form-control">
-
-                        <div class="mark-row">
-
-                            <input
-                                type="number"
-                                id="conductingMark"
-                                class="mark-input"
-                                min="0"
-                                value="0"
-                            >
-
-                            <label>
-
-                                <input
-                                    type="checkbox"
-                                    id="noMarksRequired"
-                                    checked
-                                    onchange="toggleMarks()"
-                                >
-
-                                No Marks Required
-
-                            </label>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- TOPIC -->
-
-                <div class="form-row">
-
-                    <div class="form-label">
-                        Topic
-                    </div>
-
-                    <div class="form-control">
-
-                        <input
-                            type="text"
-                            id="topic"
-                            placeholder="Enter topic"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- TITLE -->
-
-                <div class="form-row">
-
-                    <div class="form-label">
-                        Title<span class="required">*</span>
-                    </div>
-
-                    <div class="form-control">
-
-                        <input
-                            type="text"
-                            id="assignmentTitle"
-                            placeholder="Enter title"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- INSTRUCTIONS -->
-
-                <div class="form-row">
-
-                    <div class="form-label">
-                        Instructions
-                    </div>
-
-                    <div class="form-control">
-
-                        <textarea
-                            id="instructions"
-                            placeholder="Enter instructions"
-                        ></textarea>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FILE -->
-
-                <div class="form-row">
-
-                    <div class="form-label">
-                        File Attachment
-                    </div>
-
-                    <div class="form-control">
-
-                        <div class="file-upload-area">
-
-                            <label
-                                class="file-btn"
-                                for="attachmentFile"
-                            >
-                                Click to attach a file
-                            </label>
-
-                            <input
-                                type="file"
-                                id="attachmentFile"
-                                class="hidden-file"
-                                onchange="fileSelected(this)"
-                            >
-
-                            <span
-                                id="fileName"
-                                class="file-name"
-                            >
-                                No file selected
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            id="progressContainer"
-                            class="progress-container"
-                        >
-
-                            <div class="progress-bg">
-
-                                <div
-                                    id="progressBar"
-                                    class="progress-bar"
-                                ></div>
-
-                            </div>
-
-                            <div
-                                id="progressText"
-                                class="progress-text"
-                            >
-                                0%
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            id="existingAttachment"
-                            style="margin-top:7px;"
-                        ></div>
+ <!DOCTYPE html>
+ --------------------------------------------------------------------------------------------------------------------------------------------
+ <html lang="en">
+ <head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ <title>Staff LMS Classroom</title>
+
+ <style>
+
+ *{
+     margin:0;
+     padding:0;
+     box-sizing:border-box;
+     font-family:Arial,Helvetica,sans-serif;
+ }
+
+ body{
+     background:#f3f5f8;
+     color:#222;
+ }
+
+ /* =========================================================
+    HEADER
+ ========================================================= */
+
+ .header{
+     height:64px;
+     background:#092b49;
+     color:white;
+     display:flex;
+     align-items:center;
+     justify-content:space-between;
+     padding:0 24px;
+     box-shadow:0 2px 8px rgba(0,0,0,.25);
+ }
+
+ .header-left{
+     display:flex;
+     align-items:center;
+     gap:20px;
+ }
+
+ .logo{
+     font-size:22px;
+     font-weight:bold;
+ }
+
+ .college-name{
+     font-size:18px;
+     font-weight:bold;
+ }
+
+ .header-right{
+     display:flex;
+     align-items:center;
+     gap:18px;
+     font-size:14px;
+ }
+
+ .header-btn{
+     background:#0c5795;
+     border:none;
+     color:white;
+     padding:9px 15px;
+     border-radius:5px;
+     cursor:pointer;
+ }
+
+ .header-btn:hover{
+     background:#0871bd;
+ }
+
+ /* =========================================================
+    PAGE
+ ========================================================= */
+
+ .container{
+     width:94%;
+     max-width:1450px;
+     margin:25px auto;
+ }
+
+ /* =========================================================
+    PAGE TITLE
+ ========================================================= */
+
+ .page-title{
+     background:#07538e;
+     color:white;
+     padding:18px 22px;
+     font-size:21px;
+     font-weight:bold;
+     border-radius:7px 7px 0 0;
+ }
+
+ /* =========================================================
+    STAFF INFO
+ ========================================================= */
+
+ .staff-info{
+     background:white;
+     padding:15px 20px;
+     border-bottom:1px solid #ddd;
+     display:flex;
+     gap:30px;
+     flex-wrap:wrap;
+ }
+
+ .staff-info span{
+     font-size:14px;
+ }
+
+ .staff-info strong{
+     color:#07538e;
+ }
+
+ /* =========================================================
+    SUBJECT GRID
+ ========================================================= */
+
+ .subject-grid{
+     display:grid;
+     grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+     gap:18px;
+     margin-top:20px;
+ }
+
+ .subject-card{
+     background:white;
+     border-radius:8px;
+     overflow:hidden;
+     box-shadow:0 3px 10px rgba(0,0,0,.12);
+     cursor:pointer;
+     transition:.2s;
+ }
+
+ .subject-card:hover{
+     transform:translateY(-3px);
+     box-shadow:0 6px 18px rgba(0,0,0,.18);
+ }
+
+ .subject-header{
+     background:#07538e;
+     color:white;
+     padding:14px;
+     font-size:16px;
+     font-weight:bold;
+ }
+
+ .subject-body{
+     padding:15px;
+ }
+
+ .subject-code{
+     color:#07538e;
+     font-weight:bold;
+     margin-bottom:8px;
+ }
+
+ .subject-name{
+     font-size:16px;
+     font-weight:bold;
+     line-height:1.4;
+ }
+
+ .subject-meta{
+     margin-top:12px;
+     display:grid;
+     gap:6px;
+     font-size:13px;
+     color:#555;
+ }
+
+ .subject-footer{
+     padding:12px 15px;
+     border-top:1px solid #eee;
+     display:flex;
+     justify-content:space-between;
+     align-items:center;
+ }
+
+ .course-btn{
+     background:#07538e;
+     color:white;
+     border:none;
+     padding:8px 14px;
+     border-radius:5px;
+     cursor:pointer;
+ }
+
+ .course-btn:hover{
+     background:#063e69;
+ }
+
+ /* =========================================================
+    COURSE PAGE
+ ========================================================= */
+
+ .course-page{
+     display:none;
+ }
+
+ .course-banner{
+     background:#07538e;
+     color:white;
+     padding:20px;
+     position:relative;
+     overflow:hidden;
+ }
+
+ .course-banner:after{
+     content:"";
+     position:absolute;
+     right:-50px;
+     top:-50px;
+     width:230px;
+     height:150px;
+     background:#f59d19;
+     transform:rotate(-18deg);
+     opacity:.9;
+ }
+
+ .course-code{
+     font-size:15px;
+     position:relative;
+     z-index:2;
+ }
+
+ .course-title{
+     font-size:23px;
+     font-weight:bold;
+     margin-top:7px;
+     position:relative;
+     z-index:2;
+ }
+
+ .course-details{
+     margin-top:8px;
+     font-size:14px;
+     position:relative;
+     z-index:2;
+ }
+
+ /* =========================================================
+    TABS
+ ========================================================= */
+
+ .tabs{
+     display:flex;
+     background:white;
+     border-bottom:1px solid #ddd;
+ }
+
+ .tab{
+     padding:14px 22px;
+     cursor:pointer;
+     font-weight:bold;
+     color:#555;
+ }
+
+ .tab.active{
+     color:#07538e;
+     border-bottom:3px solid #07538e;
+ }
+
+ .tab-content{
+     display:none;
+ }
+
+ .tab-content.active{
+     display:block;
+ }
+
+ /* =========================================================
+    ACTION BAR
+ ========================================================= */
+
+ .action-bar{
+     background:white;
+     padding:15px;
+     display:flex;
+     justify-content:space-between;
+     align-items:center;
+     gap:10px;
+     flex-wrap:wrap;
+     border-bottom:1px solid #ddd;
+ }
+
+ .primary-btn{
+     background:#07538e;
+     color:white;
+     border:none;
+     padding:10px 17px;
+     border-radius:5px;
+     font-weight:bold;
+     cursor:pointer;
+ }
+
+ .primary-btn:hover{
+     background:#063e69;
+ }
+
+ .secondary-btn{
+     background:#eee;
+     border:none;
+     padding:10px 17px;
+     border-radius:5px;
+     cursor:pointer;
+ }
+
+ .search-box{
+     padding:10px 12px;
+     border:1px solid #ccc;
+     border-radius:5px;
+     width:250px;
+ }
+
+ /* =========================================================
+    ASSIGNMENT CARD
+ ========================================================= */
+
+ .assignment-list{
+     padding:15px;
+ }
+
+ .assignment-card{
+     background:white;
+     margin-bottom:15px;
+     box-shadow:0 3px 12px rgba(0,0,0,.15);
+ }
+
+ .assignment-heading{
+     background:#07538e;
+     color:white;
+     padding:13px 17px;
+     font-weight:bold;
+     font-size:16px;
+ }
+
+ .assignment-row{
+     display:grid;
+     grid-template-columns:2fr 1fr 1fr 1fr 2fr;
+     gap:10px;
+     padding:15px;
+     align-items:center;
+ }
+
+ .assignment-title{
+     color:#0000aa;
+     font-weight:bold;
+     font-style:italic;
+ }
+
+ .assignment-meta{
+     font-size:14px;
+ }
+
+ .assignment-actions{
+     display:flex;
+     gap:8px;
+     flex-wrap:wrap;
+ }
+
+ .small-btn{
+     border:none;
+     background:#07538e;
+     color:white;
+     padding:8px 13px;
+     border-radius:5px;
+     cursor:pointer;
+     font-weight:bold;
+ }
+
+ .small-btn.cancel{
+     background:#8c1d1d;
+ }
+
+ .small-btn.review{
+     background:#176c39;
+ }
+
+ .attachment-link{
+     display:inline-block;
+     margin-top:7px;
+     color:#07538e;
+     text-decoration:none;
+     font-weight:bold;
+ }
+
+ .attachment-link:hover{
+     text-decoration:underline;
+ }
+
+ /* =========================================================
+    EMPTY
+ ========================================================= */
+
+ .empty{
+     padding:40px;
+     background:white;
+     text-align:center;
+     color:#777;
+ }
+
+ /* =========================================================
+    MODAL
+ ========================================================= */
+
+ .modal{
+     display:none;
+     position:fixed;
+     inset:0;
+     background:rgba(0,0,0,.55);
+     z-index:1000;
+     overflow:auto;
+ }
+
+ .modal-box{
+     width:95%;
+     max-width:1400px;
+     margin:25px auto;
+     background:white;
+     box-shadow:0 5px 30px rgba(0,0,0,.35);
+ }
+
+ .modal-header{
+     background:#07538e;
+     color:white;
+     padding:15px 20px;
+     display:flex;
+     justify-content:space-between;
+     align-items:center;
+ }
+
+ .modal-title{
+     font-size:17px;
+     font-weight:bold;
+ }
+
+ .close{
+     font-size:27px;
+     cursor:pointer;
+ }
+
+ /* =========================================================
+    MODIFY LAYOUT
+ ========================================================= */
+
+ .modify-layout{
+     display:grid;
+     grid-template-columns:minmax(600px,2fr) minmax(400px,1fr);
+     min-height:600px;
+ }
+
+ /* =========================================================
+    FORM
+ ========================================================= */
+
+ .form-area{
+     background:white;
+ }
+
+ .form-row{
+     display:grid;
+     grid-template-columns:130px 1fr;
+     min-height:48px;
+     border-bottom:1px solid #ddd;
+     align-items:center;
+ }
+
+ .form-label{
+     padding:10px 13px;
+     font-size:14px;
+ }
+
+ .form-control{
+     padding:8px;
+ }
+
+ .form-control input,
+ .form-control select,
+ .form-control textarea{
+     width:100%;
+     max-width:600px;
+     padding:8px 10px;
+     border:1px solid #c7c7c7;
+     border-radius:4px;
+     font-size:14px;
+ }
+
+ .form-control textarea{
+     min-height:100px;
+     resize:vertical;
+ }
+
+ .required{
+     color:red;
+ }
+
+ /* =========================================================
+    MARKS
+ ========================================================= */
+
+ .mark-row{
+     display:flex;
+     gap:12px;
+     align-items:center;
+ }
+
+ .mark-input{
+     width:120px !important;
+     text-align:right;
+ }
+
+ /* =========================================================
+    FILE UPLOAD
+ ========================================================= */
+
+ .file-upload-area{
+     display:flex;
+     align-items:center;
+     gap:10px;
+     flex-wrap:wrap;
+ }
+
+ .file-btn{
+     background:#07538e;
+     color:white;
+     padding:8px 14px;
+     border-radius:4px;
+     cursor:pointer;
+     display:inline-block;
+ }
+
+ .file-name{
+     color:#555;
+     font-size:13px;
+ }
+
+ .hidden-file{
+     display:none;
+ }
+
+ .progress-container{
+     width:100%;
+     max-width:600px;
+     display:none;
+     margin-top:8px;
+ }
+
+ .progress-bg{
+     width:100%;
+     height:8px;
+     background:#ddd;
+     border-radius:5px;
+     overflow:hidden;
+ }
+
+ .progress-bar{
+     width:0%;
+     height:100%;
+     background:#07538e;
+ }
+
+ .progress-text{
+     font-size:12px;
+     margin-top:4px;
+     color:#555;
+ }
+
+ /* =========================================================
+    STUDENT PANEL
+ ========================================================= */
+
+ .student-panel{
+     border-left:1px solid #aaa;
+     background:rgba(255,255,255,.92);
+     display:flex;
+     flex-direction:column;
+ }
+
+ .student-header{
+     background:#092b49;
+     color:white;
+     padding:12px;
+ }
+
+ .student-controls{
+     padding:10px;
+     border-bottom:1px solid #ddd;
+     display:flex;
+     gap:8px;
+     flex-wrap:wrap;
+ }
+
+ .student-search{
+     flex:1;
+     min-width:150px;
+     padding:8px;
+     border:1px solid #bbb;
+     border-radius:4px;
+ }
+
+ .student-table-wrap{
+     overflow:auto;
+     flex:1;
+     max-height:540px;
+ }
+
+ .student-table{
+     width:100%;
+     border-collapse:collapse;
+     font-size:13px;
+ }
+
+ .student-table th{
+     position:sticky;
+     top:0;
+     background:#07538e;
+     color:white;
+     padding:9px 6px;
+     text-align:left;
+     z-index:2;
+ }
+
+ .student-table td{
+     padding:8px 6px;
+     border-bottom:1px solid #ddd;
+     white-space:nowrap;
+ }
+
+ .student-table tr:hover{
+     background:#f1f6fb;
+ }
+
+ .student-table input[type="checkbox"]{
+     width:16px;
+     height:16px;
+ }
+
+ /* =========================================================
+    MODIFY FOOTER
+ ========================================================= */
+
+ .modify-footer{
+     grid-column:1/-1;
+     background:white;
+     border-top:1px solid #ccc;
+     padding:10px;
+     display:flex;
+     align-items:center;
+     gap:10px;
+     flex-wrap:wrap;
+ }
+
+ .total-box{
+     margin-left:auto;
+     background:#07538e;
+     color:white;
+     padding:10px 15px;
+     border-radius:5px;
+     font-weight:bold;
+ }
+
+ /* =========================================================
+    VIEW STUDENTS MODAL
+ ========================================================= */
+
+ .review-box{
+     width:95%;
+     max-width:1000px;
+     margin:50px auto;
+     background:white;
+ }
+
+ .review-header{
+     background:#07538e;
+     color:white;
+     padding:15px;
+     font-weight:bold;
+ }
+
+ .review-content{
+     padding:20px;
+ }
+
+ .review-student{
+     display:grid;
+     grid-template-columns:1fr 1fr 2fr 1fr;
+     padding:10px;
+     border-bottom:1px solid #ddd;
+ }
+
+ /* =========================================================
+    LOADING
+ ========================================================= */
+
+ .loading{
+     text-align:center;
+     padding:40px;
+     color:#777;
+ }
+
+ .spinner{
+     width:35px;
+     height:35px;
+     border:4px solid #ddd;
+     border-top:4px solid #07538e;
+     border-radius:50%;
+     animation:spin 1s linear infinite;
+     margin:0 auto 12px;
+ }
+
+ @keyframes spin{
+     to{
+         transform:rotate(360deg);
+     }
+ }
+
+ /* =========================================================
+    TOAST
+ ========================================================= */
+
+ .toast{
+     position:fixed;
+     right:20px;
+     bottom:20px;
+     background:#092b49;
+     color:white;
+     padding:14px 20px;
+     border-radius:6px;
+     box-shadow:0 4px 15px rgba(0,0,0,.3);
+     display:none;
+     z-index:3000;
+ }
+
+ .toast.success{
+     background:#176c39;
+ }
+
+ .toast.error{
+     background:#9b2226;
+ }
+
+ /* =========================================================
+    RESPONSIVE
+ ========================================================= */
+
+ @media(max-width:900px){
+
+     .modify-layout{
+         grid-template-columns:1fr;
+     }
+
+     .student-panel{
+         border-left:none;
+         border-top:1px solid #aaa;
+     }
+
+     .assignment-row{
+         grid-template-columns:1fr;
+     }
+
+     .header{
+         height:auto;
+         padding:12px;
+         gap:10px;
+         flex-wrap:wrap;
+     }
+ }
+
+ @media(max-width:600px){
+
+     .container{
+         width:98%;
+     }
+
+     .form-row{
+         grid-template-columns:1fr;
+     }
+
+     .form-label{
+         background:#f5f5f5;
+         font-weight:bold;
+     }
+
+     .search-box{
+         width:100%;
+     }
+
+ }
+
+ </style>
+ </head>
+
+ <body>
+
+ <!-- =========================================================
+      HEADER
+ ========================================================= -->
+
+ <header class="header">
+
+     <div class="header-left">
+         <div class="logo">LMS Classroom</div>
+         <div class="college-name">MAASC</div>
+     </div>
+
+     <div class="header-right">
+         <span id="staffNameTop">Staff</span>
+         <span id="currentTime"></span>
+
+         <button class="header-btn" onclick="goHome()">
+             Home
+         </button>
+
+         <button class="header-btn" onclick="logout()">
+             Logout
+         </button>
+     </div>
+
+ </header>
+
+
+ <!-- =========================================================
+      MAIN CONTAINER
+ ========================================================= -->
+
+ <div class="container">
+
+     <div class="page-title">
+         Staff LMS Classroom
+     </div>
+
+     <div class="staff-info">
+
+         <span>
+             Staff ID:
+             <strong id="staffIdText">Loading...</strong>
+         </span>
+
+         <span>
+             Staff Name:
+             <strong id="staffNameText">Loading...</strong>
+         </span>
+
+         <span>
+             Department:
+             <strong id="staffDepartmentText">Loading...</strong>
+         </span>
+
+     </div>
+
+
+     <!-- =====================================================
+          SUBJECT PAGE
+     ====================================================== -->
+
+     <div id="subjectPage">
+
+         <div class="action-bar">
+
+             <div>
+                 <strong>My Subjects</strong>
+             </div>
+
+             <div>
+                 <input
+                     type="text"
+                     id="subjectSearch"
+                     class="search-box"
+                     placeholder="Search subject..."
+                     oninput="filterSubjects()"
+                 >
+
+                 <button
+                     class="secondary-btn"
+                     onclick="loadSubjects()"
+                 >
+                     Refresh
+                 </button>
+             </div>
+
+         </div>
+
+         <div id="subjectGrid" class="subject-grid">
+
+             <div class="loading">
+                 <div class="spinner"></div>
+                 Loading subjects...
+             </div>
+
+         </div>
+
+     </div>
+
+
+     <!-- =====================================================
+          COURSE PAGE
+     ====================================================== -->
+
+     <div id="coursePage" class="course-page">
+
+         <div class="course-banner">
+
+             <div class="course-code" id="courseCode"></div>
+
+             <div class="course-title" id="courseTitle"></div>
+
+             <div class="course-details" id="courseDetails"></div>
+
+         </div>
+
+
+         <div class="tabs">
+
+             <div
+                 class="tab active"
+                 onclick="selectTab('classwork',this)"
+             >
+                 Class Work
+             </div>
+
+             <div
+                 class="tab"
+                 onclick="selectTab('mcq',this)"
+             >
+                 MCQ Template
+             </div>
+
+             <div
+                 class="tab"
+                 onclick="selectTab('opinion',this)"
+             >
+                 Opinion Template
+             </div>
+
+             <div
+                 class="tab"
+                 onclick="closeCourse()"
+             >
+                 Back
+             </div>
+
+         </div>
+
+
+         <!-- =================================================
+              CLASS WORK
+         ================================================== -->
+
+         <div id="classwork" class="tab-content active">
+
+             <div class="action-bar">
+
+                 <div>
+                     <strong>Class Work</strong>
+                 </div>
+
+                 <div>
+
+                     <input
+                         type="text"
+                         id="assignmentSearch"
+                         class="search-box"
+                         placeholder="Search class work..."
+                         oninput="filterAssignments()"
+                     >
+
+                     <button
+                         class="primary-btn"
+                         onclick="openAssignmentModal()"
+                     >
+                         + Add Class Work
+                     </button>
+
+                 </div>
+
+             </div>
+
+
+             <div
+                 id="assignmentList"
+                 class="assignment-list"
+             >
+
+                 <div class="loading">
+                     <div class="spinner"></div>
+                     Loading class work...
+                 </div>
+
+             </div>
+
+         </div>
+
+
+         <!-- =================================================
+              MCQ
+         ================================================== -->
+
+         <div id="mcq" class="tab-content">
+
+             <div class="empty">
+                 MCQ Template
+             </div>
+
+         </div>
+
+
+         <!-- =================================================
+              OPINION
+         ================================================== -->
+
+         <div id="opinion" class="tab-content">
+
+             <div class="empty">
+                 Opinion Template
+             </div>
+
+         </div>
+
+     </div>
+
+ </div>
+
+
+ <!-- =========================================================
+      ASSIGNMENT MODIFY MODAL
+ ========================================================= -->
+
+ <div id="assignmentModal" class="modal">
+
+     <div class="modal-box">
+
+         <div class="modal-header">
+
+             <div class="modal-title" id="assignmentModalTitle">
+                 Class Work Modify
+             </div>
+
+             <div
+                 class="close"
+                 onclick="closeAssignmentModal()"
+             >
+                 &times;
+             </div>
+
+         </div>
+
+
+         <div class="modify-layout">
+
+             <!-- =================================================
+                  FORM
+             ================================================== -->
+
+             <div class="form-area">
+
+                 <!-- WORK TYPE -->
+
+                 <div class="form-row">
+
+                     <div class="form-label">
+                         Work Type
+                     </div>
+
+                     <div class="form-control">
+
+                         <select id="workType">
+
+                             <option value="Assignment">
+                                 Assignment
+                             </option>
+
+                             <option value="Study Material">
+                                 Study Material
+                             </option>
+
+                             <option value="Question Bank">
+                                 Question Bank
+                             </option>
+
+                             <option value="Notes">
+                                 Notes
+                             </option>
+
+                             <option value="Activity">
+                                 Activity
+                             </option>
+
+                         </select>
+
+                     </div>
+
+                 </div>
+
+
+                 <!-- SECTION -->
+
+                 <div class="form-row">
+
+                     <div class="form-label">
+                         Section
+                     </div>
+
+                     <div
+                         class="form-control"
+                         id="sectionDisplay"
+                     >
+                         -
+                     </div>
+
+                 </div>
+
+
+                 <!-- START DATE -->
+
+                 <div class="form-row">
+
+                     <div class="form-label">
+                         Start Date
+                     </div>
+
+                     <div class="form-control">
+
+                         <input
+                             type="datetime-local"
+                             id="startDate"
+                         >
+
+                     </div>
+
+                 </div>
+
+
+                 <!-- END DATE -->
+
+                 <div class="form-row">
+
+                     <div class="form-label">
+                         End Date
+                     </div>
+
+                     <div class="form-control">
+
+                         <input
+                             type="datetime-local"
+                             id="endDate"
+                         >
+
+                     </div>
+
+                 </div>
+
+
+                 <!-- MARK -->
+
+                 <div class="form-row">
+
+                     <div class="form-label">
+                         Conducting Mark
+                     </div>
+
+                     <div class="form-control">
+
+                         <div class="mark-row">
+
+                             <input
+                                 type="number"
+                                 id="conductingMark"
+                                 class="mark-input"
+                                 min="0"
+                                 value="0"
+                             >
+
+                             <label>
+
+                                 <input
+                                     type="checkbox"
+                                     id="noMarksRequired"
+                                     checked
+                                     onchange="toggleMarks()"
+                                 >
+
+                                 No Marks Required
+
+                             </label>
+
+                         </div>
+
+                     </div>
+
+                 </div>
+
+
+                 <!-- TOPIC -->
+
+                 <div class="form-row">
+
+                     <div class="form-label">
+                         Topic
+                     </div>
+
+                     <div class="form-control">
+
+                         <input
+                             type="text"
+                             id="topic"
+                             placeholder="Enter topic"
+                         >
+
+                     </div>
+
+                 </div>
+
+
+                 <!-- TITLE -->
+
+                 <div class="form-row">
+
+                     <div class="form-label">
+                         Title<span class="required">*</span>
+                     </div>
+
+                     <div class="form-control">
+
+                         <input
+                             type="text"
+                             id="assignmentTitle"
+                             placeholder="Enter title"
+                         >
+
+                     </div>
+
+                 </div>
+
+
+                 <!-- INSTRUCTIONS -->
+
+                 <div class="form-row">
+
+                     <div class="form-label">
+                         Instructions
+                     </div>
+
+                     <div class="form-control">
+
+                         <textarea
+                             id="instructions"
+                             placeholder="Enter instructions"
+                         ></textarea>
+
+                     </div>
+
+                 </div>
+
+
+                 <!-- FILE -->
+
+                 <div class="form-row">
+
+                     <div class="form-label">
+                         File Attachment
+                     </div>
+
+                     <div class="form-control">
+
+                         <div class="file-upload-area">
+
+                             <label
+                                 class="file-btn"
+                                 for="attachmentFile"
+                             >
+                                 Click to attach a file
+                             </label>
+
+                             <input
+                                 type="file"
+                                 id="attachmentFile"
+                                 class="hidden-file"
+                                 onchange="fileSelected(this)"
+                             >
+
+                             <span
+                                 id="fileName"
+                                 class="file-name"
+                             >
+                                 No file selected
+                             </span>
+
+                         </div>
+
+
+                         <div
+                             id="progressContainer"
+                             class="progress-container"
+                         >
+
+                             <div class="progress-bg">
+
+                                 <div
+                                     id="progressBar"
+                                     class="progress-bar"
+                                 ></div>
+
+                             </div>
+
+                             <div
+                                 id="progressText"
+                                 class="progress-text"
+                             >
+                                 0%
+                             </div>
+
+                         </div>
+
+
+                         <div
+                             id="existingAttachment"
+                             style="margin-top:7px;"
+                         ></div>
 
-                    </div>
+                     </div>
 
-                </div>
+                 </div>
 
 
-                <!-- COMMENT -->
+                 <!-- COMMENT -->
 
-                <div class="form-row">
+                 <div class="form-row">
 
-                    <div class="form-label">
-                        Comment
-                    </div>
+                     <div class="form-label">
+                         Comment
+                     </div>
 
-                    <div class="form-control">
+                     <div class="form-control">
 
-                        <select id="commentOption">
+                         <select id="commentOption">
 
-                            <option value="Not Required">
-                                Not Required
-                            </option>
+                             <option value="Not Required">
+                                 Not Required
+                             </option>
 
-                            <option value="Required">
-                                Required
-                            </option>
+                             <option value="Required">
+                                 Required
+                             </option>
 
-                        </select>
+                         </select>
 
-                        <span style="color:#777;font-size:12px;">
-                            (One student can comment which will be visible for all students in this class)
-                        </span>
+                         <span style="color:#777;font-size:12px;">
+                             (One student can comment which will be visible for all students in this class)
+                         </span>
 
-                    </div>
+                     </div>
 
-                </div>
+                 </div>
 
 
-                <!-- CHAT -->
+                 <!-- CHAT -->
 
-                <div class="form-row">
+                 <div class="form-row">
 
-                    <div class="form-label">
-                        Chat with faculty
-                    </div>
+                     <div class="form-label">
+                         Chat with faculty
+                     </div>
 
-                    <div class="form-control">
+                     <div class="form-control">
 
-                        <select id="chatOption">
+                         <select id="chatOption">
 
-                            <option value="Not Required">
-                                Not Required
-                            </option>
+                             <option value="Not Required">
+                                 Not Required
+                             </option>
 
-                            <option value="Required">
-                                Required
-                            </option>
+                             <option value="Required">
+                                 Required
+                             </option>
 
-                        </select>
+                         </select>
 
-                        <span style="color:#777;font-size:12px;">
-                            (Student can comment/raise query, which will be visible for faculty only)
-                        </span>
+                         <span style="color:#777;font-size:12px;">
+                             (Student can comment/raise query, which will be visible for faculty only)
+                         </span>
 
-                    </div>
+                     </div>
 
-                </div>
+                 </div>
 
 
-                <!-- STUDENT ATTACHMENT -->
+                 <!-- STUDENT ATTACHMENT -->
 
-                <div class="form-row">
+                 <div class="form-row">
 
-                    <div class="form-label">
-                        Allow Attachment
-                    </div>
+                     <div class="form-label">
+                         Allow Attachment
+                     </div>
 
-                    <div class="form-control">
+                     <div class="form-control">
 
-                        <select id="allowAttachment">
+                         <select id="allowAttachment">
 
-                            <option value="Required">
-                                Required
-                            </option>
+                             <option value="Required">
+                                 Required
+                             </option>
 
-                            <option value="Not Required">
-                                Not Required
-                            </option>
+                             <option value="Not Required">
+                                 Not Required
+                             </option>
 
-                        </select>
+                         </select>
 
-                        <span style="color:#777;font-size:12px;">
-                            (Student can attach file or not)
-                        </span>
+                         <span style="color:#777;font-size:12px;">
+                             (Student can attach file or not)
+                         </span>
 
-                    </div>
+                     </div>
 
-                </div>
+                 </div>
 
-            </div>
+             </div>
 
 
-            <!-- =================================================
-                 STUDENT PANEL
-            ================================================== -->
+             <!-- =================================================
+                  STUDENT PANEL
+             ================================================== -->
 
-            <div class="student-panel">
+             <div class="student-panel">
 
-                <div class="student-header">
+                 <div class="student-header">
 
-                    <strong>
-                        Student Selection
-                    </strong>
+                     <strong>
+                         Student Selection
+                     </strong>
 
-                </div>
+                 </div>
 
 
-                <div class="student-controls">
+                 <div class="student-controls">
 
-                    <input
-                        type="text"
-                        id="studentSearch"
-                        class="student-search"
-                        placeholder="Search student..."
-                        oninput="filterStudents()"
-                    >
+                     <input
+                         type="text"
+                         id="studentSearch"
+                         class="student-search"
+                         placeholder="Search student..."
+                         oninput="filterStudents()"
+                     >
 
-                    <button
-                        class="small-btn"
-                        onclick="selectAllStudents(true)"
-                    >
-                        Select All
-                    </button>
+                     <button
+                         class="small-btn"
+                         onclick="selectAllStudents(true)"
+                     >
+                         Select All
+                     </button>
 
-                    <button
-                        class="small-btn"
-                        onclick="selectAllStudents(false)"
-                    >
-                        Clear
-                    </button>
+                     <button
+                         class="small-btn"
+                         onclick="selectAllStudents(false)"
+                     >
+                         Clear
+                     </button>
 
-                </div>
+                 </div>
 
 
-                <div class="student-table-wrap">
+                 <div class="student-table-wrap">
 
-                    <table class="student-table">
+                     <table class="student-table">
 
-                        <thead>
+                         <thead>
 
-                            <tr>
+                             <tr>
 
-                                <th>
-                                    <input
-                                        type="checkbox"
-                                        id="selectAllCheckbox"
-                                        onchange="selectAllStudents(this.checked)"
-                                    >
-                                </th>
+                                 <th>
+                                     <input
+                                         type="checkbox"
+                                         id="selectAllCheckbox"
+                                         onchange="selectAllStudents(this.checked)"
+                                     >
+                                 </th>
 
-                                <th>
-                                    Reg. No
-                                </th>
+                                 <th>
+                                     Reg. No
+                                 </th>
 
-                                <th>
-                                    Roll No.
-                                </th>
+                                 <th>
+                                     Roll No.
+                                 </th>
 
-                                <th>
-                                    Student Name
-                                </th>
+                                 <th>
+                                     Student Name
+                                 </th>
 
-                                <th>
-                                    DOB
-                                </th>
+                                 <th>
+                                     DOB
+                                 </th>
 
-                            </tr>
+                             </tr>
 
-                        </thead>
+                         </thead>
 
-                        <tbody id="studentTableBody">
+                         <tbody id="studentTableBody">
 
-                            <tr>
-                                <td
-                                    colspan="5"
-                                    style="text-align:center;"
-                                >
-                                    Loading students...
-                                </td>
-                            </tr>
+                             <tr>
+                                 <td
+                                     colspan="5"
+                                     style="text-align:center;"
+                                 >
+                                     Loading students...
+                                 </td>
+                             </tr>
 
-                        </tbody>
+                         </tbody>
 
-                    </table>
+                     </table>
 
-                </div>
+                 </div>
 
-            </div>
+             </div>
 
 
-            <!-- =================================================
-                 FOOTER
-            ================================================== -->
+             <!-- =================================================
+                  FOOTER
+             ================================================== -->
 
-            <div class="modify-footer">
+             <div class="modify-footer">
 
-                <button
-                    class="primary-btn"
-                    id="saveAssignmentBtn"
-                    onclick="saveAssignment()"
-                >
-                    Save
-                </button>
+                 <button
+                     class="primary-btn"
+                     id="saveAssignmentBtn"
+                     onclick="saveAssignment()"
+                 >
+                     Save
+                 </button>
 
-                <button
-                    class="secondary-btn"
-                    onclick="closeAssignmentModal()"
-                >
-                    Back
-                </button>
+                 <button
+                     class="secondary-btn"
+                     onclick="closeAssignmentModal()"
+                 >
+                     Back
+                 </button>
 
-                <div
-                    id="studentCountBox"
-                    class="total-box"
-                >
-                    Total Student: 0 | Selected: 0
-                </div>
+                 <div
+                     id="studentCountBox"
+                     class="total-box"
+                 >
+                     Total Student: 0 | Selected: 0
+                 </div>
 
-            </div>
+             </div>
 
-        </div>
+         </div>
 
-    </div>
+     </div>
 
-</div>
+ </div>
 
 
-<!-- =========================================================
-     REVIEW MODAL
-========================================================= -->
+ <!-- =========================================================
+      REVIEW MODAL
+ ========================================================= -->
 
-<div id="reviewModal" class="modal">
+ <div id="reviewModal" class="modal">
 
-    <div class="review-box">
+     <div class="review-box">
 
-        <div class="review-header">
+         <div class="review-header">
 
-            <span id="reviewTitle">
-                Assigned Students
-            </span>
+             <span id="reviewTitle">
+                 Assigned Students
+             </span>
 
-            <span
-                class="close"
-                style="float:right;"
-                onclick="closeReviewModal()"
-            >
-                &times;
-            </span>
+             <span
+                 class="close"
+                 style="float:right;"
+                 onclick="closeReviewModal()"
+             >
+                 &times;
+             </span>
 
-        </div>
+         </div>
 
-        <div
-            id="reviewContent"
-            class="review-content"
-        ></div>
+         <div
+             id="reviewContent"
+             class="review-content"
+         ></div>
 
-    </div>
+     </div>
 
-</div>
+ </div>
 
 
-<!-- =========================================================
-     TOAST
-========================================================= -->
+ <!-- =========================================================
+      TOAST
+ ========================================================= -->
 
-<div
-    id="toast"
-    class="toast"
-></div>
+ <div
+     id="toast"
+     class="toast"
+ ></div>
 
 
-<!-- =========================================================
-     FIREBASE
-========================================================= -->
+ <!-- =========================================================
+      FIREBASE
+ ========================================================= -->
 
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module">
 
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+ import {
+     initializeApp
+ } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import {
-    getFirestore,
-    collection,
-    doc,
-    getDoc,
-    getDocs,
-    query,
-    where,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-    Timestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+ import {
+     getFirestore,
+     collection,
+     doc,
+     getDoc,
+     getDocs,
+     query,
+     where,
+     addDoc,
+     updateDoc,
+     deleteDoc,
+     Timestamp
+ } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {
-    getAuth,
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+ import {
+     getAuth,
+     onAuthStateChanged,
+     signOut
+ } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import {
-    getStorage,
-    ref,
-    uploadBytesResumable,
-    getDownloadURL,
-    deleteObject
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+ /* =========================================================
+    FIREBASE CONFIG
+ ========================================================= */
 
+ const firebaseConfig = {
 
-/* =========================================================
-   FIREBASE CONFIG
-========================================================= */
+     apiKey:
+         "AIzaSyAIv3091VM-gkmdwEAn7OhXWd9Cm2zh2bo",
 
-const firebaseConfig = {
+     authDomain:
+         "maasc-2026.firebaseapp.com",
 
-    apiKey:
-        "AIzaSyAIv3091VM-gkmdwEAn7OhXWd9Cm2zh2bo",
+     projectId:
+         "maasc-2026",
 
-    authDomain:
-        "maasc-2026.firebaseapp.com",
+     storageBucket:
+         "maasc-2026.appspot.com",
 
-    projectId:
-        "maasc-2026",
+     messagingSenderId:
+         "585813001586",
 
-    storageBucket:
-        "maasc-2026.appspot.com",
+     appId:
+         "1:585813001586:web:664e0e90ff"
 
-    messagingSenderId:
-        "585813001586",
+ };
 
-    appId:
-        "1:585813001586:web:664e0e90ff"
 
-};
+ const app = initializeApp(firebaseConfig);
 
+ const db = getFirestore(app);
 
-const app = initializeApp(firebaseConfig);
+ const auth = getAuth(app);
 
-const db = getFirestore(app);
+ // =========================================================
+   SUPABASE STORAGE
+=========================================================
 
-const auth = getAuth(app);
+const SUPABASE_URL =
+    "https://lmqcmkttadmqyeshcuhf.supabase.co";
 
-const storage = getStorage(app);
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_E3y8efSouYf4DFK7Q7q86g_LKwmpLAi";
 
+const SUPABASE_BUCKET =
+    "lms-assignments";
 
-/* =========================================================
-   GLOBAL VARIABLES
-========================================================= */
-
-let currentStaff = null;
-
-let subjects = [];
-
-let currentSubject = null;
-
-let assignments = [];
-
-let students = [];
-
-let selectedStudents = new Set();
-
-let editingAssignmentId = null;
-
-let editingAssignmentData = null;
-
-
-/* =========================================================
-   STORAGE ALIASES
-========================================================= */
-
-const STORAGE_KEYS = [
-
-    "staffId",
-    "staffID",
-    "currentStaffId",
-    "loggedInStaffId",
-    "loggedStaffId",
-    "userStaffId"
-
-];
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function clean(value){
-
-    if(value === null || value === undefined){
-
-        return "";
-
-    }
-
-    return String(value).trim();
-
-}
-
-
-function normalize(value){
-
-    return clean(value).toLowerCase();
-
-}
-
-
-function getStoredStaffId(){
-
-    for(const key of STORAGE_KEYS){
-
-        const value = localStorage.getItem(key)
-            || sessionStorage.getItem(key);
-
-        if(value){
-
-            return clean(value);
-
-        }
-
-    }
-
-    return "";
-
-}
-
-
-function showToast(message,type=""){
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.className =
-        "toast " + type;
-
-    toast.style.display = "block";
-
-    setTimeout(()=>{
-
-        toast.style.display = "none";
-
-    },3000);
-
-}
-
-
-function escapeHTML(value){
-
-    return clean(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================================================
-   STAFF LOOKUP
-========================================================= */
-
-async function findStaff(){
-
-    const storedId =
-        getStoredStaffId();
-
-    if(storedId){
-
-        try{
-
-            const snap =
-                await getDoc(
-                    doc(db,"staff",storedId)
-                );
-
-            if(snap.exists()){
-
-                return {
-                    id:snap.id,
-                    ...snap.data()
-                };
-
-            }
-
-        }catch(error){
-
-            console.log(
-                "Direct staff lookup failed",
-                error
-            );
-
-        }
-
-    }
-
-
-    if(auth.currentUser){
-
-        const email =
-            normalize(auth.currentUser.email);
-
-        try{
-
-            const q =
-                query(
-                    collection(db,"staff"),
-                    where("email","==",email)
-                );
-
-            const snap =
-                await getDocs(q);
-
-            if(!snap.empty){
-
-                const d =
-                    snap.docs[0];
-
-                return {
-                    id:d.id,
-                    ...d.data()
-                };
-
-            }
-
-        }catch(error){
-
-            console.log(
-                "Email staff lookup failed",
-                error
-            );
-
-        }
-
-    }
-
-
-    return null;
-
-}
-
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-onAuthStateChanged(
-    auth,
-    async user => {
-
-        try{
-
-            currentStaff =
-                await findStaff();
-
-            if(!currentStaff){
-
-                showToast(
-                    "Staff profile not found",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            currentStaff.staffId =
-                clean(
-                    currentStaff.staffId
-                    || currentStaff.staffID
-                    || currentStaff.id
-                );
-
-            currentStaff.staffName =
-                clean(
-                    currentStaff.staffName
-                    || currentStaff.name
-                    || currentStaff.displayName
-                );
-
-            currentStaff.staffDepartment =
-                clean(
-                    currentStaff.staffDepartment
-                    || currentStaff.department
-                    || currentStaff.dept
-                );
-
-
-            document.getElementById(
-                "staffIdText"
-            ).textContent =
-                currentStaff.staffId;
-
-            document.getElementById(
-                "staffNameText"
-            ).textContent =
-                currentStaff.staffName;
-
-            document.getElementById(
-                "staffNameTop"
-            ).textContent =
-                currentStaff.staffName;
-
-            document.getElementById(
-                "staffDepartmentText"
-            ).textContent =
-                currentStaff.staffDepartment;
-
-
-            await loadSubjects();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "LMS initialization failed",
-                "error"
-            );
-
-        }
-
-    }
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
 );
 
 
-/* =========================================================
-   LOAD SUBJECTS
-========================================================= */
+ /* =========================================================
+    GLOBAL VARIABLES
+ ========================================================= */
 
-async function loadSubjects(){
+ let currentStaff = null;
 
-    const grid =
-        document.getElementById(
-            "subjectGrid"
-        );
+ let subjects = [];
 
-    grid.innerHTML = `
-        <div class="loading">
-            <div class="spinner"></div>
-            Loading subjects...
-        </div>
-    `;
+ let currentSubject = null;
 
+ let assignments = [];
 
-    if(!currentStaff){
+ let students = [];
 
-        return;
+ let selectedStudents = new Set();
 
-    }
+ let editingAssignmentId = null;
 
+ let editingAssignmentData = null;
 
-    try{
 
-        const q =
-            query(
-                collection(
-                    db,
-                    "subjectAssignments"
-                ),
-                where(
-                    "staffId",
-                    "==",
-                    currentStaff.staffId
-                )
-            );
+ /* =========================================================
+    STORAGE ALIASES
+ ========================================================= */
 
+ const STORAGE_KEYS = [
 
-        const snap =
-            await getDocs(q);
+     "staffId",
+     "staffID",
+     "currentStaffId",
+     "loggedInStaffId",
+     "loggedStaffId",
+     "userStaffId"
 
+ ];
 
-        subjects =
-            snap.docs.map(d => ({
-                id:d.id,
-                ...d.data()
-            }));
 
+ /* =========================================================
+    HELPERS
+ ========================================================= */
 
-        subjects.sort((a,b)=>
-            clean(a.subjectCode)
-                .localeCompare(
-                    clean(b.subjectCode)
-                )
-        );
+ function clean(value){
 
+     if(value === null || value === undefined){
 
-        renderSubjects();
+         return "";
 
+     }
 
-    }catch(error){
+     return String(value).trim();
 
-        console.error(
-            "SUBJECT LOAD ERROR",
-            error
-        );
+ }
 
-        grid.innerHTML = `
-            <div class="empty">
-                Unable to load subjects.<br><br>
-                ${escapeHTML(error.message)}
-            </div>
-        `;
 
-    }
+ function normalize(value){
 
-}
+     return clean(value).toLowerCase();
 
+ }
 
-/* =========================================================
-   RENDER SUBJECTS
-========================================================= */
 
-function renderSubjects(list=subjects){
+ function getStoredStaffId(){
 
-    const grid =
-        document.getElementById(
-            "subjectGrid"
-        );
+     for(const key of STORAGE_KEYS){
 
+         const value = localStorage.getItem(key)
+             || sessionStorage.getItem(key);
 
-    if(!list.length){
+         if(value){
 
-        grid.innerHTML = `
-            <div class="empty">
-                No subjects assigned to this staff.
-            </div>
-        `;
-
-        return;
+             return clean(value);
 
-    }
+         }
 
+     }
 
-    grid.innerHTML =
-        list.map(subject => `
+     return "";
 
-            <div
-                class="subject-card"
-                onclick="openCourse('${subject.id}')"
-            >
+ }
 
-                <div class="subject-header">
-
-                    ${escapeHTML(
-                        subject.subjectCode || "-"
-                    )}
 
-                </div>
+ function showToast(message,type=""){
 
-                <div class="subject-body">
+     const toast =
+         document.getElementById("toast");
 
-                    <div class="subject-code">
-                        ${escapeHTML(
-                            subject.subjectCode || ""
-                        )}
-                    </div>
+     toast.textContent = message;
 
-                    <div class="subject-name">
-                        ${escapeHTML(
-                            subject.subjectName || ""
-                        )}
-                    </div>
+     toast.className =
+         "toast " + type;
 
-                    <div class="subject-meta">
+     toast.style.display = "block";
 
-                        <div>
-                            Department:
-                            <strong>
-                                ${escapeHTML(
-                                    subject.department || ""
-                                )}
-                            </strong>
-                        </div>
+     setTimeout(()=>{
 
-                        <div>
-                            Year:
-                            <strong>
-                                ${escapeHTML(
-                                    subject.classYear || ""
-                                )}
-                            </strong>
-                        </div>
+         toast.style.display = "none";
 
-                        <div>
-                            Section:
-                            <strong>
-                                ${escapeHTML(
-                                    subject.section || ""
-                                )}
-                            </strong>
-                        </div>
+     },3000);
 
-                        <div>
-                            Room:
-                            <strong>
-                                ${escapeHTML(
-                                    subject.roomNo || "-"
-                                )}
-                            </strong>
-                        </div>
+ }
 
-                    </div>
 
-                </div>
+ function escapeHTML(value){
 
-                <div class="subject-footer">
+     return clean(value)
+         .replace(/&/g,"&amp;")
+         .replace(/</g,"&lt;")
+         .replace(/>/g,"&gt;")
+         .replace(/"/g,"&quot;")
+         .replace(/'/g,"&#039;");
 
-                    <span>
-                        ${escapeHTML(
-                            subject.subjectType || ""
-                        )}
-                    </span>
+ }
 
-                    <button
-                        class="course-btn"
-                        onclick="event.stopPropagation();openCourse('${subject.id}')"
-                    >
-                        Open
-                    </button>
 
-                </div>
+ /* =========================================================
+    STAFF LOOKUP
+ ========================================================= */
 
-            </div>
+ async function findStaff(){
 
-        `).join("");
+     const storedId =
+         getStoredStaffId();
 
-}
+     if(storedId){
 
+         try{
 
-/* =========================================================
-   FILTER SUBJECTS
-========================================================= */
+             const snap =
+                 await getDoc(
+                     doc(db,"staff",storedId)
+                 );
 
-window.filterSubjects =
-function(){
+             if(snap.exists()){
 
-    const value =
-        normalize(
-            document.getElementById(
-                "subjectSearch"
-            ).value
-        );
+                 return {
+                     id:snap.id,
+                     ...snap.data()
+                 };
 
+             }
 
-    if(!value){
+         }catch(error){
 
-        renderSubjects();
+             console.log(
+                 "Direct staff lookup failed",
+                 error
+             );
 
-        return;
+         }
 
-    }
+     }
 
 
-    renderSubjects(
-        subjects.filter(s =>
-            normalize(
-                `${s.subjectCode || ""} ${s.subjectName || ""} ${s.department || ""} ${s.classYear || ""} ${s.section || ""}`
-            ).includes(value)
-        )
-    );
+     if(auth.currentUser){
 
-};
+         const email =
+             normalize(auth.currentUser.email);
 
+         try{
 
-/* =========================================================
-   OPEN COURSE
-========================================================= */
+             const q =
+                 query(
+                     collection(db,"staff"),
+                     where("email","==",email)
+                 );
 
-window.openCourse =
-async function(subjectId){
+             const snap =
+                 await getDocs(q);
 
-    currentSubject =
-        subjects.find(
-            s => s.id === subjectId
-        );
+             if(!snap.empty){
 
+                 const d =
+                     snap.docs[0];
 
-    if(!currentSubject){
+                 return {
+                     id:d.id,
+                     ...d.data()
+                 };
 
-        return;
+             }
 
-    }
+         }catch(error){
 
+             console.log(
+                 "Email staff lookup failed",
+                 error
+             );
 
-    document.getElementById(
-        "subjectPage"
-    ).style.display = "none";
+         }
 
+     }
 
-    document.getElementById(
-        "coursePage"
-    ).style.display = "block";
 
+     return null;
 
-    document.getElementById(
-        "courseCode"
-    ).textContent =
-        currentSubject.subjectCode || "";
+ }
 
 
-    document.getElementById(
-        "courseTitle"
-    ).textContent =
-        currentSubject.subjectName || "";
+ /* =========================================================
+    AUTH
+ ========================================================= */
 
+ onAuthStateChanged(
+     auth,
+     async user => {
 
-    document.getElementById(
-        "courseDetails"
-    ).textContent =
-        `${currentSubject.department || ""} | Year: ${currentSubject.classYear || ""} | Section: ${currentSubject.section || ""}`;
+         try{
 
+             currentStaff =
+                 await findStaff();
 
-    await loadAssignments();
+             if(!currentStaff){
 
-};
+                 showToast(
+                     "Staff profile not found",
+                     "error"
+                 );
 
+                 return;
 
-/* =========================================================
-   CLOSE COURSE
-========================================================= */
+             }
 
-window.closeCourse =
-function(){
 
-    document.getElementById(
-        "coursePage"
-    ).style.display = "none";
+             currentStaff.staffId =
+                 clean(
+                     currentStaff.staffId
+                     || currentStaff.staffID
+                     || currentStaff.id
+                 );
 
+             currentStaff.staffName =
+                 clean(
+                     currentStaff.staffName
+                     || currentStaff.name
+                     || currentStaff.displayName
+                 );
 
-    document.getElementById(
-        "subjectPage"
-    ).style.display = "block";
+             currentStaff.staffDepartment =
+                 clean(
+                     currentStaff.staffDepartment
+                     || currentStaff.department
+                     || currentStaff.dept
+                 );
 
-};
 
+             document.getElementById(
+                 "staffIdText"
+             ).textContent =
+                 currentStaff.staffId;
 
-/* =========================================================
-   LOAD ASSIGNMENTS
-========================================================= */
+             document.getElementById(
+                 "staffNameText"
+             ).textContent =
+                 currentStaff.staffName;
 
-async function loadAssignments(){
+             document.getElementById(
+                 "staffNameTop"
+             ).textContent =
+                 currentStaff.staffName;
 
-    const list =
-        document.getElementById(
-            "assignmentList"
-        );
+             document.getElementById(
+                 "staffDepartmentText"
+             ).textContent =
+                 currentStaff.staffDepartment;
 
 
-    list.innerHTML = `
-        <div class="loading">
-            <div class="spinner"></div>
-            Loading class work...
-        </div>
-    `;
+             await loadSubjects();
 
+         }catch(error){
 
-    if(!currentSubject){
+             console.error(error);
 
-        return;
+             showToast(
+                 "LMS initialization failed",
+                 "error"
+             );
 
-    }
+         }
 
+     }
+ );
 
-    try{
 
-        let result = [];
+ /* =========================================================
+    LOAD SUBJECTS
+ ========================================================= */
 
+ async function loadSubjects(){
 
-        try{
+     const grid =
+         document.getElementById(
+             "subjectGrid"
+         );
 
-            const q =
-                query(
-                    collection(
-                        db,
-                        "lmsAssignments"
-                    ),
-                    where(
-                        "subjectAssignmentId",
-                        "==",
-                        currentSubject.id
-                    )
-                );
+     grid.innerHTML = `
+         <div class="loading">
+             <div class="spinner"></div>
+             Loading subjects...
+         </div>
+     `;
 
-            const snap =
-                await getDocs(q);
 
-            result =
-                snap.docs.map(d => ({
-                    id:d.id,
-                    ...d.data()
-                }));
+     if(!currentStaff){
 
-        }catch(error){
+         return;
 
-            console.log(
-                "subjectAssignmentId query failed",
-                error
-            );
+     }
 
-        }
 
+     try{
 
-        if(!result.length){
+         const q =
+             query(
+                 collection(
+                     db,
+                     "subjectAssignments"
+                 ),
+                 where(
+                     "staffId",
+                     "==",
+                     currentStaff.staffId
+                 )
+             );
 
-            const q =
-                query(
-                    collection(
-                        db,
-                        "lmsAssignments"
-                    ),
-                    where(
-                        "subjectId",
-                        "==",
-                        currentSubject.subjectId
-                    )
-                );
 
-            const snap =
-                await getDocs(q);
+         const snap =
+             await getDocs(q);
 
-            result =
-                snap.docs.map(d => ({
-                    id:d.id,
-                    ...d.data()
-                }));
 
-        }
+         subjects =
+             snap.docs.map(d => ({
+                 id:d.id,
+                 ...d.data()
+             }));
 
 
-        assignments = result;
+         subjects.sort((a,b)=>
+             clean(a.subjectCode)
+                 .localeCompare(
+                     clean(b.subjectCode)
+                 )
+         );
 
 
-        assignments.sort((a,b)=>{
+         renderSubjects();
 
-            const aTime =
-                a.createdAt?.seconds || 0;
 
-            const bTime =
-                b.createdAt?.seconds || 0;
+     }catch(error){
 
-            return bTime-aTime;
+         console.error(
+             "SUBJECT LOAD ERROR",
+             error
+         );
 
-        });
+         grid.innerHTML = `
+             <div class="empty">
+                 Unable to load subjects.<br><br>
+                 ${escapeHTML(error.message)}
+             </div>
+         `;
 
+     }
 
-        renderAssignments();
+ }
 
 
-    }catch(error){
+ /* =========================================================
+    RENDER SUBJECTS
+ ========================================================= */
 
-        console.error(error);
+ function renderSubjects(list=subjects){
 
-        list.innerHTML = `
-            <div class="empty">
-                Unable to load class work.
-            </div>
-        `;
+     const grid =
+         document.getElementById(
+             "subjectGrid"
+         );
 
-    }
 
-}
+     if(!list.length){
 
+         grid.innerHTML = `
+             <div class="empty">
+                 No subjects assigned to this staff.
+             </div>
+         `;
 
-/* =========================================================
-   RENDER ASSIGNMENTS
-========================================================= */
+         return;
 
-function renderAssignments(list=assignments){
+     }
 
-    const container =
-        document.getElementById(
-            "assignmentList"
-        );
 
+     grid.innerHTML =
+         list.map(subject => `
 
-    if(!list.length){
+             <div
+                 class="subject-card"
+                 onclick="openCourse('${subject.id}')"
+             >
 
-        container.innerHTML = `
-            <div class="empty">
-                No class work has been created yet.
-            </div>
-        `;
+                 <div class="subject-header">
 
-        return;
+                     ${escapeHTML(
+                         subject.subjectCode || "-"
+                     )}
 
-    }
+                 </div>
 
+                 <div class="subject-body">
 
-    container.innerHTML =
-        list.map(item => {
+                     <div class="subject-code">
+                         ${escapeHTML(
+                             subject.subjectCode || ""
+                         )}
+                     </div>
 
-            const selected =
-                Array.isArray(
-                    item.selectedStudents
-                )
-                    ? item.selectedStudents.length
-                    : Number(
-                        item.assignedCount || 0
-                    );
+                     <div class="subject-name">
+                         ${escapeHTML(
+                             subject.subjectName || ""
+                         )}
+                     </div>
 
+                     <div class="subject-meta">
 
-            const submitted =
-                Number(
-                    item.submittedCount || 0
-                );
+                         <div>
+                             Department:
+                             <strong>
+                                 ${escapeHTML(
+                                     subject.department || ""
+                                 )}
+                             </strong>
+                         </div>
 
+                         <div>
+                             Year:
+                             <strong>
+                                 ${escapeHTML(
+                                     subject.classYear || ""
+                                 )}
+                             </strong>
+                         </div>
 
-            const notSubmitted =
-                Math.max(
-                    0,
-                    selected-submitted
-                );
+                         <div>
+                             Section:
+                             <strong>
+                                 ${escapeHTML(
+                                     subject.section || ""
+                                 )}
+                             </strong>
+                         </div>
 
+                         <div>
+                             Room:
+                             <strong>
+                                 ${escapeHTML(
+                                     subject.roomNo || "-"
+                                 )}
+                             </strong>
+                         </div>
 
-            let attachment = "";
+                     </div>
 
+                 </div>
 
-            if(item.fileUrl){
+                 <div class="subject-footer">
 
-                attachment = `
-                    <a
-                        class="attachment-link"
-                        href="${item.fileUrl}"
-                        target="_blank"
-                    >
-                        📎 ${escapeHTML(
-                            item.fileName || "Attachment"
-                        )}
-                    </a>
-                `;
+                     <span>
+                         ${escapeHTML(
+                             subject.subjectType || ""
+                         )}
+                     </span>
 
-            }
+                     <button
+                         class="course-btn"
+                         onclick="event.stopPropagation();openCourse('${subject.id}')"
+                     >
+                         Open
+                     </button>
 
+                 </div>
 
-            return `
+             </div>
 
-                <div class="assignment-card">
+         `).join("");
 
-                    <div class="assignment-heading">
+ }
 
-                        ${escapeHTML(
-                            item.topic
-                            || item.title
-                            || "Class Work"
-                        )}
 
-                    </div>
+ /* =========================================================
+    FILTER SUBJECTS
+ ========================================================= */
 
-                    <div class="assignment-row">
+ window.filterSubjects =
+ function(){
 
-                        <div>
+     const value =
+         normalize(
+             document.getElementById(
+                 "subjectSearch"
+             ).value
+         );
 
-                            <div class="assignment-title">
 
-                                ${escapeHTML(
-                                    item.workType
-                                    || "Assignment"
-                                )}
+     if(!value){
 
-                                ${escapeHTML(
-                                    item.title || ""
-                                )}
+         renderSubjects();
 
-                            </div>
+         return;
 
-                            <div style="margin-top:5px;">
+     }
 
-                                ${item.startDate
-                                    ? escapeHTML(
-                                        formatDate(
-                                            item.startDate
-                                        )
-                                    )
-                                    : item.createdAt
-                                    ? escapeHTML(
-                                        formatTimestamp(
-                                            item.createdAt
-                                        )
-                                    )
-                                    : ""
-                                }
 
-                            </div>
+     renderSubjects(
+         subjects.filter(s =>
+             normalize(
+                 `${s.subjectCode || ""} ${s.subjectName || ""} ${s.department || ""} ${s.classYear || ""} ${s.section || ""}`
+             ).includes(value)
+         )
+     );
 
-                            ${attachment}
+ };
 
-                        </div>
 
+ /* =========================================================
+    OPEN COURSE
+ ========================================================= */
 
-                        <div class="assignment-meta">
+ window.openCourse =
+ async function(subjectId){
 
-                            <strong>
-                                Assigned :
-                            </strong>
+     currentSubject =
+         subjects.find(
+             s => s.id === subjectId
+         );
 
-                            ${selected}
-                            student(s)
 
-                        </div>
+     if(!currentSubject){
 
+         return;
 
-                        <div class="assignment-meta">
+     }
 
-                            <strong>
-                                Submitted :
-                            </strong>
 
-                            ${submitted}
+     document.getElementById(
+         "subjectPage"
+     ).style.display = "none";
 
-                        </div>
 
+     document.getElementById(
+         "coursePage"
+     ).style.display = "block";
 
-                        <div class="assignment-meta">
 
-                            <strong>
-                                Not-Submitted :
-                            </strong>
+     document.getElementById(
+         "courseCode"
+     ).textContent =
+         currentSubject.subjectCode || "";
 
-                            ${notSubmitted}
 
-                        </div>
+     document.getElementById(
+         "courseTitle"
+     ).textContent =
+         currentSubject.subjectName || "";
 
 
-                        <div class="assignment-actions">
+     document.getElementById(
+         "courseDetails"
+     ).textContent =
+         `${currentSubject.department || ""} | Year: ${currentSubject.classYear || ""} | Section: ${currentSubject.section || ""}`;
 
-                            <button
-                                class="small-btn"
-                                onclick="modifyAssignment('${item.id}')"
-                            >
-                                Modify
-                            </button>
 
-                            <button
-                                class="small-btn review"
-                                onclick="reviewAssignment('${item.id}')"
-                            >
-                                Review
-                            </button>
+     await loadAssignments();
 
-                            <button
-                                class="small-btn cancel"
-                                onclick="cancelAssignment('${item.id}')"
-                            >
-                                Cancel
-                            </button>
+ };
 
-                        </div>
 
-                    </div>
+ /* =========================================================
+    CLOSE COURSE
+ ========================================================= */
 
-                </div>
+ window.closeCourse =
+ function(){
 
-            `;
+     document.getElementById(
+         "coursePage"
+     ).style.display = "none";
 
-        }).join("");
 
-}
+     document.getElementById(
+         "subjectPage"
+     ).style.display = "block";
 
+ };
 
-/* =========================================================
-   FILTER ASSIGNMENTS
-========================================================= */
 
-window.filterAssignments =
-function(){
+ /* =========================================================
+    LOAD ASSIGNMENTS
+ ========================================================= */
 
-    const value =
-        normalize(
-            document.getElementById(
-                "assignmentSearch"
-            ).value
-        );
+ async function loadAssignments(){
 
+     const list =
+         document.getElementById(
+             "assignmentList"
+         );
 
-    if(!value){
 
-        renderAssignments();
+     list.innerHTML = `
+         <div class="loading">
+             <div class="spinner"></div>
+             Loading class work...
+         </div>
+     `;
 
-        return;
 
-    }
+     if(!currentSubject){
 
+         return;
 
-    renderAssignments(
-        assignments.filter(a =>
-            normalize(
-                `${a.title || ""} ${a.topic || ""} ${a.workType || ""} ${a.instructions || ""}`
-            ).includes(value)
-        )
-    );
+     }
 
-};
 
+     try{
 
-/* =========================================================
-   OPEN NEW ASSIGNMENT
-========================================================= */
+         let result = [];
 
-window.openAssignmentModal =
-async function(){
 
-    editingAssignmentId = null;
+         try{
 
-    editingAssignmentData = null;
+             const q =
+                 query(
+                     collection(
+                         db,
+                         "lmsAssignments"
+                     ),
+                     where(
+                         "subjectAssignmentId",
+                         "==",
+                         currentSubject.id
+                     )
+                 );
 
-    document.getElementById(
-        "assignmentModalTitle"
-    ).textContent =
-        `Class Work Modify (${currentSubject.subjectCode || ""} - ${currentSubject.subjectName || ""})`;
+             const snap =
+                 await getDocs(q);
 
+             result =
+                 snap.docs.map(d => ({
+                     id:d.id,
+                     ...d.data()
+                 }));
 
-    resetForm();
+         }catch(error){
 
+             console.log(
+                 "subjectAssignmentId query failed",
+                 error
+             );
 
-    document.getElementById(
-        "sectionDisplay"
-    ).textContent =
-        `${currentSubject.department || ""} ${currentSubject.classYear || ""} Semester - ${currentSubject.section || ""}`;
+         }
 
 
-    await loadStudents();
+         if(!result.length){
 
+             const q =
+                 query(
+                     collection(
+                         db,
+                         "lmsAssignments"
+                     ),
+                     where(
+                         "subjectId",
+                         "==",
+                         currentSubject.subjectId
+                     )
+                 );
 
-    document.getElementById(
-        "assignmentModal"
-    ).style.display = "block";
+             const snap =
+                 await getDocs(q);
 
-};
+             result =
+                 snap.docs.map(d => ({
+                     id:d.id,
+                     ...d.data()
+                 }));
 
+         }
 
-/* =========================================================
-   MODIFY EXISTING
-========================================================= */
 
-window.modifyAssignment =
-async function(id){
+         assignments = result;
 
-    const item =
-        assignments.find(
-            a => a.id === id
-        );
 
+         assignments.sort((a,b)=>{
 
-    if(!item){
+             const aTime =
+                 a.createdAt?.seconds || 0;
 
-        return;
+             const bTime =
+                 b.createdAt?.seconds || 0;
 
-    }
+             return bTime-aTime;
 
+         });
 
-    editingAssignmentId = id;
 
-    editingAssignmentData = item;
+         renderAssignments();
 
 
-    document.getElementById(
-        "assignmentModalTitle"
-    ).textContent =
-        `Class Work Modify (${currentSubject.subjectCode || ""}-${currentSubject.subjectName || ""})`;
+     }catch(error){
 
+         console.error(error);
 
-    resetForm();
+         list.innerHTML = `
+             <div class="empty">
+                 Unable to load class work.
+             </div>
+         `;
 
+     }
 
-    document.getElementById(
-        "workType"
-    ).value =
-        item.workType || "Assignment";
+ }
 
 
-    document.getElementById(
-        "sectionDisplay"
-    ).textContent =
-        item.sectionDisplay
-        || `${currentSubject.department || ""} ${currentSubject.classYear || ""} Semester - ${currentSubject.section || ""}`;
+ /* =========================================================
+    RENDER ASSIGNMENTS
+ ========================================================= */
 
+ function renderAssignments(list=assignments){
 
-    document.getElementById(
-        "startDate"
-    ).value =
-        toDateTimeLocal(
-            item.startDate
-        );
+     const container =
+         document.getElementById(
+             "assignmentList"
+         );
 
 
-    document.getElementById(
-        "endDate"
-    ).value =
-        toDateTimeLocal(
-            item.endDate
-        );
+     if(!list.length){
 
+         container.innerHTML = `
+             <div class="empty">
+                 No class work has been created yet.
+             </div>
+         `;
 
-    document.getElementById(
-        "conductingMark"
-    ).value =
-        item.conductingMark ?? 0;
+         return;
 
+     }
 
-    document.getElementById(
-        "noMarksRequired"
-    ).checked =
-        item.noMarksRequired !== false;
 
+     container.innerHTML =
+         list.map(item => {
 
-    document.getElementById(
-        "topic"
-    ).value =
-        item.topic || "";
+             const selected =
+                 Array.isArray(
+                     item.selectedStudents
+                 )
+                     ? item.selectedStudents.length
+                     : Number(
+                         item.assignedCount || 0
+                     );
 
 
-    document.getElementById(
-        "assignmentTitle"
-    ).value =
-        item.title || "";
+             const submitted =
+                 Number(
+                     item.submittedCount || 0
+                 );
 
 
-    document.getElementById(
-        "instructions"
-    ).value =
-        item.instructions
-        || item.description
-        || "";
+             const notSubmitted =
+                 Math.max(
+                     0,
+                     selected-submitted
+                 );
 
 
-    document.getElementById(
-        "commentOption"
-    ).value =
-        item.commentOption
-        || "Not Required";
+             let attachment = "";
 
 
-    document.getElementById(
-        "chatOption"
-    ).value =
-        item.chatOption
-        || "Not Required";
+             if(item.fileUrl){
 
+                 attachment = `
+                     <a
+                         class="attachment-link"
+                         href="${item.fileUrl}"
+                         target="_blank"
+                     >
+                         📎 ${escapeHTML(
+                             item.fileName || "Attachment"
+                         )}
+                     </a>
+                 `;
 
-    document.getElementById(
-        "allowAttachment"
-    ).value =
-        item.allowAttachment
-        || "Required";
+             }
 
 
-    if(item.fileName){
+             return `
 
-        document.getElementById(
-            "existingAttachment"
-        ).innerHTML = `
+                 <div class="assignment-card">
 
-            Existing Attachment:
+                     <div class="assignment-heading">
 
-            <a
-                class="attachment-link"
-                href="${item.fileUrl || "#"}"
-                target="_blank"
-            >
-                📎 ${escapeHTML(item.fileName)}
-            </a>
+                         ${escapeHTML(
+                             item.topic
+                             || item.title
+                             || "Class Work"
+                         )}
 
-        `;
+                     </div>
 
-    }
+                     <div class="assignment-row">
 
+                         <div>
 
-    await loadStudents(
-        Array.isArray(
-            item.selectedStudents
-        )
-            ? item.selectedStudents
-            : []
-    );
+                             <div class="assignment-title">
 
+                                 ${escapeHTML(
+                                     item.workType
+                                     || "Assignment"
+                                 )}
 
-    document.getElementById(
-        "assignmentModal"
-    ).style.display = "block";
+                                 ${escapeHTML(
+                                     item.title || ""
+                                 )}
 
-};
+                             </div>
 
+                             <div style="margin-top:5px;">
 
-/* =========================================================
-   RESET FORM
-========================================================= */
+                                 ${item.startDate
+                                     ? escapeHTML(
+                                         formatDate(
+                                             item.startDate
+                                         )
+                                     )
+                                     : item.createdAt
+                                     ? escapeHTML(
+                                         formatTimestamp(
+                                             item.createdAt
+                                         )
+                                     )
+                                     : ""
+                                 }
 
-function resetForm(){
+                             </div>
 
-    document.getElementById(
-        "workType"
-    ).value = "Assignment";
+                             ${attachment}
 
+                         </div>
 
-    document.getElementById(
-        "startDate"
-    ).value = "";
 
+                         <div class="assignment-meta">
 
-    document.getElementById(
-        "endDate"
-    ).value = "";
+                             <strong>
+                                 Assigned :
+                             </strong>
 
+                             ${selected}
+                             student(s)
 
-    document.getElementById(
-        "conductingMark"
-    ).value = 0;
+                         </div>
 
 
-    document.getElementById(
-        "noMarksRequired"
-    ).checked = true;
+                         <div class="assignment-meta">
 
+                             <strong>
+                                 Submitted :
+                             </strong>
 
-    document.getElementById(
-        "topic"
-    ).value = "";
+                             ${submitted}
 
+                         </div>
 
-    document.getElementById(
-        "assignmentTitle"
-    ).value = "";
 
+                         <div class="assignment-meta">
 
-    document.getElementById(
-        "instructions"
-    ).value = "";
+                             <strong>
+                                 Not-Submitted :
+                             </strong>
 
+                             ${notSubmitted}
 
-    document.getElementById(
-        "commentOption"
-    ).value = "Not Required";
+                         </div>
 
 
-    document.getElementById(
-        "chatOption"
-    ).value = "Not Required";
+                         <div class="assignment-actions">
 
+                             <button
+                                 class="small-btn"
+                                 onclick="modifyAssignment('${item.id}')"
+                             >
+                                 Modify
+                             </button>
 
-    document.getElementById(
-        "allowAttachment"
-    ).value = "Required";
+                             <button
+                                 class="small-btn review"
+                                 onclick="reviewAssignment('${item.id}')"
+                             >
+                                 Review
+                             </button>
 
+                             <button
+                                 class="small-btn cancel"
+                                 onclick="cancelAssignment('${item.id}')"
+                             >
+                                 Cancel
+                             </button>
 
-    document.getElementById(
-        "attachmentFile"
-    ).value = "";
+                         </div>
 
+                     </div>
 
-    document.getElementById(
-        "fileName"
-    ).textContent =
-        "No file selected";
+                 </div>
 
+             `;
 
-    document.getElementById(
-        "existingAttachment"
-    ).innerHTML = "";
+         }).join("");
 
+ }
 
-    document.getElementById(
-        "progressContainer"
-    ).style.display = "none";
 
+ /* =========================================================
+    FILTER ASSIGNMENTS
+ ========================================================= */
 
-    selectedStudents.clear();
+ window.filterAssignments =
+ function(){
 
-    updateStudentCount();
+     const value =
+         normalize(
+             document.getElementById(
+                 "assignmentSearch"
+             ).value
+         );
 
-}
 
+     if(!value){
 
-/* =========================================================
-   MARK TOGGLE
-========================================================= */
+         renderAssignments();
 
-window.toggleMarks =
-function(){
+         return;
 
-    const noMarks =
-        document.getElementById(
-            "noMarksRequired"
-        ).checked;
+     }
 
 
-    document.getElementById(
-        "conductingMark"
-    ).disabled = noMarks;
+     renderAssignments(
+         assignments.filter(a =>
+             normalize(
+                 `${a.title || ""} ${a.topic || ""} ${a.workType || ""} ${a.instructions || ""}`
+             ).includes(value)
+         )
+     );
 
-};
+ };
 
 
-/* =========================================================
-   FILE SELECTED
-========================================================= */
+ /* =========================================================
+    OPEN NEW ASSIGNMENT
+ ========================================================= */
 
-window.fileSelected =
-function(input){
+ window.openAssignmentModal =
+ async function(){
 
-    const file =
-        input.files[0];
+     editingAssignmentId = null;
 
+     editingAssignmentData = null;
+
+     document.getElementById(
+         "assignmentModalTitle"
+     ).textContent =
+         `Class Work Modify (${currentSubject.subjectCode || ""} - ${currentSubject.subjectName || ""})`;
+
+
+     resetForm();
+
+
+     document.getElementById(
+         "sectionDisplay"
+     ).textContent =
+         `${currentSubject.department || ""} ${currentSubject.classYear || ""} Semester - ${currentSubject.section || ""}`;
+
+
+     await loadStudents();
+
+
+     document.getElementById(
+         "assignmentModal"
+     ).style.display = "block";
+
+ };
+
+
+ /* =========================================================
+    MODIFY EXISTING
+ ========================================================= */
+
+ window.modifyAssignment =
+ async function(id){
+
+     const item =
+         assignments.find(
+             a => a.id === id
+         );
+
+
+     if(!item){
+
+         return;
+
+     }
+
+
+     editingAssignmentId = id;
+
+     editingAssignmentData = item;
+
+
+     document.getElementById(
+         "assignmentModalTitle"
+     ).textContent =
+         `Class Work Modify (${currentSubject.subjectCode || ""}-${currentSubject.subjectName || ""})`;
+
+
+     resetForm();
+
+
+     document.getElementById(
+         "workType"
+     ).value =
+         item.workType || "Assignment";
+
+
+     document.getElementById(
+         "sectionDisplay"
+     ).textContent =
+         item.sectionDisplay
+         || `${currentSubject.department || ""} ${currentSubject.classYear || ""} Semester - ${currentSubject.section || ""}`;
+
+
+     document.getElementById(
+         "startDate"
+     ).value =
+         toDateTimeLocal(
+             item.startDate
+         );
+
+
+     document.getElementById(
+         "endDate"
+     ).value =
+         toDateTimeLocal(
+             item.endDate
+         );
+
+
+     document.getElementById(
+         "conductingMark"
+     ).value =
+         item.conductingMark ?? 0;
+
+
+     document.getElementById(
+         "noMarksRequired"
+     ).checked =
+         item.noMarksRequired !== false;
+
+
+     document.getElementById(
+         "topic"
+     ).value =
+         item.topic || "";
+
+
+     document.getElementById(
+         "assignmentTitle"
+     ).value =
+         item.title || "";
+
+
+     document.getElementById(
+         "instructions"
+     ).value =
+         item.instructions
+         || item.description
+         || "";
+
+
+     document.getElementById(
+         "commentOption"
+     ).value =
+         item.commentOption
+         || "Not Required";
+
+
+     document.getElementById(
+         "chatOption"
+     ).value =
+         item.chatOption
+         || "Not Required";
+
+
+     document.getElementById(
+         "allowAttachment"
+     ).value =
+         item.allowAttachment
+         || "Required";
+
+
+     if(item.fileName){
+
+         document.getElementById(
+             "existingAttachment"
+         ).innerHTML = `
+
+             Existing Attachment:
+
+             <a
+                 class="attachment-link"
+                 href="${item.fileUrl || "#"}"
+                 target="_blank"
+             >
+                 📎 ${escapeHTML(item.fileName)}
+             </a>
+
+         `;
+
+     }
+
+
+     await loadStudents(
+         Array.isArray(
+             item.selectedStudents
+         )
+             ? item.selectedStudents
+             : []
+     );
+
+
+     document.getElementById(
+         "assignmentModal"
+     ).style.display = "block";
+
+ };
+
+
+ /* =========================================================
+    RESET FORM
+ ========================================================= */
+
+ function resetForm(){
+
+     document.getElementById(
+         "workType"
+     ).value = "Assignment";
+
+
+     document.getElementById(
+         "startDate"
+     ).value = "";
+
+
+     document.getElementById(
+         "endDate"
+     ).value = "";
+
+
+     document.getElementById(
+         "conductingMark"
+     ).value = 0;
+
+
+     document.getElementById(
+         "noMarksRequired"
+     ).checked = true;
+
+
+     document.getElementById(
+         "topic"
+     ).value = "";
+
+
+     document.getElementById(
+         "assignmentTitle"
+     ).value = "";
+
+
+     document.getElementById(
+         "instructions"
+     ).value = "";
+
+
+     document.getElementById(
+         "commentOption"
+     ).value = "Not Required";
+
+
+     document.getElementById(
+         "chatOption"
+     ).value = "Not Required";
+
+
+     document.getElementById(
+         "allowAttachment"
+     ).value = "Required";
+
+
+     document.getElementById(
+         "attachmentFile"
+     ).value = "";
+
+
+     document.getElementById(
+         "fileName"
+     ).textContent =
+         "No file selected";
+
+
+     document.getElementById(
+         "existingAttachment"
+     ).innerHTML = "";
+
+
+     document.getElementById(
+         "progressContainer"
+     ).style.display = "none";
+
+
+     selectedStudents.clear();
+
+     updateStudentCount();
+
+ }
+
+
+ /* =========================================================
+    MARK TOGGLE
+ ========================================================= */
+
+ window.toggleMarks =
+ function(){
+
+     const noMarks =
+         document.getElementById(
+             "noMarksRequired"
+         ).checked;
+
+
+     document.getElementById(
+         "conductingMark"
+     ).disabled = noMarks;
+
+ };
+
+
+ /* =========================================================
+    FILE SELECTED
+ ========================================================= */
+
+ window.fileSelected =
+ function(input){
+
+     const file =
+         input.files[0];
+
+
+     if(!file){
+
+         document.getElementById(
+             "fileName"
+         ).textContent =
+             "No file selected";
+
+         return;
+
+     }
+
+
+     const maxSize =
+         25 * 1024 * 1024;
+
+
+     if(file.size > maxSize){
+
+         alert(
+             "Maximum file size is 25 MB."
+         );
+
+         input.value = "";
+
+         document.getElementById(
+             "fileName"
+         ).textContent =
+             "No file selected";
+
+         return;
+
+     }
+
+
+     document.getElementById(
+         "fileName"
+     ).textContent =
+         `${file.name} (${formatFileSize(file.size)})`;
+
+ };
+
+
+ /* =========================================================
+    FILE SIZE
+ ========================================================= */
+
+ function formatFileSize(bytes){
+
+     if(bytes < 1024){
+
+         return bytes + " B";
+
+     }
+
+     if(bytes < 1024*1024){
+
+         return (
+             bytes/1024
+         ).toFixed(1) + " KB";
+
+     }
+
+     return (
+         bytes/(1024*1024)
+     ).toFixed(1) + " MB";
+
+ }
+
+
+ /* =========================================================
+    UPLOAD FILE
+ ========================================================= */
+
+ async function uploadFile(file){
 
     if(!file){
-
-        document.getElementById(
-            "fileName"
-        ).textContent =
-            "No file selected";
-
-        return;
-
+        return null;
     }
 
-
-    const maxSize =
-        25 * 1024 * 1024;
-
-
-    if(file.size > maxSize){
-
-        alert(
-            "Maximum file size is 25 MB."
+    const safeName =
+        file.name.replace(
+            /[^a-zA-Z0-9._-]/g,
+            "_"
         );
 
-        input.value = "";
+    const subjectId =
+        currentSubject.subjectId
+        ||
+        currentSubject.id;
 
-        document.getElementById(
-            "fileName"
-        ).textContent =
-            "No file selected";
-
-        return;
-
+    if(!currentStaff || !currentStaff.staffId){
+        throw new Error("Staff profile not found. Please login again.");
     }
 
-
-    document.getElementById(
-        "fileName"
-    ).textContent =
-        `${file.name} (${formatFileSize(file.size)})`;
-
-};
-
-
-/* =========================================================
-   FILE SIZE
-========================================================= */
-
-function formatFileSize(bytes){
-
-    if(bytes < 1024){
-
-        return bytes + " B";
-
+    if(!subjectId){
+        throw new Error("Subject information not found.");
     }
 
-    if(bytes < 1024*1024){
-
-        return (
-            bytes/1024
-        ).toFixed(1) + " KB";
-
-    }
-
-    return (
-        bytes/(1024*1024)
-    ).toFixed(1) + " MB";
-
-}
-
-
-/* =========================================================
-   UPLOAD FILE
-========================================================= */
-
-function uploadFile(file){
-
-    return new Promise(
-        (resolve,reject)=>{
-
-            if(!file){
-
-                resolve(null);
-
-                return;
-
-            }
-
-
-            const safeName =
-                file.name
-                    .replace(
-                        /[^a-zA-Z0-9._-]/g,
-                        "_"
-                    );
-
-
-            const subjectId =
-                currentSubject.subjectId
-                || currentSubject.id;
-
-
-            const path =
-                `lmsAssignments/${currentStaff.staffId}/${subjectId}/${Date.now()}_${safeName}`;
-
-
-            const storageRef =
-                ref(
-                    storage,
-                    path
-                );
-
-
-            const uploadTask =
-                uploadBytesResumable(
-                    storageRef,
-                    file
-                );
-
-
-            document.getElementById(
-                "progressContainer"
-            ).style.display = "block";
-
-
-            uploadTask.on(
-
-                "state_changed",
-
-                snapshot => {
-
-                    const progress =
-                        (
-                            snapshot.bytesTransferred /
-                            snapshot.totalBytes
-                        ) * 100;
-
-
-                    document.getElementById(
-                        "progressBar"
-                    ).style.width =
-                        progress + "%";
-
-
-                    document.getElementById(
-                        "progressText"
-                    ).textContent =
-                        `Uploading ${Math.round(progress)}%`;
-
-                },
-
-                error => {
-
-                    reject(error);
-
-                },
-
-                async () => {
-
-                    try{
-
-                        const url =
-                            await getDownloadURL(
-                                uploadTask.snapshot.ref
-                            );
-
-
-                        resolve({
-
-                            fileName:file.name,
-
-                            fileUrl:url,
-
-                            filePath:path,
-
-                            fileType:
-                                file.type || "",
-
-                            fileSize:file.size,
-
-                            hasAttachment:true
-
-                        });
-
-                    }catch(error){
-
-                        reject(error);
-
-                    }
-
-                }
-
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   LOAD STUDENTS
-========================================================= */
-
-async function loadStudents(
-    selectedIds=[]
-){
-
-    const tbody =
-        document.getElementById(
-            "studentTableBody"
-        );
-
-
-    tbody.innerHTML = `
-        <tr>
-            <td colspan="5" style="text-align:center;">
-                Loading students...
-            </td>
-        </tr>
-    `;
-
-
-    selectedStudents =
-        new Set(
-            selectedIds.map(
-                x => clean(x)
-            )
-        );
-
+    const path =
+        `lmsAssignments/${currentStaff.staffId}/${subjectId}/${Date.now()}_${safeName}`;
+
+    document.getElementById("progressContainer").style.display = "block";
+    document.getElementById("progressBar").style.width = "0%";
+    document.getElementById("progressText").textContent =
+        "Uploading 0%";
 
     try{
-
-        let result = [];
-
-
-        const registerFieldQueries = [
-
-            "registerNo",
-            "registerNumber",
-            "regNo",
-            "rollNo"
-
-        ];
-
-
-        const snap =
-            await getDocs(
-                collection(
-                    db,
-                    "students"
-                )
-            );
-
-
-        result =
-            snap.docs.map(d => {
-
-                const data =
-                    d.data();
-
-
-                const registerNo =
-                    clean(
-                        data.registerNo
-                        || data.registerNumber
-                        || data.studentRegisterNo
-                        || data.studentRegNo
-                        || data.regNo
-                        || data.rollNo
-                        || d.id
-                    );
-
-
-                return {
-
-                    id:d.id,
-
-                    registerNo,
-
-                    rollNo:
-                        clean(
-                            data.rollNo
-                            || data.rollNumber
-                            || registerNo
-                        ),
-
-                    name:
-                        clean(
-                            data.studentName
-                            || data.name
-                            || data.student_name
-                        ),
-
-                    dob:
-                        clean(
-                            data.dob
-                            || data.DOB
-                            || data.dateOfBirth
-                        ),
-
-                    department:
-                        clean(
-                            data.department
-                            || data.dept
-                        ),
-
-                    year:
-                        clean(
-                            data.classYear
-                            || data.year
-                        ),
-
-                    section:
-                        clean(
-                            data.section
-                        )
-
-                };
-
-            });
-
 
         /*
-         * Filter students according to the current
-         * subject assignment.
+         * Supabase Storage browser upload.
+         *
+         * The lms-assignments bucket is public for reading.
+         * INSERT permission is provided by the Storage policy.
          */
-
-        const targetDepartment =
-            normalize(
-                currentSubject.department
-            );
-
-        const targetYear =
-            normalize(
-                currentSubject.classYear
-            );
-
-        const targetSection =
-            normalize(
-                currentSubject.section
-            );
-
-
-        const filtered =
-            result.filter(student => {
-
-                const deptOK =
-                    !targetDepartment
-                    ||
-                    !student.department
-                    ||
-                    normalize(
-                        student.department
-                    ) === targetDepartment;
-
-
-                const yearOK =
-                    !targetYear
-                    ||
-                    !student.year
-                    ||
-                    normalize(
-                        student.year
-                    ) === targetYear;
-
-
-                const sectionOK =
-                    !targetSection
-                    ||
-                    !student.section
-                    ||
-                    normalize(
-                        student.section
-                    ) === targetSection;
-
-
-                return (
-                    deptOK
-                    &&
-                    yearOK
-                    &&
-                    sectionOK
+        const { data, error } =
+            await supabase.storage
+                .from(SUPABASE_BUCKET)
+                .upload(
+                    path,
+                    file,
+                    {
+                        cacheControl: "3600",
+                        upsert: false,
+                        contentType: file.type || "application/octet-stream"
+                    }
                 );
 
-            });
-
-
-        students =
-            filtered.length
-                ? filtered
-                : result;
-
-
-        renderStudents();
-
-
-    }catch(error){
-
-        console.error(
-            "STUDENT LOAD ERROR",
-            error
-        );
-
-
-        tbody.innerHTML = `
-            <tr>
-                <td
-                    colspan="5"
-                    style="text-align:center;color:red;"
-                >
-                    Unable to load students
-                </td>
-            </tr>
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   RENDER STUDENTS
-========================================================= */
-
-function renderStudents(
-    list=students
-){
-
-    const tbody =
-        document.getElementById(
-            "studentTableBody"
-        );
-
-
-    if(!list.length){
-
-        tbody.innerHTML = `
-            <tr>
-                <td
-                    colspan="5"
-                    style="text-align:center;"
-                >
-                    No students found
-                </td>
-            </tr>
-        `;
-
-        updateStudentCount();
-
-        return;
-
-    }
-
-
-    tbody.innerHTML =
-        list.map(student => {
-
-            const key =
-                student.registerNo
-                || student.id;
-
-
-            const checked =
-                selectedStudents.has(key);
-
-
-            return `
-
-                <tr>
-
-                    <td>
-
-                        <input
-                            type="checkbox"
-                            ${checked ? "checked" : ""}
-                            onchange="toggleStudent('${escapeAttr(key)}',this.checked)"
-                        >
-
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            student.registerNo
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            student.rollNo
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            student.name
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            student.dob
-                        )}
-                    </td>
-
-                </tr>
-
-            `;
-
-        }).join("");
-
-
-    updateStudentCount();
-
-}
-
-
-/* =========================================================
-   ESCAPE ATTRIBUTE
-========================================================= */
-
-function escapeAttr(value){
-
-    return clean(value)
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'");
-
-}
-
-
-/* =========================================================
-   TOGGLE STUDENT
-========================================================= */
-
-window.toggleStudent =
-function(key,checked){
-
-    if(checked){
-
-        selectedStudents.add(key);
-
-    }else{
-
-        selectedStudents.delete(key);
-
-    }
-
-
-    updateStudentCount();
-
-};
-
-
-/* =========================================================
-   SELECT ALL
-========================================================= */
-
-window.selectAllStudents =
-function(checked){
-
-    if(checked){
-
-        students.forEach(student => {
-
-            selectedStudents.add(
-                student.registerNo
-                || student.id
+        if(error){
+            console.error(
+                "SUPABASE UPLOAD ERROR:",
+                error
             );
 
-        });
-
-    }else{
-
-        selectedStudents.clear();
-
-    }
-
-
-    document.getElementById(
-        "selectAllCheckbox"
-    ).checked = checked;
-
-
-    renderStudents(
-        getFilteredStudents()
-    );
-
-};
-
-
-/* =========================================================
-   SEARCH STUDENTS
-========================================================= */
-
-window.filterStudents =
-function(){
-
-    renderStudents(
-        getFilteredStudents()
-    );
-
-};
-
-
-/* =========================================================
-   FILTERED STUDENTS
-========================================================= */
-
-function getFilteredStudents(){
-
-    const value =
-        normalize(
-            document.getElementById(
-                "studentSearch"
-            ).value
-        );
-
-
-    if(!value){
-
-        return students;
-
-    }
-
-
-    return students.filter(student =>
-
-        normalize(
-            `${student.registerNo} ${student.rollNo} ${student.name} ${student.dob}`
-        ).includes(value)
-
-    );
-
-}
-
-
-/* =========================================================
-   UPDATE STUDENT COUNT
-========================================================= */
-
-function updateStudentCount(){
-
-    document.getElementById(
-        "studentCountBox"
-    ).textContent =
-        `Total Student: ${students.length} | Selected: ${selectedStudents.size}`;
-
-}
-
-
-/* =========================================================
-   SAVE ASSIGNMENT
-========================================================= */
-
-window.saveAssignment =
-async function(){
-
-    const title =
-        clean(
-            document.getElementById(
-                "assignmentTitle"
-            ).value
-        );
-
-
-    if(!title){
-
-        alert(
-            "Please enter Title."
-        );
-
-        return;
-
-    }
-
-
-    if(!selectedStudents.size){
-
-        alert(
-            "Please select at least one student."
-        );
-
-        return;
-
-    }
-
-
-    const startDate =
-        document.getElementById(
-            "startDate"
-        ).value;
-
-
-    const endDate =
-        document.getElementById(
-            "endDate"
-        ).value;
-
-
-    if(!startDate){
-
-        alert(
-            "Please select Start Date."
-        );
-
-        return;
-
-    }
-
-
-    if(!endDate){
-
-        alert(
-            "Please select End Date."
-        );
-
-        return;
-
-    }
-
-
-    const start =
-        new Date(startDate);
-
-
-    const end =
-        new Date(endDate);
-
-
-    if(end < start){
-
-        alert(
-            "End Date cannot be before Start Date."
-        );
-
-        return;
-
-    }
-
-
-    const btn =
-        document.getElementById(
-            "saveAssignmentBtn"
-        );
-
-
-    btn.disabled = true;
-
-    btn.textContent =
-        "Saving...";
-
-
-    try{
-
-        let fileData = null;
-
-
-        const file =
-            document.getElementById(
-                "attachmentFile"
-            ).files[0];
-
-
-        if(file){
-
-            btn.textContent =
-                "Uploading file...";
-
-
-            fileData =
-                await uploadFile(file);
-
+            throw new Error(
+                error.message
+                ||
+                "Supabase file upload failed."
+            );
         }
 
+        // Supabase's standard browser upload completes as one request.
+        // Show the completed state after a successful upload.
+        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("progressText").textContent =
+            "Uploading 100%";
 
-        const selectedStudentObjects =
-            students.filter(student =>
+        const publicResult =
+            supabase.storage
+                .from(SUPABASE_BUCKET)
+                .getPublicUrl(path);
 
-                selectedStudents.has(
-                    student.registerNo
-                    || student.id
-                )
+        const url =
+            publicResult &&
+            publicResult.data &&
+            publicResult.data.publicUrl
+                ? publicResult.data.publicUrl
+                : "";
 
-            ).map(student => ({
+        if(!url){
+            throw new Error(
+                "File uploaded, but a public file URL could not be created."
+            );
+        }
 
-                registerNo:
-                    student.registerNo,
-
-                rollNo:
-                    student.rollNo,
-
-                studentName:
-                    student.name,
-
-                dob:
-                    student.dob
-
-            }));
-
-
-        const existing =
-            editingAssignmentData
-            || {};
-
-
-        const data = {
-
-            staffId:
-                currentStaff.staffId,
-
-            staffName:
-                currentStaff.staffName,
-
-            staffDepartment:
-                currentStaff.staffDepartment,
-
-            subjectAssignmentId:
-                currentSubject.id,
-
-            subjectId:
-                currentSubject.subjectId
-                || currentSubject.id,
-
-            subjectCode:
-                currentSubject.subjectCode
-                || "",
-
-            subjectName:
-                currentSubject.subjectName
-                || "",
-
-            department:
-                currentSubject.department
-                || "",
-
-            classYear:
-                currentSubject.classYear
-                || "",
-
-            section:
-                currentSubject.section
-                || "",
-
-            roomNo:
-                currentSubject.roomNo
-                || "",
-
-            workType:
-                document.getElementById(
-                    "workType"
-                ).value,
-
-            sectionDisplay:
-                document.getElementById(
-                    "sectionDisplay"
-                ).textContent,
-
-            startDate:
-                start.toISOString(),
-
-            endDate:
-                end.toISOString(),
-
-            conductingMark:
-                Number(
-                    document.getElementById(
-                        "conductingMark"
-                    ).value || 0
-                ),
-
-            noMarksRequired:
-                document.getElementById(
-                    "noMarksRequired"
-                ).checked,
-
-            topic:
-                clean(
-                    document.getElementById(
-                        "topic"
-                    ).value
-                ),
-
-            title,
-
-            instructions:
-                clean(
-                    document.getElementById(
-                        "instructions"
-                    ).value
-                ),
-
-            description:
-                clean(
-                    document.getElementById(
-                        "instructions"
-                    ).value
-                ),
-
-            commentOption:
-                document.getElementById(
-                    "commentOption"
-                ).value,
-
-            chatOption:
-                document.getElementById(
-                    "chatOption"
-                ).value,
-
-            allowAttachment:
-                document.getElementById(
-                    "allowAttachment"
-                ).value,
-
-            selectedStudents:
-                selectedStudentObjects,
-
-            assignedCount:
-                selectedStudentObjects.length,
-
-            submittedCount:
-                existing.submittedCount || 0,
-
-            notSubmittedCount:
-                Math.max(
-                    0,
-                    selectedStudentObjects.length
-                    -
-                    (existing.submittedCount || 0)
-                ),
-
-            updatedAt:
-                Timestamp.now()
-
+        return {
+            fileName: file.name,
+            fileUrl: url,
+            filePath: path,
+            fileType: file.type || "",
+            fileSize: file.size,
+            hasAttachment: true
         };
 
-
-        if(fileData){
-
-            data.fileName =
-                fileData.fileName;
-
-            data.fileUrl =
-                fileData.fileUrl;
-
-            data.filePath =
-                fileData.filePath;
-
-            data.fileType =
-                fileData.fileType;
-
-            data.fileSize =
-                fileData.fileSize;
-
-            data.hasAttachment =
-                true;
-
-        }else if(existing.fileUrl){
-
-            data.fileName =
-                existing.fileName;
-
-            data.fileUrl =
-                existing.fileUrl;
-
-            data.filePath =
-                existing.filePath;
-
-            data.fileType =
-                existing.fileType;
-
-            data.fileSize =
-                existing.fileSize;
-
-            data.hasAttachment =
-                true;
-
-        }else{
-
-            data.hasAttachment =
-                false;
-
-        }
-
-
-        if(editingAssignmentId){
-
-            await updateDoc(
-
-                doc(
-                    db,
-                    "lmsAssignments",
-                    editingAssignmentId
-                ),
-
-                data
-
-            );
-
-
-            showToast(
-                "Class work updated successfully.",
-                "success"
-            );
-
-        }else{
-
-            data.assignedAt =
-                Timestamp.now();
-
-            data.createdAt =
-                Timestamp.now();
-
-
-            await addDoc(
-
-                collection(
-                    db,
-                    "lmsAssignments"
-                ),
-
-                data
-
-            );
-
-
-            showToast(
-                "Class work created successfully.",
-                "success"
-            );
-
-        }
-
-
-        closeAssignmentModal();
-
-        await loadAssignments();
-
-
     }catch(error){
 
+        document.getElementById("progressBar").style.width = "0%";
+        document.getElementById("progressText").textContent =
+            "Upload failed";
+
         console.error(
-            "SAVE ASSIGNMENT ERROR",
+            "FILE UPLOAD ERROR:",
             error
         );
 
-
-        alert(
-            "Unable to save class work.\n\n"
-            + error.message
-        );
-
-    }finally{
-
-        btn.disabled = false;
-
-        btn.textContent =
-            editingAssignmentId
-                ? "Update"
-                : "Save";
-
+        throw error;
     }
-
-};
-
-
-/* =========================================================
-   REVIEW ASSIGNMENT
-========================================================= */
-
-window.reviewAssignment =
-function(id){
-
-    const item =
-        assignments.find(
-            a => a.id === id
-        );
-
-
-    if(!item){
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "reviewTitle"
-    ).textContent =
-        `${item.title || "Class Work"} - Assigned Students`;
-
-
-    const list =
-        Array.isArray(
-            item.selectedStudents
-        )
-            ? item.selectedStudents
-            : [];
-
-
-    if(!list.length){
-
-        document.getElementById(
-            "reviewContent"
-        ).innerHTML = `
-            <div class="empty">
-                No student information available.
-            </div>
-        `;
-
-    }else{
-
-        document.getElementById(
-            "reviewContent"
-        ).innerHTML = `
-
-            <div class="review-student"
-                 style="font-weight:bold;background:#eee;">
-
-                <div>Reg. No</div>
-                <div>Roll No.</div>
-                <div>Student Name</div>
-                <div>DOB</div>
-
-            </div>
-
-            ${
-                list.map(student => `
-
-                    <div class="review-student">
-
-                        <div>
-                            ${escapeHTML(
-                                student.registerNo
-                            )}
-                        </div>
-
-                        <div>
-                            ${escapeHTML(
-                                student.rollNo
-                            )}
-                        </div>
-
-                        <div>
-                            ${escapeHTML(
-                                student.studentName
-                            )}
-                        </div>
-
-                        <div>
-                            ${escapeHTML(
-                                student.dob
-                            )}
-                        </div>
-
-                    </div>
-
-                `).join("")
-            }
-
-        `;
-
-    }
-
-
-    document.getElementById(
-        "reviewModal"
-    ).style.display = "block";
-
-};
-
-
-/* =========================================================
-   CANCEL / DELETE
-========================================================= */
-
-window.cancelAssignment =
-async function(id){
-
-    const item =
-        assignments.find(
-            a => a.id === id
-        );
-
-
-    if(!item){
-
-        return;
-
-    }
-
-
-    const ok =
-        confirm(
-            "Are you sure you want to cancel this class work?"
-        );
-
-
-    if(!ok){
-
-        return;
-
-    }
-
-
-    try{
-
-        if(item.filePath){
-
-            try{
-
-                await deleteObject(
-                    ref(
-                        storage,
-                        item.filePath
-                    )
-                );
-
-            }catch(error){
-
-                console.log(
-                    "Storage delete skipped",
-                    error
-                );
-
-            }
-
-        }
-
-
-        await deleteDoc(
-            doc(
-                db,
-                "lmsAssignments",
-                id
-            )
-        );
-
-
-        showToast(
-            "Class work cancelled.",
-            "success"
-        );
-
-
-        await loadAssignments();
-
-
-    }catch(error){
-
-        console.error(error);
-
-        alert(
-            "Unable to cancel class work.\n\n"
-            + error.message
-        );
-
-    }
-
-};
-
-
-/* =========================================================
-   CLOSE ASSIGNMENT MODAL
-========================================================= */
-
-window.closeAssignmentModal =
-function(){
-
-    document.getElementById(
-        "assignmentModal"
-    ).style.display = "none";
-
-};
-
-
-/* =========================================================
-   REVIEW CLOSE
-========================================================= */
-
-window.closeReviewModal =
-function(){
-
-    document.getElementById(
-        "reviewModal"
-    ).style.display = "none";
-
-};
-
-
-/* =========================================================
-   TAB
-========================================================= */
-
-window.selectTab =
-function(tabId,element){
-
-    document.querySelectorAll(
-        ".tab"
-    ).forEach(tab =>
-        tab.classList.remove("active")
-    );
-
-
-    document.querySelectorAll(
-        ".tab-content"
-    ).forEach(content =>
-        content.classList.remove("active")
-    );
-
-
-    element.classList.add("active");
-
-
-    document.getElementById(
-        tabId
-    ).classList.add("active");
-
-};
-
-
-/* =========================================================
-   DATE HELPERS
-========================================================= */
-
-function toDateTimeLocal(value){
-
-    if(!value){
-
-        return "";
-
-    }
-
-
-    let date;
-
-
-    if(value?.seconds){
-
-        date =
-            new Date(
-                value.seconds * 1000
-            );
-
-    }else{
-
-        date =
-            new Date(value);
-
-    }
-
-
-    if(isNaN(date.getTime())){
-
-        return "";
-
-    }
-
-
-    const pad =
-        n =>
-            String(n).padStart(2,"0");
-
-
-    return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-
 }
 
-
-function formatDate(value){
-
-    const date =
-        new Date(value);
-
-
-    if(isNaN(date.getTime())){
-
-        return clean(value);
-
-    }
-
-
-    return date.toLocaleString(
-        "en-IN",
-        {
-            day:"2-digit",
-            month:"2-digit",
-            year:"numeric",
-            hour:"2-digit",
-            minute:"2-digit"
-        }
-    );
-
-}
-
-
-function formatTimestamp(timestamp){
-
-    if(!timestamp){
-
-        return "";
-
-    }
-
-
-    if(timestamp.seconds){
-
-        return formatDate(
-            timestamp.seconds * 1000
-        );
-
-    }
-
-
-    return formatDate(timestamp);
-
-}
-
-
 /* =========================================================
-   CLOCK
-========================================================= */
+    LOAD STUDENTS
+ ========================================================= */
 
-function updateClock(){
+ async function loadStudents(
+     selectedIds=[]
+ ){
 
-    document.getElementById(
-        "currentTime"
-    ).textContent =
-        new Date().toLocaleTimeString(
-            "en-IN"
-        );
-
-}
+     const tbody =
+         document.getElementById(
+             "studentTableBody"
+         );
 
 
-setInterval(
-    updateClock,
-    1000
-);
-
-updateClock();
-
-
-/* =========================================================
-   HOME
-========================================================= */
-
-window.goHome =
-function(){
-
-    window.location.href =
-        "staff-dashboard.html";
-
-};
+     tbody.innerHTML = `
+         <tr>
+             <td colspan="5" style="text-align:center;">
+                 Loading students...
+             </td>
+         </tr>
+     `;
 
 
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-window.logout =
-async function(){
-
-    try{
-
-        await signOut(auth);
-
-    }catch(error){
-
-        console.log(error);
-
-    }
+     selectedStudents =
+         new Set(
+             selectedIds.map(
+                 x => clean(x)
+             )
+         );
 
 
-    localStorage.removeItem("staffId");
-    localStorage.removeItem("staffID");
+     try{
 
-    sessionStorage.removeItem("staffId");
-    sessionStorage.removeItem("staffID");
+         let result = [];
 
 
-    window.location.href =
-        "staff-login.html";
+         const registerFieldQueries = [
 
-};
+             "registerNo",
+             "registerNumber",
+             "regNo",
+             "rollNo"
 
-
-/* =========================================================
-   CLICK OUTSIDE MODALS
-========================================================= */
-
-window.addEventListener(
-    "click",
-    event => {
-
-        const assignmentModal =
-            document.getElementById(
-                "assignmentModal"
-            );
-
-        const reviewModal =
-            document.getElementById(
-                "reviewModal"
-            );
+         ];
 
 
-        if(event.target === assignmentModal){
+         const snap =
+             await getDocs(
+                 collection(
+                     db,
+                     "students"
+                 )
+             );
 
-            closeAssignmentModal();
 
-        }
+         result =
+             snap.docs.map(d => {
+
+                 const data =
+                     d.data();
 
 
-        if(event.target === reviewModal){
+                 const registerNo =
+                     clean(
+                         data.registerNo
+                         || data.registerNumber
+                         || data.studentRegisterNo
+                         || data.studentRegNo
+                         || data.regNo
+                         || data.rollNo
+                         || d.id
+                     );
 
-            closeReviewModal();
 
-        }
+                 return {
 
-    }
-);
+                     id:d.id,
 
-</script>
+                     registerNo,
 
-</body>
-</html>
+                     rollNo:
+                         clean(
+                             data.rollNo
+                             || data.rollNumber
+                             || registerNo
+                         ),
+
+                     name:
+                         clean(
+                             data.studentName
+                             || data.name
+                             || data.student_name
+                         ),
+
+                     dob:
+                         clean(
+                             data.dob
+                             || data.DOB
+                             || data.dateOfBirth
+                         ),
+
+                     department:
+                         clean(
+                             data.department
+                             || data.dept
+                         ),
+
+                     year:
+                         clean(
+                             data.classYear
+                             || data.year
+                         ),
+
+                     section:
+                         clean(
+                             data.section
+                         )
+
+                 };
+
+             });
+
+
+         /*
+          * Filter students according to the current
+          * subject assignment.
+          */
+
+         const targetDepartment =
+             normalize(
+                 currentSubject.department
+             );
+
+         const targetYear =
+             normalize(
+                 currentSubject.classYear
+             );
+
+         const targetSection =
+             normalize(
+                 currentSubject.section
+             );
+
+
+         const filtered =
+             result.filter(student => {
+
+                 const deptOK =
+                     !targetDepartment
+                     ||
+                     !student.department
+                     ||
+                     normalize(
+                         student.department
+                     ) === targetDepartment;
+
+
+                 const yearOK =
+                     !targetYear
+                     ||
+                     !student.year
+                     ||
+                     normalize(
+                         student.year
+                     ) === targetYear;
+
+
+                 const sectionOK =
+                     !targetSection
+                     ||
+                     !student.section
+                     ||
+                     normalize(
+                         student.section
+                     ) === targetSection;
+
+
+                 return (
+                     deptOK
+                     &&
+                     yearOK
+                     &&
+                     sectionOK
+                 );
+
+             });
+
+
+         students =
+             filtered.length
+                 ? filtered
+                 : result;
+
+
+         renderStudents();
+
+
+     }catch(error){
+
+         console.error(
+             "STUDENT LOAD ERROR",
+             error
+         );
+
+
+         tbody.innerHTML = `
+             <tr>
+                 <td
+                     colspan="5"
+                     style="text-align:center;color:red;"
+                 >
+                     Unable to load students
+                 </td>
+             </tr>
+         `;
+
+     }
+
+ }
+
+
+ /* =========================================================
+    RENDER STUDENTS
+ ========================================================= */
+
+ function renderStudents(
+     list=students
+ ){
+
+     const tbody =
+         document.getElementById(
+             "studentTableBody"
+         );
+
+
+     if(!list.length){
+
+         tbody.innerHTML = `
+             <tr>
+                 <td
+                     colspan="5"
+                     style="text-align:center;"
+                 >
+                     No students found
+                 </td>
+             </tr>
+         `;
+
+         updateStudentCount();
+
+         return;
+
+     }
+
+
+     tbody.innerHTML =
+         list.map(student => {
+
+             const key =
+                 student.registerNo
+                 || student.id;
+
+
+             const checked =
+                 selectedStudents.has(key);
+
+
+             return `
+
+                 <tr>
+
+                     <td>
+
+                         <input
+                             type="checkbox"
+                             ${checked ? "checked" : ""}
+                             onchange="toggleStudent('${escapeAttr(key)}',this.checked)"
+                         >
+
+                     </td>
+
+                     <td>
+                         ${escapeHTML(
+                             student.registerNo
+                         )}
+                     </td>
+
+                     <td>
+                         ${escapeHTML(
+                             student.rollNo
+                         )}
+                     </td>
+
+                     <td>
+                         ${escapeHTML(
+                             student.name
+                         )}
+                     </td>
+
+                     <td>
+                         ${escapeHTML(
+                             student.dob
+                         )}
+                     </td>
+
+                 </tr>
+
+             `;
+
+         }).join("");
+
+
+     updateStudentCount();
+
+ }
+
+
+ /* =========================================================
+    ESCAPE ATTRIBUTE
+ ========================================================= */
+
+ function escapeAttr(value){
+
+     return clean(value)
+         .replace(/\\/g,"\\\\")
+         .replace(/'/g,"\\'");
+
+ }
+
+
+ /* =========================================================
+    TOGGLE STUDENT
+ ========================================================= */
+
+ window.toggleStudent =
+ function(key,checked){
+
+     if(checked){
+
+         selectedStudents.add(key);
+
+     }else{
+
+         selectedStudents.delete(key);
+
+     }
+
+
+     updateStudentCount();
+
+ };
+
+
+ /* =========================================================
+    SELECT ALL
+ ========================================================= */
+
+ window.selectAllStudents =
+ function(checked){
+
+     if(checked){
+
+         students.forEach(student => {
+
+             selectedStudents.add(
+                 student.registerNo
+                 || student.id
+             );
+
+         });
+
+     }else{
+
+         selectedStudents.clear();
+
+     }
+
+
+     document.getElementById(
+         "selectAllCheckbox"
+     ).checked = checked;
+
+
+     renderStudents(
+         getFilteredStudents()
+     );
+
+ };
+
+
+ /* =========================================================
+    SEARCH STUDENTS
+ ========================================================= */
+
+ window.filterStudents =
+ function(){
+
+     renderStudents(
+         getFilteredStudents()
+     );
+
+ };
+
+
+ /* =========================================================
+    FILTERED STUDENTS
+ ========================================================= */
+
+ function getFilteredStudents(){
+
+     const value =
+         normalize(
+             document.getElementById(
+                 "studentSearch"
+             ).value
+         );
+
+
+     if(!value){
+
+         return students;
+
+     }
+
+
+     return students.filter(student =>
+
+         normalize(
+             `${student.registerNo} ${student.rollNo} ${student.name} ${student.dob}`
+         ).includes(value)
+
+     );
+
+ }
+
+
+ /* =========================================================
+    UPDATE STUDENT COUNT
+ ========================================================= */
+
+ function updateStudentCount(){
+
+     document.getElementById(
+         "studentCountBox"
+     ).textContent =
+         `Total Student: ${students.length} | Selected: ${selectedStudents.size}`;
+
+ }
+
+
+ /* =========================================================
+    SAVE ASSIGNMENT
+ ========================================================= */
+
+ window.saveAssignment =
+ async function(){
+
+     const title =
+         clean(
+             document.getElementById(
+                 "assignmentTitle"
+             ).value
+         );
+
+
+     if(!title){
+
+         alert(
+             "Please enter Title."
+         );
+
+         return;
+
+     }
+
+
+     if(!selectedStudents.size){
+
+         alert(
+             "Please select at least one student."
+         );
+
+         return;
+
+     }
+
+
+     const startDate =
+         document.getElementById(
+             "startDate"
+         ).value;
+
+
+     const endDate =
+         document.getElementById(
+             "endDate"
+         ).value;
+
+
+     if(!startDate){
+
+         alert(
+             "Please select Start Date."
+         );
+
+         return;
+
+     }
+
+
+     if(!endDate){
+
+         alert(
+             "Please select End Date."
+         );
+
+         return;
+
+     }
+
+
+     const start =
+         new Date(startDate);
+
+
+     const end =
+         new Date(endDate);
+
+
+     if(end < start){
+
+         alert(
+             "End Date cannot be before Start Date."
+         );
+
+         return;
+
+     }
+
+
+     const btn =
+         document.getElementById(
+             "saveAssignmentBtn"
+         );
+
+
+     btn.disabled = true;
+
+     btn.textContent =
+         "Saving...";
+
+
+     try{
+
+         let fileData = null;
+
+
+         const file =
+             document.getElementById(
+                 "attachmentFile"
+             ).files[0];
+
+
+         if(file){
+
+             btn.textContent =
+                 "Uploading file...";
+
+
+             fileData =
+                 await uploadFile(file);
+
+         }
+
+
+         const selectedStudentObjects =
+             students.filter(student =>
+
+                 selectedStudents.has(
+                     student.registerNo
+                     || student.id
+                 )
+
+             ).map(student => ({
+
+                 registerNo:
+                     student.registerNo,
+
+                 rollNo:
+                     student.rollNo,
+
+                 studentName:
+                     student.name,
+
+                 dob:
+                     student.dob
+
+             }));
+
+
+         const existing =
+             editingAssignmentData
+             || {};
+
+
+         const data = {
+
+             staffId:
+                 currentStaff.staffId,
+
+             staffName:
+                 currentStaff.staffName,
+
+             staffDepartment:
+                 currentStaff.staffDepartment,
+
+             subjectAssignmentId:
+                 currentSubject.id,
+
+             subjectId:
+                 currentSubject.subjectId
+                 || currentSubject.id,
+
+             subjectCode:
+                 currentSubject.subjectCode
+                 || "",
+
+             subjectName:
+                 currentSubject.subjectName
+                 || "",
+
+             department:
+                 currentSubject.department
+                 || "",
+
+             classYear:
+                 currentSubject.classYear
+                 || "",
+
+             section:
+                 currentSubject.section
+                 || "",
+
+             roomNo:
+                 currentSubject.roomNo
+                 || "",
+
+             workType:
+                 document.getElementById(
+                     "workType"
+                 ).value,
+
+             sectionDisplay:
+                 document.getElementById(
+                     "sectionDisplay"
+                 ).textContent,
+
+             startDate:
+                 start.toISOString(),
+
+             endDate:
+                 end.toISOString(),
+
+             conductingMark:
+                 Number(
+                     document.getElementById(
+                         "conductingMark"
+                     ).value || 0
+                 ),
+
+             noMarksRequired:
+                 document.getElementById(
+                     "noMarksRequired"
+                 ).checked,
+
+             topic:
+                 clean(
+                     document.getElementById(
+                         "topic"
+                     ).value
+                 ),
+
+             title,
+
+             instructions:
+                 clean(
+                     document.getElementById(
+                         "instructions"
+                     ).value
+                 ),
+
+             description:
+                 clean(
+                     document.getElementById(
+                         "instructions"
+                     ).value
+                 ),
+
+             commentOption:
+                 document.getElementById(
+                     "commentOption"
+                 ).value,
+
+             chatOption:
+                 document.getElementById(
+                     "chatOption"
+                 ).value,
+
+             allowAttachment:
+                 document.getElementById(
+                     "allowAttachment"
+                 ).value,
+
+             selectedStudents:
+                 selectedStudentObjects,
+
+             assignedCount:
+                 selectedStudentObjects.length,
+
+             submittedCount:
+                 existing.submittedCount || 0,
+
+             notSubmittedCount:
+                 Math.max(
+                     0,
+                     selectedStudentObjects.length
+                     -
+                     (existing.submittedCount || 0)
+                 ),
+
+             updatedAt:
+                 Timestamp.now()
+
+         };
+
+
+         if(fileData){
+
+             data.fileName =
+                 fileData.fileName;
+
+             data.fileUrl =
+                 fileData.fileUrl;
+
+             data.filePath =
+                 fileData.filePath;
+
+             data.fileType =
+                 fileData.fileType;
+
+             data.fileSize =
+                 fileData.fileSize;
+
+             data.hasAttachment =
+                 true;
+
+         }else if(existing.fileUrl){
+
+             data.fileName =
+                 existing.fileName;
+
+             data.fileUrl =
+                 existing.fileUrl;
+
+             data.filePath =
+                 existing.filePath;
+
+             data.fileType =
+                 existing.fileType;
+
+             data.fileSize =
+                 existing.fileSize;
+
+             data.hasAttachment =
+                 true;
+
+         }else{
+
+             data.hasAttachment =
+                 false;
+
+         }
+
+
+         if(editingAssignmentId){
+
+             await updateDoc(
+
+                 doc(
+                     db,
+                     "lmsAssignments",
+                     editingAssignmentId
+                 ),
+
+                 data
+
+             );
+
+
+             showToast(
+                 "Class work updated successfully.",
+                 "success"
+             );
+
+         }else{
+
+             data.assignedAt =
+                 Timestamp.now();
+
+             data.createdAt =
+                 Timestamp.now();
+
+
+             await addDoc(
+
+                 collection(
+                     db,
+                     "lmsAssignments"
+                 ),
+
+                 data
+
+             );
+
+
+             showToast(
+                 "Class work created successfully.",
+                 "success"
+             );
+
+         }
+
+
+         closeAssignmentModal();
+
+         await loadAssignments();
+
+
+     }catch(error){
+
+         console.error(
+             "SAVE ASSIGNMENT ERROR",
+             error
+         );
+
+
+         alert(
+             "Unable to save class work.nn"
+             + error.message
+         );
+
+     }finally{
+
+         btn.disabled = false;
+
+         btn.textContent =
+             editingAssignmentId
+                 ? "Update"
+                 : "Save";
+
+     }
+
+ };
+
+
+ /* =========================================================
+    REVIEW ASSIGNMENT
+ ========================================================= */
+
+ window.reviewAssignment =
+ function(id){
+
+     const item =
+         assignments.find(
+             a => a.id === id
+         );
+
+
+     if(!item){
+
+         return;
+
+     }
+
+
+     document.getElementById(
+         "reviewTitle"
+     ).textContent =
+         `${item.title || "Class Work"} - Assigned Students`;
+
+
+     const list =
+         Array.isArray(
+             item.selectedStudents
+         )
+             ? item.selectedStudents
+             : [];
+
+
+     if(!list.length){
+
+         document.getElementById(
+             "reviewContent"
+         ).innerHTML = `
+             <div class="empty">
+                 No student information available.
+             </div>
+         `;
+
+     }else{
+
+         document.getElementById(
+             "reviewContent"
+         ).innerHTML = `
+
+             <div class="review-student"
+                  style="font-weight:bold;background:#eee;">
+
+                 <div>Reg. No</div>
+                 <div>Roll No.</div>
+                 <div>Student Name</div>
+                 <div>DOB</div>
+
+             </div>
+
+             ${
+                 list.map(student => `
+
+                     <div class="review-student">
+
+                         <div>
+                             ${escapeHTML(
+                                 student.registerNo
+                             )}
+                         </div>
+
+                         <div>
+                             ${escapeHTML(
+                                 student.rollNo
+                             )}
+                         </div>
+
+                         <div>
+                             ${escapeHTML(
+                                 student.studentName
+                             )}
+                         </div>
+
+                         <div>
+                             ${escapeHTML(
+                                 student.dob
+                             )}
+                         </div>
+
+                     </div>
+
+                 `).join("")
+             }
+
+         `;
+
+     }
+
+
+     document.getElementById(
+         "reviewModal"
+     ).style.display = "block";
+
+ };
+
+
+ /* =========================================================
+    CANCEL / DELETE
+ ========================================================= */
+
+ window.cancelAssignment =
+ async function(id){
+
+     const item =
+         assignments.find(
+             a => a.id === id
+         );
+
+
+     if(!item){
+
+         return;
+
+     }
+
+
+     const ok =
+         confirm(
+             "Are you sure you want to cancel this class work?"
+         );
+
+
+     if(!ok){
+
+         return;
+
+     }
+
+
+     try{
+
+         if(item.filePath){
+
+             try{
+
+                 const { error: deleteError } =
+                    await supabase.storage
+                        .from(SUPABASE_BUCKET)
+                        .remove([
+                            item.filePath
+                        ]);
+
+                if(deleteError){
+                    throw deleteError;
+                }
+
+             }catch(error){
+
+                 console.log(
+                     "Storage delete skipped",
+                     error
+                 );
+
+             }
+
+         }
+
+
+         await deleteDoc(
+             doc(
+                 db,
+                 "lmsAssignments",
+                 id
+             )
+         );
+
+
+         showToast(
+             "Class work cancelled.",
+             "success"
+         );
+
+
+         await loadAssignments();
+
+
+     }catch(error){
+
+         console.error(error);
+
+         alert(
+             "Unable to cancel class work.nn"
+             + error.message
+         );
+
+     }
+
+ };
+
+
+ /* =========================================================
+    CLOSE ASSIGNMENT MODAL
+ ========================================================= */
+
+ window.closeAssignmentModal =
+ function(){
+
+     document.getElementById(
+         "assignmentModal"
+     ).style.display = "none";
+
+ };
+
+
+ /* =========================================================
+    REVIEW CLOSE
+ ========================================================= */
+
+ window.closeReviewModal =
+ function(){
+
+     document.getElementById(
+         "reviewModal"
+     ).style.display = "none";
+
+ };
+
+
+ /* =========================================================
+    TAB
+ ========================================================= */
+
+ window.selectTab =
+ function(tabId,element){
+
+     document.querySelectorAll(
+         ".tab"
+     ).forEach(tab =>
+         tab.classList.remove("active")
+     );
+
+
+     document.querySelectorAll(
+         ".tab-content"
+     ).forEach(content =>
+         content.classList.remove("active")
+     );
+
+
+     element.classList.add("active");
+
+
+     document.getElementById(
+         tabId
+     ).classList.add("active");
+
+ };
+
+
+ /* =========================================================
+    DATE HELPERS
+ ========================================================= */
+
+ function toDateTimeLocal(value){
+
+     if(!value){
+
+         return "";
+
+     }
+
+
+     let date;
+
+
+     if(value?.seconds){
+
+         date =
+             new Date(
+                 value.seconds * 1000
+             );
+
+     }else{
+
+         date =
+             new Date(value);
+
+     }
+
+
+     if(isNaN(date.getTime())){
+
+         return "";
+
+     }
+
+
+     const pad =
+         n =>
+             String(n).padStart(2,"0");
+
+
+     return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+
+ }
+
+
+ function formatDate(value){
+
+     const date =
+         new Date(value);
+
+
+     if(isNaN(date.getTime())){
+
+         return clean(value);
+
+     }
+
+
+     return date.toLocaleString(
+         "en-IN",
+         {
+             day:"2-digit",
+             month:"2-digit",
+             year:"numeric",
+             hour:"2-digit",
+             minute:"2-digit"
+         }
+     );
+
+ }
+
+
+ function formatTimestamp(timestamp){
+
+     if(!timestamp){
+
+         return "";
+
+     }
+
+
+     if(timestamp.seconds){
+
+         return formatDate(
+             timestamp.seconds * 1000
+         );
+
+     }
+
+
+     return formatDate(timestamp);
+
+ }
+
+
+ /* =========================================================
+    CLOCK
+ ========================================================= */
+
+ function updateClock(){
+
+     document.getElementById(
+         "currentTime"
+     ).textContent =
+         new Date().toLocaleTimeString(
+             "en-IN"
+         );
+
+ }
+
+
+ setInterval(
+     updateClock,
+     1000
+ );
+
+ updateClock();
+
+
+ /* =========================================================
+    HOME
+ ========================================================= */
+
+ window.goHome =
+ function(){
+
+     window.location.href =
+         "staff-dashboard.html";
+
+ };
+
+
+ /* =========================================================
+    LOGOUT
+ ========================================================= */
+
+ window.logout =
+ async function(){
+
+     try{
+
+         await signOut(auth);
+
+     }catch(error){
+
+         console.log(error);
+
+     }
+
+
+     localStorage.removeItem("staffId");
+     localStorage.removeItem("staffID");
+
+     sessionStorage.removeItem("staffId");
+     sessionStorage.removeItem("staffID");
+
+
+     window.location.href =
+         "staff-login.html";
+
+ };
+
+
+ /* =========================================================
+    CLICK OUTSIDE MODALS
+ ========================================================= */
+
+ window.addEventListener(
+     "click",
+     event => {
+
+         const assignmentModal =
+             document.getElementById(
+                 "assignmentModal"
+             );
+
+         const reviewModal =
+             document.getElementById(
+                 "reviewModal"
+             );
+
+
+         if(event.target === assignmentModal){
+
+             closeAssignmentModal();
+
+         }
+
+
+         if(event.target === reviewModal){
+
+             closeReviewModal();
+
+         }
+
+     }
+ );
+
+ </script>
+
+ </body>
+ </html>
