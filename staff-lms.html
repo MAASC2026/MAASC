@@ -1,3 +1,4 @@
+
  <!DOCTYPE html>
  --------------------------------------------------------------------------------------------------------------------------------------------
  <html lang="en">
@@ -669,10 +670,11 @@
  ========================================================= */
 
  .review-box{
-     width:95%;
-     max-width:1000px;
-     margin:50px auto;
+     width:96%;
+     max-width:1450px;
+     margin:25px auto;
      background:white;
+     box-shadow:0 5px 30px rgba(0,0,0,.35);
  }
 
  .review-header{
@@ -684,7 +686,28 @@
 
  .review-content{
      padding:20px;
+     max-height:78vh;
+     overflow:auto;
  }
+
+ .review-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;}
+ .review-stat{background:#f3f5f8;border:1px solid #ddd;border-radius:5px;padding:9px 13px;font-size:13px;}
+ .review-table-wrap{overflow:auto;border:1px solid #ddd;}
+ .review-table{width:100%;border-collapse:collapse;min-width:1050px;font-size:13px;}
+ .review-table th{position:sticky;top:0;background:#07538e;color:white;padding:10px 8px;text-align:left;z-index:2;}
+ .review-table td{padding:9px 8px;border-bottom:1px solid #ddd;vertical-align:middle;}
+ .review-table tr:hover{background:#f7fbff;}
+ .submission-status{display:inline-block;padding:4px 8px;border-radius:4px;font-weight:bold;font-size:12px;}
+ .submission-status.submitted{background:#dff3e7;color:#176c39;}
+ .submission-status.pending{background:#fff1d6;color:#8a5a00;}
+ .review-file-link{color:#07538e;font-weight:bold;text-decoration:none;}
+ .review-file-link:hover{text-decoration:underline;}
+ .review-comment{max-width:250px;white-space:normal !important;line-height:1.4;}
+ .review-mark-input{width:85px;padding:7px;border:1px solid #aaa;border-radius:4px;text-align:center;font-weight:bold;}
+ .review-mark-input:disabled{background:#eee;cursor:not-allowed;}
+ .save-mark-btn{background:#176c39;color:white;border:none;padding:7px 10px;border-radius:4px;cursor:pointer;font-weight:bold;}
+ .save-mark-btn:hover{background:#12552e;}
+ .save-mark-btn:disabled{opacity:.6;cursor:not-allowed;}
 
  .review-student{
      display:grid;
@@ -3999,112 +4022,136 @@ const supabase = window.supabase.createClient(
 
 
  /* =========================================================
-    REVIEW ASSIGNMENT
- ========================================================= */
+   REVIEW ASSIGNMENT / STUDENT SUBMISSIONS / MARKS
+========================================================= */
 
- window.reviewAssignment =
- function(id){
+window.reviewAssignment =
+async function(id){
+    const item = assignments.find(a => a.id === id);
+    if(!item) return;
 
-     const item =
-         assignments.find(
-             a => a.id === id
-         );
+    const modal = document.getElementById("reviewModal");
+    const content = document.getElementById("reviewContent");
+    const list = Array.isArray(item.selectedStudents) ? item.selectedStudents : [];
+    const marksRequired = item.noMarksRequired === false;
+    const maxMark = Number(item.conductingMark || 0);
+
+    document.getElementById("reviewTitle").textContent = `${item.title || "Class Work"} - Student Submissions`;
+    modal.style.display = "block";
+    content.innerHTML = `<div class="loading"><div class="spinner"></div>Loading student submissions...</div>`;
+
+    if(!list.length){
+        content.innerHTML = `<div class="empty">No students are assigned to this class work.</div>`;
+        return;
+    }
+
+    try{
+        const rows = await Promise.all(list.map(async student => {
+            const registerNo = clean(student.registerNo || student.rollNo || "");
+            const submissionId = clean(id) + "_" + registerNo;
+            try{
+                const snap = await getDoc(doc(db,"lmsSubmissions",submissionId));
+                return {student, submission:snap.exists() ? {id:snap.id,...snap.data()} : null};
+            }catch(error){
+                console.error("SUBMISSION LOAD ERROR:",registerNo,error);
+                return {student,submission:null,loadError:error.message || "Unable to load"};
+            }
+        }));
+
+        const submittedCount = rows.filter(x => x.submission?.submitted).length;
+        const markedCount = rows.filter(x => x.submission && x.submission.mark !== null && x.submission.mark !== undefined && x.submission.mark !== "").length;
+
+        content.innerHTML = `
+            <div class="review-summary">
+                <div class="review-stat"><strong>Assigned:</strong> ${rows.length}</div>
+                <div class="review-stat"><strong>Submitted:</strong> ${submittedCount}</div>
+                <div class="review-stat"><strong>Not Submitted:</strong> ${rows.length-submittedCount}</div>
+                <div class="review-stat"><strong>Marks:</strong> ${marksRequired ? `Required / ${maxMark}` : "Not Required"}</div>
+                ${marksRequired ? `<div class="review-stat"><strong>Marked:</strong> ${markedCount}</div>` : ""}
+            </div>
+            <div class="review-table-wrap">
+                <table class="review-table">
+                    <thead><tr>
+                        <th>Reg. No</th><th>Roll No.</th><th>Student Name</th><th>Status</th><th>Submitted File</th><th>Student Comment</th>
+                        ${marksRequired ? `<th>Mark / ${maxMark}</th><th>Action</th>` : ""}
+                    </tr></thead>
+                    <tbody>
+                        ${rows.map((row,index) => {
+                            const student=row.student||{}, sub=row.submission||{};
+                            const submitted=!!sub.submitted;
+                            const existingMark=sub.mark!==undefined&&sub.mark!==null?sub.mark:"";
+                            const fileUrl=sub.fileUrl||sub.attachmentUrl||"";
+                            const fileName=sub.fileName||sub.attachmentName||"View File";
+                            const comment=sub.comment||"";
+                            const reg=student.registerNo||student.rollNo||"";
+                            return `<tr>
+                                <td>${escapeHTML(student.registerNo||"-")}</td>
+                                <td>${escapeHTML(student.rollNo||"-")}</td>
+                                <td>${escapeHTML(student.studentName||"-")}</td>
+                                <td>${row.loadError?`<span class="submission-status pending">Load Error</span>`:submitted?`<span class="submission-status submitted">Submitted</span>`:`<span class="submission-status pending">Not Submitted</span>`}</td>
+                                <td>${fileUrl?`<a class="review-file-link" href="${escapeHTML(fileUrl)}" target="_blank" rel="noopener">📎 ${escapeHTML(fileName)}</a>`:"-"}</td>
+                                <td class="review-comment">${comment?escapeHTML(comment):"-"}</td>
+                                ${marksRequired?`<td><input type="number" class="review-mark-input" id="reviewMark_${index}" value="${escapeHTML(existingMark)}" min="0" max="${maxMark}" step="0.01" ${submitted?"":"disabled"} placeholder="0-${maxMark}"></td><td><button class="save-mark-btn" id="saveMark_${index}" onclick="saveStudentMark('${escapeHTML(id)}','${escapeHTML(reg)}',${index})" ${submitted?"":"disabled"}>Save Mark</button></td>`:""}
+                            </tr>`;
+                        }).join("")}
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top:15px;color:#666;font-size:12px;">
+                ${marksRequired?`Maximum mark for this class work is <strong>${maxMark}</strong>. Only submitted students can be marked.`:`Marks are not required for this class work, so no mark entry is shown.`}
+            </div>`;
+    }catch(error){
+        console.error("REVIEW SUBMISSIONS ERROR:",error);
+        content.innerHTML=`<div class="empty">Unable to load student submissions.<br><br>${escapeHTML(error.message||"Unknown error")}</div>`;
+    }
+};
+
+window.saveStudentMark =
+async function(assignmentId,registerNo,index){
+    const item=assignments.find(a=>a.id===assignmentId);
+    if(!item){showToast("Assignment not found.","error");return;}
+    if(item.noMarksRequired!==false){showToast("Marks are not required for this class work.","error");return;}
+
+    const maxMark=Number(item.conductingMark||0);
+    const markInput=document.getElementById(`reviewMark_${index}`);
+    const saveButton=document.getElementById(`saveMark_${index}`);
+    if(!markInput)return;
+
+    const rawValue=String(markInput.value).trim();
+    if(rawValue===""){showToast("Please enter a mark.","error",4000);markInput.focus();return;}
+    const mark=Number(rawValue);
+    if(!Number.isFinite(mark)){showToast("Please enter a valid mark.","error",4000);markInput.focus();return;}
+    if(mark<0||mark>maxMark){showToast(`Mark must be between 0 and ${maxMark}.`,"error",4000);markInput.focus();return;}
+
+    const submissionId=clean(assignmentId)+"_"+clean(registerNo);
+    if(saveButton){saveButton.disabled=true;saveButton.textContent="Saving...";}
+
+    try{
+        const submissionRef=doc(db,"lmsSubmissions",submissionId);
+        const submissionSnap=await getDoc(submissionRef);
+        if(!submissionSnap.exists() || !submissionSnap.data()?.submitted) throw new Error("Student has not submitted this class work.");
+
+        await updateDoc(submissionRef,{
+            mark:mark,
+            marks:mark,
+            maxMark:maxMark,
+            marked:true,
+            markedAt:Timestamp.now(),
+            markedByStaffId:currentStaff?.staffId||"",
+            markedByStaffName:currentStaff?.staffName||""
+        });
+
+        showToast(`Mark ${mark}/${maxMark} saved for ${clean(registerNo)}.`,"success",3500);
+        if(saveButton)saveButton.textContent="Saved ✓";
+    }catch(error){
+        console.error("SAVE STUDENT MARK ERROR:",error);
+        showToast("Unable to save mark: "+(error.message||"Unknown error"),"error",6000);
+        if(saveButton){saveButton.disabled=false;saveButton.textContent="Save Mark";}
+    }
+};
 
 
-     if(!item){
-
-         return;
-
-     }
-
-
-     document.getElementById(
-         "reviewTitle"
-     ).textContent =
-         `${item.title || "Class Work"} - Assigned Students`;
-
-
-     const list =
-         Array.isArray(
-             item.selectedStudents
-         )
-             ? item.selectedStudents
-             : [];
-
-
-     if(!list.length){
-
-         document.getElementById(
-             "reviewContent"
-         ).innerHTML = `
-             <div class="empty">
-                 No student information available.
-             </div>
-         `;
-
-     }else{
-
-         document.getElementById(
-             "reviewContent"
-         ).innerHTML = `
-
-             <div class="review-student"
-                  style="font-weight:bold;background:#eee;">
-
-                 <div>Reg. No</div>
-                 <div>Roll No.</div>
-                 <div>Student Name</div>
-                 <div>DOB</div>
-
-             </div>
-
-             ${
-                 list.map(student => `
-
-                     <div class="review-student">
-
-                         <div>
-                             ${escapeHTML(
-                                 student.registerNo
-                             )}
-                         </div>
-
-                         <div>
-                             ${escapeHTML(
-                                 student.rollNo
-                             )}
-                         </div>
-
-                         <div>
-                             ${escapeHTML(
-                                 student.studentName
-                             )}
-                         </div>
-
-                         <div>
-                             ${escapeHTML(
-                                 student.dob
-                             )}
-                         </div>
-
-                     </div>
-
-                 `).join("")
-             }
-
-         `;
-
-     }
-
-
-     document.getElementById(
-         "reviewModal"
-     ).style.display = "block";
-
- };
-
-
- /* =========================================================
+/* =========================================================
     CANCEL / DELETE
  ========================================================= */
 
