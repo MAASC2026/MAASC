@@ -2132,6 +2132,8 @@ body{
      FIREBASE
 ========================================================= -->
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script type="module">
 
 import {
@@ -2164,16 +2166,6 @@ import {
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-import {
-    getStorage,
-    ref,
-    uploadBytesResumable,
-    getDownloadURL
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 
 /* =========================================================
@@ -2215,8 +2207,24 @@ const db =
     getFirestore(app);
 
 
-const storage =
-    getStorage(app);
+/* =========================================================
+   SUPABASE STORAGE - SAME CONFIG AS STAFF LMS
+========================================================= */
+
+const SUPABASE_URL =
+    "https://lmqcmkttadmqyeshcuhf.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_E3y8efSouYf4DFK7Q7q86g_LKwmpLAi";
+
+const SUPABASE_BUCKET =
+    "lms-assignment";
+
+const supabase =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
 
 /* =========================================================
@@ -3627,7 +3635,7 @@ async function loadAllAssignments(){
 
 
         console.log(
-            "LMS ASSIGNMENTS:",
+            "LMS ASSIGNMENTS LOADED FROM FIRESTORE:",
             allAssignments
         );
 
@@ -3739,6 +3747,60 @@ function assignmentBelongsToSubject(
 
 
 /* =========================================================
+   CHECK WHETHER ASSIGNMENT IS FOR CURRENT STUDENT
+   Staff LMS stores selectedStudents as objects containing
+   registerNo. Student LMS must show only assignments assigned
+   to the logged-in student.
+========================================================= */
+
+function assignmentAssignedToCurrentStudent(assignment){
+
+    if(!currentStudent){
+        return false;
+    }
+
+    const currentRegister =
+        upper(
+            currentStudent.registerNo
+        );
+
+    if(!currentRegister){
+        return false;
+    }
+
+    const selected =
+        Array.isArray(assignment.selectedStudents)
+            ? assignment.selectedStudents
+            : [];
+
+    if(!selected.length){
+        return false;
+    }
+
+    return selected.some(student => {
+
+        const registerNo =
+            upper(
+                typeof student === "object"
+                    ? (
+                        student.registerNo ||
+                        student.registerNumber ||
+                        student.studentRegisterNo ||
+                        student.regNo ||
+                        student.rollNo ||
+                        student.id ||
+                        ""
+                    )
+                    : student
+            );
+
+        return registerNo === currentRegister;
+
+    });
+}
+
+
+/* =========================================================
    RENDER SUBJECTS
 ========================================================= */
 
@@ -3810,6 +3872,9 @@ function renderSubjects(
                         assignmentBelongsToSubject(
                             assignment,
                             subject
+                        ) &&
+                        assignmentAssignedToCurrentStudent(
+                            assignment
                         )
                 ).length;
 
@@ -4157,6 +4222,9 @@ async function renderAssignmentsForCourse(){
                 assignmentBelongsToSubject(
                     assignment,
                     currentCourse
+                ) &&
+                assignmentAssignedToCurrentStudent(
+                    assignment
                 )
         );
 
@@ -4698,7 +4766,10 @@ async function openAssignment(
 
     /* -----------------------------------------------------
        COMMENT REQUIREMENT
+       Staff LMS saves this as commentOption:
+       Required / Not Required. Also supports older fields.
        Supports:
+       commentOption
        commentRequired
        allowComment
        comment
@@ -4706,6 +4777,9 @@ async function openAssignment(
     ----------------------------------------------------- */
 
     const commentRequired =
+        isRequiredOption(
+            assignment.commentOption
+        ) ||
         isRequiredOption(
             assignment.commentRequired
         ) ||
@@ -4776,9 +4850,14 @@ async function openAssignment(
 
     /* -----------------------------------------------------
        CHAT WITH FACULTY
+       Staff LMS saves this as chatOption:
+       Required / Not Required.
     ----------------------------------------------------- */
 
     const chatAllowed =
+        isRequiredOption(
+            assignment.chatOption
+        ) ||
         isRequiredOption(
             assignment.chatWithFaculty
         ) ||
@@ -5195,7 +5274,8 @@ async function submitAssignment(){
             "";
 
         /* -------------------------------------------------
-           FILE UPLOAD
+           FILE UPLOAD - SUPABASE
+           Same bucket and upload method as Staff LMS.
         ------------------------------------------------- */
 
         if(file){
@@ -5233,12 +5313,12 @@ async function submitAssignment(){
                 safeName;
 
             console.log(
-                "LMS UPLOAD PATH:",
+                "SUPABASE LMS UPLOAD PATH:",
                 filePathValue
             );
 
             console.log(
-                "LMS UPLOAD FILE:",
+                "SUPABASE LMS UPLOAD FILE:",
                 {
                     name:file.name,
                     type:file.type,
@@ -5246,123 +5326,63 @@ async function submitAssignment(){
                 }
             );
 
-            const storageRef =
-                ref(
-                    storage,
-                    filePathValue
-                );
-
-            const metadata = {
-                contentType:
-                    file.type ||
-                    "application/octet-stream",
-
-                customMetadata:{
-                    studentRegisterNo:
-                        safe(
-                            currentStudent.registerNo
-                        ),
-
-                    assignmentId:
-                        safe(
-                            currentAssignment.id
-                        )
-                }
-            };
-
-            const uploadTask =
-                uploadBytesResumable(
-                    storageRef,
-                    file,
-                    metadata
-                );
-
-            await new Promise(
-                (
-                    resolve,
-                    reject
-                ) => {
-
-                    uploadTask.on(
-                        "state_changed",
-
-                        snapshot => {
-
-                            const total =
-                                snapshot.totalBytes || 0;
-
-                            const percent =
-                                total > 0
-                                ?
-                                Math.round(
-                                    (
-                                        snapshot.bytesTransferred /
-                                        total
-                                    ) * 100
-                                )
-                                :
-                                0;
-
-                            progressBar.style.width =
-                                percent + "%";
-
-                            progressText.textContent =
-                                "Uploading " +
-                                percent +
-                                "%";
-
-                        },
-
-                        error => {
-
-                            console.error(
-                                "FIREBASE STORAGE UPLOAD ERROR:",
-                                error
-                            );
-
-                            reject(error);
-
-                        },
-
-                        async () => {
-
-                            try{
-
-                                fileUrl =
-                                    await getDownloadURL(
-                                        uploadTask.snapshot.ref
-                                    );
-
-                                filePath =
-                                    filePathValue;
-
-                                fileName =
-                                    file.name;
-
-                                progressBar.style.width =
-                                    "100%";
-
-                                progressText.textContent =
-                                    "Upload complete";
-
-                                resolve();
-
-                            }
-                            catch(error){
-
-                                console.error(
-                                    "DOWNLOAD URL ERROR:",
-                                    error
-                                );
-
-                                reject(error);
-
-                            }
-
+            const { data, error } =
+                await supabase.storage
+                    .from(SUPABASE_BUCKET)
+                    .upload(
+                        filePathValue,
+                        file,
+                        {
+                            cacheControl:"3600",
+                            upsert:false,
+                            contentType:
+                                file.type ||
+                                "application/octet-stream"
                         }
                     );
 
-                }
+            if(error){
+
+                console.error(
+                    "SUPABASE LMS UPLOAD ERROR:",
+                    error
+                );
+
+                throw new Error(
+                    error.message ||
+                    "Supabase file upload failed."
+                );
+
+            }
+
+            const publicResult =
+                supabase.storage
+                    .from(SUPABASE_BUCKET)
+                    .getPublicUrl(
+                        filePathValue
+                    );
+
+            const publicUrl =
+                publicResult?.data?.publicUrl ||
+                "";
+
+            if(!publicUrl){
+                throw new Error(
+                    "File uploaded, but Supabase public URL could not be created."
+                );
+            }
+
+            fileUrl = publicUrl;
+            filePath = filePathValue;
+            fileName = file.name;
+
+            progressBar.style.width = "100%";
+            progressText.textContent =
+                "Upload complete";
+
+            console.log(
+                "SUPABASE LMS FILE URL:",
+                fileUrl
             );
 
         }
@@ -5518,30 +5538,15 @@ async function submitAssignment(){
             "Unknown error";
 
         if(
-            error?.code ===
-            "storage/unauthorized"
+            error?.message &&
+            /supabase|row-level|policy|bucket|permission|not authorized|unauthorized/i.test(
+                error.message
+            )
         ){
 
             message =
-                "File upload permission denied. Check Firebase Storage Rules.";
-
-        }
-        else if(
-            error?.code ===
-            "storage/quota-exceeded"
-        ){
-
-            message =
-                "Firebase Storage quota has been exceeded.";
-
-        }
-        else if(
-            error?.code ===
-            "storage/canceled"
-        ){
-
-            message =
-                "File upload was cancelled.";
+                "Supabase Storage upload failed: " +
+                error.message;
 
         }
         else if(
