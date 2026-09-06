@@ -1,17 +1,20 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Substitute Assignment Request</title>
+<title>Staff Attendance Entry</title>
 
 <style>
+
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
     font-family:Arial,Helvetica,sans-serif;
 }
 
@@ -20,106 +23,90 @@ body{
     color:#1f2937;
 }
 
-/* ================= HEADER ================= */
-
 .header{
-    height:70px;
     background:#500454;
     color:white;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 28px;
-    box-shadow:0 2px 10px rgba(0,0,0,.25);
+    padding:20px 25px;
+    box-shadow:0 2px 10px rgba(0,0,0,.2);
 }
 
-.header h2{
-    font-size:23px;
+.header h1{
+    font-size:24px;
 }
 
-.header-user{
-    font-size:15px;
-}
-
-.header-user b{
-    margin-left:5px;
-}
-
-/* ================= MAIN ================= */
-
-.main{
-    width:min(1350px,96%);
-    margin:25px auto;
-}
-
-/* ================= PAGE TITLE ================= */
-
-.page-title{
-    margin-bottom:20px;
-}
-
-.page-title h1{
-    color:#500454;
-    font-size:26px;
-    margin-bottom:6px;
-}
-
-.page-title p{
-    color:#6b7280;
+.header p{
+    margin-top:6px;
     font-size:14px;
+    opacity:.9;
 }
 
-/* ================= CARD ================= */
+.container{
+    max-width:1500px;
+    margin:20px auto;
+    padding:0 15px;
+}
 
-.card{
+.staff-card{
     background:white;
-    border-radius:11px;
-    padding:22px;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.1);
     margin-bottom:20px;
-    box-shadow:0 3px 12px rgba(0,0,0,.09);
 }
 
-.card-title{
-    color:#500454;
+.staff-title{
     font-size:19px;
     font-weight:bold;
-    margin-bottom:18px;
+    color:#500454;
+    margin-bottom:15px;
 }
 
-/* ================= STAFF INFO ================= */
-
-.staff-info{
+.staff-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(4,1fr);
     gap:15px;
 }
 
-.info-box{
+.staff-box{
     background:#f8fafc;
-    border:1px solid #e5e7eb;
+    border:1px solid #e2e8f0;
     border-radius:8px;
-    padding:14px;
+    padding:13px;
 }
 
-.info-box span{
+.staff-box label{
     display:block;
-    color:#6b7280;
     font-size:12px;
+    color:#64748b;
     font-weight:bold;
     margin-bottom:5px;
 }
 
-.info-box strong{
-    color:#111827;
+.staff-box strong{
+    display:block;
     font-size:15px;
+    color:#111827;
 }
 
-/* ================= FILTERS ================= */
+.control-card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.1);
+    margin-bottom:20px;
+}
 
-.filter-grid{
+.control-title{
+    font-size:18px;
+    font-weight:bold;
+    color:#500454;
+    margin-bottom:15px;
+}
+
+.controls{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    gap:15px;
 }
 
 .field label{
@@ -127,909 +114,386 @@ body{
     font-size:13px;
     font-weight:bold;
     margin-bottom:7px;
-    color:#374151;
 }
 
-.field input,
-.field select{
+select,
+input{
     width:100%;
-    padding:11px 12px;
-    border:1px solid #d1d5db;
-    border-radius:7px;
-    outline:none;
-    background:white;
-    font-size:14px;
-}
-
-.field input:focus,
-.field select:focus{
-    border-color:#500454;
-    box-shadow:0 0 0 2px rgba(80,4,84,.08);
-}
-
-/* ================= MESSAGE ================= */
-
-.message{
-    display:none;
-    padding:12px 15px;
-    border-radius:7px;
-    margin-bottom:18px;
-    font-size:14px;
-    font-weight:bold;
-}
-
-.message.success{
-    display:block;
-    background:#dcfce7;
-    color:#166534;
-}
-
-.message.error{
-    display:block;
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-.message.info{
-    display:block;
-    background:#dbeafe;
-    color:#1e40af;
-}
-
-/* ================= TIMETABLE ================= */
-
-.timetable-wrapper{
-    overflow-x:auto;
-}
-
-.timetable{
-    width:100%;
-    min-width:1000px;
-    border-collapse:collapse;
-}
-
-.timetable th{
-    background:#500454;
-    color:white;
-    padding:12px 8px;
-    border:1px solid #ddd;
-    font-size:12px;
-}
-
-.timetable td{
-    border:1px solid #d1d5db;
-    padding:8px;
-    text-align:center;
-    vertical-align:middle;
-    height:135px;
-    min-width:180px;
-}
-
-.period{
-    min-height:105px;
-    padding:10px;
-    border-radius:7px;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.period:hover{
-    transform:translateY(-2px);
-}
-
-.period.assigned{
-    background:#fef3c7;
-    border-left:5px solid #d97706;
-}
-
-.period.empty{
-    background:#f0fdf4;
-    border-left:5px solid #16a34a;
-}
-
-.period.selected{
-    outline:3px solid #500454;
-    box-shadow:0 0 0 3px rgba(80,4,84,.12);
-}
-
-.period-subject{
-    font-weight:bold;
-    color:#92400e;
-    margin-bottom:7px;
-    font-size:14px;
-}
-
-.period-details{
-    font-size:12px;
-    line-height:1.6;
-    color:#374151;
-}
-
-.period-time{
-    margin-top:7px;
-    font-size:11px;
-    color:#6b7280;
-}
-
-/* ================= SELECTED PERIOD ================= */
-
-.selected-card{
-    display:none;
-    border:2px solid #500454;
-    background:#faf5fb;
-}
-
-.selected-grid{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:12px;
-}
-
-.selected-box{
-    background:white;
-    border:1px solid #e5e7eb;
-    border-radius:7px;
     padding:11px;
-}
-
-.selected-box span{
-    display:block;
-    color:#6b7280;
-    font-size:11px;
-    font-weight:bold;
-    margin-bottom:4px;
-}
-
-.selected-box strong{
-    font-size:13px;
-    color:#111827;
-}
-
-/* ================= FREE STAFF ================= */
-
-.free-card{
-    display:none;
-}
-
-.free-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
-}
-
-.free-title h2{
-    color:#500454;
-    font-size:19px;
-}
-
-.free-count{
-    background:#dcfce7;
-    color:#166534;
-    padding:6px 11px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.free-staff-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-}
-
-.free-staff{
-    border:2px solid #e5e7eb;
-    border-radius:9px;
-    padding:15px;
-    background:white;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.free-staff:hover{
-    border-color:#500454;
-    background:#faf5fb;
-}
-
-.free-staff.selected{
-    border-color:#500454;
-    background:#faf5fb;
-    box-shadow:0 0 0 2px rgba(80,4,84,.10);
-}
-
-.free-staff input{
-    margin-right:8px;
-}
-
-.free-staff-name{
-    font-weight:bold;
-    color:#111827;
-}
-
-.free-staff-id{
-    font-size:12px;
-    color:#6b7280;
-    margin-top:5px;
-}
-
-.free-staff-department{
-    font-size:11px;
-    color:#500454;
-    margin-top:4px;
-    font-weight:bold;
-}
-
-.no-free{
-    background:#fff7ed;
-    color:#9a3412;
-    border:1px solid #fed7aa;
-    padding:15px;
-    border-radius:8px;
-    font-size:14px;
-    font-weight:bold;
-}
-
-/* ================= REASON ================= */
-
-.reason-area{
-    display:none;
-}
-
-.reason-area textarea{
-    width:100%;
-    min-height:110px;
-    resize:vertical;
-    padding:12px;
-    border:1px solid #d1d5db;
+    border:1px solid #cbd5e1;
     border-radius:7px;
-    outline:none;
+    background:white;
     font-size:14px;
 }
 
-.reason-area textarea:focus{
-    border-color:#500454;
+input[readonly]{
+    background:#f8fafc;
 }
 
-/* ================= BUTTON ================= */
-
-.submit-area{
-    display:none;
-    text-align:right;
-    margin-top:18px;
+#dayOrderDisplay{
+    font-weight:bold;
+    color:#500454;
+    text-align:center;
 }
 
-.submit-btn{
-    background:#500454;
-    color:white;
+button{
     border:none;
     border-radius:7px;
-    padding:13px 24px;
+    padding:11px 18px;
+    font-size:13px;
     font-weight:bold;
     cursor:pointer;
 }
 
-.submit-btn:hover{
+.primary{
+    background:#500454;
+    color:white;
+}
+
+.primary:hover{
     background:#6e0a75;
 }
 
-.submit-btn:disabled{
-    opacity:.55;
-    cursor:not-allowed;
+.secondary{
+    background:#e5e7eb;
+    color:#111827;
 }
 
-/* ================= REQUEST TABLE ================= */
-
-.requests-card{
-    margin-top:20px;
-}
-
-.requests-header{
+.buttons{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:15px;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:15px;
 }
 
-.requests-header h2{
-    color:#500454;
-    font-size:19px;
+.message{
+    display:none;
+    margin-top:15px;
+    padding:12px;
+    border-radius:7px;
+    font-size:13px;
 }
 
-.refresh-btn{
-    border:none;
-    background:#500454;
-    color:white;
-    border-radius:6px;
-    padding:9px 15px;
-    cursor:pointer;
-    font-weight:bold;
+.message.show{
+    display:block;
 }
 
-.table-wrapper{
-    overflow-x:auto;
-}
-
-.requests-table{
-    width:100%;
-    min-width:1200px;
-    border-collapse:collapse;
-}
-
-.requests-table th{
-    background:#500454;
-    color:white;
-    padding:11px;
-    text-align:left;
-    font-size:12px;
-}
-
-.requests-table td{
-    padding:10px;
-    border-bottom:1px solid #eee;
-    font-size:12px;
-}
-
-.requests-table tr:hover{
-    background:#faf5fb;
-}
-
-/* ================= STATUS ================= */
-
-.status{
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:bold;
-}
-
-.status-pending{
-    background:#fff3cd;
-    color:#856404;
-}
-
-.status-assigned{
-    background:#dbeafe;
-    color:#1d4ed8;
-}
-
-.status-completed{
+.message.ok{
     background:#dcfce7;
     color:#166534;
 }
 
-.status-rejected{
+.message.err{
     background:#fee2e2;
     color:#991b1b;
 }
 
-/* ================= LOADING ================= */
-
-.loading{
-    position:fixed;
-    inset:0;
-    background:rgba(255,255,255,.82);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:5000;
+.message.warn{
+    background:#fef3c7;
+    color:#92400e;
 }
 
-.loading-box{
+.timetable-card{
     background:white;
-    padding:25px 35px;
-    border-radius:10px;
-    box-shadow:0 5px 20px rgba(0,0,0,.2);
+    border-radius:12px;
+    padding:15px;
+    box-shadow:0 3px 15px rgba(0,0,0,.1);
+}
+
+.timetable-title{
+    background:#500454;
+    color:white;
     text-align:center;
-}
-
-.spinner{
-    width:35px;
-    height:35px;
-    border:4px solid #ddd;
-    border-top-color:#500454;
-    border-radius:50%;
-    animation:spin .8s linear infinite;
-    margin:auto;
-}
-
-.loading-box p{
-    margin-top:12px;
-    color:#500454;
+    padding:14px;
+    border-radius:8px 8px 0 0;
+    font-size:18px;
     font-weight:bold;
 }
 
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
+.session-info{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:15px 0;
 }
 
-/* ================= RESPONSIVE ================= */
+.session{
+    padding:9px 25px;
+    border-radius:7px;
+    background:#e5e7eb;
+    font-weight:bold;
+}
+
+.session.active{
+    background:#16a34a;
+    color:white;
+}
+
+.table-wrapper{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    min-width:950px;
+    border-collapse:collapse;
+    table-layout:fixed;
+}
+
+th,
+td{
+    border:1px solid white;
+    text-align:center;
+}
+
+thead th{
+    background:#ead7eb;
+    height:45px;
+    font-size:13px;
+}
+
+.time-row th{
+    background:#22c7d6;
+    font-size:11px;
+    height:42px;
+}
+
+.day{
+    width:100px;
+    background:#22c7d6;
+    font-weight:bold;
+}
+
+.slot{
+    height:105px;
+    background:#e0f7fa;
+    padding:7px;
+    vertical-align:middle;
+}
+
+.slot.empty{
+    background:#f8fafc;
+}
+
+.slot.assigned{
+    background:#dbeafe;
+    cursor:pointer;
+    transition:.15s;
+}
+
+.slot.assigned:hover{
+    background:#bfdbfe;
+    transform:scale(.99);
+}
+
+.slot.attendance-marked{
+    background:#bbf7d0 !important;
+    border:2px solid #16a34a !important;
+    cursor:pointer;
+}
+
+.slot.attendance-marked:hover{
+    background:#86efac !important;
+}
+
+.slot-class{
+    font-size:12px;
+    font-weight:bold;
+    color:#500454;
+}
+
+.slot-year{
+    font-size:11px;
+    color:#334155;
+    font-weight:bold;
+    margin-top:3px;
+}
+
+.slot-section{
+    font-size:11px;
+    color:#475569;
+    font-weight:bold;
+    margin-top:2px;
+}
+
+.slot-subject{
+    font-size:14px;
+    font-weight:bold;
+    color:#111827;
+    margin-top:5px;
+}
+
+.slot-code{
+    font-size:10px;
+    color:#475569;
+    margin-top:4px;
+}
+
+.slot-session{
+    font-size:10px;
+    color:#64748b;
+    margin-top:3px;
+}
+
+.slot-empty{
+    color:#94a3b8;
+    font-size:11px;
+}
+
+.blocked-row{
+    padding:40px !important;
+    color:#94a3b8;
+    font-weight:bold;
+    font-size:14px;
+}
+
+@media(max-width:1100px){
+
+    .controls{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
 
 @media(max-width:900px){
 
-    .staff-info,
-    .filter-grid{
+    .staff-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .selected-grid{
-        grid-template-columns:repeat(3,1fr);
+    .controls{
+        grid-template-columns:1fr;
     }
 
-    .free-staff-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
 }
 
 @media(max-width:600px){
 
-    .header{
-        padding:0 15px;
-    }
-
-    .header h2{
-        font-size:17px;
-    }
-
-    .header-user{
-        font-size:12px;
-    }
-
-    .main{
-        width:94%;
-    }
-
-    .staff-info,
-    .filter-grid,
-    .selected-grid,
-    .free-staff-grid{
+    .staff-grid{
         grid-template-columns:1fr;
     }
+
+    .header h1{
+        font-size:20px;
+    }
+
 }
+
+@media print{
+
+    body{
+        background:white;
+    }
+
+    .header{
+        background:white;
+        color:black;
+        box-shadow:none;
+    }
+
+    .control-card{
+        display:none;
+    }
+
+    .staff-card{
+        box-shadow:none;
+    }
+
+    .timetable-card{
+        box-shadow:none;
+    }
+
+    .slot{
+        background:white!important;
+    }
+
+    th,
+    td{
+        border:1px solid black;
+    }
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<!-- ================= LOADING ================= -->
-
-<div class="loading" id="loading">
-
-    <div class="loading-box">
-
-        <div class="spinner"></div>
-
-        <p id="loadingText">
-            Loading...
-        </p>
-
-    </div>
-
-</div>
-
-
-<!-- ================= HEADER ================= -->
 
 <div class="header">
 
-    <h2>
-        LAB STAFF PORTAL
-    </h2>
+    <h1>
+        Staff Attendance Entry
+    </h1>
 
-    <div class="header-user">
-        Welcome
-        <b id="headerStaffName">-</b>
-    </div>
+    <p>
+        Select your assigned subject from the timetable
+        to enter attendance.
+    </p>
 
 </div>
 
 
-<!-- ================= MAIN ================= -->
+<div class="container">
 
-<div class="main">
 
-    <div class="page-title">
+<div class="staff-card">
 
-        <h1>
-            Substitute Assignment Request
-        </h1>
-
-        <p>
-            Select Date, Day Order and Session to load your timetable.
-        </p>
-
+    <div class="staff-title">
+        Logged-in Staff
     </div>
 
+    <div class="staff-grid">
 
-    <div id="message" class="message"></div>
+        <div class="staff-box">
 
+            <label>
+                STAFF ID
+            </label>
 
-    <!-- ================= STAFF INFORMATION ================= -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Staff Information
-        </div>
-
-        <div class="staff-info">
-
-            <div class="info-box">
-                <span>Staff ID</span>
-                <strong id="staffId">-</strong>
-            </div>
-
-            <div class="info-box">
-                <span>Staff Name</span>
-                <strong id="staffName">-</strong>
-            </div>
-
-            <div class="info-box">
-                <span>Department</span>
-                <strong id="department">-</strong>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= SELECT PERIOD ================= -->
-
-    <div class="card">
-
-        <div class="card-title">
-            Select Substitute Period
-        </div>
-
-        <div class="filter-grid">
-
-            <div class="field">
-
-                <label>
-                    Date
-                </label>
-
-                <input
-                    type="date"
-                    id="requestDate"
-                >
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Day Order
-                </label>
-
-                <select id="dayOrder">
-
-                    <option value="">
-                        Select Day Order
-                    </option>
-
-                    <option value="DAY 01">
-                        DAY 01
-                    </option>
-
-                    <option value="DAY 02">
-                        DAY 02
-                    </option>
-
-                    <option value="DAY 03">
-                        DAY 03
-                    </option>
-
-                    <option value="DAY 04">
-                        DAY 04
-                    </option>
-
-                    <option value="DAY 05">
-                        DAY 05
-                    </option>
-
-                    <option value="DAY 06">
-                        DAY 06
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="field">
-
-                <label>
-                    Session
-                </label>
-
-                <select id="session">
-
-                    <option value="">
-                        Select Session
-                    </option>
-
-                    <option value="FN">
-                        FN
-                    </option>
-
-                    <option value="AN">
-                        AN
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= MY TIMETABLE ================= -->
-
-    <div
-        class="card"
-        id="timetableCard"
-        style="display:none;"
-    >
-
-        <div class="card-title">
-
-            My Timetable
-
-            <span
-                id="timetableTitle"
-                style="
-                font-size:13px;
-                color:#6b7280;
-                margin-left:8px;
-                "
-            ></span>
+            <strong id="displayStaffId">
+                -
+            </strong>
 
         </div>
 
 
-        <div class="timetable-wrapper">
+        <div class="staff-box">
 
-            <table class="timetable">
+            <label>
+                STAFF NAME
+            </label>
 
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Hour
-                        </th>
-
-                        <th>
-                            Time
-                        </th>
-
-                        <th>
-                            Subject
-                        </th>
-
-                        <th>
-                            Department / Year
-                        </th>
-
-                        <th>
-                            Section / Room
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="timetableBody"></tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= SELECTED PERIOD ================= -->
-
-    <div
-        class="card selected-card"
-        id="selectedCard"
-    >
-
-        <div class="card-title">
-            Selected Period
-        </div>
-
-
-        <div class="selected-grid">
-
-            <div class="selected-box">
-                <span>Date</span>
-                <strong id="selectedDate">-</strong>
-            </div>
-
-            <div class="selected-box">
-                <span>Day Order</span>
-                <strong id="selectedDay">-</strong>
-            </div>
-
-            <div class="selected-box">
-                <span>Session</span>
-                <strong id="selectedSession">-</strong>
-            </div>
-
-            <div class="selected-box">
-                <span>Hour</span>
-                <strong id="selectedHour">-</strong>
-            </div>
-
-            <div class="selected-box">
-                <span>Subject</span>
-                <strong id="selectedSubject">-</strong>
-            </div>
-
-            <div class="selected-box">
-                <span>Department</span>
-                <strong id="selectedDepartment">-</strong>
-            </div>
-
-            <div class="selected-box">
-                <span>Year</span>
-                <strong id="selectedYear">-</strong>
-            </div>
-
-            <div class="selected-box">
-                <span>Section</span>
-                <strong id="selectedSection">-</strong>
-            </div>
-
-            <div class="selected-box">
-                <span>Room</span>
-                <strong id="selectedRoom">-</strong>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= FREE STAFF ================= -->
-
-    <div
-        class="card free-card"
-        id="freeStaffCard"
-    >
-
-        <div class="free-title">
-
-            <h2>
-                Free Staff
-            </h2>
-
-            <span
-                class="free-count"
-                id="freeCount"
-            >
-                0 Available
-            </span>
+            <strong id="displayStaffName">
+                -
+            </strong>
 
         </div>
 
 
-        <div
-            id="freeStaffList"
-            class="free-staff-grid"
-        ></div>
+        <div class="staff-box">
 
-    </div>
+            <label>
+                DEPARTMENT
+            </label>
 
-
-    <!-- ================= REASON ================= -->
-
-    <div
-        class="card reason-area"
-        id="reasonCard"
-    >
-
-        <div class="card-title">
-            Reason for Substitute
-        </div>
-
-
-        <textarea
-            id="reason"
-            placeholder="Enter reason for requesting substitute..."
-        ></textarea>
-
-
-        <div
-            class="submit-area"
-            id="submitArea"
-        >
-
-            <button
-                class="submit-btn"
-                id="submitBtn"
-            >
-                Submit Substitute Request
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= MY REQUESTS ================= -->
-
-    <div class="card requests-card">
-
-        <div class="requests-header">
-
-            <h2>
-                My Substitute Requests
-            </h2>
-
-            <button
-                class="refresh-btn"
-                id="refreshBtn"
-            >
-                Refresh
-            </button>
+            <strong id="displayDepartment">
+                -
+            </strong>
 
         </div>
 
 
-        <div class="table-wrapper">
+        <div class="staff-box">
 
-            <table class="requests-table">
+            <label>
+                TIMETABLE RECORDS
+            </label>
 
-                <thead>
-
-                    <tr>
-
-                        <th>Date</th>
-                        <th>Day</th>
-                        <th>Session</th>
-                        <th>Hour</th>
-                        <th>Department</th>
-                        <th>Year</th>
-                        <th>Section</th>
-                        <th>Subject</th>
-                        <th>Room</th>
-                        <th>Requested Staff</th>
-                        <th>Status</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="requestsBody">
-
-                    <tr>
-
-                        <td
-                            colspan="11"
-                            style="
-                            text-align:center;
-                            padding:25px;
-                            color:#777;
-                            "
-                        >
-                            Loading...
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
+            <strong id="recordCount">
+                0
+            </strong>
 
         </div>
 
@@ -1038,97 +502,378 @@ body{
 </div>
 
 
-<!-- ================= FIREBASE ================= -->
+<div class="control-card">
+
+    <div class="control-title">
+        Attendance Timetable
+    </div>
+
+
+    <div class="controls">
+
+
+        <div class="field">
+
+            <label>
+                Session
+            </label>
+
+            <select id="sessionSelect">
+
+                <option value="FN">
+                    FN
+                </option>
+
+                <option value="AN">
+                    AN
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Attendance Date
+            </label>
+
+            <input
+                type="date"
+                id="attendanceDate">
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Day Order
+            </label>
+
+            <input
+                type="text"
+                id="dayOrderDisplay"
+                value="-"
+                readonly>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Current Staff
+            </label>
+
+            <input
+                type="text"
+                id="currentStaffDisplay"
+                readonly>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button
+            type="button"
+            class="primary"
+            id="loadBtn">
+
+            Load My Timetable
+
+        </button>
+
+
+        <button
+            type="button"
+            class="secondary"
+            id="refreshBtn">
+
+            Refresh
+
+        </button>
+
+
+        <button
+            type="button"
+            class="secondary"
+            id="printBtn">
+
+            Print
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="message"
+        class="message">
+    </div>
+
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            Staff:
+            <b id="staffStat">
+                -
+            </b>
+
+        </div>
+
+
+        <div class="stat">
+
+            Session:
+            <b id="sessionStat">
+                FN
+            </b>
+
+        </div>
+
+
+        <div class="stat">
+
+            Assigned:
+            <b id="assignedStat">
+                0
+            </b>
+
+        </div>
+
+
+        <div class="stat">
+
+            Empty:
+            <b id="emptyStat">
+                5
+            </b>
+
+        </div>
+
+
+        <div class="stat">
+
+            Attendance Marked:
+            <b id="markedStat">
+                0
+            </b>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="timetable-card">
+
+
+    <div class="timetable-title">
+
+        MY STAFF TIMETABLE
+
+    </div>
+
+
+    <div class="session-info">
+
+
+        <div
+            id="fnBadge"
+            class="session active">
+
+            FN
+
+        </div>
+
+
+        <div
+            id="anBadge"
+            class="session">
+
+            AN
+
+        </div>
+
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+
+        <table>
+
+
+            <thead>
+
+
+                <tr>
+
+                    <th class="day">
+                        Day
+                    </th>
+
+                    <th>
+                        1
+                    </th>
+
+                    <th>
+                        2
+                    </th>
+
+                    <th>
+                        3
+                    </th>
+
+                    <th>
+                        4
+                    </th>
+
+                    <th>
+                        5
+                    </th>
+
+                </tr>
+
+
+                <tr class="time-row">
+
+                    <th>
+                        Time
+                    </th>
+
+                    <th id="time1">
+                        08:30 TO 09:20
+                    </th>
+
+                    <th id="time2">
+                        09:20 TO 10:10
+                    </th>
+
+                    <th id="time3">
+                        10:10 TO 11:00
+                    </th>
+
+                    <th id="time4">
+                        11:30 TO 12:20
+                    </th>
+
+                    <th id="time5">
+                        12:20 TO 01:10
+                    </th>
+
+                </tr>
+
+
+            </thead>
+
+
+            <tbody id="timetableBody">
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+</div>
+
 
 <script type="module">
 
-import { db } from "./firebase-config.js";
+
+import { db }
+from "./firebase-config.js";
+
 
 import {
+
     collection,
-    getDocs,
-    addDoc,
-    query,
-    where,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    getDocs
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* =========================================================
-DATA
-========================================================= */
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
 
-let allStaff = [];
-let allTimetable = [];
+let currentStaffId = "";
 
-let currentStaff = null;
+let currentStaffName = "";
 
-let selectedPeriod = null;
-let selectedFreeStaff = null;
+let currentDepartment = "";
 
+let currentSession = "FN";
 
-/* =========================================================
-DOM
-========================================================= */
+let attendanceDate = "";
 
-const loading =
-    document.getElementById("loading");
+let timetableAssignments = {};
 
-const loadingText =
-    document.getElementById("loadingText");
+let markedAttendancePeriods = new Set();
 
-const message =
-    document.getElementById("message");
-
-const requestDate =
-    document.getElementById("requestDate");
-
-const dayOrder =
-    document.getElementById("dayOrder");
-
-const session =
-    document.getElementById("session");
-
-const timetableCard =
-    document.getElementById("timetableCard");
-
-const timetableBody =
-    document.getElementById("timetableBody");
-
-const timetableTitle =
-    document.getElementById("timetableTitle");
-
-const selectedCard =
-    document.getElementById("selectedCard");
-
-const freeStaffCard =
-    document.getElementById("freeStaffCard");
-
-const freeStaffList =
-    document.getElementById("freeStaffList");
-
-const freeCount =
-    document.getElementById("freeCount");
-
-const reasonCard =
-    document.getElementById("reasonCard");
-
-const reason =
-    document.getElementById("reason");
-
-const submitArea =
-    document.getElementById("submitArea");
-
-const submitBtn =
-    document.getElementById("submitBtn");
-
-const requestsBody =
-    document.getElementById("requestsBody");
+let selectedDayOrder = "";
 
 
-/* =========================================================
-HELPERS
-========================================================= */
+/* =====================================================
+   TIMINGS
+===================================================== */
+
+const timings = {
+
+    FN: [
+
+        "08:30 TO 09:20",
+
+        "09:20 TO 10:10",
+
+        "10:10 TO 11:00",
+
+        "11:30 TO 12:20",
+
+        "12:20 TO 01:10"
+
+    ],
+
+    AN: [
+
+        "01:30 TO 02:20",
+
+        "02:20 TO 03:10",
+
+        "03:30 TO 04:20",
+
+        "04:20 TO 05:10",
+
+        "05:10 TO 06:00"
+
+    ]
+
+};
+
+
+/* =====================================================
+   CLEAN
+===================================================== */
 
 function clean(value){
 
@@ -1139,6 +884,10 @@ function clean(value){
 }
 
 
+/* =====================================================
+   UPPER
+===================================================== */
+
 function upper(value){
 
     return clean(value)
@@ -1147,2580 +896,219 @@ function upper(value){
 }
 
 
-function normalizeText(value){
+/* =====================================================
+   NORMALIZE STAFF ID
+===================================================== */
+
+function normalizeStaffId(value){
 
     return clean(value)
-        .replace(/\s+/g," ")
-        .toUpperCase();
+        .toUpperCase()
+        .replace(/\s+/g,"");
 
 }
 
 
-function firstValue(...values){
+/* =====================================================
+   GET STAFF ID
+===================================================== */
 
-    for(
-        const value of values
-    ){
-
-        if(
-            value !== undefined &&
-            value !== null &&
-            String(value).trim() !== ""
-        ){
-
-            return value;
-
-        }
-
-    }
-
-    return "";
-
-}
-
-
-/* =========================================================
-DAY NORMALIZATION
-========================================================= */
-
-function normalizeDay(value){
-
-    const text =
-        normalizeText(value);
-
-    const match =
-        text.match(/(?:DAY\s*)?0*(\d+)/);
-
-    if(match){
-
-        return "DAY " +
-            String(
-                Number(match[1])
-            ).padStart(2,"0");
-
-    }
-
-    return text;
-
-}
-
-
-/* =========================================================
-SESSION NORMALIZATION
-========================================================= */
-
-function normalizeSession(value){
-
-    const text =
-        normalizeText(value);
-
-    if(
-        text === "FN" ||
-        text === "FORENOON" ||
-        text === "MORNING"
-    ){
-
-        return "FN";
-
-    }
-
-    if(
-        text === "AN" ||
-        text === "AFTERNOON" ||
-        text === "EVENING"
-    ){
-
-        return "AN";
-
-    }
-
-    return text;
-
-}
-
-
-/* =========================================================
-STAFF HELPERS
-========================================================= */
-
-function getStaffId(
-    data,
-    docId=""
-){
+function getStaffId(data){
 
     return clean(
-        firstValue(
-            data.staffId,
-            data.staffID,
-            data.staff_id,
-            data.staffCode,
-            data.staff_code,
-            data.employeeId,
-            data.employeeID,
-            data.employee_id,
-            data.teacherId,
-            data.teacherID,
-            data.id,
-            data.ID,
-            docId
-        )
+
+        data.staffId ??
+        data.staffID ??
+        data.staff_id ??
+        data.staff ??
+        ""
+
     );
 
 }
 
+
+/* =====================================================
+   GET STAFF NAME
+===================================================== */
 
 function getStaffName(data){
 
     return clean(
-        firstValue(
-            data.staffName,
-            data.staff_name,
-            data.name,
-            data.fullName,
-            data.full_name,
-            data.employeeName,
-            data.employee_name,
-            data.teacherName,
-            data.teacher_name,
-            data.teacher
-        )
+
+        data.staffName ??
+        data.staff_name ??
+        data.name ??
+        data.displayName ??
+        ""
+
     );
 
 }
 
+
+/* =====================================================
+   GET DEPARTMENT
+===================================================== */
 
 function getDepartment(data){
 
     return clean(
-        firstValue(
-            data.department,
-            data.dept,
-            data.departmentName,
-            data.department_name,
-            data.deptName,
-            data.dept_name,
-            data.Department,
-            data.DEPT,
-            data.branch,
-            data.branchName,
-            data.programDepartment,
-            data.staffDepartment
-        )
+
+        data.department ??
+        data.dep ??
+        data.dept ??
+        data.departmentName ??
+        ""
+
     );
 
 }
 
 
-/* =========================================================
-TIMETABLE HELPERS
-========================================================= */
+/* =====================================================
+   GET YEAR
+===================================================== */
 
-function getHour(data){
-
-    const raw =
-        firstValue(
-            data.hour,
-            data.period,
-            data.hourNo,
-            data.hourNumber,
-            data.periodNo,
-            data.periodNumber,
-            data.hourIndex
-        );
-
-    if(
-        typeof raw === "number"
-    ){
-
-        return raw;
-
-    }
-
-    const match =
-        String(
-            raw ?? ""
-        ).match(/\d+/);
-
-    return match
-        ? Number(match[0])
-        : 0;
-
-}
-
-
-function getSubject(data){
+function getYear(data){
 
     return clean(
-        firstValue(
-            data.subject,
-            data.subjectName,
-            data.subject_name,
-            data.title,
-            data.name
-        )
+
+        data.year ??
+        data.academicYear ??
+        data.classYear ??
+        data.studyYear ??
+        ""
+
     );
 
 }
 
 
-function getClassYear(data){
-
-    return clean(
-        firstValue(
-            data.classYear,
-            data.class,
-            data.year,
-            data.className,
-            data.class_name,
-            data.yearName,
-            data.year_name
-        )
-    );
-
-}
-
+/* =====================================================
+   GET SECTION
+===================================================== */
 
 function getSection(data){
 
     return clean(
-        firstValue(
-            data.section,
-            data.sec,
-            data.Section,
-            data.SECTION
-        )
+
+        data.section ??
+        data.sec ??
+        data.sectionName ??
+        data.classSection ??
+        ""
+
     );
 
 }
 
 
-function getRoom(data){
+/* =====================================================
+   GET SUBJECT
+===================================================== */
+
+function getSubject(data){
 
     return clean(
-        firstValue(
-            data.roomNo,
-            data.room,
-            data.roomNumber,
-            data.classRoom
-        )
+
+        data.subjectName ??
+        data.subject ??
+        data.subject_name ??
+        data.subjectTitle ??
+        ""
+
     );
 
 }
 
 
-/* =========================================================
-NORMALIZE TIMETABLE
-========================================================= */
+/* =====================================================
+   GET SUBJECT CODE
+===================================================== */
 
-function normalizeTimetableRecord(
-    id,
-    data
-){
+function getSubjectCode(data){
 
-    return {
+    return clean(
 
-        id:id,
+        data.subjectCode ??
+        data.subject_code ??
+        data.code ??
+        data.subCode ??
+        ""
 
-        staffId:
-            getStaffId(data,id),
-
-        staffName:
-            getStaffName(data),
-
-        department:
-            getDepartment(data),
-
-        day:
-            normalizeDay(
-                firstValue(
-                    data.day,
-                    data.dayName,
-                    data.dayNo,
-                    data.dayNumber,
-                    data.dayOrder,
-                    data.day_order
-                )
-            ),
-
-        session:
-            normalizeSession(
-                firstValue(
-                    data.session,
-                    data.shift,
-                    data.sessionName
-                )
-            ),
-
-        hour:
-            getHour(data),
-
-        subject:
-            getSubject(data),
-
-        classYear:
-            getClassYear(data),
-
-        section:
-            getSection(data),
-
-        room:
-            getRoom(data)
-
-    };
+    );
 
 }
 
 
-/* =========================================================
-MESSAGE
-========================================================= */
+/* =====================================================
+   GET SESSION
+===================================================== */
 
-function showMessage(
-    text,
-    type
-){
+function getSession(data){
 
-    message.textContent =
-        text;
+    return upper(
 
-    message.className =
-        "message " + type;
+        data.session ??
+        data.Session ??
+        ""
 
-}
-
-
-function clearMessage(){
-
-    message.textContent =
-        "";
-
-    message.className =
-        "message";
+    );
 
 }
 
 
-/* =========================================================
-LOADING
-========================================================= */
+/* =====================================================
+   GET DAY
+===================================================== */
 
-function showLoading(text){
+function getDay(data){
 
-    loadingText.textContent =
-        text;
+    const value =
+        upper(
 
-    loading.style.display =
-        "flex";
+            data.day ??
+            data.dayName ??
+            data.dayOrder ??
+            data.dayNo ??
+            ""
 
-}
-
-
-function hideLoading(){
-
-    loading.style.display =
-        "none";
-
-}
+        );
 
 
-/* =========================================================
-CURRENT STAFF ID
-========================================================= */
-
-function getCurrentStaffId(){
-
-    const keys = [
-
-        "staffId",
-        "staffID",
-        "loggedInStaffId",
-        "currentStaffId",
-        "userStaffId"
-
-    ];
+    const match =
+        value.match(
+            /DAY\s*0?([1-6])/
+        );
 
 
-    for(
-        const key of keys
-    ){
+    if(match){
 
-        const value =
-            clean(
-                sessionStorage.getItem(key) ||
-                localStorage.getItem(key)
-            );
-
-        if(value){
-
-            return value;
-
-        }
-
-    }
-
-
-    const objectKeys = [
-
-        "staffSession",
-        "staff_session",
-        "loggedInStaff",
-        "currentStaff",
-        "staffData",
-        "userData",
-        "user"
-
-    ];
-
-
-    for(
-        const key of objectKeys
-    ){
-
-        const raw =
-            sessionStorage.getItem(key) ||
-            localStorage.getItem(key);
-
-        if(!raw){
-
-            continue;
-
-        }
-
-
-        try{
-
-            const obj =
-                JSON.parse(raw);
-
-            const id =
-                getStaffId(obj);
-
-            if(id){
-
-                return id;
-
-            }
-
-        }
-        catch(error){
-
-            console.warn(
-                "Unable to parse storage:",
-                key
-            );
-
-        }
-
-    }
-
-
-    return "";
-
-}
-
-
-/* =========================================================
-LOAD STAFF
-========================================================= */
-
-async function loadStaff(){
-
-    const snapshot =
-        await getDocs(
-            collection(
-                db,
-                "staff"
+        return (
+            "DAY " +
+            String(
+                Number(match[1])
+            ).padStart(
+                2,
+                "0"
             )
         );
-
-    allStaff = [];
-
-    snapshot.forEach(
-        documentSnapshot => {
-
-            const data =
-                documentSnapshot.data() || {};
-
-            const staff = {
-
-                id:
-                    getStaffId(
-                        data,
-                        documentSnapshot.id
-                    ),
-
-                name:
-                    getStaffName(data),
-
-                department:
-                    getDepartment(data),
-
-                raw:data
-
-            };
-
-
-            if(staff.id){
-
-                allStaff.push(
-                    staff
-                );
-
-            }
-
-        }
-    );
-
-
-    console.log(
-        "STAFF LOADED:",
-        allStaff
-    );
-
-}
-
-
-/* =========================================================
-LOAD CURRENT STAFF
-========================================================= */
-
-async function loadCurrentStaff(){
-
-    const storedStaffId =
-        getCurrentStaffId();
-
-
-    if(!storedStaffId){
-
-        throw new Error(
-            "Logged-in staff ID was not found. Please login again."
-        );
-
-    }
-
-
-    const normalizedId =
-        normalizeText(
-            storedStaffId
-        );
-
-
-    let staff =
-        allStaff.find(
-            item =>
-                normalizeText(
-                    item.id
-                ) === normalizedId
-        );
-
-
-    /*
-     * Also allow document ID / case differences.
-     */
-
-    if(!staff){
-
-        staff =
-            allStaff.find(
-                item =>
-                    upper(item.id) ===
-                    upper(storedStaffId)
-            );
-
-    }
-
-
-    if(!staff){
-
-        throw new Error(
-            "Staff ID " +
-            storedStaffId +
-            " was not found in staff collection."
-        );
-
-    }
-
-
-    currentStaff = staff;
-
-
-    document.getElementById(
-        "staffId"
-    ).textContent =
-        staff.id || "-";
-
-
-    document.getElementById(
-        "staffName"
-    ).textContent =
-        staff.name || "-";
-
-
-    document.getElementById(
-        "department"
-    ).textContent =
-        staff.department || "-";
-
-
-    document.getElementById(
-        "headerStaffName"
-    ).textContent =
-        staff.name || staff.id;
-
-
-    console.log(
-        "CURRENT STAFF:",
-        currentStaff
-    );
-
-}
-
-
-/* =========================================================
-LOAD TIMETABLE
-========================================================= */
-
-async function loadTimetable(){
-
-    const snapshot =
-        await getDocs(
-            collection(
-                db,
-                "timetableAssignments"
-            )
-        );
-
-
-    allTimetable = [];
-
-
-    snapshot.forEach(
-        documentSnapshot => {
-
-            const data =
-                documentSnapshot.data() || {};
-
-            const record =
-                normalizeTimetableRecord(
-                    documentSnapshot.id,
-                    data
-                );
-
-
-            if(record.staffId){
-
-                allTimetable.push(
-                    record
-                );
-
-            }
-
-        }
-    );
-
-
-    console.log(
-        "TIMETABLE LOADED:",
-        allTimetable
-    );
-
-}
-
-
-/* =========================================================
-DATE
-========================================================= */
-
-function setToday(){
-
-    const now =
-        new Date();
-
-    const year =
-        now.getFullYear();
-
-    const month =
-        String(
-            now.getMonth()+1
-        ).padStart(2,"0");
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(2,"0");
-
-
-    requestDate.value =
-        `${year}-${month}-${day}`;
-
-}
-
-
-/* =========================================================
-LOAD MY TIMETABLE
-========================================================= */
-
-function loadMyTimetable(){
-
-    clearSelectedPeriod();
-
-    clearFreeStaff();
-
-    timetableBody.innerHTML =
-        "";
-
-
-    if(
-        !dayOrder.value ||
-        !session.value
-    ){
-
-        timetableCard.style.display =
-            "none";
-
-        return;
-
-    }
-
-
-    const currentId =
-        normalizeText(
-            currentStaff.id
-        );
-
-
-    const selectedDay =
-        normalizeDay(
-            dayOrder.value
-        );
-
-
-    const selectedSession =
-        normalizeSession(
-            session.value
-        );
-
-
-    const records =
-        allTimetable
-            .filter(
-                record => {
-
-                    return (
-
-                        normalizeText(
-                            record.staffId
-                        ) === currentId
-
-                        &&
-
-                        normalizeDay(
-                            record.day
-                        ) === selectedDay
-
-                        &&
-
-                        normalizeSession(
-                            record.session
-                        ) === selectedSession
-
-                    );
-
-                }
-            )
-            .sort(
-                (a,b) =>
-                    Number(a.hour) -
-                    Number(b.hour)
-            );
-
-
-    timetableCard.style.display =
-        "block";
-
-
-    timetableTitle.textContent =
-        `(${selectedDay} - ${selectedSession})`;
-
-
-    if(!records.length){
-
-        timetableBody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="5"
-                    style="
-                    padding:30px;
-                    color:#777;
-                    "
-                >
-
-                    No timetable assigned for
-                    ${selectedDay}
-                    -
-                    ${selectedSession}.
-
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-
-    }
-
-
-    records.forEach(
-        record => {
-
-            const row =
-                document.createElement("tr");
-
-
-            const period =
-                document.createElement("div");
-
-
-            period.className =
-                "period assigned";
-
-
-            period.dataset.id =
-                record.id;
-
-
-            period.innerHTML = `
-
-                <div class="period-subject">
-                    ${escapeHTML(
-                        record.subject ||
-                        "Assigned Period"
-                    )}
-                </div>
-
-                <div class="period-details">
-
-                    <b>
-                        ${escapeHTML(
-                            record.department ||
-                            "-"
-                        )}
-                    </b>
-
-                    <br>
-
-                    Year:
-                    ${escapeHTML(
-                        record.classYear ||
-                        "-"
-                    )}
-
-                    <br>
-
-                    Section:
-                    ${escapeHTML(
-                        record.section ||
-                        "-"
-                    )}
-
-                    <br>
-
-                    Room:
-                    ${escapeHTML(
-                        record.room ||
-                        "-"
-                    )}
-
-                </div>
-
-                <div class="period-time">
-                    Click to request substitute
-                </div>
-
-            `;
-
-
-            period.addEventListener(
-                "click",
-                function(){
-
-                    selectPeriod(
-                        record,
-                        period
-                    );
-
-                }
-            );
-
-
-            row.innerHTML = `
-
-                <td>
-                    <b>
-                        Hour ${record.hour}
-                    </b>
-                </td>
-
-                <td>
-                    -
-                </td>
-
-                <td></td>
-
-                <td></td>
-
-                <td></td>
-
-            `;
-
-
-            row.children[2]
-                .appendChild(period);
-
-
-            row.children[3]
-                .innerHTML =
-                `
-                ${escapeHTML(
-                    record.department || "-"
-                )}
-                <br>
-                ${escapeHTML(
-                    record.classYear || "-"
-                )}
-                `;
-
-
-            row.children[4]
-                .innerHTML =
-                `
-                ${escapeHTML(
-                    record.section || "-"
-                )}
-                <br>
-                ${escapeHTML(
-                    record.room || "-"
-                )}
-                `;
-
-
-            timetableBody.appendChild(
-                row
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-SELECT PERIOD
-========================================================= */
-
-function selectPeriod(
-    record,
-    element
-){
-
-    clearMessage();
-
-    document
-        .querySelectorAll(
-            ".period.selected"
-        )
-        .forEach(
-            item =>
-                item.classList.remove(
-                    "selected"
-                )
-        );
-
-
-    element.classList.add(
-        "selected"
-    );
-
-
-    selectedPeriod =
-        record;
-
-
-    document.getElementById(
-        "selectedDate"
-    ).textContent =
-        formatDate(
-            requestDate.value
-        );
-
-
-    document.getElementById(
-        "selectedDay"
-    ).textContent =
-        record.day;
-
-
-    document.getElementById(
-        "selectedSession"
-    ).textContent =
-        record.session;
-
-
-    document.getElementById(
-        "selectedHour"
-    ).textContent =
-        record.hour;
-
-
-    document.getElementById(
-        "selectedSubject"
-    ).textContent =
-        record.subject || "-";
-
-
-    document.getElementById(
-        "selectedDepartment"
-    ).textContent =
-        record.department || "-";
-
-
-    document.getElementById(
-        "selectedYear"
-    ).textContent =
-        record.classYear || "-";
-
-
-    document.getElementById(
-        "selectedSection"
-    ).textContent =
-        record.section || "-";
-
-
-    document.getElementById(
-        "selectedRoom"
-    ).textContent =
-        record.room || "-";
-
-
-    selectedCard.style.display =
-        "block";
-
-
-    reasonCard.style.display =
-        "block";
-
-
-    submitArea.style.display =
-        "none";
-
-
-    reason.value =
-        "";
-
-
-    loadFreeStaff(
-        record.day,
-        record.session,
-        record.hour
-    );
-
-}
-
-
-/* =========================================================
-FREE STAFF
-========================================================= */
-
-async function loadFreeStaff(
-    selectedDay,
-    selectedSession,
-    selectedHour
-){
-
-    freeStaffCard.style.display =
-        "block";
-
-
-    freeStaffList.innerHTML = `
-
-        <div
-            style="
-            grid-column:1/-1;
-            padding:15px;
-            color:#666;
-            "
-        >
-            Checking free staff...
-        </div>
-
-    `;
-
-
-    selectedFreeStaff =
-        null;
-
-
-    const currentStaffId =
-        normalizeText(
-            currentStaff.id
-        );
-
-
-    /*
-     * Staff who have a timetable assignment
-     * for the selected period.
-     */
-
-    const busyIds =
-        new Set();
-
-
-    allTimetable.forEach(
-        record => {
-
-            if(
-
-                normalizeDay(
-                    record.day
-                ) ===
-                normalizeDay(
-                    selectedDay
-                )
-
-                &&
-
-                normalizeSession(
-                    record.session
-                ) ===
-                normalizeSession(
-                    selectedSession
-                )
-
-                &&
-
-                Number(
-                    record.hour
-                ) ===
-                Number(
-                    selectedHour
-                )
-
-            ){
-
-                busyIds.add(
-                    normalizeText(
-                        record.staffId
-                    )
-                );
-
-            }
-
-        }
-    );
-
-
-    /*
-     * Also remove staff who already have an
-     * approved/assigned substitute request
-     * for the same period.
-     */
-
-    const requestedBusyIds =
-        new Set();
-
-
-    try{
-
-        const requestSnapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "substituteRequests"
-                )
-            );
-
-
-        requestSnapshot.forEach(
-            documentSnapshot => {
-
-                const data =
-                    documentSnapshot.data() || {};
-
-
-                const requestDay =
-                    normalizeDay(
-                        firstValue(
-                            data.day,
-                            data.dayOrder,
-                            data.day_order
-                        )
-                    );
-
-
-                const requestSession =
-                    normalizeSession(
-                        firstValue(
-                            data.session,
-                            data.shift
-                        )
-                    );
-
-
-                const requestHour =
-                    Number(
-                        firstValue(
-                            data.hour,
-                            data.period,
-                            0
-                        )
-                    );
-
-
-                const status =
-                    normalizeText(
-                        data.status
-                    );
-
-
-                const assignedStaff =
-                    clean(
-                        firstValue(
-                            data.requestedStaffId,
-                            data.substituteStaffId,
-                            data.assignedStaffId,
-                            data.toStaffId
-                        )
-                    );
-
-
-                if(
-
-                    requestDay ===
-                    normalizeDay(
-                        selectedDay
-                    )
-
-                    &&
-
-                    requestSession ===
-                    normalizeSession(
-                        selectedSession
-                    )
-
-                    &&
-
-                    requestHour ===
-                    Number(
-                        selectedHour
-                    )
-
-                    &&
-
-                    assignedStaff
-
-                    &&
-
-                    (
-                        status === "ASSIGNED" ||
-                        status === "APPROVED" ||
-                        status === "COMPLETED"
-                    )
-
-                ){
-
-                    requestedBusyIds.add(
-                        normalizeText(
-                            assignedStaff
-                        )
-                    );
-
-                }
-
-            }
-        );
-
-    }
-    catch(error){
-
-        console.warn(
-            "Unable to check substitute requests:",
-            error
-        );
-
-    }
-
-
-    const freeStaff =
-        allStaff.filter(
-            staff => {
-
-                const staffId =
-                    normalizeText(
-                        staff.id
-                    );
-
-
-                /*
-                 * Never show requester.
-                 */
-
-                if(
-                    staffId ===
-                    currentStaffId
-                ){
-
-                    return false;
-
-                }
-
-
-                /*
-                 * Remove timetable-busy staff.
-                 */
-
-                if(
-                    busyIds.has(
-                        staffId
-                    )
-                ){
-
-                    return false;
-
-                }
-
-
-                /*
-                 * Remove staff already assigned
-                 * as substitute.
-                 */
-
-                if(
-                    requestedBusyIds.has(
-                        staffId
-                    )
-                ){
-
-                    return false;
-
-                }
-
-
-                return true;
-
-            }
-        );
-
-
-    freeCount.textContent =
-        `${freeStaff.length} Available`;
-
-
-    if(!freeStaff.length){
-
-        freeStaffList.innerHTML = `
-
-            <div
-                class="no-free"
-                style="grid-column:1/-1;"
-            >
-
-                No free staff available for
-                ${escapeHTML(
-                    selectedDay
-                )}
-                -
-                ${escapeHTML(
-                    selectedSession
-                )}
-                -
-                Hour ${escapeHTML(
-                    selectedHour
-                )}.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    freeStaff.forEach(
-        staff => {
-
-            const div =
-                document.createElement("div");
-
-
-            div.className =
-                "free-staff";
-
-
-            div.dataset.staffId =
-                staff.id;
-
-
-            div.innerHTML = `
-
-                <div>
-
-                    <input
-                        type="radio"
-                        name="freeStaff"
-                        value="${escapeAttribute(
-                            staff.id
-                        )}"
-                    >
-
-                    <span class="free-staff-name">
-                        ${escapeHTML(
-                            staff.name ||
-                            "Unnamed Staff"
-                        )}
-                    </span>
-
-                </div>
-
-                <div class="free-staff-id">
-                    Staff ID:
-                    ${escapeHTML(
-                        staff.id
-                    )}
-                </div>
-
-                <div class="free-staff-department">
-                    ${escapeHTML(
-                        staff.department ||
-                        "Department not specified"
-                    )}
-                </div>
-
-            `;
-
-
-            div.addEventListener(
-                "click",
-                function(event){
-
-                    if(
-                        event.target.tagName !==
-                        "INPUT"
-                    ){
-
-                        const radio =
-                            div.querySelector(
-                                "input"
-                            );
-
-                        radio.checked =
-                            true;
-
-                    }
-
-
-                    document
-                        .querySelectorAll(
-                            ".free-staff.selected"
-                        )
-                        .forEach(
-                            item =>
-                                item.classList.remove(
-                                    "selected"
-                                )
-                        );
-
-
-                    div.classList.add(
-                        "selected"
-                    );
-
-
-                    selectedFreeStaff =
-                        staff;
-
-
-                    submitArea.style.display =
-                        "block";
-
-                }
-            );
-
-
-            freeStaffList.appendChild(
-                div
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-CLEAR SELECTED PERIOD
-========================================================= */
-
-function clearSelectedPeriod(){
-
-    selectedPeriod =
-        null;
-
-
-    selectedCard.style.display =
-        "none";
-
-
-    document
-        .querySelectorAll(
-            ".period.selected"
-        )
-        .forEach(
-            item =>
-                item.classList.remove(
-                    "selected"
-                )
-        );
-
-
-    reasonCard.style.display =
-        "none";
-
-
-    submitArea.style.display =
-        "none";
-
-
-    reason.value =
-        "";
-
-}
-
-
-/* =========================================================
-CLEAR FREE STAFF
-========================================================= */
-
-function clearFreeStaff(){
-
-    selectedFreeStaff =
-        null;
-
-
-    freeStaffCard.style.display =
-        "none";
-
-
-    freeStaffList.innerHTML =
-        "";
-
-
-    freeCount.textContent =
-        "0 Available";
-
-}
-
-
-/* =========================================================
-RESET SELECTION
-========================================================= */
-
-function resetSelection(){
-
-    clearSelectedPeriod();
-
-    clearFreeStaff();
-
-}
-
-
-/* =========================================================
-DATE FORMAT
-========================================================= */
-
-function formatDate(value){
-
-    if(!value){
-
-        return "-";
-
-    }
-
-
-    const parts =
-        value.split("-");
-
-
-    if(parts.length !== 3){
-
-        return value;
-
-    }
-
-
-    return (
-        parts[2] +
-        "-" +
-        parts[1] +
-        "-" +
-        parts[0]
-    );
-
-}
-
-
-/* =========================================================
-ESCAPE HTML
-========================================================= */
-
-function escapeHTML(value){
-
-    return String(
-        value ?? ""
-    )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function escapeAttribute(value){
-
-    return escapeHTML(value);
-
-}
-
-
-/* =========================================================
-SUBMIT REQUEST
-========================================================= */
-
-submitBtn.addEventListener(
-    "click",
-    async function(){
-
-        clearMessage();
-
-
-        if(!currentStaff){
-
-            showMessage(
-                "Staff information is not loaded.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if(!requestDate.value){
-
-            showMessage(
-                "Please select the date.",
-                "error"
-            );
-
-            requestDate.focus();
-
-            return;
-
-        }
-
-
-        if(!dayOrder.value){
-
-            showMessage(
-                "Please select the day order.",
-                "error"
-            );
-
-            dayOrder.focus();
-
-            return;
-
-        }
-
-
-        if(!session.value){
-
-            showMessage(
-                "Please select the session.",
-                "error"
-            );
-
-            session.focus();
-
-            return;
-
-        }
-
-
-        if(!selectedPeriod){
-
-            showMessage(
-                "Please select a timetable period.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if(!selectedFreeStaff){
-
-            showMessage(
-                "Please select a free staff member.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if(
-            normalizeText(
-                selectedFreeStaff.id
-            ) ===
-            normalizeText(
-                currentStaff.id
-            )
-        ){
-
-            showMessage(
-                "You cannot select yourself as substitute staff.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        const reasonText =
-            clean(
-                reason.value
-            );
-
-
-        if(!reasonText){
-
-            showMessage(
-                "Please enter the reason for substitute.",
-                "error"
-            );
-
-            reason.focus();
-
-            return;
-
-        }
-
-
-        submitBtn.disabled =
-            true;
-
-
-        submitBtn.textContent =
-            "Checking...";
-
-
-        try{
-
-            /*
-             * Check duplicate requests.
-             */
-
-            const existingSnapshot =
-                await getDocs(
-                    collection(
-                        db,
-                        "substituteRequests"
-                    )
-                );
-
-
-            let duplicate = false;
-
-
-            existingSnapshot.forEach(
-                documentSnapshot => {
-
-                    const data =
-                        documentSnapshot.data() || {};
-
-
-                    const existingStaff =
-                        normalizeText(
-                            firstValue(
-                                data.staffId,
-                                data.requestedByStaffId,
-                                data.requesterStaffId
-                            )
-                        );
-
-
-                    const existingDate =
-                        clean(
-                            firstValue(
-                                data.date,
-                                data.requestDate
-                            )
-                        );
-
-
-                    const existingDay =
-                        normalizeDay(
-                            firstValue(
-                                data.day,
-                                data.dayOrder
-                            )
-                        );
-
-
-                    const existingSession =
-                        normalizeSession(
-                            firstValue(
-                                data.session
-                            )
-                        );
-
-
-                    const existingHour =
-                        Number(
-                            firstValue(
-                                data.hour,
-                                data.period,
-                                0
-                            )
-                        );
-
-
-                    const status =
-                        normalizeText(
-                            data.status
-                        );
-
-
-                    if(
-
-                        existingStaff ===
-                        normalizeText(
-                            currentStaff.id
-                        )
-
-                        &&
-
-                        existingDate ===
-                        requestDate.value
-
-                        &&
-
-                        existingDay ===
-                        normalizeDay(
-                            dayOrder.value
-                        )
-
-                        &&
-
-                        existingSession ===
-                        normalizeSession(
-                            session.value
-                        )
-
-                        &&
-
-                        existingHour ===
-                        Number(
-                            selectedPeriod.hour
-                        )
-
-                        &&
-
-                        status !==
-                        "REJECTED"
-
-                    ){
-
-                        duplicate = true;
-
-                    }
-
-                }
-            );
-
-
-            if(duplicate){
-
-                showMessage(
-                    "A substitute request already exists for this period.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            submitBtn.textContent =
-                "Submitting...";
-
-
-            /*
-             * Store all important fields so that
-             * the Admin portal can process the request
-             * without depending on one particular field name.
-             */
-
-            const requestData = {
-
-                /* requester */
-
-                staffId:
-                    currentStaff.id,
-
-                staffName:
-                    currentStaff.name,
-
-                staffDepartment:
-                    currentStaff.department,
-
-                requesterStaffId:
-                    currentStaff.id,
-
-                requesterStaffName:
-                    currentStaff.name,
-
-                requesterDepartment:
-                    currentStaff.department,
-
-
-                /* date */
-
-                date:
-                    requestDate.value,
-
-                requestDate:
-                    requestDate.value,
-
-
-                /* timetable */
-
-                day:
-                    normalizeDay(
-                        selectedPeriod.day
-                    ),
-
-                dayOrder:
-                    normalizeDay(
-                        selectedPeriod.day
-                    ),
-
-                session:
-                    normalizeSession(
-                        selectedPeriod.session
-                    ),
-
-                hour:
-                    Number(
-                        selectedPeriod.hour
-                    ),
-
-                period:
-                    Number(
-                        selectedPeriod.hour
-                    ),
-
-                subject:
-                    selectedPeriod.subject || "",
-
-                department:
-                    selectedPeriod.department || "",
-
-                year:
-                    selectedPeriod.classYear || "",
-
-                classYear:
-                    selectedPeriod.classYear || "",
-
-                section:
-                    selectedPeriod.section || "",
-
-                room:
-                    selectedPeriod.room || "",
-
-                roomNo:
-                    selectedPeriod.room || "",
-
-
-                /* selected substitute */
-
-                requestedStaffId:
-                    selectedFreeStaff.id,
-
-                requestedStaffName:
-                    selectedFreeStaff.name,
-
-                requestedStaffDepartment:
-                    selectedFreeStaff.department,
-
-                substituteStaffId:
-                    selectedFreeStaff.id,
-
-                substituteStaffName:
-                    selectedFreeStaff.name,
-
-                assignedStaffId:
-                    selectedFreeStaff.id,
-
-                assignedStaffName:
-                    selectedFreeStaff.name,
-
-
-                /* reason */
-
-                reason:
-                    reasonText,
-
-
-                /* initial status */
-
-                status:
-                    "Pending",
-
-
-                createdAt:
-                    serverTimestamp(),
-
-                updatedAt:
-                    serverTimestamp()
-
-            };
-
-
-            const docRef =
-                await addDoc(
-                    collection(
-                        db,
-                        "substituteRequests"
-                    ),
-                    requestData
-                );
-
-
-            console.log(
-                "SUBSTITUTE REQUEST SAVED:",
-                docRef.id
-            );
-
-
-            showMessage(
-                "Substitute request submitted successfully.",
-                "success"
-            );
-
-
-            resetSelection();
-
-
-            await loadMyRequests();
-
-        }
-        catch(error){
-
-            console.error(
-                "SUBSTITUTE REQUEST ERROR:",
-                error
-            );
-
-
-            showMessage(
-                "Unable to submit request: " +
-                error.message,
-                "error"
-            );
-
-        }
-        finally{
-
-            submitBtn.disabled =
-                false;
-
-
-            submitBtn.textContent =
-                "Submit Substitute Request";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-LOAD MY REQUESTS
-========================================================= */
-
-async function loadMyRequests(){
-
-    if(!currentStaff){
-
-        return;
-
-    }
-
-
-    requestsBody.innerHTML = `
-
-        <tr>
-
-            <td
-                colspan="11"
-                style="
-                text-align:center;
-                padding:25px;
-                color:#777;
-                "
-            >
-                Loading...
-            </td>
-
-        </tr>
-
-    `;
-
-
-    try{
-
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "substituteRequests"
-                )
-            );
-
-
-        const requests = [];
-
-
-        snapshot.forEach(
-            documentSnapshot => {
-
-                const data =
-                    documentSnapshot.data() || {};
-
-
-                const requesterId =
-                    normalizeText(
-                        firstValue(
-                            data.staffId,
-                            data.requesterStaffId,
-                            data.requestedByStaffId
-                        )
-                    );
-
-
-                if(
-                    requesterId ===
-                    normalizeText(
-                        currentStaff.id
-                    )
-                ){
-
-                    requests.push({
-
-                        id:
-                            documentSnapshot.id,
-
-                        ...data
-
-                    });
-
-                }
-
-            }
-        );
-
-
-        /*
-         * Newest first.
-         */
-
-        requests.sort(
-            (a,b) => {
-
-                const aTime =
-                    getTimestampValue(
-                        a.createdAt
-                    );
-
-                const bTime =
-                    getTimestampValue(
-                        b.createdAt
-                    );
-
-                return bTime - aTime;
-
-            }
-        );
-
-
-        if(!requests.length){
-
-            requestsBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="11"
-                        style="
-                        text-align:center;
-                        padding:25px;
-                        color:#777;
-                        "
-                    >
-
-                        No substitute requests found.
-
-                    </td>
-
-                </tr>
-
-            `;
-
-            return;
-
-        }
-
-
-        requestsBody.innerHTML =
-            "";
-
-
-        requests.forEach(
-            request => {
-
-                const row =
-                    document.createElement("tr");
-
-
-                const status =
-                    clean(
-                        request.status ||
-                        "Pending"
-                    );
-
-
-                let statusClass =
-                    "status-pending";
-
-
-                const normalizedStatus =
-                    normalizeText(
-                        status
-                    );
-
-
-                if(
-                    normalizedStatus ===
-                    "ASSIGNED" ||
-                    normalizedStatus ===
-                    "APPROVED"
-                ){
-
-                    statusClass =
-                        "status-assigned";
-
-                }
-                else if(
-                    normalizedStatus ===
-                    "COMPLETED"
-                ){
-
-                    statusClass =
-                        "status-completed";
-
-                }
-                else if(
-                    normalizedStatus ===
-                    "REJECTED"
-                ){
-
-                    statusClass =
-                        "status-rejected";
-
-                }
-
-
-                const date =
-                    firstValue(
-                        request.date,
-                        request.requestDate
-                    );
-
-
-                const day =
-                    firstValue(
-                        request.day,
-                        request.dayOrder
-                    );
-
-
-                const requestSession =
-                    firstValue(
-                        request.session
-                    );
-
-
-                const hour =
-                    firstValue(
-                        request.hour,
-                        request.period
-                    );
-
-
-                const department =
-                    firstValue(
-                        request.department
-                    );
-
-
-                const year =
-                    firstValue(
-                        request.year,
-                        request.classYear
-                    );
-
-
-                const section =
-                    firstValue(
-                        request.section
-                    );
-
-
-                const subject =
-                    firstValue(
-                        request.subject
-                    );
-
-
-                const room =
-                    firstValue(
-                        request.room,
-                        request.roomNo
-                    );
-
-
-                const requestedStaff =
-                    firstValue(
-                        request.requestedStaffName,
-                        request.substituteStaffName,
-                        request.assignedStaffName
-                    );
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${escapeHTML(
-                            formatStoredDate(
-                                date
-                            )
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            normalizeDay(
-                                day
-                            )
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            normalizeSession(
-                                requestSession
-                            )
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            hour
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            department
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            year
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            section
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            subject
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            room
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            requestedStaff ||
-                            "-"
-                        )}
-                    </td>
-
-                    <td>
-
-                        <span
-                            class="status ${statusClass}"
-                        >
-                            ${escapeHTML(
-                                status
-                            )}
-                        </span>
-
-                    </td>
-
-                `;
-
-
-                requestsBody.appendChild(
-                    row
-                );
-
-            }
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "LOAD REQUESTS ERROR:",
-            error
-        );
-
-
-        requestsBody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="11"
-                    style="
-                    text-align:center;
-                    padding:25px;
-                    color:#991b1b;
-                    "
-                >
-
-                    Unable to load requests.
-
-                    <br>
-
-                    ${escapeHTML(
-                        error.message
-                    )}
-
-                </td>
-
-            </tr>
-
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-TIMESTAMP HELPER
-========================================================= */
-
-function getTimestampValue(value){
-
-    if(!value){
-
-        return 0;
 
     }
 
 
     if(
-        typeof value.toMillis ===
-        "function"
+        /^[1-6]$/.test(value)
     ){
 
-        return value.toMillis();
-
-    }
-
-
-    if(
-        value.seconds
-    ){
-
-        return Number(
-            value.seconds
-        ) * 1000;
-
-    }
-
-
-    return 0;
-
-}
-
-
-/* =========================================================
-STORED DATE
-========================================================= */
-
-function formatStoredDate(value){
-
-    if(!value){
-
-        return "-";
-
-    }
-
-
-    /*
-     * YYYY-MM-DD
-     */
-
-    if(
-        /^\d{4}-\d{2}-\d{2}$/
-        .test(value)
-    ){
-
-        return formatDate(value);
+        return (
+            "DAY " +
+            value.padStart(
+                2,
+                "0"
+            )
+        );
 
     }
 
@@ -3730,204 +1118,1504 @@ function formatStoredDate(value){
 }
 
 
-/* =========================================================
-DATE CHANGE
-========================================================= */
+/* =====================================================
+   GET HOUR
+===================================================== */
 
-requestDate.addEventListener(
-    "change",
-    function(){
+function getHour(data){
 
-        /*
-         * Date is the actual substitute
-         * request date.
-         */
-
-        clearSelectedPeriod();
-
-        clearFreeStaff();
+    const value =
+        data.hour ??
+        data.period ??
+        data.hourNo ??
+        data.periodNo ??
+        0;
 
 
-        if(
-            dayOrder.value &&
-            session.value
-        ){
-
-            loadMyTimetable();
-
-        }
-
-    }
-);
+    const number =
+        Number(value);
 
 
-/* =========================================================
-DAY ORDER CHANGE
-========================================================= */
+    return Number.isFinite(number)
+        ? number
+        : 0;
 
-dayOrder.addEventListener(
-    "change",
-    function(){
-
-        clearSelectedPeriod();
-
-        clearFreeStaff();
+}
 
 
-        if(
-            dayOrder.value &&
-            session.value
-        ){
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-            loadMyTimetable();
+function escapeHTML(value){
 
-        }
-
-    }
-);
-
-
-/* =========================================================
-SESSION CHANGE
-========================================================= */
-
-session.addEventListener(
-    "change",
-    function(){
-
-        clearSelectedPeriod();
-
-        clearFreeStaff();
-
-
-        if(
-            dayOrder.value &&
-            session.value
-        ){
-
-            loadMyTimetable();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-REFRESH
-========================================================= */
-
-document
-    .getElementById(
-        "refreshBtn"
+    return String(
+        value ?? ""
     )
-    .addEventListener(
-        "click",
-        async function(){
 
-            try{
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-                showLoading(
-                    "Refreshing requests..."
-                );
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
 
 
-                await loadStaff();
+/* =====================================================
+   SHOW MESSAGE
+===================================================== */
 
-                await loadCurrentStaff();
+function showMessage(
+    text,
+    type="ok"
+){
 
-                await loadTimetable();
+    const element =
+        document.getElementById(
+            "message"
+        );
 
-                await loadMyRequests();
 
+    element.textContent =
+        text;
+
+
+    element.className =
+        "message show " +
+        type;
+
+}
+
+
+/* =====================================================
+   CLEAR MESSAGE
+===================================================== */
+
+function clearMessage(){
+
+    const element =
+        document.getElementById(
+            "message"
+        );
+
+
+    element.textContent =
+        "";
+
+
+    element.className =
+        "message";
+
+}
+
+
+/* =====================================================
+   CHECK FUTURE DATE
+===================================================== */
+
+function isFutureDate(dateString){
+
+    if(!dateString){
+
+        return false;
+
+    }
+
+
+    const selected =
+        new Date(
+            dateString +
+            "T00:00:00"
+        );
+
+
+    const today =
+        new Date();
+
+
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    return selected > today;
+
+}
+
+
+/* =====================================================
+   GET TODAY STRING
+===================================================== */
+
+function getTodayString(){
+
+    const today =
+        new Date();
+
+
+    const year =
+        today.getFullYear();
+
+
+    const month =
+        String(
+            today.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            today.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+/* =====================================================
+   SET MAX DATE
+===================================================== */
+
+function setDateLimit(){
+
+    const dateInput =
+        document.getElementById(
+            "attendanceDate"
+        );
+
+
+    /*
+     * IMPORTANT:
+     * Today is the maximum date.
+     * Previous dates remain allowed.
+     */
+
+    dateInput.max =
+        getTodayString();
+
+}
+
+
+/* =====================================================
+   LOAD LOGGED-IN STAFF
+===================================================== */
+
+function loadLoggedInStaff(){
+
+    currentStaffId =
+        clean(
+            sessionStorage.getItem(
+                "staffId"
+            )
+        );
+
+
+    currentStaffName =
+        clean(
+            sessionStorage.getItem(
+                "staffName"
+            )
+        );
+
+
+    currentDepartment =
+        clean(
+            sessionStorage.getItem(
+                "department"
+            )
+        );
+
+
+    console.log(
+        "========================================"
+    );
+
+    console.log(
+        "ATTENDANCE STAFF"
+    );
+
+    console.log(
+        "STAFF ID:",
+        currentStaffId
+    );
+
+    console.log(
+        "STAFF NAME:",
+        currentStaffName
+    );
+
+    console.log(
+        "DEPARTMENT:",
+        currentDepartment
+    );
+
+    console.log(
+        "========================================"
+    );
+
+
+    if(!currentStaffId){
+
+        alert(
+            "Staff login information not found. Please login again."
+        );
+
+
+        window.location.href =
+            "login.html";
+
+
+        return false;
+
+    }
+
+
+    document.getElementById(
+        "displayStaffId"
+    ).textContent =
+        currentStaffId;
+
+
+    document.getElementById(
+        "displayStaffName"
+    ).textContent =
+        currentStaffName || "-";
+
+
+    document.getElementById(
+        "displayDepartment"
+    ).textContent =
+        currentDepartment || "-";
+
+
+    document.getElementById(
+        "staffStat"
+    ).textContent =
+
+        currentStaffId +
+        (
+            currentStaffName
+                ? " — " +
+                  currentStaffName
+                : ""
+        );
+
+
+    document.getElementById(
+        "currentStaffDisplay"
+    ).value =
+
+        currentStaffId +
+        (
+            currentStaffName
+                ? " — " +
+                  currentStaffName
+                : ""
+        );
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   SET DEFAULT DATE
+===================================================== */
+
+function setDefaultDate(){
+
+    attendanceDate =
+        getTodayString();
+
+
+    document.getElementById(
+        "attendanceDate"
+    ).value =
+        attendanceDate;
+
+
+    setDateLimit();
+
+}
+
+
+/* =====================================================
+   LOAD DAY ORDER FOR DATE
+===================================================== */
+
+async function loadDayOrderForDate(){
+
+    const date =
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+
+    const dayOrderDisplay =
+        document.getElementById(
+            "dayOrderDisplay"
+        );
+
+
+    selectedDayOrder =
+        "";
+
+
+    if(!date){
+
+        dayOrderDisplay.value =
+            "-";
+
+        return false;
+
+    }
+
+
+    /*
+     * =================================================
+     * FUTURE DATE BLOCK
+     * =================================================
+     */
+
+    if(
+        isFutureDate(date)
+    ){
+
+        selectedDayOrder =
+            "";
+
+
+        dayOrderDisplay.value =
+            "NOT ALLOWED";
+
+
+        showMessage(
+            "Attendance can be entered only for today or previous dates. Future dates are not allowed.",
+            "warn"
+        );
+
+
+        return false;
+
+    }
+
+
+    dayOrderDisplay.value =
+        "Loading...";
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+
+                collection(
+                    db,
+                    "academicCalendars"
+                )
+
+            );
+
+
+        let foundDayOrder =
+            "";
+
+
+        let isHoliday =
+            false;
+
+
+        snapshot.forEach(
+            calendarDoc => {
 
                 if(
-                    dayOrder.value &&
-                    session.value
+                    foundDayOrder ||
+                    isHoliday
                 ){
 
-                    loadMyTimetable();
+                    return;
 
                 }
 
 
-            }
-            catch(error){
+                const data =
+                    calendarDoc.data() ||
+                    {};
 
-                console.error(
-                    error
+
+                const dates =
+                    Array.isArray(
+                        data.dates
+                    )
+                    ? data.dates
+                    : [];
+
+
+                dates.forEach(
+                    dayData => {
+
+                        if(
+                            foundDayOrder ||
+                            isHoliday
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const calendarDate =
+                            clean(
+                                dayData.date
+                            );
+
+
+                        if(
+                            calendarDate !==
+                            date
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const dayType =
+                            upper(
+                                dayData.dayType
+                            );
+
+
+                        /*
+                         * HOLIDAY
+                         */
+
+                        if(
+                            dayType ===
+                            "HOLIDAY"
+                        ){
+
+                            isHoliday =
+                                true;
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * DAY ORDER
+                         */
+
+                        const rawDayOrder =
+                            upper(
+                                dayData.dayOrder
+                            );
+
+
+                        const match =
+                            rawDayOrder.match(
+                                /DAY\s*0?([1-6])/
+                            );
+
+
+                        if(match){
+
+                            foundDayOrder =
+                                "DAY " +
+                                String(
+                                    Number(
+                                        match[1]
+                                    )
+                                ).padStart(
+                                    2,
+                                    "0"
+                                );
+
+                        }
+
+                    }
                 );
 
-
-                showMessage(
-                    error.message,
-                    "error"
-                );
-
             }
-            finally{
+        );
 
-                hideLoading();
 
-            }
+        /*
+         * HOLIDAY
+         */
+
+        if(isHoliday){
+
+            selectedDayOrder =
+                "HOLIDAY";
+
+
+            dayOrderDisplay.value =
+                "HOLIDAY";
+
+
+            return false;
 
         }
-    );
 
 
-/* =========================================================
-START
-========================================================= */
+        /*
+         * DAY ORDER FOUND
+         */
 
-async function start(){
+        if(foundDayOrder){
 
-    try{
-
-        showLoading(
-            "Loading staff and timetable..."
-        );
+            selectedDayOrder =
+                foundDayOrder;
 
 
-        clearMessage();
+            dayOrderDisplay.value =
+                foundDayOrder;
 
 
-        setToday();
+            return true;
+
+        }
 
 
-        await loadStaff();
+        /*
+         * NOT FOUND
+         */
+
+        selectedDayOrder =
+            "";
 
 
-        await loadCurrentStaff();
+        dayOrderDisplay.value =
+            "NOT SET";
 
 
-        await loadTimetable();
-
-
-        await loadMyRequests();
-
-
-        hideLoading();
-
-
-        console.log(
-            "SUBSTITUTE PORTAL READY"
-        );
+        return false;
 
     }
     catch(error){
 
         console.error(
-            "START ERROR:",
+            "DAY ORDER ERROR:",
             error
         );
 
 
-        hideLoading();
+        selectedDayOrder =
+            "";
+
+
+        dayOrderDisplay.value =
+            "ERROR";
 
 
         showMessage(
+            "Unable to load Day Order: " +
             error.message,
-            "error"
+            "err"
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   UPDATE TIMING HEADERS
+===================================================== */
+
+function updateTimingHeaders(){
+
+    const list =
+        timings[currentSession];
+
+
+    for(
+        let i=1;
+        i<=5;
+        i++
+    ){
+
+        document.getElementById(
+            "time" + i
+        ).textContent =
+            list[i-1];
+
+    }
+
+
+    document.getElementById(
+        "fnBadge"
+    )
+    .classList
+    .toggle(
+        "active",
+        currentSession === "FN"
+    );
+
+
+    document.getElementById(
+        "anBadge"
+    )
+    .classList
+    .toggle(
+        "active",
+        currentSession === "AN"
+    );
+
+
+    document.getElementById(
+        "sessionStat"
+    ).textContent =
+        currentSession;
+
+}
+
+
+/* =====================================================
+   CREATE EMPTY TIMETABLE
+===================================================== */
+
+function createEmptyTimetable(){
+
+    const body =
+        document.getElementById(
+            "timetableBody"
+        );
+
+
+    body.innerHTML = "";
+
+
+    /*
+     * No valid day
+     */
+
+    if(
+        !selectedDayOrder ||
+        selectedDayOrder === "HOLIDAY"
+    ){
+
+        const row =
+            document.createElement(
+                "tr"
+            );
+
+
+        const cell =
+            document.createElement(
+                "td"
+            );
+
+
+        cell.colSpan =
+            6;
+
+
+        cell.className =
+            "blocked-row";
+
+
+        if(
+            selectedDayOrder ===
+            "HOLIDAY"
+        ){
+
+            cell.textContent =
+                "HOLIDAY — ATTENDANCE NOT AVAILABLE";
+
+        }
+        else{
+
+            cell.textContent =
+                "ATTENDANCE NOT AVAILABLE FOR THIS DATE";
+
+        }
+
+
+        row.appendChild(
+            cell
+        );
+
+
+        body.appendChild(
+            row
+        );
+
+
+        updateTimingHeaders();
+
+
+        return;
+
+    }
+
+
+    /*
+     * Convert DAY 03 → 3
+     */
+
+    const match =
+        selectedDayOrder.match(
+            /DAY\s*0?([1-6])/
+        );
+
+
+    if(!match){
+
+        return;
+
+    }
+
+
+    const dayNumber =
+        Number(
+            match[1]
+        );
+
+
+    const day =
+        "DAY " +
+        String(
+            dayNumber
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const row =
+        document.createElement(
+            "tr"
+        );
+
+
+    const dayCell =
+        document.createElement(
+            "td"
+        );
+
+
+    dayCell.className =
+        "day";
+
+
+    dayCell.textContent =
+        day;
+
+
+    row.appendChild(
+        dayCell
+    );
+
+
+    for(
+        let hour=1;
+        hour<=5;
+        hour++
+    ){
+
+        const cell =
+            document.createElement(
+                "td"
+            );
+
+
+        cell.className =
+            "slot empty";
+
+
+        cell.dataset.day =
+            day;
+
+
+        cell.dataset.hour =
+            hour;
+
+
+        cell.innerHTML = `
+
+            <div class="slot-empty">
+                EMPTY
+            </div>
+
+        `;
+
+
+        row.appendChild(
+            cell
+        );
+
+    }
+
+
+    body.appendChild(
+        row
+    );
+
+
+    updateTimingHeaders();
+
+}
+
+
+/* =====================================================
+   PERIOD KEY
+===================================================== */
+
+function periodKeyForItem(item){
+
+    if(!item){
+
+        return "";
+
+    }
+
+
+    const day =
+        upper(
+            item.day
+        )
+        .replace(
+            /\s+/g,
+            ""
+        );
+
+
+    const session =
+        upper(
+            item.session
+        );
+
+
+    const hour =
+        Number(
+            item.hour
+        );
+
+
+    const subjectCode =
+        upper(
+
+            item.subjectCode
+
+            ||
+
+            item.subjectName
+
+            ||
+
+            "SUBJECT"
+
+        )
+        .replace(
+            /[^A-Z0-9]+/g,
+            "_"
+        );
+
+
+    return (
+
+        day +
+        "_" +
+        session +
+        "_H" +
+        hour +
+        "_" +
+        subjectCode
+
+    );
+
+}
+
+
+/* =====================================================
+   LOAD MARKED ATTENDANCE
+===================================================== */
+
+async function loadMarkedAttendance(){
+
+    markedAttendancePeriods =
+        new Set();
+
+
+    const date =
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+
+    if(!date){
+
+        return;
+
+    }
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+
+                collection(
+                    db,
+                    "attendance"
+                )
+
+            );
+
+
+        snapshot.forEach(
+            attendanceDoc => {
+
+                const data =
+                    attendanceDoc.data() ||
+                    {};
+
+
+                if(
+                    clean(data.date) !==
+                    clean(date)
+                ){
+
+                    return;
+
+                }
+
+
+                if(
+                    normalizeStaffId(
+                        data.markedByStaffId
+                    ) !==
+                    normalizeStaffId(
+                        currentStaffId
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                if(
+                    upper(data.session) !==
+                    upper(currentSession)
+                ){
+
+                    return;
+
+                }
+
+
+                Object.entries(
+                    timetableAssignments
+                ).forEach(
+                    ([slotKey,item]) => {
+
+                        if(
+                            upper(data.day) !==
+                            upper(item.day)
+                        ){
+
+                            return;
+
+                        }
+
+
+                        if(
+                            Number(data.hour) !==
+                            Number(item.hour)
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const savedCode =
+                            upper(
+                                data.subjectCode
+                            );
+
+
+                        const itemCode =
+                            upper(
+                                item.subjectCode
+                            );
+
+
+                        const savedSubject =
+                            upper(
+                                data.subjectName
+                            );
+
+
+                        const itemSubject =
+                            upper(
+                                item.subjectName
+                            );
+
+
+                        let subjectMatch =
+                            false;
+
+
+                        if(
+                            savedCode &&
+                            itemCode
+                        ){
+
+                            subjectMatch =
+                                savedCode ===
+                                itemCode;
+
+                        }
+                        else{
+
+                            subjectMatch =
+                                savedSubject ===
+                                itemSubject;
+
+                        }
+
+
+                        if(!subjectMatch){
+
+                            return;
+
+                        }
+
+
+                        const key =
+                            periodKeyForItem(
+                                item
+                            );
+
+
+                        const savedAttendance =
+                            data.attendance ||
+                            {};
+
+
+                        if(
+                            Object.prototype.hasOwnProperty.call(
+                                savedAttendance,
+                                key
+                            )
+                        ){
+
+                            markedAttendancePeriods.add(
+                                slotKey
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        document.getElementById(
+            "markedStat"
+        ).textContent =
+            markedAttendancePeriods.size;
+
+    }
+    catch(error){
+
+        console.error(
+            "ATTENDANCE STATUS ERROR:",
+            error
+        );
+
+
+        document.getElementById(
+            "markedStat"
+        ).textContent =
+            "0";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD MY TIMETABLE
+===================================================== */
+
+async function loadMyTimetable(){
+
+    clearMessage();
+
+
+    timetableAssignments = {};
+
+
+    markedAttendancePeriods =
+        new Set();
+
+
+    createEmptyTimetable();
+
+
+    /*
+     * =================================================
+     * FUTURE DATE BLOCK
+     * =================================================
+     */
+
+    if(
+        isFutureDate(
+            attendanceDate
+        )
+    ){
+
+        showMessage(
+            "Future date attendance is not allowed.",
+            "warn"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * =================================================
+     * HOLIDAY / NO DAY ORDER
+     * =================================================
+     */
+
+    if(
+        !selectedDayOrder ||
+        selectedDayOrder === "HOLIDAY"
+    ){
+
+        document.getElementById(
+            "recordCount"
+        ).textContent =
+            "0";
+
+
+        document.getElementById(
+            "assignedStat"
+        ).textContent =
+            "0";
+
+
+        document.getElementById(
+            "emptyStat"
+        ).textContent =
+            "0";
+
+
+        document.getElementById(
+            "markedStat"
+        ).textContent =
+            "0";
+
+
+        if(
+            selectedDayOrder ===
+            "HOLIDAY"
+        ){
+
+            showMessage(
+                "Attendance is not available on a Holiday.",
+                "warn"
+            );
+
+        }
+        else{
+
+            showMessage(
+                "Day Order is not configured for the selected date.",
+                "warn"
+            );
+
+        }
+
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "recordCount"
+    ).textContent =
+        "Loading...";
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+
+                collection(
+                    db,
+                    "timetableAssignments"
+                )
+
+            );
+
+
+        let matchedCount =
+            0;
+
+
+        snapshot.forEach(
+            timetableDoc => {
+
+                const data =
+                    timetableDoc.data();
+
+
+                const firestoreStaffId =
+                    getStaffId(data);
+
+
+                const firestoreSession =
+                    getSession(data);
+
+
+                const day =
+                    getDay(data);
+
+
+                const hour =
+                    getHour(data);
+
+
+                /*
+                 * STAFF
+                 */
+
+                if(
+                    normalizeStaffId(
+                        firestoreStaffId
+                    ) !==
+                    normalizeStaffId(
+                        currentStaffId
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                /*
+                 * SESSION
+                 */
+
+                if(
+                    firestoreSession !==
+                    currentSession
+                ){
+
+                    return;
+
+                }
+
+
+                /*
+                 * =================================================
+                 * ONLY SELECTED DAY ORDER
+                 * =================================================
+                 */
+
+                if(
+                    upper(day) !==
+                    upper(selectedDayOrder)
+                ){
+
+                    return;
+
+                }
+
+
+                if(
+                    !day ||
+                    hour < 1 ||
+                    hour > 5
+                ){
+
+                    return;
+
+                }
+
+
+                const item = {
+
+                    firestoreId:
+                        timetableDoc.id,
+
+                    staffId:
+                        firestoreStaffId,
+
+                    staffName:
+                        getStaffName(data) ||
+                        currentStaffName,
+
+                    department:
+                        getDepartment(data),
+
+                    year:
+                        getYear(data),
+
+                    section:
+                        getSection(data),
+
+                    subjectName:
+                        getSubject(data),
+
+                    subjectCode:
+                        getSubjectCode(data),
+
+                    session:
+                        firestoreSession,
+
+                    day:
+                        day,
+
+                    hour:
+                        hour
+
+                };
+
+
+                const key =
+                    day +
+                    "_" +
+                    hour;
+
+
+                timetableAssignments[key] =
+                    item;
+
+
+                matchedCount++;
+
+            }
+        );
+
+
+        document.getElementById(
+            "recordCount"
+        ).textContent =
+            matchedCount;
+
+
+        await loadMarkedAttendance();
+
+
+        renderTimetable();
+
+
+        if(!matchedCount){
+
+            showMessage(
+
+                "No timetable assigned for " +
+                currentStaffId +
+                " on " +
+                attendanceDate +
+                " (" +
+                selectedDayOrder +
+                ") in " +
+                currentSession +
+                ".",
+
+                "warn"
+
+            );
+
+        }
+        else{
+
+            showMessage(
+
+                matchedCount +
+                " timetable period(s) loaded for " +
+                attendanceDate +
+                " — " +
+                selectedDayOrder +
+                ".",
+
+                "ok"
+
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "TIMETABLE LOAD ERROR:",
+            error
+        );
+
+
+        document.getElementById(
+            "recordCount"
+        ).textContent =
+            "0";
+
+
+        showMessage(
+
+            "Unable to load timetable: " +
+            error.message,
+
+            "err"
+
         );
 
     }
@@ -3935,10 +2623,927 @@ async function start(){
 }
 
 
-start();
+/* =====================================================
+   RENDER TIMETABLE
+===================================================== */
+
+function renderTimetable(){
+
+    createEmptyTimetable();
+
+
+    if(
+        !selectedDayOrder ||
+        selectedDayOrder === "HOLIDAY"
+    ){
+
+        return;
+
+    }
+
+
+    const slots =
+        document.querySelectorAll(
+            ".slot"
+        );
+
+
+    let assignedCount =
+        0;
+
+
+    slots.forEach(
+        slot => {
+
+            const key =
+                slot.dataset.day +
+                "_" +
+                slot.dataset.hour;
+
+
+            const item =
+                timetableAssignments[key];
+
+
+            if(!item){
+
+                return;
+
+            }
+
+
+            /*
+             * EXTRA DAY CHECK
+             */
+
+            if(
+                upper(item.day) !==
+                upper(selectedDayOrder)
+            ){
+
+                return;
+
+            }
+
+
+            assignedCount++;
+
+
+            slot.classList.remove(
+                "empty"
+            );
+
+
+            slot.classList.add(
+                "assigned"
+            );
+
+
+            if(
+                markedAttendancePeriods.has(
+                    key
+                )
+            ){
+
+                slot.classList.add(
+                    "attendance-marked"
+                );
+
+            }
+
+
+            slot.innerHTML = `
+
+                <div class="slot-class">
+
+                    ${escapeHTML(
+                        item.department || "-"
+                    )}
+
+                </div>
+
+
+                <div class="slot-year">
+
+                    YEAR:
+                    ${escapeHTML(
+                        item.year || "-"
+                    )}
+
+                </div>
+
+
+                <div class="slot-section">
+
+                    SEC:
+                    ${escapeHTML(
+                        item.section || "-"
+                    )}
+
+                </div>
+
+
+                <div class="slot-subject">
+
+                    ${escapeHTML(
+                        item.subjectName || "-"
+                    )}
+
+                </div>
+
+
+                <div class="slot-code">
+
+                    ${escapeHTML(
+                        item.subjectCode || "-"
+                    )}
+
+                </div>
+
+
+                <div class="slot-session">
+
+                    ${escapeHTML(
+                        item.session || "-"
+                    )}
+
+                    |
+
+                    HOUR
+
+                    ${escapeHTML(
+                        item.hour
+                    )}
+
+                </div>
+
+            `;
+
+
+            slot.addEventListener(
+                "click",
+                function(){
+
+                    openAttendanceStudents(
+                        item
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "assignedStat"
+    ).textContent =
+        assignedCount;
+
+
+    document.getElementById(
+        "emptyStat"
+    ).textContent =
+        5 - assignedCount;
+
+
+    document.getElementById(
+        "markedStat"
+    ).textContent =
+        markedAttendancePeriods.size;
+
+}
+
+
+/* =====================================================
+   OPEN ATTENDANCE STUDENTS
+===================================================== */
+
+function openAttendanceStudents(item){
+
+    const selectedDate =
+        document.getElementById(
+            "attendanceDate"
+        ).value;
+
+
+    const displayedDayOrder =
+        document.getElementById(
+            "dayOrderDisplay"
+        ).value;
+
+
+    /*
+     * =================================================
+     * FUTURE DATE SECURITY
+     * =================================================
+     */
+
+    if(
+        isFutureDate(
+            selectedDate
+        )
+    ){
+
+        alert(
+            "Attendance can be entered only for today or previous dates. Future dates are not allowed."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * DATE CHECK
+     */
+
+    if(!selectedDate){
+
+        alert(
+            "Please select an Attendance Date."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * HOLIDAY
+     */
+
+    if(
+        displayedDayOrder ===
+        "HOLIDAY"
+    ){
+
+        alert(
+            "Attendance cannot be entered on a Holiday."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * DAY ORDER CHECK
+     */
+
+    if(
+        !/^DAY\s*0?[1-6]$/i.test(
+            displayedDayOrder
+        )
+    ){
+
+        alert(
+            "Day Order is not available for the selected date."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * TIMETABLE DAY MUST MATCH
+     */
+
+    if(
+        upper(item.day) !==
+        upper(displayedDayOrder)
+    ){
+
+        alert(
+            "Attendance is allowed only for " +
+            displayedDayOrder +
+            " on " +
+            selectedDate +
+            "."
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * STAFF CHECK
+     */
+
+    if(
+        normalizeStaffId(
+            item.staffId
+        ) !==
+        normalizeStaffId(
+            currentStaffId
+        )
+    ){
+
+        alert(
+            "This timetable does not belong to the logged-in staff."
+        );
+
+
+        return;
+
+    }
+
+
+    attendanceDate =
+        selectedDate;
+
+
+    /*
+     * URL PARAMETERS
+     */
+
+    const params =
+        new URLSearchParams();
+
+
+    params.set(
+        "staffId",
+        currentStaffId
+    );
+
+
+    params.set(
+        "staffName",
+        currentStaffName
+    );
+
+
+    params.set(
+        "department",
+        item.department || ""
+    );
+
+
+    params.set(
+        "year",
+        item.year || ""
+    );
+
+
+    params.set(
+        "section",
+        item.section || ""
+    );
+
+
+    params.set(
+        "subject",
+        item.subjectName || ""
+    );
+
+
+    params.set(
+        "subjectCode",
+        item.subjectCode || ""
+    );
+
+
+    params.set(
+        "session",
+        item.session || currentSession
+    );
+
+
+    params.set(
+        "day",
+        item.day || ""
+    );
+
+
+    params.set(
+        "dayOrder",
+        displayedDayOrder
+    );
+
+
+    params.set(
+        "hour",
+        String(
+            item.hour || ""
+        )
+    );
+
+
+    /*
+     * SELECTED DATE
+     */
+
+    params.set(
+        "date",
+        selectedDate
+    );
+
+
+    console.log(
+        "========================================"
+    );
+
+    console.log(
+        "OPENING ATTENDANCE STUDENTS"
+    );
+
+    console.log(
+        "DATE:",
+        selectedDate
+    );
+
+    console.log(
+        "DAY ORDER:",
+        displayedDayOrder
+    );
+
+    console.log(
+        "TIMETABLE DAY:",
+        item.day
+    );
+
+    console.log(
+        "SESSION:",
+        item.session
+    );
+
+    console.log(
+        "HOUR:",
+        item.hour
+    );
+
+    console.log(
+        "SUBJECT:",
+        item.subjectName
+    );
+
+    console.log(
+        "========================================"
+    );
+
+
+    window.location.href =
+        "attendance-students.html?" +
+        params.toString();
+
+}
+
+
+/* =====================================================
+   VERIFY STAFF
+===================================================== */
+
+function verifyStaffIdentity(){
+
+    const dashboardStaffId =
+        clean(
+            sessionStorage.getItem(
+                "staffId"
+            )
+        );
+
+
+    if(
+        normalizeStaffId(
+            dashboardStaffId
+        ) !==
+        normalizeStaffId(
+            currentStaffId
+        )
+    ){
+
+        alert(
+            "Staff login changed. Please login again."
+        );
+
+
+        sessionStorage.clear();
+
+
+        window.location.href =
+            "login.html";
+
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   SESSION CHANGE
+===================================================== */
+
+document.getElementById(
+    "sessionSelect"
+)
+.addEventListener(
+    "change",
+    async function(){
+
+        if(
+            !verifyStaffIdentity()
+        ){
+
+            return;
+
+        }
+
+
+        currentSession =
+            upper(
+                this.value
+            );
+
+
+        updateTimingHeaders();
+
+
+        await loadMyTimetable();
+
+    }
+);
+
+
+/* =====================================================
+   DATE CHANGE
+===================================================== */
+
+document.getElementById(
+    "attendanceDate"
+)
+.addEventListener(
+    "change",
+    async function(){
+
+        if(
+            !verifyStaffIdentity()
+        ){
+
+            return;
+
+        }
+
+
+        attendanceDate =
+            this.value;
+
+
+        /*
+         * FUTURE DATE BLOCK
+         */
+
+        if(
+            isFutureDate(
+                attendanceDate
+            )
+        ){
+
+            alert(
+                "Attendance can be entered only for today or previous dates. Future dates are not allowed."
+            );
+
+
+            /*
+             * Reset to today
+             */
+
+            this.value =
+                getTodayString();
+
+
+            attendanceDate =
+                this.value;
+
+
+            selectedDayOrder =
+                "";
+
+
+            document.getElementById(
+                "dayOrderDisplay"
+            ).value =
+                "-";
+
+
+            timetableAssignments = {};
+
+
+            markedAttendancePeriods =
+                new Set();
+
+
+            createEmptyTimetable();
+
+
+            document.getElementById(
+                "recordCount"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "assignedStat"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "emptyStat"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "markedStat"
+            ).textContent =
+                "0";
+
+
+            await loadDayOrderForDate();
+
+
+            await loadMyTimetable();
+
+
+            return;
+
+        }
+
+
+        /*
+         * Load selected date Day Order
+         */
+
+        const validDayOrder =
+            await loadDayOrderForDate();
+
+
+        /*
+         * Load only that Day Order
+         */
+
+        if(validDayOrder){
+
+            await loadMyTimetable();
+
+        }
+        else{
+
+            timetableAssignments = {};
+
+            markedAttendancePeriods =
+                new Set();
+
+
+            createEmptyTimetable();
+
+
+            document.getElementById(
+                "recordCount"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "assignedStat"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "emptyStat"
+            ).textContent =
+                "0";
+
+
+            document.getElementById(
+                "markedStat"
+            ).textContent =
+                "0";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOAD BUTTON
+===================================================== */
+
+document.getElementById(
+    "loadBtn"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            !verifyStaffIdentity()
+        ){
+
+            return;
+
+        }
+
+
+        /*
+         * Future date check
+         */
+
+        if(
+            isFutureDate(
+                document.getElementById(
+                    "attendanceDate"
+                ).value
+            )
+        ){
+
+            showMessage(
+                "Future date attendance is not allowed.",
+                "warn"
+            );
+
+
+            return;
+
+        }
+
+
+        const validDayOrder =
+            await loadDayOrderForDate();
+
+
+        if(validDayOrder){
+
+            await loadMyTimetable();
+
+        }
+        else{
+
+            createEmptyTimetable();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+document.getElementById(
+    "refreshBtn"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            !verifyStaffIdentity()
+        ){
+
+            return;
+
+        }
+
+
+        if(
+            isFutureDate(
+                document.getElementById(
+                    "attendanceDate"
+                ).value
+            )
+        ){
+
+            showMessage(
+                "Future date attendance is not allowed.",
+                "warn"
+            );
+
+
+            return;
+
+        }
+
+
+        const validDayOrder =
+            await loadDayOrderForDate();
+
+
+        if(validDayOrder){
+
+            await loadMyTimetable();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+document.getElementById(
+    "printBtn"
+)
+.addEventListener(
+    "click",
+    function(){
+
+        window.print();
+
+    }
+);
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+async function initialize(){
+
+    console.log(
+        "========================================"
+    );
+
+    console.log(
+        "ATTENDANCE PAGE INITIALIZATION"
+    );
+
+    console.log(
+        "========================================"
+    );
+
+
+    const valid =
+        loadLoggedInStaff();
+
+
+    if(!valid){
+
+        return;
+
+    }
+
+
+    setDefaultDate();
+
+
+    currentSession =
+        "FN";
+
+
+    document.getElementById(
+        "sessionSelect"
+    ).value =
+        "FN";
+
+
+    updateTimingHeaders();
+
+
+    /*
+     * Load today's Day Order
+     */
+
+    const validDayOrder =
+        await loadDayOrderForDate();
+
+
+    if(validDayOrder){
+
+        await loadMyTimetable();
+
+    }
+    else{
+
+        createEmptyTimetable();
+
+    }
+
+}
+
+
+initialize();
+
 
 </script>
 
 </body>
+
 </html>
-```
