@@ -261,51 +261,107 @@ alert("Login Successful");
 /* ==========================
    REDIRECT BASED ON STAFF ID
 ========================== */
-const id = String(data.staffId || "").toUpperCase();
+const id = String(data.staffId || "").trim().toUpperCase();
 const serviceRole = String(data.serviceRole || "").trim().toUpperCase();
 const workerActive = data.workerActive === true;
 
+console.log("========================================");
+console.log("STAFF REDIRECT CHECK");
 console.log("STAFF ID:", id);
 console.log("SERVICE ROLE:", serviceRole);
-console.log("WORKER ACTIVE:",workerActive);
+console.log("WORKER ACTIVE:", workerActive);
+console.log("========================================");
 
-if (id.startsWith("SHT001")) {
 
-    // Lab Staff Dashboard
+/* =====================================================
+   1. SHT001 → IT HEAD
+   ===================================================== */
+
+if (id === "SHT001") {
+
+    console.log("REDIRECT: IT HEAD");
+
     window.location.href = "it-head.html";
 
 }
 
-else if (id.startsWith("MG"))
-         {
-    window.location.href="dean.html";
+
+/* =====================================================
+   2. MG → DEAN
+   ===================================================== */
+
+else if (id.startsWith("MG")) {
+
+    console.log("REDIRECT: DEAN");
+
+    window.location.href = "dean.html";
+
 }
 
-else if (id.startsWith("HR") && serviceRole === "DEPARTMENT_HEAD") {
 
-    // HR Department Head Dashboard
+/* =====================================================
+   3. HR + DEPARTMENT HEAD → HR HEAD
+   ===================================================== */
+
+else if (
+    id.startsWith("HR") &&
+    serviceRole === "DEPARTMENT HEAD"
+) {
+
+    console.log("REDIRECT: HR DEPARTMENT HEAD");
+
     window.location.href = "hr-head-dashboard.html";
 
 }
+
+
+/* =====================================================
+   4. HR STAFF → HR DASHBOARD
+   ===================================================== */
+
 else if (id.startsWith("HR")) {
 
-    // HR Staff Dashboard
+    console.log("REDIRECT: HR STAFF");
+
     window.location.href = "hr-dashboard.html";
 
 }
-else if (id.startsWith("SHT") && workerActive === true) {
 
-    // HR Department Head Dashboard
+
+/* =====================================================
+   5. SHT + WORKER ACTIVE → IT WORKER
+   ===================================================== */
+
+else if (
+    id.startsWith("SHT") &&
+    workerActive === true
+) {
+
+    console.log("REDIRECT: IT WORKER");
+
     window.location.href = "it-worker.html";
 
 }
+
+
+/* =====================================================
+   6. OTHER SHT → LAB DASHBOARD
+   ===================================================== */
+
 else if (id.startsWith("SHT")) {
 
-    // HR Department Head Dashboard
+    console.log("REDIRECT: LAB DASHBOARD");
+
     window.location.href = "lab-dashboard.html";
 
 }
-else if (serviceRole === "Department Head") {
+
+
+/* =====================================================
+   7. DEPARTMENT HEAD → STAFF HEAD DASHBOARD
+   ===================================================== */
+
+else if (serviceRole === "DEPARTMENT HEAD") {
 
     console.log("REDIRECT: STAFF HEAD DASHBOARD");
 
@@ -313,23 +369,16 @@ else if (serviceRole === "Department Head") {
 
 }
 
+
+/* =====================================================
+   8. ALL OTHER STAFF
+   ===================================================== */
+
 else {
 
-    // All other staff
+    console.log("REDIRECT: STAFF DASHBOARD");
+
     window.location.href = "staff-dashboard.html";
-
-}
-
-}
-catch(error){
-
-loading.style.display="none";
-
-console.error(error);
-
-alert(error.message);
-
-}
 
 }
 
