@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Individual Student</title>
+
+<link rel="stylesheet"
+href="https://maasc2026.github.io/MAASC/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+.form-group label{
+    font-weight:600;
+    margin-bottom:8px;
+    color:#374151;
+}
+
+.form-group input,
+.form-group select{
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+    font-size:15px;
+    outline:none;
+    width:100%;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#2563eb;
+}
+
+.button-area{
+    margin-top:25px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+#saveBtn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+}
+
+#saveBtn:hover{
+    background:#1d4ed8;
+}
+
+#resetBtn{
+    background:#6b7280;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+}
+
+#resetBtn:hover{
+    background:#4b5563;
+}
+
+.loader{
+    display:none;
+    margin-top:20px;
+}
+
+.spinner{
+    width:30px;
+    height:30px;
+    border:4px solid #ddd;
+    border-top:4px solid #2563eb;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+.message{
+    display:none;
+    margin-top:20px;
+    padding:14px;
+    border-radius:6px;
+    font-weight:500;
+}
+
+.message.success{
+    display:block;
+    background:#dcfce7;
+    color:#166534;
+    border:1px solid #86efac;
+}
+
+.message.error{
+    display:block;
+    background:#fee2e2;
+    color:#991b1b;
+    border:1px solid #fca5a5;
+}
+
+.student-preview{
+    margin-top:25px;
+}
+
+.preview-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.preview-table th,
+.preview-table td{
+    padding:10px;
+    border:1px solid #ddd;
+    text-align:left;
+}
+
+.preview-table th{
+    background:#f1f3f6;
+}
+
+.required{
+    color:red;
+}
+
+@media(max-width:768px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <h2>MAASC</h2>
+
+        <p>Student Management</p>
+
+    </div>
+
+
+    <ul>
+
+        <li>
+
+            <a href="student.html">
+
+                <i class="fa fa-home"></i>
+
+                Dashboard
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="upload.html">
+
+                <i class="fa fa-upload"></i>
+
+                Upload Students
+
+            </a>
+
+        </li>
+
+
+        <li class="active">
+
+            <a href="individual-student.html">
+
+                <i class="fa fa-user-plus"></i>
+
+                Add Student
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="register.html">
+
+                <i class="fa fa-id-card"></i>
+
+                Register Numbers
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="records.html">
+
+                <i class="fa fa-users"></i>
+
+                Student Records
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="export.html">
+
+                <i class="fa fa-file-excel"></i>
+
+                Export Excel
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</div>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="main">
+
+<header>
+
+    <h1>Add Individual Student</h1>
+
+    <p>Enter student details and save directly to the student database</p>
+
+</header>
+
+
+
+<div class="container">
+
+
+<h2>
+
+<i class="fa fa-user-plus"></i>
+
+Student Registration
+
+</h2>
+
+<br>
+
+
+
+<div class="form-grid">
+
+
+<!-- Academic Year -->
+
+<div class="form-group">
+
+<label>
+
+Academic Year
+
+<span class="required">*</span>
+
+</label>
+
+<select id="academicYear">
+
+<option value="">Select Academic Year</option>
+
+<option value="2026-2029">2026-2029</option>
+
+<option value="2025-2028">2025-2028</option>
+
+<option value="2024-2027">2024-2027</option>
+
+</select>
+
+</div>
+
+
+
+<!-- Department -->
+
+<div class="form-group">
+
+<label>
+
+Department
+
+<span class="required">*</span>
+
+</label>
+
+<select id="department">
+
+<option value="">Select Department</option>
+
+<option value="B.Com General">B.Com General</option>
+
+<option value="B.Com BM">B.Com BM</option>
+
+<option value="B.Com MM">B.Com MM</option>
+
+<option value="B.Com CS">B.Com CS</option>
+
+<option value="B.Com A&F">B.Com A&F</option>
+
+<option value="B.Com ISM">B.Com ISM</option>
+
+<option value="B.Com CA">B.Com CA</option>
+
+<option value="B.Com BUS.AD">B.Com BUS.AD</option>
+
+<option value="B.A DEFENCE">B.A DEFENCE</option>
+
+<option value="B.A PUB.AD">B.A PUB.AD</option>
+
+<option value="B.A TAMIL">B.A TAMIL</option>
+
+<option value="B.A TOURISM">B.A TOURISM</option>
+
+<option value="B.Sc CS">B.Sc CS</option>
+
+<option value="B.Sc CS WITH AI">B.Sc CS WITH AI</option>
+
+<option value="B.Sc CRIMINOLOGY">B.Sc CRIMINOLOGY</option>
+
+<option value="B.Sc SA">B.Sc SA</option>
+
+<option value="B.Sc PHYS WITH CA">B.Sc PHYS WITH CA</option>
+
+<option value="B.Sc MATHS WITH CA">B.Sc MATHS WITH CA</option>
+
+<option value="B.Sc ELECTRONICS WITH AI">
+B.Sc ELECTRONICS WITH AI
+</option>
+
+<option value="B.Sc VISCOM">B.Sc VISCOM</option>
+
+<option value="B.Sc ELECTRONIC MEDIA">
+B.Sc ELECTRONIC MEDIA
+</option>
+
+<option value="B.Sc IDD">B.Sc IDD</option>
+
+<option value="B.Sc PHYSICS">B.Sc PHYSICS</option>
+
+<option value="BCA COMPUTER APPLICATION">
+BCA COMPUTER APPLICATION
+</option>
+
+<option value="M.Sc CS">M.SC CS</option>
+
+<option value="M.Com A&f">M.Com A&f</option>
+
+</select>
+
+</div>
+
+
+
+<!-- Year -->
+
+<div class="form-group">
+
+<label>
+
+Year
+
+<span class="required">*</span>
+
+</label>
+
+<select id="year">
+
+<option value="">Select Year</option>
+
+<option value="I">I Year</option>
+
+<option value="II">II Year</option>
+
+<option value="III">III Year</option>
+
+</select>
+
+</div>
+
+
+
+<!-- Section -->
+
+<div class="form-group">
+
+<label>
+
+Section
+
+<span class="required">*</span>
+
+</label>
+
+<select id="section">
+
+<option value="">Select Section</option>
+
+<option value="A">Section A</option>
+
+<option value="B">Section B</option>
+
+<option value="C">Section C</option>
+
+<option value="D">Section D</option>
+
+</select>
+
+</div>
+
+
+
+<!-- Roll Number -->
+
+<div class="form-group">
+
+<label>
+
+Roll Number
+
+<span class="required">*</span>
+
+</label>
+
+<input
+
+type="text"
+
+id="rollNo"
+
+placeholder="Enter Roll Number"
+
+autocomplete="off"
+
+>
+
+</div>
+
+
+
+<!-- Student Name -->
+
+<div class="form-group">
+
+<label>
+
+Student Name
+
+<span class="required">*</span>
+
+</label>
+
+<input
+
+type="text"
+
+id="studentName"
+
+placeholder="Enter Student Name"
+
+autocomplete="off"
+
+>
+
+</div>
+
+
+
+<!-- DOB -->
+
+<div class="form-group">
+
+<label>
+
+Date of Birth
+
+<span class="required">*</span>
+
+</label>
+
+<input
+
+type="text"
+
+id="dob"
+
+placeholder="DD/MM/YYYY"
+
+maxlength="10"
+
+autocomplete="off"
+
+>
+
+</div>
+
+
+
+<!-- Register Number -->
+
+<div class="form-group">
+
+<label>
+
+Register Number
+
+</label>
+
+<input
+
+type="text"
+
+id="registerNo"
+
+placeholder="Enter Register Number"
+
+autocomplete="off"
+
+>
+
+</div>
+
+
+</div>
+
+
+
+<!-- Buttons -->
+
+<div class="button-area">
+
+<button id="saveBtn">
+
+<i class="fa fa-save"></i>
+
+Save Student
+
+</button>
+
+
+<button id="resetBtn">
+
+<i class="fa fa-refresh"></i>
+
+Reset
+
+</button>
+
+</div>
+
+
+
+<!-- Loader -->
+
+<div class="loader" id="loader">
+
+<div class="spinner"></div>
+
+<p>Saving student...</p>
+
+</div>
+
+
+
+<!-- Message -->
+
+<div id="message" class="message"></div>
+
+
+</div>
+
+
+
+<!-- =========================
+     PREVIEW
+========================= -->
+
+<div class="container student-preview">
+
+<h2>
+
+<i class="fa fa-user"></i>
+
+Student Preview
+
+</h2>
+
+<br>
+
+
+<div style="overflow-x:auto;">
+
+<table class="preview-table">
+
+<thead>
+
+<tr>
+
+<th>Academic Year</th>
+
+<th>Department</th>
+
+<th>Year</th>
+
+<th>Section</th>
+
+<th>Roll No</th>
+
+<th>Student Name</th>
+
+<th>DOB</th>
+
+<th>Register No</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="previewBody">
+
+<tr>
+
+<td colspan="8" style="text-align:center;">
+
+No student entered
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script type="module">
+
+import { db } from "./firebase-config.js";
+
+import {
+
+collection,
+
+query,
+
+where,
+
+getDocs,
+
+addDoc,
+
+serverTimestamp
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+const saveBtn =
+document.getElementById("saveBtn");
+
+const resetBtn =
+document.getElementById("resetBtn");
+
+const loader =
+document.getElementById("loader");
+
+const message =
+document.getElementById("message");
+
+const previewBody =
+document.getElementById("previewBody");
+
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(text,type){
+
+message.style.display="block";
+
+message.className="message "+type;
+
+message.innerHTML=text;
+
+}
+
+
+function hideMessage(){
+
+message.style.display="none";
+
+message.className="message";
+
+message.innerHTML="";
+
+}
+
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value){
+
+return String(value || "")
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+
+/* =========================
+   DOB VALIDATION
+========================= */
+
+function validateDOB(value){
+
+/*
+   Expected format:
+
+   DD/MM/YYYY
+*/
+
+const pattern =
+/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+
+
+if(!pattern.test(value)){
+
+return false;
+
+}
+
+
+const parts =
+value.split("/");
+
+const day =
+parseInt(parts[0],10);
+
+const month =
+parseInt(parts[1],10);
+
+const year =
+parseInt(parts[2],10);
+
+
+const date =
+new Date(year,month-1,day);
+
+
+return (
+
+date.getFullYear() === year &&
+
+date.getMonth() === month-1 &&
+
+date.getDate() === day
+
+);
+
+}
+
+
+
+/* =========================
+   GET FORM DATA
+========================= */
+
+function getFormData(){
+
+return {
+
+academicYear:
+document.getElementById("academicYear").value.trim(),
+
+department:
+document.getElementById("department").value.trim(),
+
+year:
+document.getElementById("year").value.trim(),
+
+section:
+document.getElementById("section").value.trim(),
+
+rollNo:
+document.getElementById("rollNo").value.trim(),
+
+studentName:
+document.getElementById("studentName").value.trim(),
+
+dob:
+document.getElementById("dob").value.trim(),
+
+registerNo:
+document.getElementById("registerNo").value.trim()
+
+};
+
+}
+
+
+
+/* =========================
+   UPDATE PREVIEW
+========================= */
+
+function updatePreview(){
+
+const student =
+getFormData();
+
+
+if(
+
+!student.academicYear &&
+
+!student.department &&
+
+!student.year &&
+
+!student.section &&
+
+!student.rollNo &&
+
+!student.studentName &&
+
+!student.dob &&
+
+!student.registerNo
+
+){
+
+previewBody.innerHTML=`
+
+<tr>
+
+<td colspan="8" style="text-align:center;">
+
+No student entered
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+
+
+previewBody.innerHTML=`
+
+<tr>
+
+<td>${escapeHTML(student.academicYear)}</td>
+
+<td>${escapeHTML(student.department)}</td>
+
+<td>${escapeHTML(student.year)}</td>
+
+<td>${escapeHTML(student.section)}</td>
+
+<td>${escapeHTML(student.rollNo)}</td>
+
+<td>${escapeHTML(student.studentName)}</td>
+
+<td>${escapeHTML(student.dob)}</td>
+
+<td>${escapeHTML(student.registerNo)}</td>
+
+</tr>
+
+`;
+
+}
+
+
+
+/* =========================
+   LIVE PREVIEW
+========================= */
+
+document
+.querySelectorAll(
+"#academicYear,#department,#year,#section,#rollNo,#studentName,#dob,#registerNo"
+)
+.forEach(element=>{
+
+element.addEventListener(
+"input",
+updatePreview
+);
+
+element.addEventListener(
+"change",
+updatePreview
+);
+
+});
+
+
+
+/* =========================
+   AUTO DOB FORMAT
+========================= */
+
+document
+.getElementById("dob")
+.addEventListener("input",function(){
+
+let value =
+this.value.replace(/\D/g,"");
+
+
+if(value.length > 8){
+
+value=value.substring(0,8);
+
+}
+
+
+if(value.length >= 5){
+
+value =
+value.substring(0,2) +
+"/" +
+value.substring(2,4) +
+"/" +
+value.substring(4);
+
+}
+
+else if(value.length >= 3){
+
+value =
+value.substring(0,2) +
+"/" +
+value.substring(2);
+
+}
+
+
+this.value=value;
+
+updatePreview();
+
+});
+
+
+
+/* =========================
+   SAVE STUDENT
+========================= */
+
+saveBtn.addEventListener(
+"click",
+saveStudent
+);
+
+
+
+async function saveStudent(){
+
+hideMessage();
+
+
+const student =
+getFormData();
+
+
+
+/* =========================
+   REQUIRED VALIDATION
+========================= */
+
+if(!student.academicYear){
+
+showMessage(
+"Please select Academic Year.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!student.department){
+
+showMessage(
+"Please select Department.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!student.year){
+
+showMessage(
+"Please select Year.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!student.section){
+
+showMessage(
+"Please select Section.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!student.rollNo){
+
+showMessage(
+"Please enter Roll Number.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!student.studentName){
+
+showMessage(
+"Please enter Student Name.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!student.dob){
+
+showMessage(
+"Please enter Date of Birth.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!validateDOB(student.dob)){
+
+showMessage(
+"Please enter a valid Date of Birth in DD/MM/YYYY format.",
+"error"
+);
+
+return;
+
+}
+
+
+
+/* =========================
+   LOADING
+========================= */
+
+saveBtn.disabled=true;
+
+resetBtn.disabled=true;
+
+loader.style.display="block";
+
+
+
+try{
+
+
+/* =========================
+   CHECK DUPLICATE ROLL NO
+========================= */
+
+const q =
+query(
+
+collection(db,"students"),
+
+where(
+"rollNo",
+"==",
+student.rollNo
+)
+
+);
+
+
+const existing =
+await getDocs(q);
+
+
+
+if(!existing.empty){
+
+throw new Error(
+
+"Student with Roll Number " +
+
+student.rollNo +
+
+" already exists."
+
+);
+
+}
+
+
+
+/* =========================
+   SAVE STUDENT
+========================= */
+
+await addDoc(
+
+collection(db,"students"),
+
+{
+
+academicYear:
+student.academicYear,
+
+department:
+student.department,
+
+year:
+student.year,
+
+section:
+student.section,
+
+rollNo:
+student.rollNo,
+
+studentName:
+student.studentName,
+
+dob:
+student.dob,
+
+registerNo:
+student.registerNo,
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+showMessage(
+
+"Student added successfully.<br><br>" +
+
+"<strong>Roll No:</strong> " +
+escapeHTML(student.rollNo) +
+
+"<br>" +
+
+"<strong>Name:</strong> " +
+escapeHTML(student.studentName),
+
+"success"
+
+);
+
+
+
+/* Clear form after successful save */
+
+clearForm();
+
+
+
+}catch(error){
+
+console.error(
+"STUDENT SAVE ERROR:",
+error
+);
+
+
+showMessage(
+
+"Unable to save student.<br><br>" +
+
+escapeHTML(error.message),
+
+"error"
+
+);
+
+}
+
+
+
+/* =========================
+   STOP LOADING
+========================= */
+
+loader.style.display="none";
+
+saveBtn.disabled=false;
+
+resetBtn.disabled=false;
+
+}
+
+
+
+/* =========================
+   CLEAR FORM
+========================= */
+
+function clearForm(){
+
+document.getElementById(
+"academicYear"
+).value="";
+
+document.getElementById(
+"department"
+).value="";
+
+document.getElementById(
+"year"
+).value="";
+
+document.getElementById(
+"section"
+).value="";
+
+document.getElementById(
+"rollNo"
+).value="";
+
+document.getElementById(
+"studentName"
+).value="";
+
+document.getElementById(
+"dob"
+).value="";
+
+document.getElementById(
+"registerNo"
+).value="";
+
+
+previewBody.innerHTML=`
+
+<tr>
+
+<td colspan="8" style="text-align:center;">
+
+No student entered
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+
+
+/* =========================
+   RESET BUTTON
+========================= */
+
+resetBtn.addEventListener(
+"click",
+function(){
+
+hideMessage();
+
+clearForm();
+
+});
+
+
+
+</script>
+
+</body>
+
+</html>
