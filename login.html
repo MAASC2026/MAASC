@@ -1,8 +1,12 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Staff Login</title>
 
 <style>
@@ -98,291 +102,516 @@ button:hover{
 
 <div class="login-box">
 
+    <h2></h2>
 
-<h2> </h2>
+    <h4>LAB STAFF LOGIN</h4>
 
-<h4> LAB STAFF LOGIN</h4>
+    <input
+        type="text"
+        id="staffId"
+        placeholder="User ID"
+    >
 
-<input
-type="text"
-id="staffId"
-placeholder="User ID">
+    <input
+        type="password"
+        id="password"
+        placeholder="Password"
+    >
 
-<input
-type="password"
-id="password"
-placeholder="Password">
+    <button onclick="login()">
+        LOGIN
+    </button>
 
-<button onclick="login()">
-LOGIN
-</button>
+    <div
+        class="loading"
+        id="loading">
+        Please wait...
+    </div>
 
-<div
-class="loading"
-id="loading">
-Please wait...
+    <div class="footer">
+        College
+    </div>
+
 </div>
 
-<div class="footer">
-College
-</div>
-
-</div>
 
 <script type="module">
 
 import { db } from "./firebase-config.js";
 
 import {
-doc,
-getDoc
+    doc,
+    getDoc
 }
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 window.login = async function(){
 
-const loading =
-document.getElementById("loading");
+    const loading = document.getElementById("loading");
 
-loading.style.display="block";
+    loading.style.display = "block";
 
-const staffId =
-document.getElementById("staffId")
-.value
-.trim()
-.toUpperCase();
 
-const password =
-document.getElementById("password")
-.value
-.trim();
+    /* ==========================
+       GET LOGIN VALUES
+    ========================== */
 
-if(staffId=="" || password==""){
+    const staffId = document
+        .getElementById("staffId")
+        .value
+        .trim()
+        .toUpperCase();
 
-loading.style.display="none";
+    const password = document
+        .getElementById("password")
+        .value
+        .trim();
 
-alert("Enter User ID and Password");
 
-return;
+    /* ==========================
+       EMPTY CHECK
+    ========================== */
 
-}
+    if(staffId === "" || password === ""){
 
-/* ==========================
-   ADMIN LOGIN
-========================== */
+        loading.style.display = "none";
 
-if(
-staffId==="ADMIN" &&
-password==="admin@maasc"
-){
+        alert("Enter User ID and Password");
 
-loading.style.display="none";
+        return;
 
-sessionStorage.setItem(
-"role",
-"admin"
-);
+    }
 
-sessionStorage.setItem(
-"staffId",
-"ADMIN"
-);
 
-sessionStorage.setItem(
-"staffName",
-"Administrator"
-);
+    /* ==========================
+       ADMIN LOGIN
+    ========================== */
 
-window.location.href=
-"admin-dashboard.html";
+    if(
+        staffId === "ADMIN" &&
+        password === "admin@maasc"
+    ){
 
-return;
+        loading.style.display = "none";
 
-}
 
-/* ==========================
-   STAFF LOGIN
-========================== */
+        sessionStorage.setItem(
+            "role",
+            "admin"
+        );
 
-try{
+        sessionStorage.setItem(
+            "staffId",
+            "ADMIN"
+        );
 
-const ref =
-doc(db,"staff",staffId);
+        sessionStorage.setItem(
+            "staffName",
+            "Administrator"
+        );
 
-const snap =
-await getDoc(ref);
 
-loading.style.display="none";
+        window.location.href =
+            "admin-dashboard.html";
 
-if(!snap.exists()){
+        return;
 
-alert("Staff ID Not Found");
+    }
 
-return;
 
-}
+    /* ==========================
+       STAFF LOGIN
+    ========================== */
 
-const data =
-snap.data();
+    try{
 
-if(data.password!==password){
+        console.log("========================================");
+        console.log("STAFF LOGIN");
+        console.log("LOGIN STAFF ID:", staffId);
+        console.log("========================================");
 
-alert("Incorrect Password");
 
-return;
+        /* ==========================
+           GET STAFF DOCUMENT
+        ========================== */
 
-}
+        const ref = doc(
+            db,
+            "staff",
+            staffId
+        );
 
-/* SESSION */
+        const snap = await getDoc(ref);
 
-sessionStorage.setItem(
-"role",
-"staff"
-);
 
-sessionStorage.setItem(
-"staffId",
-data.staffId
-);
+        if(!snap.exists()){
 
-sessionStorage.setItem(
-"staffName",
-data.name
-);
+            loading.style.display = "none";
 
-sessionStorage.setItem(
-"department",
-data.department
-);
+            console.log("STAFF NOT FOUND:", staffId);
 
-alert("Login Successful");
+            alert("Staff ID Not Found");
 
-/* ==========================
-   REDIRECT BASED ON STAFF ID
-========================== */
-const id = String(data.staffId || "").trim().toUpperCase();
-const serviceRole = String(data.serviceRole || "").trim().toUpperCase();
-const workerActive = data.workerActive === true;
+            return;
 
-console.log("========================================");
-console.log("STAFF REDIRECT CHECK");
-console.log("STAFF ID:", id);
-console.log("SERVICE ROLE:", serviceRole);
-console.log("WORKER ACTIVE:", workerActive);
-console.log("========================================");
+        }
 
 
-/* =====================================================
-   1. SHT001 → IT HEAD
-   ===================================================== */
+        /* ==========================
+           STAFF DATA
+        ========================== */
 
-if (id === "SHT001") {
+        const data = snap.data();
 
-    console.log("REDIRECT: IT HEAD");
 
-    window.location.href = "it-head.html";
+        console.log("STAFF DATA:", data);
 
-}
 
+        /* ==========================
+           PASSWORD CHECK
+        ========================== */
 
-/* =====================================================
-   2. MG → DEAN
-   ===================================================== */
+        if(String(data.password || "") !== password){
 
-else if (id.startsWith("MG")) {
+            loading.style.display = "none";
 
-    console.log("REDIRECT: DEAN");
+            console.log("INCORRECT PASSWORD");
 
-    window.location.href = "dean.html";
+            alert("Incorrect Password");
 
-}
+            return;
 
+        }
 
-/* =====================================================
-   3. HR + DEPARTMENT HEAD → HR HEAD
-   ===================================================== */
 
-else if (
-    id.startsWith("HR") &&
-    serviceRole === "DEPARTMENT HEAD"
-) {
+        /* ==========================
+           STAFF DETAILS
+        ========================== */
 
-    console.log("REDIRECT: HR DEPARTMENT HEAD");
+        const actualStaffId =
+            String(data.staffId || staffId)
+            .trim()
+            .toUpperCase();
 
-    window.location.href = "hr-head-dashboard.html";
 
-}
+        const staffName =
+            String(data.name || "")
+            .trim();
 
 
-/* =====================================================
-   4. HR STAFF → HR DASHBOARD
-   ===================================================== */
+        const department =
+            String(data.department || "")
+            .trim();
 
-else if (id.startsWith("HR")) {
 
-    console.log("REDIRECT: HR STAFF");
+        /*
+         * IMPORTANT:
+         *
+         * Your Firestore database stores:
+         *
+         * role: "Department Head"
+         *
+         * Therefore we MUST read data.role.
+         *
+         * We also convert it to uppercase so:
+         *
+         * "Department Head"
+         *
+         * becomes:
+         *
+         * "DEPARTMENT HEAD"
+         */
 
-    window.location.href = "hr-dashboard.html";
+        const role =
+            String(data.role || "")
+            .trim()
+            .toUpperCase();
 
-}
 
+        const workerActive =
+            data.workerActive === true;
 
-/* =====================================================
-   5. SHT + WORKER ACTIVE → IT WORKER
-   ===================================================== */
 
-else if (
-    id.startsWith("SHT") &&
-    workerActive === true
-) {
+        /* ==========================
+           DEBUG
+        ========================== */
 
-    console.log("REDIRECT: IT WORKER");
+        console.log("========================================");
+        console.log("STAFF REDIRECT CHECK");
+        console.log("STAFF ID:", actualStaffId);
+        console.log("STAFF NAME:", staffName);
+        console.log("DEPARTMENT:", department);
+        console.log("ROLE:", role);
+        console.log("WORKER ACTIVE:", workerActive);
+        console.log("========================================");
 
-    window.location.href = "it-worker.html";
 
-}
+        /* ==========================
+           STORE SESSION
+        ========================== */
 
+        sessionStorage.setItem(
+            "role",
+            "staff"
+        );
 
-/* =====================================================
-   6. OTHER SHT → LAB DASHBOARD
-   ===================================================== */
+        sessionStorage.setItem(
+            "staffId",
+            actualStaffId
+        );
 
-else if (id.startsWith("SHT")) {
+        sessionStorage.setItem(
+            "staffName",
+            staffName
+        );
 
-    console.log("REDIRECT: LAB DASHBOARD");
+        sessionStorage.setItem(
+            "department",
+            department
+        );
 
-    window.location.href = "lab-dashboard.html";
+        /*
+         * Store actual staff role also.
+         */
 
-}
+        sessionStorage.setItem(
+            "staffRole",
+            role
+        );
 
 
-/* =====================================================
-   7. DEPARTMENT HEAD → STAFF HEAD DASHBOARD
-   ===================================================== */
+        loading.style.display = "none";
 
-else if (serviceRole === "DEPARTMENT HEAD") {
 
-    console.log("REDIRECT: STAFF HEAD DASHBOARD");
+        /* =====================================================
+           1. SHT001 → IT HEAD
+           ===================================================== */
 
-    window.location.href = "staff-head-dashboard.html";
+        if(actualStaffId === "SHT001"){
 
-}
+            console.log(
+                "REDIRECT: IT HEAD"
+            );
 
+            window.location.href =
+                "it-head.html";
 
-/* =====================================================
-   8. ALL OTHER STAFF
-   ===================================================== */
+            return;
 
-else {
+        }
 
-    console.log("REDIRECT: STAFF DASHBOARD");
 
-    window.location.href = "staff-dashboard.html";
+        /* =====================================================
+           2. MG → DEAN
+           ===================================================== */
 
-}
+        else if(actualStaffId.startsWith("MG")){
+
+            console.log(
+                "REDIRECT: DEAN"
+            );
+
+            window.location.href =
+                "dean.html";
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           3. HR + DEPARTMENT HEAD → HR HEAD
+           ===================================================== */
+
+        else if(
+            actualStaffId.startsWith("HR") &&
+            role === "DEPARTMENT HEAD"
+        ){
+
+            console.log(
+                "REDIRECT: HR DEPARTMENT HEAD"
+            );
+
+            window.location.href =
+                "hr-head-dashboard.html";
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           4. HR STAFF → HR DASHBOARD
+           ===================================================== */
+
+        else if(
+            actualStaffId.startsWith("HR")
+        ){
+
+            console.log(
+                "REDIRECT: HR STAFF"
+            );
+
+            window.location.href =
+                "hr-dashboard.html";
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           5. SHT + WORKER ACTIVE → IT WORKER
+           ===================================================== */
+
+        else if(
+            actualStaffId.startsWith("SHT") &&
+            workerActive === true
+        ){
+
+            console.log(
+                "REDIRECT: IT WORKER"
+            );
+
+            window.location.href =
+                "it-worker.html";
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           6. OTHER SHT → LAB DASHBOARD
+           ===================================================== */
+
+        else if(
+            actualStaffId.startsWith("SHT")
+        ){
+
+            console.log(
+                "REDIRECT: LAB DASHBOARD"
+            );
+
+            window.location.href =
+                "lab-dashboard.html";
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           7. DEPARTMENT HEAD → STAFF HEAD DASHBOARD
+           ===================================================== */
+
+        else if(
+            role === "DEPARTMENT HEAD"
+        ){
+
+            console.log(
+                "REDIRECT: STAFF HEAD DASHBOARD"
+            );
+
+            window.location.href =
+                "staff-head-dashboard.html";
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           8. ALL OTHER STAFF
+           ===================================================== */
+
+        else{
+
+            console.log(
+                "REDIRECT: STAFF DASHBOARD"
+            );
+
+            window.location.href =
+                "staff-dashboard.html";
+
+            return;
+
+        }
+
+    }
+
+
+    /* ==========================
+       ERROR HANDLING
+    ========================== */
+
+    catch(error){
+
+        loading.style.display = "none";
+
+        console.error(
+            "STAFF LOGIN ERROR:",
+            error
+        );
+
+        alert(
+            "Login Error: " + error.message
+        );
+
+    }
+
+};
 
 </script>
 
 </body>
 </html>
+```
+
+### What I fixed
+
+Your Firestore document has:
+
+```text
+role: "Department Head"
+```
+
+So the important change is:
+
+```javascript
+const role = String(data.role || "").trim().toUpperCase();
+```
+
+Then:
+
+```javascript
+else if(role === "DEPARTMENT HEAD"){
+    window.location.href = "staff-head-dashboard.html";
+    return;
+}
+```
+
+So if the database contains:
+
+```text
+staffId: S123
+name: ...
+role: Department Head
+```
+
+the console will show:
+
+```text
+STAFF ID: S123
+ROLE: DEPARTMENT HEAD
+WORKER ACTIVE: false
+```
+
+and it will redirect to:
+
+```text
+staff-head-dashboard.html
+```
+
+I also added `return;` after every redirect so that no later code can execute after the redirect is triggered.
