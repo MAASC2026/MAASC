@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Student LMS</title>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
@@ -19,13 +22,9 @@ body{
     color:#1f2937;
 }
 
-/* =========================
-   TOP BAR
-========================= */
-
 .topbar{
     height:70px;
-    background:#ffffff;
+    background:#fff;
     border-bottom:1px solid #e5e7eb;
     display:flex;
     align-items:center;
@@ -47,12 +46,11 @@ body{
     height:42px;
     border-radius:12px;
     background:#2563eb;
-    color:white;
+    color:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
     font-weight:bold;
-    font-size:18px;
 }
 
 .logo-text h2{
@@ -62,7 +60,7 @@ body{
 .logo-text p{
     font-size:12px;
     color:#6b7280;
-    margin-top:2px;
+    margin-top:3px;
 }
 
 .student-info{
@@ -75,14 +73,10 @@ body{
 }
 
 .student-register{
-    color:#6b7280;
     font-size:12px;
+    color:#6b7280;
     margin-top:3px;
 }
-
-/* =========================
-   PAGE
-========================= */
 
 .container{
     max-width:1250px;
@@ -92,9 +86,9 @@ body{
 
 .welcome{
     background:linear-gradient(135deg,#2563eb,#4f46e5);
-    color:white;
-    border-radius:18px;
+    color:#fff;
     padding:25px;
+    border-radius:18px;
     margin-bottom:22px;
 }
 
@@ -104,13 +98,9 @@ body{
 }
 
 .welcome p{
-    opacity:.9;
     font-size:14px;
+    opacity:.9;
 }
-
-/* =========================
-   SUMMARY
-========================= */
 
 .summary{
     display:grid;
@@ -120,16 +110,16 @@ body{
 }
 
 .summary-card{
-    background:white;
+    background:#fff;
     border:1px solid #e5e7eb;
     border-radius:14px;
     padding:18px;
 }
 
 .summary-card .label{
-    font-size:12px;
     color:#6b7280;
-    margin-bottom:8px;
+    font-size:12px;
+    margin-bottom:7px;
 }
 
 .summary-card .value{
@@ -137,18 +127,14 @@ body{
     font-weight:bold;
 }
 
-/* =========================
-   SUBJECT BAR
-========================= */
-
-.subject-section{
-    margin-bottom:25px;
-}
-
 .section-title{
     font-size:18px;
     font-weight:bold;
     margin-bottom:13px;
+}
+
+.subject-section{
+    margin-bottom:25px;
 }
 
 .subject-tabs{
@@ -158,31 +144,22 @@ body{
 }
 
 .subject-tab{
+    background:#fff;
     border:1px solid #dbe2ea;
-    background:white;
-    padding:10px 15px;
     border-radius:10px;
+    padding:10px 15px;
     cursor:pointer;
     font-size:13px;
-    transition:.2s;
-}
-
-.subject-tab:hover{
-    border-color:#2563eb;
 }
 
 .subject-tab.active{
     background:#2563eb;
-    color:white;
+    color:#fff;
     border-color:#2563eb;
 }
 
-/* =========================
-   TOPIC
-========================= */
-
 .topic-card{
-    background:white;
+    background:#fff;
     border:1px solid #e5e7eb;
     border-radius:16px;
     margin-bottom:16px;
@@ -195,7 +172,6 @@ body{
     justify-content:space-between;
     align-items:center;
     cursor:pointer;
-    background:#fff;
 }
 
 .topic-left{
@@ -213,7 +189,6 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:bold;
 }
 
 .topic-title{
@@ -228,18 +203,12 @@ body{
 }
 
 .topic-arrow{
-    font-size:20px;
-    color:#6b7280;
     transition:.2s;
 }
 
 .topic-card.open .topic-arrow{
     transform:rotate(180deg);
 }
-
-/* =========================
-   TOPIC ITEMS
-========================= */
 
 .topic-content{
     display:none;
@@ -251,7 +220,7 @@ body{
 }
 
 .lms-item{
-    padding:18px 20px;
+    padding:20px;
     border-bottom:1px solid #edf0f4;
 }
 
@@ -265,17 +234,13 @@ body{
     gap:15px;
 }
 
-.item-title-area{
-    flex:1;
-}
-
 .item-title{
     font-size:15px;
     font-weight:bold;
     display:flex;
-    align-items:center;
-    gap:8px;
     flex-wrap:wrap;
+    align-items:center;
+    gap:7px;
 }
 
 .item-description{
@@ -285,38 +250,33 @@ body{
     margin-top:7px;
 }
 
-.new-badge{
+.item-date{
+    color:#9ca3af;
+    font-size:11px;
+    white-space:nowrap;
+}
+
+.badge{
+    display:inline-block;
+    font-size:10px;
+    font-weight:bold;
+    padding:4px 7px;
+    border-radius:5px;
+}
+
+.badge-new{
     background:#dc2626;
-    color:white;
-    font-size:10px;
-    font-weight:bold;
-    padding:4px 7px;
-    border-radius:5px;
-    letter-spacing:.4px;
+    color:#fff;
 }
 
-.completed-badge{
-    background:#dcfce7;
-    color:#166534;
-    font-size:10px;
-    font-weight:bold;
-    padding:4px 7px;
-    border-radius:5px;
-}
-
-.submitted-badge{
+.badge-submitted{
     background:#dbeafe;
     color:#1d4ed8;
-    font-size:10px;
-    font-weight:bold;
-    padding:4px 7px;
-    border-radius:5px;
 }
 
-.item-date{
-    font-size:11px;
-    color:#9ca3af;
-    white-space:nowrap;
+.badge-completed{
+    background:#dcfce7;
+    color:#166534;
 }
 
 .item-actions{
@@ -329,15 +289,20 @@ body{
 .btn{
     border:none;
     border-radius:8px;
-    padding:9px 13px;
+    padding:9px 14px;
     font-size:12px;
-    cursor:pointer;
     font-weight:600;
+    cursor:pointer;
+}
+
+.btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
 }
 
 .btn-primary{
     background:#2563eb;
-    color:white;
+    color:#fff;
 }
 
 .btn-secondary{
@@ -347,27 +312,23 @@ body{
 
 .btn-success{
     background:#16a34a;
-    color:white;
-}
-
-.btn-warning{
-    background:#f59e0b;
-    color:white;
+    color:#fff;
 }
 
 .btn-danger{
     background:#dc2626;
-    color:white;
+    color:#fff;
 }
 
-/* =========================
-   DETAILS
-========================= */
+.btn-warning{
+    background:#f59e0b;
+    color:#fff;
+}
 
 .item-details{
     display:none;
     margin-top:15px;
-    padding:15px;
+    padding:16px;
     border-radius:10px;
     background:#f8fafc;
 }
@@ -384,53 +345,44 @@ body{
 }
 
 .detail-label{
+    min-width:105px;
     font-weight:bold;
-    min-width:100px;
 }
 
-.comment-box{
-    margin-top:14px;
-    background:white;
+.faculty-comment{
+    background:#fff;
     border:1px solid #e5e7eb;
     border-radius:10px;
     padding:13px;
+    margin-top:13px;
 }
 
-.comment-title{
+.faculty-comment-title{
     font-size:12px;
     font-weight:bold;
     margin-bottom:6px;
 }
 
-.comment-text{
+.faculty-comment-text{
     font-size:13px;
     line-height:1.5;
-    color:#374151;
 }
 
-/* =========================
-   EMPTY / LOADING
-========================= */
-
-.loading{
-    background:white;
-    border-radius:15px;
-    padding:40px;
-    text-align:center;
-    color:#6b7280;
-}
-
+.loading,
 .empty{
-    background:white;
-    border:1px dashed #cbd5e1;
+    background:#fff;
     border-radius:15px;
     padding:45px;
     text-align:center;
 }
 
+.empty{
+    border:1px dashed #cbd5e1;
+}
+
 .empty-icon{
     font-size:40px;
-    margin-bottom:12px;
+    margin-bottom:10px;
 }
 
 .empty h3{
@@ -442,15 +394,13 @@ body{
     font-size:13px;
 }
 
-/* =========================
-   MODAL
-========================= */
+/* MODAL */
 
 .modal{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(15,23,42,.55);
+    background:rgba(15,23,42,.58);
     z-index:500;
     align-items:center;
     justify-content:center;
@@ -463,9 +413,9 @@ body{
 
 .modal-box{
     width:min(700px,100%);
-    max-height:90vh;
+    max-height:92vh;
     overflow:auto;
-    background:white;
+    background:#fff;
     border-radius:18px;
     padding:25px;
 }
@@ -474,7 +424,7 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:18px;
+    margin-bottom:20px;
 }
 
 .modal-title{
@@ -483,53 +433,133 @@ body{
 }
 
 .close-btn{
-    border:none;
-    background:#f1f5f9;
     width:35px;
     height:35px;
+    border:none;
     border-radius:50%;
+    background:#f1f5f9;
     cursor:pointer;
     font-size:18px;
 }
 
-.file-preview{
+/* SUBMISSION */
+
+.assignment-info{
     background:#f8fafc;
-    padding:20px;
     border-radius:12px;
-    margin-bottom:15px;
+    padding:16px;
+    margin-bottom:18px;
 }
 
-.file-name{
+.assignment-info h3{
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.assignment-info p{
+    color:#6b7280;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+    font-size:13px;
     font-weight:bold;
-    margin-bottom:6px;
+    margin-bottom:7px;
 }
 
-.file-info{
+.form-group input[type="file"]{
+    width:100%;
+    padding:10px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    background:#fff;
+}
+
+.form-group textarea{
+    width:100%;
+    min-height:110px;
+    resize:vertical;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    padding:11px;
+    font-family:inherit;
+    font-size:13px;
+}
+
+.file-selected{
+    margin-top:7px;
     font-size:12px;
     color:#6b7280;
 }
 
-.open-file{
-    display:inline-block;
-    margin-top:12px;
-    text-decoration:none;
-    background:#2563eb;
-    color:white;
-    padding:10px 14px;
-    border-radius:8px;
-    font-size:13px;
+.required{
+    color:#dc2626;
 }
 
-/* =========================
-   TOAST
-========================= */
+.progress-container{
+    display:none;
+    margin-bottom:15px;
+}
+
+.progress-track{
+    height:9px;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:0;
+    height:100%;
+    background:#2563eb;
+    transition:.2s;
+}
+
+.progress-text{
+    margin-top:6px;
+    font-size:11px;
+    color:#6b7280;
+}
+
+.existing-submission{
+    background:#f0fdf4;
+    border:1px solid #bbf7d0;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:18px;
+}
+
+.existing-submission h4{
+    color:#166534;
+    margin-bottom:8px;
+}
+
+.existing-submission p{
+    font-size:12px;
+    margin-bottom:6px;
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+/* TOAST */
 
 .toast{
     position:fixed;
     right:20px;
     bottom:20px;
     background:#111827;
-    color:white;
+    color:#fff;
     padding:13px 17px;
     border-radius:10px;
     font-size:13px;
@@ -544,23 +574,28 @@ body{
     opacity:1;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.toast.success{
+    background:#166534;
+}
+
+.toast.error{
+    background:#991b1b;
+}
+
+.toast.warning{
+    background:#92400e;
+}
 
 @media(max-width:900px){
 
     .summary{
         grid-template-columns:repeat(2,1fr);
     }
-
 }
 
 @media(max-width:600px){
 
     .topbar{
-        height:auto;
-        min-height:70px;
         padding:12px 15px;
     }
 
@@ -572,25 +607,9 @@ body{
         padding:15px;
     }
 
-    .welcome{
-        padding:20px;
-    }
-
-    .welcome h1{
-        font-size:20px;
-    }
-
     .summary{
         grid-template-columns:1fr 1fr;
         gap:10px;
-    }
-
-    .summary-card{
-        padding:14px;
-    }
-
-    .summary-card .value{
-        font-size:21px;
     }
 
     .item-top{
@@ -605,10 +624,6 @@ body{
 </head>
 
 <body>
-
-<!-- =========================
-     TOP BAR
-========================= -->
 
 <header class="topbar">
 
@@ -627,11 +642,15 @@ body{
 
     <div class="student-info">
 
-        <div class="student-name" id="studentName">
+        <div
+            class="student-name"
+            id="studentName">
             Loading...
         </div>
 
-        <div class="student-register" id="studentRegister">
+        <div
+            class="student-register"
+            id="studentRegister">
             Loading...
         </div>
 
@@ -641,10 +660,6 @@ body{
 
 
 <main class="container">
-
-    <!-- =========================
-         WELCOME
-    ========================== -->
 
     <section class="welcome">
 
@@ -659,10 +674,6 @@ body{
     </section>
 
 
-    <!-- =========================
-         SUMMARY
-    ========================== -->
-
     <section class="summary">
 
         <div class="summary-card">
@@ -671,7 +682,9 @@ body{
                 Subjects
             </div>
 
-            <div class="value" id="subjectCount">
+            <div
+                class="value"
+                id="subjectCount">
                 0
             </div>
 
@@ -684,7 +697,9 @@ body{
                 Topics
             </div>
 
-            <div class="value" id="topicCount">
+            <div
+                class="value"
+                id="topicCount">
                 0
             </div>
 
@@ -697,7 +712,9 @@ body{
                 New Items
             </div>
 
-            <div class="value" id="newCount">
+            <div
+                class="value"
+                id="newCount">
                 0
             </div>
 
@@ -710,7 +727,9 @@ body{
                 Submitted
             </div>
 
-            <div class="value" id="submittedCount">
+            <div
+                class="value"
+                id="submittedCount">
                 0
             </div>
 
@@ -719,38 +738,24 @@ body{
     </section>
 
 
-    <!-- =========================
-         SUBJECTS
-    ========================== -->
-
     <section class="subject-section">
 
         <div class="section-title">
             My Subjects
         </div>
 
-        <div class="subject-tabs" id="subjectTabs">
-
-            <button
-                class="subject-tab active"
-                data-subject="ALL"
-                onclick="filterSubject('ALL')">
-                All
-            </button>
-
+        <div
+            class="subject-tabs"
+            id="subjectTabs">
         </div>
 
     </section>
 
 
-    <!-- =========================
-         LMS CONTENT
-    ========================== -->
-
     <section>
 
         <div class="section-title">
-            Learning Materials
+            Learning Materials & Assignments
         </div>
 
         <div id="lmsContainer">
@@ -767,36 +772,175 @@ body{
 
 
 <!-- =========================
-     ITEM MODAL
+     SUBMISSION MODAL
 ========================= -->
 
-<div class="modal" id="itemModal">
+<div
+    class="modal"
+    id="submissionModal">
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <div class="modal-title" id="modalTitle">
-                Material
+            <div
+                class="modal-title"
+                id="submissionModalTitle">
+                Submit Assignment
             </div>
 
             <button
                 class="close-btn"
-                onclick="closeModal()">
+                onclick="closeSubmissionModal()">
                 ×
             </button>
 
         </div>
 
-        <div id="modalBody"></div>
+
+        <div
+            class="assignment-info"
+            id="assignmentInfo">
+        </div>
+
+
+        <div
+            class="existing-submission"
+            id="existingSubmission"
+            style="display:none;">
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Upload File
+                <span class="required">*</span>
+            </label>
+
+            <input
+                type="file"
+                id="studentFile">
+
+            <div
+                class="file-selected"
+                id="studentFileName">
+                No file selected
+            </div>
+
+        </div>
+
+
+        <div
+            class="form-group"
+            id="studentCommentGroup">
+
+            <label>
+                Comment
+                <span
+                    class="required"
+                    id="commentRequiredMark"
+                    style="display:none;">
+                    *
+                </span>
+            </label>
+
+            <textarea
+                id="studentComment"
+                placeholder="Enter your comment...">
+            </textarea>
+
+        </div>
+
+
+        <div
+            class="progress-container"
+            id="submissionProgressContainer">
+
+            <div class="progress-track">
+
+                <div
+                    class="progress-bar"
+                    id="submissionProgress">
+                </div>
+
+            </div>
+
+            <div
+                class="progress-text"
+                id="submissionProgressText">
+                0%
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="btn btn-secondary"
+                onclick="closeSubmissionModal()">
+                Cancel
+            </button>
+
+            <button
+                class="btn btn-danger"
+                id="deleteAttachmentButton"
+                style="display:none;"
+                onclick="deleteStudentAttachment()">
+                Delete Attachment
+            </button>
+
+            <button
+                class="btn btn-primary"
+                id="submitAssignmentButton"
+                onclick="submitAssignment()">
+                Upload & Submit
+            </button>
+
+        </div>
 
     </div>
 
 </div>
 
 
-<div class="toast" id="toast">
-    Saved
+<!-- =========================
+     VIEW SUBMISSION MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="viewModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div
+                class="modal-title"
+                id="viewModalTitle">
+                Submission
+            </div>
+
+            <button
+                class="close-btn"
+                onclick="closeViewModal()">
+                ×
+            </button>
+
+        </div>
+
+        <div id="viewModalBody"></div>
+
+    </div>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
 </div>
 
 
@@ -821,7 +965,28 @@ from "./firebase-config.js";
 
 
 /* =========================================================
-   GLOBAL STATE
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+    "https://lmqcmkttadmqyeshcuhf.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_E3y8efSouYf4DFK7Q7q86g_LKwmpLAi";
+
+const SUPABASE_BUCKET =
+    "lms-assignment";
+
+
+const supabase =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =========================================================
+   STATE
 ========================================================= */
 
 let currentStudent = null;
@@ -838,9 +1003,13 @@ let groupedTopics = [];
 
 let activeSubject = "ALL";
 
+let currentAssignment = null;
+
+let currentSubmission = null;
+
 
 /* =========================================================
-   UTILITY
+   HELPERS
 ========================================================= */
 
 function normalize(value){
@@ -849,6 +1018,14 @@ function normalize(value){
         .trim()
         .toLowerCase()
         .replace(/\s+/g," ");
+
+}
+
+
+function safe(value){
+
+    return String(value ?? "")
+        .trim();
 
 }
 
@@ -875,11 +1052,11 @@ function getTimestamp(value){
         return value;
     }
 
-    if(value.seconds){
+    if(value?.seconds){
         return value.seconds * 1000;
     }
 
-    if(value.toDate){
+    if(typeof value?.toDate === "function"){
 
         try{
             return value.toDate().getTime();
@@ -887,66 +1064,89 @@ function getTimestamp(value){
         catch(e){}
     }
 
-    const date = new Date(value);
+    const d = new Date(value);
 
-    if(!isNaN(date.getTime())){
-        return date.getTime();
-    }
+    return isNaN(d.getTime())
+        ? 0
+        : d.getTime();
 
-    return 0;
 }
 
 
 function formatDate(value){
 
-    const timestamp = getTimestamp(value);
+    const timestamp =
+        getTimestamp(value);
 
     if(!timestamp){
         return "";
     }
 
-    return new Date(timestamp).toLocaleDateString(
-        "en-IN",
-        {
-            day:"2-digit",
-            month:"short",
-            year:"numeric"
-        }
-    );
+    return new Date(timestamp)
+        .toLocaleDateString(
+            "en-IN",
+            {
+                day:"2-digit",
+                month:"short",
+                year:"numeric"
+            }
+        );
 
 }
 
 
-function showToast(message){
+function showToast(
+    message,
+    type="",
+    duration=3000
+){
 
-    const toast = document.getElementById("toast");
+    const toast =
+        document.getElementById(
+            "toast"
+        );
 
-    toast.textContent = message;
+    toast.textContent =
+        message;
 
-    toast.classList.add("show");
+    toast.className =
+        "toast show " +
+        type;
 
     setTimeout(()=>{
-        toast.classList.remove("show");
-    },2500);
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },duration);
 
 }
 
 
 /* =========================================================
-   GET STORED STUDENT ID
+   STUDENT ID
 ========================================================= */
 
 function getStoredStudentId(){
 
     return (
 
-        sessionStorage.getItem("studentRollNo") ||
+        sessionStorage.getItem(
+            "studentRollNo"
+        ) ||
 
-        sessionStorage.getItem("studentRegisterNo") ||
+        sessionStorage.getItem(
+            "studentRegisterNo"
+        ) ||
 
-        sessionStorage.getItem("studentId") ||
+        sessionStorage.getItem(
+            "studentId"
+        ) ||
 
-        sessionStorage.getItem("rollNo") ||
+        sessionStorage.getItem(
+            "rollNo"
+        ) ||
 
         ""
 
@@ -956,48 +1156,46 @@ function getStoredStudentId(){
 
 
 /* =========================================================
-   FIND CURRENT STUDENT
+   FIND STUDENT
 ========================================================= */
 
 async function findStudent(){
 
-    const storedId = getStoredStudentId();
+    const storedId =
+        getStoredStudentId();
 
-    console.log(
-        "STORED STUDENT ID:",
-        storedId
-    );
 
     if(!storedId){
 
         throw new Error(
-            "Student login information not found."
+            "Student login information not found. Please login again."
         );
 
     }
 
 
     /*
-       First try document ID.
+       1. Document ID
     */
 
     try{
 
-        const directRef = doc(
-            db,
-            "students",
-            storedId
-        );
+        const ref =
+            doc(
+                db,
+                "students",
+                storedId
+            );
 
-        const directSnap = await getDoc(
-            directRef
-        );
+        const snap =
+            await getDoc(ref);
 
-        if(directSnap.exists()){
+
+        if(snap.exists()){
 
             return {
-                id:directSnap.id,
-                ...directSnap.data()
+                id:snap.id,
+                ...snap.data()
             };
 
         }
@@ -1006,7 +1204,7 @@ async function findStudent(){
     catch(error){
 
         console.warn(
-            "Direct student lookup failed:",
+            "Direct student lookup failed",
             error
         );
 
@@ -1014,31 +1212,45 @@ async function findStudent(){
 
 
     /*
-       Try rollNo.
+       2. Field lookup
     */
 
-    const possibleFields = [
+    const fields = [
+
         "rollNo",
         "registerNo",
         "registerNumber",
         "studentId"
+
     ];
 
 
-    for(const field of possibleFields){
+    for(const field of fields){
 
         try{
 
-            const q = query(
-                collection(db,"students"),
-                where(field,"==",storedId)
-            );
+            const q =
+                query(
+                    collection(
+                        db,
+                        "students"
+                    ),
+                    where(
+                        field,
+                        "==",
+                        storedId
+                    )
+                );
 
-            const snap = await getDocs(q);
+
+            const snap =
+                await getDocs(q);
+
 
             if(!snap.empty){
 
-                const d = snap.docs[0];
+                const d =
+                    snap.docs[0];
 
                 return {
                     id:d.id,
@@ -1051,7 +1263,6 @@ async function findStudent(){
         catch(error){
 
             console.warn(
-                "Student lookup failed:",
                 field,
                 error
             );
@@ -1062,66 +1273,69 @@ async function findStudent(){
 
 
     /*
-       Final fallback scan.
+       3. Final fallback
     */
 
-    try{
-
-        const snap = await getDocs(
-            collection(db,"students")
+    const snap =
+        await getDocs(
+            collection(
+                db,
+                "students"
+            )
         );
 
-        for(const d of snap.docs){
 
-            const data = d.data();
+    for(const d of snap.docs){
 
-            const ids = [
+        const data =
+            d.data();
 
-                d.id,
 
-                data.rollNo,
+        const ids = [
 
-                data.registerNo,
+            d.id,
 
-                data.registerNumber,
+            data.rollNo,
 
-                data.studentId
+            data.registerNo,
 
-            ]
-            .filter(Boolean)
-            .map(String);
+            data.registerNumber,
 
-            if(ids.includes(storedId)){
+            data.studentId
 
-                return {
-                    id:d.id,
-                    ...data
-                };
+        ]
+        .filter(Boolean)
+        .map(
+            x => normalize(x)
+        );
 
-            }
+
+        if(
+            ids.includes(
+                normalize(storedId)
+            )
+        ){
+
+            return {
+                id:d.id,
+                ...data
+            };
 
         }
-
-    }
-    catch(error){
-
-        console.error(
-            "Fallback student scan failed:",
-            error
-        );
 
     }
 
 
     throw new Error(
-        "Student record not found for: " + storedId
+        "Student record not found for " +
+        storedId
     );
 
 }
 
 
 /* =========================================================
-   STUDENT ID
+   STUDENT KEY
 ========================================================= */
 
 function getStudentKey(){
@@ -1146,56 +1360,76 @@ function getStudentKey(){
 
 
 /* =========================================================
-   CHECK ASSIGNMENT FOR CURRENT STUDENT
+   ASSIGNMENT VISIBILITY
 ========================================================= */
 
-function assignmentBelongsToStudent(assignment){
+function assignmentBelongsToStudent(
+    assignment
+){
 
-    const studentKey = normalize(
-        currentStudentKey
-    );
+    const studentKey =
+        normalize(
+            currentStudentKey
+        );
 
 
     /*
-       Staff LMS normally stores:
-
-       selectedStudents: [
-          {
-             registerNo: "..."
-          }
-       ]
+       Main Staff LMS structure.
     */
 
-    if(Array.isArray(assignment.selectedStudents)){
+    if(
+        Array.isArray(
+            assignment.selectedStudents
+        )
+    ){
 
         const found =
-            assignment.selectedStudents.some(student => {
+            assignment.selectedStudents.some(
+                student => {
 
-                if(typeof student === "string"){
+                    if(
+                        typeof student === "string"
+                    ){
 
-                    return normalize(student) === studentKey;
+                        return (
+                            normalize(student) ===
+                            studentKey
+                        );
+
+                    }
+
+
+                    if(
+                        !student ||
+                        typeof student !== "object"
+                    ){
+
+                        return false;
+
+                    }
+
+
+                    const ids = [
+
+                        student.registerNo,
+                        student.rollNo,
+                        student.studentId,
+                        student.registerNumber,
+                        student.id
+
+                    ]
+                    .filter(Boolean)
+                    .map(
+                        x => normalize(x)
+                    );
+
+
+                    return ids.includes(
+                        studentKey
+                    );
 
                 }
-
-                if(!student || typeof student !== "object"){
-                    return false;
-                }
-
-                const ids = [
-
-                    student.registerNo,
-                    student.rollNo,
-                    student.studentId,
-                    student.registerNumber,
-                    student.id
-
-                ]
-                .filter(Boolean)
-                .map(normalize);
-
-                return ids.includes(studentKey);
-
-            });
+            );
 
 
         if(found){
@@ -1206,7 +1440,7 @@ function assignmentBelongsToStudent(assignment){
 
 
     /*
-       Other possible assignment formats.
+       Direct student fields.
     */
 
     const directIds = [
@@ -1218,24 +1452,40 @@ function assignmentBelongsToStudent(assignment){
 
     ]
     .filter(Boolean)
-    .map(normalize);
+    .map(
+        x => normalize(x)
+    );
 
 
-    if(directIds.includes(studentKey)){
+    if(
+        directIds.includes(
+            studentKey
+        )
+    ){
+
         return true;
+
     }
 
 
     /*
-       Some data may use selectedStudentIds.
+       selectedStudentIds.
     */
 
-    if(Array.isArray(assignment.selectedStudentIds)){
+    if(
+        Array.isArray(
+            assignment.selectedStudentIds
+        )
+    ){
 
         if(
             assignment.selectedStudentIds
-                .map(normalize)
-                .includes(studentKey)
+                .map(
+                    x => normalize(x)
+                )
+                .includes(
+                    studentKey
+                )
         ){
 
             return true;
@@ -1256,74 +1506,65 @@ function assignmentBelongsToStudent(assignment){
 
 async function loadAssignments(){
 
-    console.log(
-        "Loading lmsAssignments..."
-    );
+    const snap =
+        await getDocs(
+            collection(
+                db,
+                "lmsAssignments"
+            )
+        );
 
 
-    const snap = await getDocs(
-        collection(db,"lmsAssignments")
-    );
-
-
-    const visible = [];
+    allAssignments = [];
 
 
     snap.forEach(d => {
 
-        const data = d.data();
+        const assignment = {
+
+            id:d.id,
+
+            ...d.data()
+
+        };
 
 
         if(
-            assignmentBelongsToStudent({
-                id:d.id,
-                ...data
-            })
+            assignmentBelongsToStudent(
+                assignment
+            )
         ){
 
-            visible.push({
-
-                id:d.id,
-
-                ...data
-
-            });
+            allAssignments.push(
+                assignment
+            );
 
         }
 
     });
 
 
-    /*
-       Latest first.
-    */
+    allAssignments.sort(
+        (a,b) => {
 
-    visible.sort((a,b)=>{
-
-        const aTime =
+            return getTimestamp(
+                b.updatedAt ||
+                b.createdAt ||
+                b.assignedAt
+            )
+            -
             getTimestamp(
                 a.updatedAt ||
                 a.createdAt ||
                 a.assignedAt
             );
 
-        const bTime =
-            getTimestamp(
-                b.updatedAt ||
-                b.createdAt ||
-                b.assignedAt
-            );
-
-        return bTime - aTime;
-
-    });
-
-
-    allAssignments = visible;
+        }
+    );
 
 
     console.log(
-        "STUDENT LMS ASSIGNMENTS:",
+        "VISIBLE STUDENT ASSIGNMENTS:",
         allAssignments
     );
 
@@ -1339,23 +1580,24 @@ async function loadSubmissions(){
     allSubmissions = [];
 
 
-    /*
-       First attempt query by studentRegisterNo.
-    */
-
     try{
 
-        const q = query(
-            collection(db,"lmsSubmissions"),
-            where(
-                "studentRegisterNo",
-                "==",
-                currentStudentKey
-            )
-        );
+        const q =
+            query(
+                collection(
+                    db,
+                    "lmsSubmissions"
+                ),
+                where(
+                    "studentRegisterNo",
+                    "==",
+                    currentStudentKey
+                )
+            );
 
 
-        const snap = await getDocs(q);
+        const snap =
+            await getDocs(q);
 
 
         snap.forEach(d => {
@@ -1390,23 +1632,35 @@ async function loadSubmissions(){
 
     try{
 
-        const snap = await getDocs(
-            collection(db,"lmsSubmissions")
-        );
+        const snap =
+            await getDocs(
+                collection(
+                    db,
+                    "lmsSubmissions"
+                )
+            );
 
 
         snap.forEach(d => {
 
-            const data = d.data();
-
-            const id = normalize(
-                data.studentRegisterNo ||
-                data.studentId ||
-                data.registerNo
-            );
+            const data =
+                d.data();
 
 
-            if(id === normalize(currentStudentKey)){
+            const student =
+                normalize(
+                    data.studentRegisterNo ||
+                    data.studentId ||
+                    data.registerNo
+                );
+
+
+            if(
+                student ===
+                normalize(
+                    currentStudentKey
+                )
+            ){
 
                 allSubmissions.push({
 
@@ -1424,7 +1678,7 @@ async function loadSubmissions(){
     catch(error){
 
         console.error(
-            "Could not load submissions:",
+            "Submission fallback failed:",
             error
         );
 
@@ -1439,58 +1693,55 @@ async function loadSubmissions(){
 
 async function loadReadStatus(){
 
-    readAssignmentIds = new Set();
+    readAssignmentIds =
+        new Set();
 
 
     try{
 
-        const q = query(
+        const q =
+            query(
+                collection(
+                    db,
+                    "lmsReadStatus"
+                ),
+                where(
+                    "studentRegisterNo",
+                    "==",
+                    currentStudentKey
+                )
+            );
 
-            collection(db,"lmsReadStatus"),
 
-            where(
-                "studentRegisterNo",
-                "==",
-                currentStudentKey
-            )
-
-        );
-
-
-        const snap = await getDocs(q);
+        const snap =
+            await getDocs(q);
 
 
         snap.forEach(d => {
 
-            const data = d.data();
+            const data =
+                d.data();
 
 
-            if(data.assignmentId){
+            if(
+                data.assignmentId
+            ){
 
                 readAssignmentIds.add(
-                    String(data.assignmentId)
+                    String(
+                        data.assignmentId
+                    )
                 );
 
             }
 
         });
 
-
-        console.log(
-            "READ ITEMS:",
-            [...readAssignmentIds]
-        );
-
     }
     catch(error){
 
-        /*
-           If Firestore asks for an index or the query
-           cannot be executed, the page still works.
-        */
-
         console.warn(
-            "Read status query failed:",
+            "Read status unavailable:",
             error
         );
 
@@ -1500,24 +1751,18 @@ async function loadReadStatus(){
 
 
 /* =========================================================
-   MARK ITEM AS READ
+   MARK READ
 ========================================================= */
 
-async function markAsRead(assignmentId){
+async function markAsRead(
+    assignmentId
+){
 
-    if(!assignmentId){
-        return;
-    }
+    assignmentId =
+        String(
+            assignmentId
+        );
 
-
-    assignmentId = String(
-        assignmentId
-    );
-
-
-    /*
-       Immediately remove NEW locally.
-    */
 
     readAssignmentIds.add(
         assignmentId
@@ -1527,26 +1772,24 @@ async function markAsRead(assignmentId){
     render();
 
 
-    /*
-       Deterministic document ID.
-
-       This means:
-
-       Student A + Assignment X
-       has a different read document
-
-       from
-
-       Student B + Assignment X
-    */
-
     const safeStudent =
-        String(currentStudentKey)
-            .replace(/[\/\\?#\[\]]/g,"_");
+        safe(
+            currentStudentKey
+        )
+        .replace(
+            /[\/\\?#\[\]]/g,
+            "_"
+        );
+
 
     const safeAssignment =
-        String(assignmentId)
-            .replace(/[\/\\?#\[\]]/g,"_");
+        safe(
+            assignmentId
+        )
+        .replace(
+            /[\/\\?#\[\]]/g,
+            "_"
+        );
 
 
     const readDocId =
@@ -1590,7 +1833,7 @@ async function markAsRead(assignmentId){
     catch(error){
 
         console.error(
-            "Could not save read status:",
+            "READ STATUS ERROR:",
             error
         );
 
@@ -1600,37 +1843,12 @@ async function markAsRead(assignmentId){
 
 
 /* =========================================================
-   GET TOPIC
+   SUBJECT / TOPIC
 ========================================================= */
 
-function getTopicName(assignment){
-
-    const topic =
-
-        assignment.topic ||
-
-        assignment.topicName ||
-
-        assignment.unit ||
-
-        assignment.module ||
-
-        assignment.chapter ||
-
-        "General";
-
-
-    return String(topic)
-        .trim() || "General";
-
-}
-
-
-/* =========================================================
-   GET SUBJECT
-========================================================= */
-
-function getSubjectName(assignment){
+function getSubjectName(
+    assignment
+){
 
     return (
 
@@ -1644,127 +1862,160 @@ function getSubjectName(assignment){
 
         "General"
 
-    ).toString().trim();
+    )
+    .toString()
+    .trim();
+
+}
+
+
+function getTopicName(
+    assignment
+){
+
+    return (
+
+        assignment.topic ||
+
+        assignment.topicName ||
+
+        assignment.unit ||
+
+        assignment.module ||
+
+        assignment.chapter ||
+
+        "General"
+
+    )
+    .toString()
+    .trim() || "General";
 
 }
 
 
 /* =========================================================
-   GROUP BY SUBJECT + TOPIC
+   BUILD GROUPS
 ========================================================= */
 
 function buildGroups(){
 
-    const map = new Map();
+    const map =
+        new Map();
 
 
-    allAssignments.forEach(assignment => {
+    allAssignments.forEach(
+        assignment => {
 
-        const subject =
-            getSubjectName(
-                assignment
-            );
+            const subject =
+                getSubjectName(
+                    assignment
+                );
 
-        const topic =
-            getTopicName(
-                assignment
-            );
-
-
-        const key =
-            normalize(subject) +
-            "::" +
-            normalize(topic);
+            const topic =
+                getTopicName(
+                    assignment
+                );
 
 
-        if(!map.has(key)){
+            const key =
+                normalize(subject) +
+                "::" +
+                normalize(topic);
 
-            map.set(
-                key,
-                {
 
-                    subject,
+            if(
+                !map.has(key)
+            ){
 
-                    topic,
+                map.set(
+                    key,
+                    {
 
-                    items:[]
+                        subject,
+
+                        topic,
+
+                        items:[]
+
+                    }
+                );
+
+            }
+
+
+            map.get(key)
+                .items
+                .push(
+                    assignment
+                );
+
+        }
+    );
+
+
+    groupedTopics =
+        [...map.values()];
+
+
+    groupedTopics.sort(
+        (a,b) => {
+
+            const aLatest =
+                Math.max(
+                    ...a.items.map(
+                        item =>
+                            getTimestamp(
+                                item.updatedAt ||
+                                item.createdAt ||
+                                item.assignedAt
+                            )
+                    )
+                );
+
+
+            const bLatest =
+                Math.max(
+                    ...b.items.map(
+                        item =>
+                            getTimestamp(
+                                item.updatedAt ||
+                                item.createdAt ||
+                                item.assignedAt
+                            )
+                    )
+                );
+
+
+            return bLatest - aLatest;
+
+        }
+    );
+
+
+    groupedTopics.forEach(
+        group => {
+
+            group.items.sort(
+                (a,b) => {
+
+                    return getTimestamp(
+                        b.updatedAt ||
+                        b.createdAt ||
+                        b.assignedAt
+                    )
+                    -
+                    getTimestamp(
+                        a.updatedAt ||
+                        a.createdAt ||
+                        a.assignedAt
+                    );
 
                 }
             );
 
         }
-
-
-        map.get(key).items.push(
-            assignment
-        );
-
-    });
-
-
-    groupedTopics = [...map.values()];
-
-
-    /*
-       Newest topic first.
-    */
-
-    groupedTopics.sort((a,b)=>{
-
-        const aTime =
-            Math.max(
-                ...a.items.map(item =>
-                    getTimestamp(
-                        item.updatedAt ||
-                        item.createdAt ||
-                        item.assignedAt
-                    )
-                )
-            );
-
-        const bTime =
-            Math.max(
-                ...b.items.map(item =>
-                    getTimestamp(
-                        item.updatedAt ||
-                        item.createdAt ||
-                        item.assignedAt
-                    )
-                )
-            );
-
-        return bTime - aTime;
-
-    });
-
-
-    /*
-       Newest content first INSIDE the topic.
-    */
-
-    groupedTopics.forEach(group => {
-
-        group.items.sort((a,b)=>{
-
-            const aTime =
-                getTimestamp(
-                    a.updatedAt ||
-                    a.createdAt ||
-                    a.assignedAt
-                );
-
-            const bTime =
-                getTimestamp(
-                    b.updatedAt ||
-                    b.createdAt ||
-                    b.assignedAt
-                );
-
-            return bTime - aTime;
-
-        });
-
-    });
+    );
 
 }
 
@@ -1773,42 +2024,43 @@ function buildGroups(){
    GET SUBMISSION
 ========================================================= */
 
-function getSubmission(assignmentId){
+function getSubmission(
+    assignmentId
+){
 
     return allSubmissions.find(
         submission =>
             String(
                 submission.assignmentId
-            ) === String(assignmentId)
+            ) ===
+            String(
+                assignmentId
+            )
     );
 
 }
 
 
 /* =========================================================
-   SUBJECT LIST
+   RENDER SUBJECTS
 ========================================================= */
 
 function renderSubjects(){
 
-    const container =
-        document.getElementById(
-            "subjectTabs"
-        );
-
-
-    const subjects = [
-
-        ...new Set(
-            groupedTopics.map(
-                group => group.subject
+    const subjects =
+        [
+            ...new Set(
+                groupedTopics.map(
+                    x => x.subject
+                )
             )
-        )
-
-    ];
+        ];
 
 
-    let html = `
+    let html = "";
+
+
+    html += `
 
         <button
             class="subject-tab ${
@@ -1825,38 +2077,49 @@ function renderSubjects(){
     `;
 
 
-    subjects.forEach(subject => {
+    subjects.forEach(
+        subject => {
 
-        html += `
+            html += `
 
-            <button
-                class="subject-tab ${
-                    normalize(activeSubject) ===
-                    normalize(subject)
+                <button
+                    class="subject-tab ${
+                        normalize(
+                            activeSubject
+                        ) ===
+                        normalize(
+                            subject
+                        )
                         ? "active"
                         : ""
-                }"
-                onclick='filterSubject(${JSON.stringify(subject)})'>
+                    }"
+                    onclick='filterSubject(${JSON.stringify(subject)})'>
 
-                ${escapeHtml(subject)}
+                    ${escapeHtml(subject)}
 
-            </button>
+                </button>
 
-        `;
+            `;
 
-    });
+        }
+    );
 
 
-    container.innerHTML = html;
+    document.getElementById(
+        "subjectTabs"
+    ).innerHTML =
+        html;
 
 }
 
 
 /* =========================================================
-   ITEM HTML
+   RENDER ITEM
 ========================================================= */
 
-function renderItem(item){
+function renderItem(
+    item
+){
 
     const submission =
         getSubmission(
@@ -1864,22 +2127,24 @@ function renderItem(item){
         );
 
 
-    const isRead =
-        readAssignmentIds.has(
+    const unread =
+        !readAssignmentIds.has(
             String(item.id)
         );
 
 
-    const isCompleted =
+    const submitted =
+        !!(
+            submission?.submitted === true ||
+            submission?.fileUrl ||
+            submission?.fileName
+        );
+
+
+    const completed =
         item.completed === true ||
         item.status === "completed" ||
         submission?.completed === true;
-
-
-    const isSubmitted =
-        submission?.submitted === true ||
-        submission?.fileUrl ||
-        submission?.fileName;
 
 
     const title =
@@ -1921,15 +2186,6 @@ function renderItem(item){
         "Faculty";
 
 
-    const date =
-
-        item.updatedAt ||
-
-        item.createdAt ||
-
-        item.assignedAt;
-
-
     const dueDate =
 
         item.dueDate ||
@@ -1942,10 +2198,10 @@ function renderItem(item){
     let badges = "";
 
 
-    if(!isRead){
+    if(unread){
 
         badges += `
-            <span class="new-badge">
+            <span class="badge badge-new">
                 NEW
             </span>
         `;
@@ -1953,10 +2209,10 @@ function renderItem(item){
     }
 
 
-    if(isSubmitted){
+    if(submitted){
 
         badges += `
-            <span class="submitted-badge">
+            <span class="badge badge-submitted">
                 SUBMITTED
             </span>
         `;
@@ -1964,10 +2220,10 @@ function renderItem(item){
     }
 
 
-    if(isCompleted){
+    if(completed){
 
         badges += `
-            <span class="completed-badge">
+            <span class="badge badge-completed">
                 COMPLETED
             </span>
         `;
@@ -1975,21 +2231,24 @@ function renderItem(item){
     }
 
 
-    const itemId =
+    const id =
         "item_" +
-        String(item.id)
-            .replace(/[^a-zA-Z0-9_-]/g,"_");
+        safe(item.id)
+            .replace(
+                /[^a-zA-Z0-9_-]/g,
+                "_"
+            );
 
 
     return `
 
         <div
             class="lms-item"
-            id="${itemId}">
+            id="${id}">
 
             <div class="item-top">
 
-                <div class="item-title-area">
+                <div>
 
                     <div class="item-title">
 
@@ -2019,7 +2278,11 @@ function renderItem(item){
 
                 <div class="item-date">
 
-                    ${formatDate(date)}
+                    ${formatDate(
+                        item.updatedAt ||
+                        item.createdAt ||
+                        item.assignedAt
+                    )}
 
                 </div>
 
@@ -2052,11 +2315,24 @@ function renderItem(item){
                 }
 
 
+                <button
+                    class="btn btn-success"
+                    onclick='openSubmit(${JSON.stringify(item.id)})'>
+
+                    ${
+                        submitted
+                            ? "Resubmit"
+                            : "Submit Assignment"
+                    }
+
+                </button>
+
+
                 ${
-                    submission
+                    submitted
                         ? `
                         <button
-                            class="btn btn-success"
+                            class="btn btn-secondary"
                             onclick='viewSubmission(${JSON.stringify(item.id)})'>
 
                             My Submission
@@ -2090,7 +2366,7 @@ function renderItem(item){
                         <div class="detail-row">
 
                             <span class="detail-label">
-                                Subject Code:
+                                Subject:
                             </span>
 
                             <span>
@@ -2115,8 +2391,8 @@ function renderItem(item){
                             </span>
 
                             <span>
-                                ${escapeHtml(
-                                    formatDate(dueDate)
+                                ${formatDate(
+                                    dueDate
                                 )}
                             </span>
 
@@ -2127,41 +2403,20 @@ function renderItem(item){
 
 
                 ${
-                    item.fileName
+                    submission?.facultyComment ||
+                    submission?.staffComment
                         ? `
-                        <div class="detail-row">
+                        <div class="faculty-comment">
 
-                            <span class="detail-label">
-                                File:
-                            </span>
-
-                            <span>
-                                ${escapeHtml(
-                                    item.fileName
-                                )}
-                            </span>
-
-                        </div>
-                        `
-                        : ""
-                }
-
-
-                ${
-                    submission?.comment ||
-                    submission?.facultyComment
-                        ? `
-                        <div class="comment-box">
-
-                            <div class="comment-title">
+                            <div class="faculty-comment-title">
                                 Faculty Comment
                             </div>
 
-                            <div class="comment-text">
+                            <div class="faculty-comment-text">
 
                                 ${escapeHtml(
-                                    submission.comment ||
-                                    submission.facultyComment
+                                    submission.facultyComment ||
+                                    submission.staffComment
                                 )}
 
                             </div>
@@ -2181,7 +2436,7 @@ function renderItem(item){
 
 
 /* =========================================================
-   RENDER TOPICS
+   RENDER
 ========================================================= */
 
 function render(){
@@ -2191,25 +2446,32 @@ function render(){
     renderSubjects();
 
 
-    const container =
-        document.getElementById(
-            "lmsContainer"
-        );
+    let groups =
+        groupedTopics;
 
 
-    let groups = groupedTopics;
-
-
-    if(activeSubject !== "ALL"){
+    if(
+        activeSubject !== "ALL"
+    ){
 
         groups =
             groups.filter(
                 group =>
-                    normalize(group.subject) ===
-                    normalize(activeSubject)
+                    normalize(
+                        group.subject
+                    ) ===
+                    normalize(
+                        activeSubject
+                    )
             );
 
     }
+
+
+    const container =
+        document.getElementById(
+            "lmsContainer"
+        );
 
 
     if(!groups.length){
@@ -2244,101 +2506,105 @@ function render(){
     let html = "";
 
 
-    groups.forEach((group,index)=>{
+    groups.forEach(
+        (group,index) => {
 
-        const newItems =
-            group.items.filter(
-                item =>
-                    !readAssignmentIds.has(
-                        String(item.id)
-                    )
-            ).length;
+            const newCount =
+                group.items.filter(
+                    item =>
+                        !readAssignmentIds.has(
+                            String(item.id)
+                        )
+                ).length;
 
 
-        html += `
-
-            <div
-                class="topic-card ${
-                    index === 0
-                        ? "open"
-                        : ""
-                }">
+            html += `
 
                 <div
-                    class="topic-header"
-                    onclick="toggleTopic(this)">
+                    class="topic-card ${
+                        index === 0
+                            ? "open"
+                            : ""
+                    }">
 
-                    <div class="topic-left">
+                    <div
+                        class="topic-header"
+                        onclick="toggleTopic(this)">
 
-                        <div class="topic-icon">
-                            📖
+                        <div class="topic-left">
+
+                            <div class="topic-icon">
+                                📖
+                            </div>
+
+                            <div>
+
+                                <div class="topic-title">
+
+                                    ${escapeHtml(
+                                        group.topic
+                                    )}
+
+                                </div>
+
+                                <div class="topic-meta">
+
+                                    ${escapeHtml(
+                                        group.subject
+                                    )}
+
+                                    ·
+
+                                    ${group.items.length}
+                                    item${
+                                        group.items.length === 1
+                                            ? ""
+                                            : "s"
+                                    }
+
+                                    ${
+                                        newCount
+                                            ? `
+                                            ·
+                                            ${newCount}
+                                            new
+                                            `
+                                            : ""
+                                    }
+
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div>
-
-                            <div class="topic-title">
-
-                                ${escapeHtml(
-                                    group.topic
-                                )}
-
-                            </div>
-
-                            <div class="topic-meta">
-
-                                ${escapeHtml(
-                                    group.subject
-                                )}
-
-                                ·
-
-                                ${group.items.length}
-                                item${
-                                    group.items.length === 1
-                                        ? ""
-                                        : "s"
-                                }
-
-                                ${
-                                    newItems
-                                        ? `
-                                        ·
-                                        ${newItems}
-                                        new
-                                        `
-                                        : ""
-                                }
-
-                            </div>
-
+                        <div class="topic-arrow">
+                            ▼
                         </div>
 
                     </div>
 
 
-                    <div class="topic-arrow">
-                        ▼
+                    <div class="topic-content">
+
+                        ${group.items
+                            .map(
+                                renderItem
+                            )
+                            .join("")}
+
                     </div>
 
                 </div>
 
+            `;
 
-                <div class="topic-content">
-
-                    ${group.items
-                        .map(renderItem)
-                        .join("")}
-
-                </div>
-
-            </div>
-
-        `;
-
-    });
+        }
+    );
 
 
-    container.innerHTML = html;
+    container.innerHTML =
+        html;
 
 
     updateSummary();
@@ -2360,11 +2626,7 @@ function updateSummary(){
         );
 
 
-    const topics =
-        groupedTopics.length;
-
-
-    const newItems =
+    const newCount =
         allAssignments.filter(
             item =>
                 !readAssignmentIds.has(
@@ -2375,10 +2637,10 @@ function updateSummary(){
 
     const submitted =
         allSubmissions.filter(
-            submission =>
-                submission.submitted === true ||
-                submission.fileUrl ||
-                submission.fileName
+            s =>
+                s.submitted === true ||
+                s.fileUrl ||
+                s.fileName
         ).length;
 
 
@@ -2391,13 +2653,13 @@ function updateSummary(){
     document.getElementById(
         "topicCount"
     ).textContent =
-        topics;
+        groupedTopics.length;
 
 
     document.getElementById(
         "newCount"
     ).textContent =
-        newItems;
+        newCount;
 
 
     document.getElementById(
@@ -2409,12 +2671,14 @@ function updateSummary(){
 
 
 /* =========================================================
-   FILTER SUBJECT
+   FILTER
 ========================================================= */
 
-window.filterSubject = function(subject){
+window.filterSubject =
+function(subject){
 
-    activeSubject = subject;
+    activeSubject =
+        subject;
 
     render();
 
@@ -2422,10 +2686,11 @@ window.filterSubject = function(subject){
 
 
 /* =========================================================
-   TOGGLE TOPIC
+   TOPIC TOGGLE
 ========================================================= */
 
-window.toggleTopic = function(header){
+window.toggleTopic =
+function(header){
 
     const card =
         header.closest(
@@ -2444,12 +2709,13 @@ window.toggleTopic = function(header){
    OPEN ITEM
 ========================================================= */
 
-window.openItem = async function(id){
+window.openItem =
+async function(id){
 
     const assignment =
         allAssignments.find(
-            item =>
-                String(item.id) ===
+            x =>
+                String(x.id) ===
                 String(id)
         );
 
@@ -2459,30 +2725,19 @@ window.openItem = async function(id){
     }
 
 
-    /*
-       IMPORTANT:
-
-       NEW disappears when the student
-       opens the actual LMS item.
-
-       Merely expanding the topic does NOT
-       mark everything as read.
-    */
-
     await markAsRead(
         assignment.id
     );
 
 
-    const itemId =
-        "item_" +
-        String(assignment.id)
-            .replace(/[^a-zA-Z0-9_-]/g,"_");
-
-
     const element =
         document.getElementById(
-            itemId
+            "item_" +
+            safe(assignment.id)
+                .replace(
+                    /[^a-zA-Z0-9_-]/g,
+                    "_"
+                )
         );
 
 
@@ -2506,12 +2761,13 @@ window.openItem = async function(id){
    OPEN MATERIAL
 ========================================================= */
 
-window.openMaterial = async function(id){
+window.openMaterial =
+async function(id){
 
     const assignment =
         allAssignments.find(
-            item =>
-                String(item.id) ===
+            x =>
+                String(x.id) ===
                 String(id)
         );
 
@@ -2535,7 +2791,8 @@ window.openMaterial = async function(id){
     if(!url){
 
         showToast(
-            "No material file available."
+            "No material file available.",
+            "warning"
         );
 
         return;
@@ -2543,73 +2800,269 @@ window.openMaterial = async function(id){
     }
 
 
-    document.getElementById(
-        "modalTitle"
-    ).textContent =
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+};
+
+
+/* =========================================================
+   OPEN SUBMISSION
+========================================================= */
+
+window.openSubmit =
+async function(id){
+
+    const assignment =
+        allAssignments.find(
+            x =>
+                String(x.id) ===
+                String(id)
+        );
+
+
+    if(!assignment){
+        return;
+    }
+
+
+    await markAsRead(
+        assignment.id
+    );
+
+
+    currentAssignment =
+        assignment;
+
+
+    currentSubmission =
+        getSubmission(
+            assignment.id
+        );
+
+
+    const title =
 
         assignment.title ||
 
         assignment.assignmentTitle ||
 
+        assignment.name ||
+
         assignment.fileName ||
 
-        "Learning Material";
+        "Assignment";
 
 
     document.getElementById(
-        "modalBody"
+        "submissionModalTitle"
+    ).textContent =
+        currentSubmission
+            ? "Resubmit Assignment"
+            : "Submit Assignment";
+
+
+    document.getElementById(
+        "assignmentInfo"
     ).innerHTML = `
 
-        <div class="file-preview">
+        <h3>
+            ${escapeHtml(title)}
+        </h3>
 
-            <div class="file-name">
+        <p>
+            <strong>Subject:</strong>
+            ${escapeHtml(
+                getSubjectName(
+                    assignment
+                )
+            )}
+        </p>
 
-                ${escapeHtml(
-                    assignment.fileName ||
-                    "Learning Material"
-                )}
+        ${
+            assignment.topic
+                ? `
+                <p>
+                    <strong>Topic:</strong>
+                    ${escapeHtml(
+                        assignment.topic
+                    )}
+                </p>
+                `
+                : ""
+        }
 
-            </div>
+        ${
+            assignment.description ||
+            assignment.instructions
+                ? `
+                <p style="margin-top:8px;">
+                    <strong>Instructions:</strong><br>
+                    ${escapeHtml(
+                        assignment.description ||
+                        assignment.instructions
+                    )}
+                </p>
+                `
+                : ""
+        }
 
-            <div class="file-info">
-
-                ${escapeHtml(
-                    getSubjectName(
-                        assignment
-                    )
-                )}
-
-                ${
-                    assignment.topic
-                        ? `
-                        ·
-                        ${escapeHtml(
-                            assignment.topic
-                        )}
-                        `
-                        : ""
-                }
-
-            </div>
-
-
-            <a
-                class="open-file"
-                href="${escapeHtml(url)}"
-                target="_blank"
-                rel="noopener noreferrer">
-
-                Open Material
-
-            </a>
-
-        </div>
+        ${
+            assignment.dueDate ||
+            assignment.deadline
+                ? `
+                <p style="margin-top:8px;">
+                    <strong>Due Date:</strong>
+                    ${formatDate(
+                        assignment.dueDate ||
+                        assignment.deadline
+                    )}
+                </p>
+                `
+                : ""
+        }
 
     `;
 
 
+    const existing =
+        document.getElementById(
+            "existingSubmission"
+        );
+
+
+    if(currentSubmission){
+
+        existing.style.display =
+            "block";
+
+
+        existing.innerHTML = `
+
+            <h4>
+                ✓ Previous Submission
+            </h4>
+
+            <p>
+                <strong>File:</strong>
+                ${escapeHtml(
+                    currentSubmission.fileName ||
+                    "No file"
+                )}
+            </p>
+
+            ${
+                currentSubmission.updatedAt
+                    ? `
+                    <p>
+                        <strong>Last updated:</strong>
+                        ${formatDate(
+                            currentSubmission.updatedAt
+                        )}
+                    </p>
+                    `
+                    : ""
+            }
+
+            ${
+                currentSubmission.facultyComment ||
+                currentSubmission.staffComment
+                    ? `
+                    <p style="margin-top:8px;">
+                        <strong>Faculty Comment:</strong><br>
+                        ${escapeHtml(
+                            currentSubmission.facultyComment ||
+                            currentSubmission.staffComment
+                        )}
+                    </p>
+                    `
+                    : ""
+            }
+
+        `;
+
+    }
+    else{
+
+        existing.style.display =
+            "none";
+
+        existing.innerHTML =
+            "";
+
+    }
+
+
+    const commentRequired =
+        isRequiredOption(
+            assignment.commentRequired
+        ) ||
+        isRequiredOption(
+            assignment.allowComment
+        );
+
+
     document.getElementById(
-        "itemModal"
+        "commentRequiredMark"
+    ).style.display =
+        commentRequired
+            ? "inline"
+            : "none";
+
+
+    const commentInput =
+        document.getElementById(
+            "studentComment"
+        );
+
+
+    commentInput.value =
+        currentSubmission?.comment ||
+        "";
+
+
+    commentInput.required =
+        commentRequired;
+
+
+    const fileInput =
+        document.getElementById(
+            "studentFile"
+        );
+
+
+    fileInput.value =
+        "";
+
+
+    document.getElementById(
+        "studentFileName"
+    ).textContent =
+        "No file selected";
+
+
+    updateDeleteAttachmentButton();
+
+
+    document.getElementById(
+        "submissionProgressContainer"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "submitAssignmentButton"
+    ).textContent =
+        currentSubmission
+            ? "Upload & Resubmit"
+            : "Upload & Submit";
+
+
+    document.getElementById(
+        "submissionModal"
     ).classList.add(
         "show"
     );
@@ -2618,15 +3071,984 @@ window.openMaterial = async function(id){
 
 
 /* =========================================================
+   FILE CHANGE
+========================================================= */
+
+document.getElementById(
+    "studentFile"
+).addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files[0];
+
+
+        document.getElementById(
+            "studentFileName"
+        ).textContent =
+            file
+                ? file.name +
+                  " (" +
+                  formatFileSize(
+                      file.size
+                  ) +
+                  ")"
+                : "No file selected";
+
+    }
+);
+
+
+/* =========================================================
+   REQUIRED OPTION
+========================================================= */
+
+function isRequiredOption(
+    value
+){
+
+    return (
+        value === true ||
+        value === "true" ||
+        value === "required" ||
+        value === "yes" ||
+        value === "YES"
+    );
+
+}
+
+
+/* =========================================================
+   FILE SIZE
+========================================================= */
+
+function formatFileSize(
+    bytes
+){
+
+    if(bytes < 1024){
+        return bytes + " B";
+    }
+
+    if(bytes < 1024 * 1024){
+
+        return (
+            bytes / 1024
+        ).toFixed(1) +
+        " KB";
+
+    }
+
+    return (
+        bytes /
+        (1024 * 1024)
+    ).toFixed(1) +
+    " MB";
+
+}
+
+
+/* =========================================================
+   SUPABASE UPLOAD
+========================================================= */
+
+async function uploadSubmissionFile(
+    file
+){
+
+    if(!file){
+        return null;
+    }
+
+
+    const MAX_FILE_SIZE =
+        25 * 1024 * 1024;
+
+
+    if(
+        file.size >
+        MAX_FILE_SIZE
+    ){
+
+        throw new Error(
+            "File size must not exceed 25 MB."
+        );
+
+    }
+
+
+    const safeRegister =
+        safe(
+            currentStudentKey
+        )
+        .replace(
+            /[^a-zA-Z0-9_-]/g,
+            "_"
+        );
+
+
+    const safeAssignmentId =
+        safe(
+            currentAssignment.id
+        )
+        .replace(
+            /[^a-zA-Z0-9_-]/g,
+            "_"
+        );
+
+
+    const safeName =
+        file.name.replace(
+            /[^a-zA-Z0-9._-]/g,
+            "_"
+        );
+
+
+    const path =
+
+        "lmsSubmissions/" +
+
+        safeRegister +
+
+        "/" +
+
+        safeAssignmentId +
+
+        "/" +
+
+        Date.now() +
+
+        "_" +
+
+        safeName;
+
+
+    const progressContainer =
+        document.getElementById(
+            "submissionProgressContainer"
+        );
+
+
+    const progressBar =
+        document.getElementById(
+            "submissionProgress"
+        );
+
+
+    const progressText =
+        document.getElementById(
+            "submissionProgressText"
+        );
+
+
+    progressContainer.style.display =
+        "block";
+
+
+    progressBar.style.width =
+        "20%";
+
+
+    progressText.textContent =
+        "Uploading...";
+
+
+    console.log(
+        "SUPABASE SUBMISSION PATH:",
+        path
+    );
+
+
+    const {
+        data,
+        error
+    } =
+        await supabase
+            .storage
+            .from(
+                SUPABASE_BUCKET
+            )
+            .upload(
+                path,
+                file,
+                {
+                    cacheControl:"3600",
+                    upsert:false,
+                    contentType:
+                        file.type ||
+                        "application/octet-stream"
+                }
+            );
+
+
+    if(error){
+
+        console.error(
+            "SUPABASE UPLOAD ERROR:",
+            error
+        );
+
+        throw new Error(
+            error.message ||
+            "Supabase file upload failed."
+        );
+
+    }
+
+
+    progressBar.style.width =
+        "80%";
+
+
+    progressText.textContent =
+        "Creating file link...";
+
+
+    const publicResult =
+        supabase
+            .storage
+            .from(
+                SUPABASE_BUCKET
+            )
+            .getPublicUrl(
+                path
+            );
+
+
+    const publicUrl =
+        publicResult
+            ?.data
+            ?.publicUrl ||
+        "";
+
+
+    if(!publicUrl){
+
+        throw new Error(
+            "File uploaded but public URL could not be created."
+        );
+
+    }
+
+
+    progressBar.style.width =
+        "100%";
+
+
+    progressText.textContent =
+        "Upload complete";
+
+
+    return {
+
+        fileName:
+            file.name,
+
+        fileUrl:
+            publicUrl,
+
+        filePath:
+            path,
+
+        fileType:
+            file.type || "",
+
+        fileSize:
+            file.size,
+
+        hasAttachment:
+            true
+
+    };
+
+}
+
+
+/* =========================================================
+   SUBMIT ASSIGNMENT
+========================================================= */
+
+window.submitAssignment =
+async function(){
+
+    if(
+        !currentAssignment ||
+        !currentStudent
+    ){
+
+        showToast(
+            "Assignment or student information is missing.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const fileInput =
+        document.getElementById(
+            "studentFile"
+        );
+
+
+    const file =
+        fileInput.files[0] ||
+        null;
+
+
+    const commentInput =
+        document.getElementById(
+            "studentComment"
+        );
+
+
+    const comment =
+        commentInput.value.trim();
+
+
+    const commentRequired =
+        isRequiredOption(
+            currentAssignment.commentRequired
+        ) ||
+        isRequiredOption(
+            currentAssignment.allowComment
+        );
+
+
+    /*
+       Comment requirement
+    */
+
+    if(
+        commentRequired &&
+        !comment
+    ){
+
+        commentInput.focus();
+
+        showToast(
+            "Comment is required.",
+            "warning",
+            5000
+        );
+
+        return;
+
+    }
+
+
+    /*
+       New submission requires a file.
+       Existing submission can keep its
+       current file if no new file is selected.
+    */
+
+    if(
+        !file &&
+        !currentSubmission?.fileUrl
+    ){
+
+        showToast(
+            "Please select a file to submit.",
+            "warning",
+            5000
+        );
+
+        fileInput.focus();
+
+        return;
+
+    }
+
+
+    /*
+       Disable button.
+    */
+
+    const button =
+        document.getElementById(
+            "submitAssignmentButton"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        file
+            ? "Uploading..."
+            : "Saving...";
+
+
+    try{
+
+        let fileData = {
+
+            fileName:
+                currentSubmission?.fileName ||
+                "",
+
+            fileUrl:
+                currentSubmission?.fileUrl ||
+                "",
+
+            filePath:
+                currentSubmission?.filePath ||
+                "",
+
+            fileType:
+                currentSubmission?.fileType ||
+                "",
+
+            fileSize:
+                currentSubmission?.fileSize ||
+                0
+
+        };
+
+
+        /*
+           New file selected.
+        */
+
+        if(file){
+
+            /*
+               If resubmitting and an old file exists,
+               delete the old physical file first.
+            */
+
+            if(
+                currentSubmission?.filePath
+            ){
+
+                try{
+
+                    const {
+                        error
+                    } =
+                        await supabase
+                            .storage
+                            .from(
+                                SUPABASE_BUCKET
+                            )
+                            .remove([
+                                currentSubmission.filePath
+                            ]);
+
+
+                    if(error){
+
+                        console.warn(
+                            "Old file could not be removed:",
+                            error
+                        );
+
+                    }
+
+                }
+                catch(error){
+
+                    console.warn(
+                        "Old storage cleanup failed:",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            fileData =
+                await uploadSubmissionFile(
+                    file
+                );
+
+        }
+
+
+        /*
+           IMPORTANT:
+           One student + one assignment =
+           one submission document.
+        */
+
+        const submissionId =
+
+            safe(
+                currentAssignment.id
+            )
+            .replace(
+                /[^a-zA-Z0-9_-]/g,
+                "_"
+            ) +
+
+            "_" +
+
+            safe(
+                currentStudentKey
+            )
+            .replace(
+                /[^a-zA-Z0-9_-]/g,
+                "_"
+            );
+
+
+        const submissionData = {
+
+            assignmentId:
+                currentAssignment.id,
+
+            studentRegisterNo:
+                currentStudentKey,
+
+            studentName:
+
+                currentStudent.name ||
+
+                currentStudent.studentName ||
+
+                "",
+
+            studentId:
+
+                currentStudent.studentId ||
+
+                currentStudent.studentID ||
+
+                currentStudent.id ||
+
+                "",
+
+            subjectId:
+
+                currentAssignment.subjectId ||
+
+                "",
+
+            subjectCode:
+
+                currentAssignment.subjectCode ||
+
+                "",
+
+            subjectName:
+
+                currentAssignment.subjectName ||
+
+                currentAssignment.subject ||
+
+                "",
+
+            topic:
+
+                getTopicName(
+                    currentAssignment
+                ),
+
+            assignmentTitle:
+
+                currentAssignment.title ||
+
+                currentAssignment.assignmentTitle ||
+
+                currentAssignment.name ||
+
+                "",
+
+            staffId:
+
+                currentAssignment.staffId ||
+
+                "",
+
+            staffName:
+
+                currentAssignment.staffName ||
+
+                currentAssignment.facultyName ||
+
+                "",
+
+            comment:
+                comment,
+
+            commentRequired:
+                commentRequired,
+
+            fileName:
+                fileData.fileName,
+
+            fileUrl:
+                fileData.fileUrl,
+
+            filePath:
+                fileData.filePath,
+
+            fileType:
+                fileData.fileType,
+
+            fileSize:
+                fileData.fileSize,
+
+            submitted:
+                true,
+
+            updatedAt:
+                serverTimestamp(),
+
+            completed:
+                currentSubmission?.completed === true
+                    ? true
+                    : false
+
+        };
+
+
+        if(
+            !currentSubmission
+        ){
+
+            submissionData.submittedAt =
+                serverTimestamp();
+
+        }
+
+
+        console.log(
+            "SAVING SUBMISSION:",
+            submissionId,
+            submissionData
+        );
+
+
+        await setDoc(
+
+            doc(
+                db,
+                "lmsSubmissions",
+                submissionId
+            ),
+
+            submissionData,
+
+            {
+                merge:true
+            }
+
+        );
+
+
+        /*
+           Reload submission.
+        */
+
+        await loadSubmissions();
+
+
+        currentSubmission =
+            getSubmission(
+                currentAssignment.id
+            );
+
+
+        render();
+
+
+        showToast(
+            currentSubmission
+                ? "Assignment submitted successfully."
+                : "Assignment saved successfully.",
+            "success",
+            4000
+        );
+
+
+        setTimeout(
+            () => {
+
+                closeSubmissionModal();
+
+            },
+            700
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "SUBMISSION ERROR:",
+            error
+        );
+
+
+        showToast(
+            error?.message ||
+            "Assignment submission failed.",
+            "error",
+            6000
+        );
+
+    }
+    finally{
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            currentSubmission
+                ? "Upload & Resubmit"
+                : "Upload & Submit";
+
+    }
+
+};
+
+
+/* =========================================================
+   DELETE ATTACHMENT
+========================================================= */
+
+window.deleteStudentAttachment =
+async function(){
+
+    if(
+        !currentSubmission ||
+        !currentSubmission.filePath
+    ){
+
+        return;
+
+    }
+
+
+    const confirmed =
+        window.confirm(
+            "Delete the attached file?\n\nYou can attach another file before submitting again."
+        );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "deleteAttachmentButton"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "Deleting...";
+
+
+    try{
+
+        const {
+            error
+        } =
+            await supabase
+                .storage
+                .from(
+                    SUPABASE_BUCKET
+                )
+                .remove([
+                    currentSubmission.filePath
+                ]);
+
+
+        if(error){
+
+            throw new Error(
+                error.message ||
+                "Unable to delete file."
+            );
+
+        }
+
+
+        const submissionId =
+
+            safe(
+                currentAssignment.id
+            )
+            .replace(
+                /[^a-zA-Z0-9_-]/g,
+                "_"
+            ) +
+
+            "_" +
+
+            safe(
+                currentStudentKey
+            )
+            .replace(
+                /[^a-zA-Z0-9_-]/g,
+                "_"
+            );
+
+
+        await setDoc(
+
+            doc(
+                db,
+                "lmsSubmissions",
+                submissionId
+            ),
+
+            {
+
+                fileName:"",
+
+                fileUrl:"",
+
+                filePath:"",
+
+                fileType:"",
+
+                fileSize:0,
+
+                updatedAt:
+                    serverTimestamp()
+
+            },
+
+            {
+                merge:true
+            }
+
+        );
+
+
+        await loadSubmissions();
+
+
+        currentSubmission =
+            getSubmission(
+                currentAssignment.id
+            );
+
+
+        updateDeleteAttachmentButton();
+
+
+        document.getElementById(
+            "studentFile"
+        ).value =
+            "";
+
+
+        document.getElementById(
+            "studentFileName"
+        ).textContent =
+            "No file selected";
+
+
+        showToast(
+            "Attached file deleted.",
+            "success"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "DELETE ATTACHMENT ERROR:",
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            "Unable to delete attachment.",
+            "error"
+        );
+
+    }
+    finally{
+
+        button.disabled =
+            false;
+
+        updateDeleteAttachmentButton();
+
+    }
+
+};
+
+
+/* =========================================================
+   DELETE BUTTON STATE
+========================================================= */
+
+function updateDeleteAttachmentButton(){
+
+    const button =
+        document.getElementById(
+            "deleteAttachmentButton"
+        );
+
+
+    if(
+        currentSubmission?.filePath
+    ){
+
+        button.style.display =
+            "inline-block";
+
+    }
+    else{
+
+        button.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE SUBMISSION MODAL
+========================================================= */
+
+window.closeSubmissionModal =
+function(){
+
+    document.getElementById(
+        "submissionModal"
+    ).classList.remove(
+        "show"
+    );
+
+    currentAssignment =
+        null;
+
+    currentSubmission =
+        null;
+
+};
+
+
+/* =========================================================
    VIEW SUBMISSION
 ========================================================= */
 
-window.viewSubmission = async function(id){
+window.viewSubmission =
+async function(id){
 
     const assignment =
         allAssignments.find(
-            item =>
-                String(item.id) ===
+            x =>
+                String(x.id) ===
                 String(id)
         );
 
@@ -2650,7 +4072,8 @@ window.viewSubmission = async function(id){
     if(!submission){
 
         showToast(
-            "No submission found."
+            "No submission found.",
+            "warning"
         );
 
         return;
@@ -2659,114 +4082,174 @@ window.viewSubmission = async function(id){
 
 
     document.getElementById(
-        "modalTitle"
+        "viewModalTitle"
     ).textContent =
         "My Submission";
 
 
-    const fileUrl =
-        submission.fileUrl ||
-        submission.downloadURL ||
-        "";
+    const title =
+
+        assignment.title ||
+
+        assignment.assignmentTitle ||
+
+        assignment.name ||
+
+        "Assignment";
 
 
     document.getElementById(
-        "modalBody"
+        "viewModalBody"
     ).innerHTML = `
 
-        <div class="file-preview">
+        <div class="assignment-info">
 
-            <div class="file-name">
+            <h3>
+                ${escapeHtml(title)}
+            </h3>
 
+            <p>
+                <strong>Subject:</strong>
                 ${escapeHtml(
-                    submission.fileName ||
-                    "Submitted Work"
+                    getSubjectName(
+                        assignment
+                    )
                 )}
+            </p>
 
-            </div>
-
-
-            <div class="file-info">
-
-                Assignment:
-                ${escapeHtml(
-                    assignment.title ||
-                    assignment.assignmentTitle ||
-                    "LMS Assignment"
-                )}
-
-            </div>
-
+            <p>
+                <strong>Status:</strong>
+                ${
+                    submission.submitted
+                        ? "Submitted"
+                        : "Not Submitted"
+                }
+            </p>
 
             ${
-                submission.comment
+                submission.updatedAt
                     ? `
-                    <div class="comment-box">
-
-                        <div class="comment-title">
-                            Your Comment
-                        </div>
-
-                        <div class="comment-text">
-
-                            ${escapeHtml(
-                                submission.comment
-                            )}
-
-                        </div>
-
-                    </div>
-                    `
-                    : ""
-            }
-
-
-            ${
-                submission.facultyComment
-                    ? `
-                    <div class="comment-box">
-
-                        <div class="comment-title">
-                            Faculty Comment
-                        </div>
-
-                        <div class="comment-text">
-
-                            ${escapeHtml(
-                                submission.facultyComment
-                            )}
-
-                        </div>
-
-                    </div>
-                    `
-                    : ""
-            }
-
-
-            ${
-                fileUrl
-                    ? `
-                    <a
-                        class="open-file"
-                        href="${escapeHtml(fileUrl)}"
-                        target="_blank"
-                        rel="noopener noreferrer">
-
-                        Open Submitted File
-
-                    </a>
+                    <p>
+                        <strong>Last Updated:</strong>
+                        ${formatDate(
+                            submission.updatedAt
+                        )}
+                    </p>
                     `
                     : ""
             }
 
         </div>
 
+
+        ${
+            submission.fileUrl
+                ? `
+                <div class="existing-submission">
+
+                    <h4>
+                        📎 Submitted File
+                    </h4>
+
+                    <p>
+                        ${escapeHtml(
+                            submission.fileName ||
+                            "Submitted file"
+                        )}
+                    </p>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick='window.open(${JSON.stringify(submission.fileUrl)},"_blank","noopener,noreferrer")'>
+
+                        Open Submitted File
+
+                    </button>
+
+                </div>
+                `
+                : `
+                <div class="empty">
+                    No file attached.
+                </div>
+                `
+        }
+
+
+        ${
+            submission.comment
+                ? `
+                <div class="faculty-comment">
+
+                    <div class="faculty-comment-title">
+                        Your Comment
+                    </div>
+
+                    <div class="faculty-comment-text">
+
+                        ${escapeHtml(
+                            submission.comment
+                        )}
+
+                    </div>
+
+                </div>
+                `
+                : ""
+        }
+
+
+        ${
+            submission.facultyComment ||
+            submission.staffComment
+                ? `
+                <div class="faculty-comment">
+
+                    <div class="faculty-comment-title">
+                        Faculty Comment
+                    </div>
+
+                    <div class="faculty-comment-text">
+
+                        ${escapeHtml(
+                            submission.facultyComment ||
+                            submission.staffComment
+                        )}
+
+                    </div>
+
+                </div>
+                `
+                : ""
+        }
+
+
+        ${
+            submission.completed === true
+                ? `
+                <div
+                    style="
+                        margin-top:15px;
+                        padding:13px;
+                        background:#dcfce7;
+                        color:#166534;
+                        border-radius:10px;
+                        font-size:13px;
+                        font-weight:bold;
+                    ">
+
+                    ✓ Assignment marked as completed by faculty
+
+                </div>
+                `
+                : ""
+        }
+
     `;
 
 
     document.getElementById(
-        "itemModal"
+        "viewModal"
     ).classList.add(
         "show"
     );
@@ -2775,13 +4258,14 @@ window.viewSubmission = async function(id){
 
 
 /* =========================================================
-   CLOSE MODAL
+   CLOSE VIEW MODAL
 ========================================================= */
 
-window.closeModal = function(){
+window.closeViewModal =
+function(){
 
     document.getElementById(
-        "itemModal"
+        "viewModal"
     ).classList.remove(
         "show"
     );
@@ -2789,15 +4273,39 @@ window.closeModal = function(){
 };
 
 
+/* =========================================================
+   OUTSIDE MODAL CLICK
+========================================================= */
+
 document.getElementById(
-    "itemModal"
+    "submissionModal"
 ).addEventListener(
     "click",
     function(event){
 
-        if(event.target === this){
+        if(
+            event.target === this
+        ){
 
-            closeModal();
+            closeSubmissionModal();
+
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "viewModal"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target === this
+        ){
+
+            closeViewModal();
 
         }
 
@@ -2806,12 +4314,25 @@ document.getElementById(
 
 
 /* =========================================================
-   LOAD STUDENT
+   INITIALIZE
 ========================================================= */
 
-async function initializeStudent(){
+async function initialize(){
 
     try{
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "STUDENT LMS INITIALIZING"
+        );
+
+        console.log(
+            "================================"
+        );
+
 
         currentStudent =
             await findStudent();
@@ -2849,20 +4370,27 @@ async function initializeStudent(){
         document.getElementById(
             "studentRegister"
         ).textContent =
-
             currentStudentKey;
 
 
         document.getElementById(
             "welcomeText"
         ).textContent =
-
-            "Here are the learning materials and assignments assigned specifically to you.";
+            "Learning materials and assignments assigned specifically to you.";
 
 
         /*
-           Load only after current student
-           has been established.
+           IMPORTANT ORDER:
+
+           Student
+             ↓
+           Assignments
+             ↓
+           Submissions
+             ↓
+           Read status
+             ↓
+           Render
         */
 
         await loadAssignments();
@@ -2871,15 +4399,18 @@ async function initializeStudent(){
 
         await loadReadStatus();
 
-
         render();
 
+
+        console.log(
+            "STUDENT LMS READY"
+        );
 
     }
     catch(error){
 
         console.error(
-            "STUDENT LMS ERROR:",
+            "STUDENT LMS INITIALIZATION ERROR:",
             error
         );
 
@@ -2913,11 +4444,7 @@ async function initializeStudent(){
 }
 
 
-/* =========================================================
-   START
-========================================================= */
-
-initializeStudent();
+initialize();
 
 </script>
 
