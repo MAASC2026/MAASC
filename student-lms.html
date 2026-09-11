@@ -6,732 +6,455 @@
 
 <title>Student LMS</title>
 
-<!-- =========================================================
-     SUPABASE
-========================================================= -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#f3f6f9;
-    color:#222;
+    background:#f4f7fb;
+    color:#1f2937;
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
+/* =========================
+   TOP BAR
+========================= */
 
-.header{
-    height:64px;
-    background:#0b2b45;
-    color:white;
-
+.topbar{
+    height:70px;
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    padding:0 22px;
-
+    padding:0 25px;
     position:sticky;
     top:0;
-    z-index:1000;
-
-    box-shadow:0 2px 8px rgba(0,0,0,.25);
+    z-index:100;
 }
 
-.header-left{
+.logo-area{
     display:flex;
     align-items:center;
-    gap:15px;
+    gap:12px;
 }
 
-.menu-btn{
-    border:none;
-    background:transparent;
+.logo{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#2563eb;
     color:white;
-
-    font-size:25px;
-    cursor:pointer;
-}
-
-.logo-title{
-    font-size:19px;
-    font-weight:bold;
-}
-
-.header-right{
     display:flex;
     align-items:center;
-    gap:18px;
+    justify-content:center;
+    font-weight:bold;
+    font-size:18px;
 }
 
-.student-header{
+.logo-text h2{
+    font-size:18px;
+}
+
+.logo-text p{
+    font-size:12px;
+    color:#6b7280;
+    margin-top:2px;
+}
+
+.student-info{
     text-align:right;
 }
 
-.student-header-name{
+.student-name{
+    font-weight:bold;
     font-size:14px;
-    font-weight:bold;
 }
 
-.student-header-reg{
-    font-size:11px;
-    opacity:.8;
+.student-register{
+    color:#6b7280;
+    font-size:12px;
+    margin-top:3px;
 }
 
-.logout-btn{
-    border:none;
-    background:#d9534f;
-    color:white;
+/* =========================
+   PAGE
+========================= */
 
-    padding:9px 14px;
-    border-radius:5px;
-
-    cursor:pointer;
-    font-weight:bold;
-}
-
-/* =========================================================
-   LAYOUT
-========================================================= */
-
-.layout{
-    display:flex;
-    min-height:calc(100vh - 64px);
-}
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-.sidebar{
-    width:240px;
-    background:#102f48;
-    color:white;
-
-    flex-shrink:0;
-
-    transition:.25s;
-
-    min-height:calc(100vh - 64px);
-}
-
-.sidebar.closed{
-    margin-left:-240px;
-}
-
-.sidebar-title{
-    padding:20px;
-
-    background:#082238;
-
-    font-size:15px;
-    font-weight:bold;
-
-    border-bottom:1px solid rgba(255,255,255,.1);
-}
-
-.sidebar-item{
-    padding:14px 20px;
-
-    cursor:pointer;
-
-    font-size:14px;
-
-    border-bottom:1px solid rgba(255,255,255,.05);
-}
-
-.sidebar-item:hover{
-    background:#174a6e;
-}
-
-.sidebar-item.active{
-    background:#0d5c8f;
-    border-left:4px solid #f39c12;
-}
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.main{
-    flex:1;
-    min-width:0;
+.container{
+    max-width:1250px;
+    margin:auto;
     padding:25px;
 }
 
-/* =========================================================
-   STUDENT INFORMATION
-========================================================= */
-
-.student-info{
-    background:white;
-
-    border-radius:8px;
-
-    padding:18px 20px;
-
+.welcome{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    border-radius:18px;
+    padding:25px;
     margin-bottom:22px;
-
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    gap:15px;
 }
 
-.info-box{
-    border-right:1px solid #ddd;
-    padding-right:10px;
+.welcome h1{
+    font-size:24px;
+    margin-bottom:7px;
 }
 
-.info-box:last-child{
-    border-right:none;
-}
-
-.info-label{
-    font-size:11px;
-    color:#777;
-
-    margin-bottom:5px;
-
-    text-transform:uppercase;
-}
-
-.info-value{
+.welcome p{
+    opacity:.9;
     font-size:14px;
-    font-weight:bold;
-
-    color:#0b4f7c;
 }
 
-/* =========================================================
-   PAGE HEADER
-========================================================= */
+/* =========================
+   SUMMARY
+========================= */
 
-.page-header{
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.summary-card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:18px;
+}
+
+.summary-card .label{
+    font-size:12px;
+    color:#6b7280;
+    margin-bottom:8px;
+}
+
+.summary-card .value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+/* =========================
+   SUBJECT BAR
+========================= */
+
+.subject-section{
+    margin-bottom:25px;
+}
+
+.section-title{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:13px;
+}
+
+.subject-tabs{
     display:flex;
-
-    align-items:center;
-    justify-content:space-between;
-
-    margin-bottom:18px;
+    flex-wrap:wrap;
+    gap:9px;
 }
 
-.page-title{
-    font-size:23px;
+.subject-tab{
+    border:1px solid #dbe2ea;
+    background:white;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:13px;
+    transition:.2s;
+}
 
-    color:#123d5b;
+.subject-tab:hover{
+    border-color:#2563eb;
+}
 
+.subject-tab.active{
+    background:#2563eb;
+    color:white;
+    border-color:#2563eb;
+}
+
+/* =========================
+   TOPIC
+========================= */
+
+.topic-card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    margin-bottom:16px;
+    overflow:hidden;
+}
+
+.topic-header{
+    padding:18px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    background:#fff;
+}
+
+.topic-left{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.topic-icon{
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    background:#eff6ff;
+    color:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-weight:bold;
 }
 
-.page-subtitle{
-    font-size:13px;
+.topic-title{
+    font-size:16px;
+    font-weight:bold;
+}
 
-    color:#777;
-
+.topic-meta{
+    font-size:12px;
+    color:#6b7280;
     margin-top:4px;
 }
 
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.search-box{
-    background:white;
-
-    padding:12px;
-
-    border-radius:7px;
-
-    margin-bottom:20px;
-
-    box-shadow:0 2px 7px rgba(0,0,0,.07);
-}
-
-.search-box input{
-    width:100%;
-
-    padding:12px 14px;
-
-    border:1px solid #ccd5dc;
-
-    border-radius:5px;
-
-    outline:none;
-
-    font-size:14px;
-}
-
-/* =========================================================
-   SUBJECTS
-========================================================= */
-
-.subject-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(auto-fill,minmax(280px,1fr));
-
-    gap:20px;
-}
-
-.subject-card{
-    background:white;
-
-    border-radius:8px;
-
-    overflow:hidden;
-
-    box-shadow:0 3px 10px rgba(0,0,0,.12);
-
-    cursor:pointer;
-
+.topic-arrow{
+    font-size:20px;
+    color:#6b7280;
     transition:.2s;
-
-    position:relative;
 }
 
-.subject-card:hover{
-    transform:translateY(-3px);
-
-    box-shadow:0 7px 18px rgba(0,0,0,.18);
+.topic-card.open .topic-arrow{
+    transform:rotate(180deg);
 }
 
-.subject-top{
-    background:#0d5489;
+/* =========================
+   TOPIC ITEMS
+========================= */
 
-    color:white;
-
-    padding:17px;
-
-    min-height:105px;
-}
-
-.subject-code{
-    font-size:13px;
-
-    font-weight:bold;
-
-    opacity:.9;
-
-    margin-bottom:7px;
-}
-
-.subject-name{
-    font-size:17px;
-
-    font-weight:bold;
-
-    line-height:1.3;
-}
-
-.subject-body{
-    padding:15px;
-}
-
-.subject-meta{
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:7px;
-
-    margin-bottom:12px;
-}
-
-.badge{
-    background:#eef4f8;
-
-    color:#174c6c;
-
-    padding:5px 8px;
-
-    border-radius:4px;
-
-    font-size:11px;
-}
-
-.subject-footer{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-}
-
-.assignment-count{
-    font-size:12px;
-    color:#555;
-}
-
-.open-btn{
-    background:#0d5489;
-
-    color:white;
-
-    border:none;
-
-    padding:8px 13px;
-
-    border-radius:4px;
-
-    cursor:pointer;
-
-    font-size:12px;
-
-    font-weight:bold;
-}
-
-/* =========================================================
-   COURSE
-========================================================= */
-
-.course-page{
+.topic-content{
     display:none;
+    border-top:1px solid #edf0f4;
 }
 
-.back-btn{
-    background:#164e72;
-
-    color:white;
-
-    border:none;
-
-    padding:9px 15px;
-
-    border-radius:4px;
-
-    cursor:pointer;
-
-    margin-bottom:15px;
-
-    font-weight:bold;
+.topic-card.open .topic-content{
+    display:block;
 }
 
-.course-header{
-    background:#0d5489;
-
-    color:white;
-
-    padding:20px;
-
-    border-radius:8px 8px 0 0;
+.lms-item{
+    padding:18px 20px;
+    border-bottom:1px solid #edf0f4;
 }
 
-.course-code{
-    font-size:13px;
-    opacity:.85;
-
-    margin-bottom:6px;
+.lms-item:last-child{
+    border-bottom:none;
 }
 
-.course-name{
-    font-size:23px;
-    font-weight:bold;
-}
-
-.course-info{
-    margin-top:8px;
-
-    font-size:12px;
-
-    opacity:.9;
-}
-
-.course-tabs{
-    background:white;
-
+.item-top{
     display:flex;
-
-    border-bottom:1px solid #ddd;
-
-    box-shadow:0 2px 5px rgba(0,0,0,.06);
-
-    overflow-x:auto;
-}
-
-.course-tab{
-    padding:13px 20px;
-
-    border:none;
-
-    background:white;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-    font-size:13px;
-
-    color:#555;
-
-    border-bottom:3px solid transparent;
-
-    white-space:nowrap;
-}
-
-.course-tab.active{
-    color:#0d5489;
-
-    border-bottom-color:#0d5489;
-}
-
-.course-content{
-    background:white;
-
-    min-height:350px;
-
-    padding:20px;
-
-    border-radius:0 0 8px 8px;
-}
-
-/* =========================================================
-   ASSIGNMENT
-========================================================= */
-
-.assignment-card{
-    border:1px solid #d8dee3;
-
-    margin-bottom:15px;
-
-    border-radius:6px;
-
-    overflow:hidden;
-
-    background:white;
-
-    box-shadow:0 1px 3px rgba(0,0,0,.05);
-}
-
-.assignment-header{
-    background:#11558a;
-
-    color:white;
-
-    padding:12px 15px;
-
-    display:flex;
-
     justify-content:space-between;
-
-    align-items:center;
-
-    gap:10px;
+    gap:15px;
 }
 
-.assignment-title{
-    font-size:14px;
-
-    font-weight:bold;
-
+.item-title-area{
     flex:1;
 }
 
-.status{
+.item-title{
+    font-size:15px;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.item-description{
+    color:#6b7280;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:7px;
+}
+
+.new-badge{
+    background:#dc2626;
+    color:white;
     font-size:10px;
-
+    font-weight:bold;
     padding:4px 7px;
+    border-radius:5px;
+    letter-spacing:.4px;
+}
 
-    border-radius:4px;
+.completed-badge{
+    background:#dcfce7;
+    color:#166534;
+    font-size:10px;
+    font-weight:bold;
+    padding:4px 7px;
+    border-radius:5px;
+}
 
+.submitted-badge{
+    background:#dbeafe;
+    color:#1d4ed8;
+    font-size:10px;
+    font-weight:bold;
+    padding:4px 7px;
+    border-radius:5px;
+}
+
+.item-date{
+    font-size:11px;
+    color:#9ca3af;
     white-space:nowrap;
 }
 
-.status.pending{
-    background:#d68910;
-}
-
-.status.submitted{
-    background:#218838;
-}
-
-.status.completed{
-    background:#6f42c1;
-}
-
-.assignment-body{
-    padding:16px;
-}
-
-.topic{
-    color:#174c6c;
-
-    font-size:15px;
-
-    font-weight:bold;
-
-    margin-bottom:7px;
-}
-
-.description{
-    color:#555;
-
-    font-size:13px;
-
-    line-height:1.6;
-
-    white-space:pre-wrap;
-}
-
-.assignment-details{
-    margin-top:12px;
-
+.item-actions{
     display:flex;
-
     flex-wrap:wrap;
-
     gap:8px;
-}
-
-.detail-badge{
-    background:#f0f3f5;
-
-    color:#555;
-
-    padding:6px 9px;
-
-    border-radius:4px;
-
-    font-size:11px;
-}
-
-.assignment-actions{
-    margin-top:15px;
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:8px;
+    margin-top:14px;
 }
 
 .btn{
     border:none;
-
-    border-radius:4px;
-
+    border-radius:8px;
     padding:9px 13px;
-
-    cursor:pointer;
-
     font-size:12px;
-
-    font-weight:bold;
+    cursor:pointer;
+    font-weight:600;
 }
 
 .btn-primary{
-    background:#0d5489;
+    background:#2563eb;
     color:white;
+}
+
+.btn-secondary{
+    background:#eef2f7;
+    color:#374151;
 }
 
 .btn-success{
-    background:#218838;
+    background:#16a34a;
     color:white;
 }
 
-.btn-purple{
-    background:#6f42c1;
+.btn-warning{
+    background:#f59e0b;
     color:white;
 }
 
-.btn-light{
-    background:#edf1f4;
-    color:#333;
+.btn-danger{
+    background:#dc2626;
+    color:white;
 }
 
-.attachment{
-    margin-top:14px;
+/* =========================
+   DETAILS
+========================= */
 
-    padding:12px;
+.item-details{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    border-radius:10px;
+    background:#f8fafc;
+}
 
-    border:1px solid #ddd;
+.lms-item.open .item-details{
+    display:block;
+}
 
-    background:#f8fafb;
-
-    border-radius:5px;
-
+.detail-row{
     display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:10px;
+    gap:8px;
+    margin-bottom:8px;
+    font-size:13px;
 }
 
-/* =========================================================
-   EMPTY / LOADING
-========================================================= */
+.detail-label{
+    font-weight:bold;
+    min-width:100px;
+}
 
-.loading,
+.comment-box{
+    margin-top:14px;
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:13px;
+}
+
+.comment-title{
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.comment-text{
+    font-size:13px;
+    line-height:1.5;
+    color:#374151;
+}
+
+/* =========================
+   EMPTY / LOADING
+========================= */
+
+.loading{
+    background:white;
+    border-radius:15px;
+    padding:40px;
+    text-align:center;
+    color:#6b7280;
+}
+
 .empty{
     background:white;
-
-    border-radius:8px;
-
-    padding:50px 20px;
-
+    border:1px dashed #cbd5e1;
+    border-radius:15px;
+    padding:45px;
     text-align:center;
-
-    color:#777;
-
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.spinner{
-    width:35px;
-    height:35px;
-
-    border:4px solid #ddd;
-
-    border-top-color:#0d5489;
-
-    border-radius:50%;
-
-    animation:spin 1s linear infinite;
-
-    margin:0 auto 15px;
+.empty-icon{
+    font-size:40px;
+    margin-bottom:12px;
 }
 
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
+.empty h3{
+    margin-bottom:6px;
 }
 
-/* =========================================================
+.empty p{
+    color:#6b7280;
+    font-size:13px;
+}
+
+/* =========================
    MODAL
-========================================================= */
+========================= */
 
 .modal{
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.55);
-
     display:none;
-
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.55);
+    z-index:500;
     align-items:center;
-
     justify-content:center;
-
     padding:20px;
-
-    z-index:3000;
 }
 
 .modal.show{
@@ -739,354 +462,143 @@ body{
 }
 
 .modal-box{
-    width:min(760px,100%);
-
+    width:min(700px,100%);
     max-height:90vh;
-
     overflow:auto;
-
     background:white;
-
-    border-radius:8px;
-
-    box-shadow:0 15px 50px rgba(0,0,0,.35);
+    border-radius:18px;
+    padding:25px;
 }
 
 .modal-header{
-    background:#0d5489;
-
-    color:white;
-
-    padding:15px 18px;
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
-    position:sticky;
-
-    top:0;
-
-    z-index:2;
+    margin-bottom:18px;
 }
 
 .modal-title{
+    font-size:19px;
     font-weight:bold;
-
-    font-size:15px;
 }
 
-.close{
+.close-btn{
     border:none;
-
-    background:transparent;
-
-    color:white;
-
-    font-size:24px;
-
+    background:#f1f5f9;
+    width:35px;
+    height:35px;
+    border-radius:50%;
     cursor:pointer;
+    font-size:18px;
 }
 
-.modal-body{
+.file-preview{
+    background:#f8fafc;
     padding:20px;
-}
-
-/* =========================================================
-   FORM
-========================================================= */
-
-.form-group{
+    border-radius:12px;
     margin-bottom:15px;
 }
 
-.form-group label{
-    display:block;
-
-    font-size:12px;
-
+.file-name{
     font-weight:bold;
-
-    color:#555;
-
     margin-bottom:6px;
 }
 
-.form-group textarea{
-    width:100%;
-
-    min-height:100px;
-
-    resize:vertical;
-
-    border:1px solid #ccd5dc;
-
-    border-radius:5px;
-
-    padding:10px;
-
-    outline:none;
-
-    font-family:Arial;
-}
-
-.file-picker{
-    border:2px dashed #b9c7d1;
-
-    padding:20px;
-
-    border-radius:6px;
-
-    text-align:center;
-
-    background:#f9fbfc;
-
-    cursor:pointer;
-}
-
-.file-picker input{
-    display:none;
-}
-
-.file-name{
-    margin-top:8px;
-
-    color:#0d5489;
-
+.file-info{
     font-size:12px;
-
-    font-weight:bold;
+    color:#6b7280;
 }
 
-/* =========================================================
-   PROGRESS
-========================================================= */
-
-.progress{
-    display:none;
-
-    margin-top:10px;
-}
-
-.progress-bar{
-    height:8px;
-
-    background:#e5e5e5;
-
-    border-radius:10px;
-
-    overflow:hidden;
-}
-
-.progress-fill{
-    width:0%;
-
-    height:100%;
-
-    background:#0d5489;
-
-    transition:.2s;
-}
-
-.progress-text{
-    text-align:center;
-
-    font-size:11px;
-
-    color:#666;
-
-    margin-top:4px;
-}
-
-/* =========================================================
-   CHAT
-========================================================= */
-
-.chat-messages{
-    height:330px;
-
-    overflow-y:auto;
-
-    padding:10px;
-
-    background:#f5f7f9;
-
-    border:1px solid #ddd;
-
-    border-radius:6px;
-}
-
-.chat-message{
-    max-width:80%;
-
-    padding:10px;
-
-    margin-bottom:10px;
-
+.open-file{
+    display:inline-block;
+    margin-top:12px;
+    text-decoration:none;
+    background:#2563eb;
+    color:white;
+    padding:10px 14px;
     border-radius:8px;
-
     font-size:13px;
-
-    line-height:1.5;
 }
 
-.chat-message.student{
-    margin-left:auto;
-
-    background:#dceffc;
-}
-
-.chat-message.faculty{
-    margin-right:auto;
-
-    background:#fff;
-
-    border:1px solid #ddd;
-}
-
-.chat-name{
-    font-weight:bold;
-
-    font-size:11px;
-
-    margin-bottom:4px;
-}
-
-.chat-date{
-    font-size:9px;
-
-    color:#888;
-
-    margin-top:4px;
-}
-
-.chat-send{
-    display:flex;
-
-    gap:8px;
-
-    margin-top:10px;
-}
-
-.chat-send input{
-    flex:1;
-
-    padding:10px;
-
-    border:1px solid #ccc;
-
-    border-radius:5px;
-
-    outline:none;
-}
-
-/* =========================================================
+/* =========================
    TOAST
-========================================================= */
+========================= */
 
 .toast{
     position:fixed;
-
     right:20px;
-
     bottom:20px;
-
-    min-width:280px;
-
-    max-width:420px;
-
-    padding:13px 16px;
-
-    background:#222;
-
+    background:#111827;
     color:white;
-
-    border-radius:5px;
-
-    display:none;
-
-    z-index:5000;
-
+    padding:13px 17px;
+    border-radius:10px;
     font-size:13px;
+    transform:translateY(100px);
+    opacity:0;
+    transition:.3s;
+    z-index:1000;
 }
 
 .toast.show{
-    display:block;
+    transform:translateY(0);
+    opacity:1;
 }
 
-.toast.success{
-    background:#218838;
-}
-
-.toast.error{
-    background:#c9302c;
-}
-
-.toast.warning{
-    background:#e67e22;
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:900px){
 
-    .student-info{
+    .summary{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .info-box{
-        border-right:none;
-    }
 }
 
-@media(max-width:700px){
+@media(max-width:600px){
 
-    .sidebar{
-        position:fixed;
-
-        left:0;
-        top:64px;
-
-        z-index:2000;
-
-        height:calc(100vh - 64px);
-
-        box-shadow:5px 0 15px rgba(0,0,0,.2);
+    .topbar{
+        height:auto;
+        min-height:70px;
+        padding:12px 15px;
     }
 
-    .main{
-        padding:15px;
-    }
-
-    .student-header{
+    .student-info{
         display:none;
     }
 
-    .student-info{
-        grid-template-columns:1fr 1fr;
+    .container{
+        padding:15px;
     }
 
-    .assignment-actions{
+    .welcome{
+        padding:20px;
+    }
+
+    .welcome h1{
+        font-size:20px;
+    }
+
+    .summary{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .summary-card{
+        padding:14px;
+    }
+
+    .summary-card .value{
+        font-size:21px;
+    }
+
+    .item-top{
         flex-direction:column;
     }
 
-    .btn{
-        width:100%;
-    }
-}
-
-@media(max-width:450px){
-
-    .student-info{
-        grid-template-columns:1fr;
-    }
-
-    .subject-grid{
-        grid-template-columns:1fr;
+    .item-date{
+        white-space:normal;
     }
 }
 </style>
@@ -1094,990 +606,399 @@ body{
 
 <body>
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+<!-- =========================
+     TOP BAR
+========================= -->
 
-<header class="header">
+<header class="topbar">
 
-    <div class="header-left">
+    <div class="logo-area">
 
-        <button
-            class="menu-btn"
-            id="menuBtn"
-        >☰</button>
+        <div class="logo">
+            LMS
+        </div>
 
-        <div class="logo-title">
-            Student LMS
+        <div class="logo-text">
+            <h2>Student LMS</h2>
+            <p>Learning Management System</p>
         </div>
 
     </div>
 
-    <div class="header-right">
+    <div class="student-info">
 
-        <div class="student-header">
-
-            <div
-                class="student-header-name"
-                id="headerName"
-            >
-                Loading...
-            </div>
-
-            <div
-                class="student-header-reg"
-                id="headerReg"
-            ></div>
-
+        <div class="student-name" id="studentName">
+            Loading...
         </div>
 
-        <button
-            class="logout-btn"
-            id="logoutBtn"
-        >
-            Logout
-        </button>
+        <div class="student-register" id="studentRegister">
+            Loading...
+        </div>
 
     </div>
 
 </header>
 
 
-<!-- =========================================================
-     LAYOUT
-========================================================= -->
+<main class="container">
 
-<div class="layout">
+    <!-- =========================
+         WELCOME
+    ========================== -->
 
-    <!-- SIDEBAR -->
+    <section class="welcome">
 
-    <aside
-        class="sidebar"
-        id="sidebar"
-    >
+        <h1>
+            Welcome to your LMS
+        </h1>
 
-        <div class="sidebar-title">
-            STUDENT LMS
+        <p id="welcomeText">
+            Loading your learning materials...
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         SUMMARY
+    ========================== -->
+
+    <section class="summary">
+
+        <div class="summary-card">
+
+            <div class="label">
+                Subjects
+            </div>
+
+            <div class="value" id="subjectCount">
+                0
+            </div>
+
         </div>
 
-        <div
-            class="sidebar-item"
-            id="dashboardBtn"
-        >
-            🏠 Dashboard
+
+        <div class="summary-card">
+
+            <div class="label">
+                Topics
+            </div>
+
+            <div class="value" id="topicCount">
+                0
+            </div>
+
         </div>
 
-        <div class="sidebar-item active">
-            📚 My LMS
+
+        <div class="summary-card">
+
+            <div class="label">
+                New Items
+            </div>
+
+            <div class="value" id="newCount">
+                0
+            </div>
+
         </div>
 
-        <div
-            class="sidebar-item"
-            id="profileBtn"
-        >
-            👤 My Profile
+
+        <div class="summary-card">
+
+            <div class="label">
+                Submitted
+            </div>
+
+            <div class="value" id="submittedCount">
+                0
+            </div>
+
         </div>
 
-    </aside>
+    </section>
 
 
-    <!-- MAIN -->
+    <!-- =========================
+         SUBJECTS
+    ========================== -->
 
-    <main class="main">
+    <section class="subject-section">
 
-        <!-- STUDENT INFO -->
+        <div class="section-title">
+            My Subjects
+        </div>
 
-        <section class="student-info">
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    Register No
-                </div>
-
-                <div
-                    class="info-value"
-                    id="studentRegister"
-                >
-                    -
-                </div>
-
-            </div>
-
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    Student Name
-                </div>
-
-                <div
-                    class="info-value"
-                    id="studentName"
-                >
-                    -
-                </div>
-
-            </div>
-
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    Department
-                </div>
-
-                <div
-                    class="info-value"
-                    id="studentDepartment"
-                >
-                    -
-                </div>
-
-            </div>
-
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    Year
-                </div>
-
-                <div
-                    class="info-value"
-                    id="studentYear"
-                >
-                    -
-                </div>
-
-            </div>
-
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    Section
-                </div>
-
-                <div
-                    class="info-value"
-                    id="studentSection"
-                >
-                    -
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             SUBJECT HOME
-        ================================================== -->
-
-        <section id="subjectHome">
-
-            <div class="page-header">
-
-                <div>
-
-                    <div class="page-title">
-                        My Courses
-                    </div>
-
-                    <div class="page-subtitle">
-                        Your assigned subjects and learning work
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="subjectSearch"
-                    placeholder="Search subject..."
-                >
-
-            </div>
-
-
-            <div
-                class="subject-grid"
-                id="subjectGrid"
-            >
-
-                <div class="loading">
-
-                    <div class="spinner"></div>
-
-                    Loading your LMS...
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             COURSE PAGE
-        ================================================== -->
-
-        <section
-            class="course-page"
-            id="coursePage"
-        >
+        <div class="subject-tabs" id="subjectTabs">
 
             <button
-                class="back-btn"
-                id="backBtn"
-            >
-                ← Back to My Courses
+                class="subject-tab active"
+                data-subject="ALL"
+                onclick="filterSubject('ALL')">
+                All
             </button>
 
+        </div>
 
-            <div class="course-header">
+    </section>
 
-                <div
-                    class="course-code"
-                    id="courseCode"
-                ></div>
 
-                <div
-                    class="course-name"
-                    id="courseName"
-                ></div>
+    <!-- =========================
+         LMS CONTENT
+    ========================== -->
 
-                <div
-                    class="course-info"
-                    id="courseInfo"
-                ></div>
+    <section>
 
+        <div class="section-title">
+            Learning Materials
+        </div>
+
+        <div id="lmsContainer">
+
+            <div class="loading">
+                Loading LMS...
             </div>
 
+        </div>
 
-            <div class="course-tabs">
+    </section>
 
-                <button
-                    class="course-tab active"
-                    data-tab="assignments"
-                >
-                    📝 Class Work
-                </button>
-
-                <button
-                    class="course-tab"
-                    data-tab="materials"
-                >
-                    📚 Materials
-                </button>
-
-            </div>
+</main>
 
 
-            <div class="course-content">
+<!-- =========================
+     ITEM MODAL
+========================= -->
 
-                <div id="assignmentsTab">
-
-                    <div
-                        id="assignmentList"
-                    >
-                        <div class="loading">
-                            Loading class work...
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="materialsTab"
-                    style="display:none"
-                >
-
-                    <div
-                        id="materialsList"
-                    ></div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-</div>
-
-
-<!-- =========================================================
-     ASSIGNMENT MODAL
-========================================================= -->
-
-<div
-    class="modal"
-    id="assignmentModal"
->
+<div class="modal" id="itemModal">
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <div
-                class="modal-title"
-                id="modalTitle"
-            >
-                Assignment
+            <div class="modal-title" id="modalTitle">
+                Material
             </div>
 
             <button
-                class="close"
-                id="closeAssignment"
-            >
+                class="close-btn"
+                onclick="closeModal()">
                 ×
             </button>
 
         </div>
 
-
-        <div class="modal-body">
-
-            <div
-                id="assignmentDetails"
-            ></div>
-
-
-            <div
-                class="form-group"
-                style="margin-top:20px"
-            >
-
-                <label>
-                    Your Comment
-                </label>
-
-                <textarea
-                    id="submissionComment"
-                    placeholder="Enter your answer/comment..."
-                ></textarea>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Upload Your Work
-                </label>
-
-                <label class="file-picker">
-
-                    <input
-                        type="file"
-                        id="submissionFile"
-                    >
-
-                    📎 Click to choose your file
-
-                    <div
-                        class="file-name"
-                        id="submissionFileName"
-                    >
-                        No file selected
-                    </div>
-
-                </label>
-
-            </div>
-
-
-            <div
-                class="progress"
-                id="uploadProgress"
-            >
-
-                <div class="progress-bar">
-
-                    <div
-                        class="progress-fill"
-                        id="progressFill"
-                    ></div>
-
-                </div>
-
-                <div
-                    class="progress-text"
-                    id="progressText"
-                >
-                    0%
-                </div>
-
-            </div>
-
-
-            <div
-                id="existingSubmission"
-                style="margin-top:15px"
-            ></div>
-
-
-            <div
-                style="
-                    display:flex;
-                    gap:8px;
-                    flex-wrap:wrap;
-                    margin-top:20px;
-                "
-            >
-
-                <button
-                    class="btn btn-primary"
-                    id="submitBtn"
-                >
-                    Submit Assignment
-                </button>
-
-                <button
-                    class="btn btn-purple"
-                    id="chatBtn"
-                >
-                    💬 Faculty Chat
-                </button>
-
-                <button
-                    class="btn btn-success"
-                    id="completeBtn"
-                >
-                    ✓ Mark as Completed
-                </button>
-
-            </div>
-
-        </div>
+        <div id="modalBody"></div>
 
     </div>
 
 </div>
 
 
-<!-- =========================================================
-     CHAT MODAL
-========================================================= -->
-
-<div
-    class="modal"
-    id="chatModal"
->
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <div class="modal-title">
-                Faculty Conversation
-            </div>
-
-            <button
-                class="close"
-                id="closeChat"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <div class="modal-body">
-
-            <div
-                class="chat-messages"
-                id="chatMessages"
-            >
-                Loading...
-            </div>
-
-
-            <div class="chat-send">
-
-                <input
-                    type="text"
-                    id="chatInput"
-                    placeholder="Type your message..."
-                >
-
-                <button
-                    class="btn btn-primary"
-                    id="sendChatBtn"
-                >
-                    Send
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
+<div class="toast" id="toast">
+    Saved
 </div>
 
-
-<!-- =========================================================
-     TOAST
-========================================================= -->
-
-<div
-    class="toast"
-    id="toast"
-></div>
-
-
-<!-- =========================================================
-     FIREBASE + APPLICATION
-========================================================= -->
 
 <script type="module">
 
-/* =========================================================
-   FIREBASE IMPORTS
-========================================================= */
-
 import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-    getAuth,
-    signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-    getFirestore,
     collection,
     doc,
     getDoc,
     getDocs,
     query,
     where,
-    addDoc,
     setDoc,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+    db
+}
+from "./firebase-config.js";
 
 
 /* =========================================================
-   FIREBASE CONFIG
-========================================================= */
-
-const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyAIv3091VM-gkmdwEAn7OhXWd9Cm2zh2bo",
-
-    authDomain:
-        "maasc-2026.firebaseapp.com",
-
-    projectId:
-        "maasc-2026",
-
-    storageBucket:
-        "maasc-2026.appspot.com",
-
-    messagingSenderId:
-        "585813001586",
-
-    appId:
-        "1:585813001586:web:664e0e90ff"
-
-};
-
-
-const app =
-    initializeApp(firebaseConfig);
-
-const auth =
-    getAuth(app);
-
-const db =
-    getFirestore(app);
-
-
-/* =========================================================
-   SUPABASE
-========================================================= */
-
-const SUPABASE_URL =
-    "https://lmqcmkttadmqyeshcuhf.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_E3y8efSouYf4DFK7Q7q86g_LKwmpLAi";
-
-const SUPABASE_BUCKET =
-    "lms-assignment";
-
-
-const supabase =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
-
-
-/* =========================================================
-   GLOBAL VARIABLES
+   GLOBAL STATE
 ========================================================= */
 
 let currentStudent = null;
 
-let currentCourse = null;
-
-let currentAssignment = null;
-
-let currentSubmission = null;
-
-let allSubjects = [];
+let currentStudentKey = "";
 
 let allAssignments = [];
 
-let allMaterials = [];
+let allSubmissions = [];
+
+let readAssignmentIds = new Set();
+
+let groupedTopics = [];
+
+let activeSubject = "ALL";
 
 
 /* =========================================================
-   ELEMENTS
+   UTILITY
 ========================================================= */
 
-const subjectHome =
-    document.getElementById("subjectHome");
+function normalize(value){
 
-const coursePage =
-    document.getElementById("coursePage");
+    return String(value ?? "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g," ");
 
-const subjectGrid =
-    document.getElementById("subjectGrid");
-
-const assignmentList =
-    document.getElementById("assignmentList");
-
-const materialsList =
-    document.getElementById("materialsList");
-
-const assignmentModal =
-    document.getElementById("assignmentModal");
-
-const chatModal =
-    document.getElementById("chatModal");
-
-
-/* =========================================================
-   UTILITIES
-========================================================= */
-
-function safe(value){
-
-    if(
-        value === null ||
-        value === undefined
-    ){
-        return "";
-    }
-
-    return String(value).trim();
-}
-
-
-function upper(value){
-
-    return safe(value).toUpperCase();
-}
-
-
-function lower(value){
-
-    return safe(value).toLowerCase();
 }
 
 
 function escapeHtml(value){
 
-    return safe(value)
+    return String(value ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
+
 }
 
 
-function getDateObject(value){
+function getTimestamp(value){
 
     if(!value){
-        return null;
+        return 0;
     }
 
-    try{
-
-        if(
-            typeof value.toDate ===
-            "function"
-        ){
-            return value.toDate();
-        }
-
-        if(
-            value.seconds !== undefined
-        ){
-            return new Date(
-                value.seconds * 1000
-            );
-        }
-
-        const date =
-            new Date(value);
-
-        if(
-            isNaN(date.getTime())
-        ){
-            return null;
-        }
-
-        return date;
-
+    if(typeof value === "number"){
+        return value;
     }
-    catch{
 
-        return null;
+    if(value.seconds){
+        return value.seconds * 1000;
     }
+
+    if(value.toDate){
+
+        try{
+            return value.toDate().getTime();
+        }
+        catch(e){}
+    }
+
+    const date = new Date(value);
+
+    if(!isNaN(date.getTime())){
+        return date.getTime();
+    }
+
+    return 0;
 }
 
 
 function formatDate(value){
 
-    const date =
-        getDateObject(value);
+    const timestamp = getTimestamp(value);
 
-    if(!date){
-        return "-";
+    if(!timestamp){
+        return "";
     }
 
-    return date.toLocaleString(
+    return new Date(timestamp).toLocaleDateString(
         "en-IN",
         {
             day:"2-digit",
             month:"short",
-            year:"numeric",
-            hour:"2-digit",
-            minute:"2-digit"
+            year:"numeric"
         }
     );
+
 }
 
 
-function showToast(
-    message,
-    type="success",
-    duration=3500
-){
+function showToast(message){
 
-    const toast =
-        document.getElementById("toast");
+    const toast = document.getElementById("toast");
 
-    toast.textContent =
-        message;
+    toast.textContent = message;
 
-    toast.className =
-        "toast show " + type;
+    toast.classList.add("show");
 
-    setTimeout(
-        () => {
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },2500);
 
-            toast.className =
-                "toast";
-
-        },
-        duration
-    );
 }
 
 
 /* =========================================================
-   STUDENT IDENTITY
-   IMPORTANT:
-   sessionStorage.studentRollNo
-   is the primary identity.
+   GET STORED STUDENT ID
 ========================================================= */
 
 function getStoredStudentId(){
 
-    const primary =
-        safe(
-            sessionStorage.getItem(
-                "studentRollNo"
-            )
-        );
-
-    if(primary){
-        return primary;
-    }
-
-    const secondary =
-        safe(
-            sessionStorage.getItem(
-                "studentRegNo"
-            )
-        );
-
-    if(secondary){
-        return secondary;
-    }
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
     return (
-        safe(params.get("rollNo")) ||
-        safe(params.get("registerNo"))
-    );
-}
 
+        sessionStorage.getItem("studentRollNo") ||
 
-/* =========================================================
-   NORMALIZE STUDENT
-========================================================= */
+        sessionStorage.getItem("studentRegisterNo") ||
 
-function normalizeStudent(
-    data,
-    fallbackId=""
-){
+        sessionStorage.getItem("studentId") ||
 
-    data =
-        data || {};
+        sessionStorage.getItem("rollNo") ||
 
-    const registerNo =
-        safe(data.registerNo) ||
-        safe(data.registerNumber) ||
-        safe(data.studentRegisterNo) ||
-        safe(data.studentRegNo) ||
-        safe(data.regNo) ||
-        safe(data.studentId) ||
-        safe(data.studentID) ||
-        safe(data.rollNo) ||
-        safe(data.rollNumber) ||
-        safe(fallbackId);
+        ""
 
-
-    const name =
-        safe(data.studentName) ||
-        safe(data.name) ||
-        safe(data.fullName) ||
-        safe(data.student_name);
-
-
-    const department =
-        safe(data.department) ||
-        safe(data.dept);
-
-
-    const year =
-        safe(data.year) ||
-        safe(data.classYear) ||
-        safe(data.studentYear);
-
-
-    const section =
-        safe(data.section) ||
-        safe(data.sec);
-
-
-    return {
-
-        ...data,
-
-        registerNo,
-
-        rollNo:
-            safe(data.rollNo) ||
-            registerNo,
-
-        name,
-
-        department,
-
-        year,
-
-        section
-
-    };
+    ).trim();
 
 }
 
 
 /* =========================================================
-   FIND EXACT STUDENT
+   FIND CURRENT STUDENT
 ========================================================= */
 
 async function findStudent(){
 
-    const storedId =
-        getStoredStudentId();
+    const storedId = getStoredStudentId();
+
+    console.log(
+        "STORED STUDENT ID:",
+        storedId
+    );
 
     if(!storedId){
 
         throw new Error(
-            "Student login session not found."
+            "Student login information not found."
         );
 
     }
 
-    const id =
-        safe(storedId);
 
-    const upperId =
-        upper(id);
-
-
-    /* -----------------------------------------------------
-       1. DOCUMENT ID
-    ----------------------------------------------------- */
+    /*
+       First try document ID.
+    */
 
     try{
 
-        const ref =
-            doc(
-                db,
-                "students",
-                id
-            );
+        const directRef = doc(
+            db,
+            "students",
+            storedId
+        );
 
-        const snap =
-            await getDoc(ref);
+        const directSnap = await getDoc(
+            directRef
+        );
 
-        if(snap.exists()){
+        if(directSnap.exists()){
 
-            const student =
-                normalizeStudent(
-                    snap.data(),
-                    snap.id
-                );
-
-            if(
-                upper(student.registerNo)
-                === upperId
-                ||
-                upper(student.rollNo)
-                === upperId
-                ||
-                upper(snap.id)
-                === upperId
-            ){
-
-                return student;
-
-            }
+            return {
+                id:directSnap.id,
+                ...directSnap.data()
+            };
 
         }
 
@@ -2085,92 +1006,44 @@ async function findStudent(){
     catch(error){
 
         console.warn(
-            "DIRECT STUDENT LOOKUP:",
+            "Direct student lookup failed:",
             error
         );
 
     }
 
 
-    /* -----------------------------------------------------
-       2. EXACT FIELD LOOKUP
-    ----------------------------------------------------- */
+    /*
+       Try rollNo.
+    */
 
-    const fields = [
-
+    const possibleFields = [
+        "rollNo",
         "registerNo",
         "registerNumber",
-        "studentRegisterNo",
-        "studentRegNo",
-        "regNo",
-        "studentId",
-        "studentID",
-        "rollNo",
-        "rollNumber"
-
+        "studentId"
     ];
 
 
-    for(
-        const field of fields
-    ){
+    for(const field of possibleFields){
 
         try{
 
-            const q =
-                query(
-                    collection(
-                        db,
-                        "students"
-                    ),
-                    where(
-                        field,
-                        "==",
-                        id
-                    )
-                );
+            const q = query(
+                collection(db,"students"),
+                where(field,"==",storedId)
+            );
 
-            const snap =
-                await getDocs(q);
+            const snap = await getDocs(q);
 
-            for(
-                const item of snap.docs
-            ){
+            if(!snap.empty){
 
-                const student =
-                    normalizeStudent(
-                        item.data(),
-                        item.id
-                    );
+                const d = snap.docs[0];
 
-                const matches = [
-
-                    student.registerNo,
-
-                    student.rollNo,
-
-                    item.id,
-
-                    item.data().studentRegisterNo,
-
-                    item.data().studentRegNo,
-
-                    item.data().registerNumber,
-
-                    item.data().rollNumber
-
-                ].some(
-                    value =>
-                        upper(value)
-                        === upperId
-                );
-
-
-                if(matches){
-
-                    return student;
-
-                }
+                return {
+                    id:d.id,
+                    ...d.data()
+                };
 
             }
 
@@ -2178,7 +1051,7 @@ async function findStudent(){
         catch(error){
 
             console.warn(
-                "STUDENT LOOKUP:",
+                "Student lookup failed:",
                 field,
                 error
             );
@@ -2188,57 +1061,42 @@ async function findStudent(){
     }
 
 
-    /* -----------------------------------------------------
-       3. LAST RESORT SCAN
-    ----------------------------------------------------- */
+    /*
+       Final fallback scan.
+    */
 
     try{
 
-        const snap =
-            await getDocs(
-                collection(
-                    db,
-                    "students"
-                )
-            );
+        const snap = await getDocs(
+            collection(db,"students")
+        );
 
+        for(const d of snap.docs){
 
-        for(
-            const item of snap.docs
-        ){
+            const data = d.data();
 
-            const data =
-                item.data() || {};
+            const ids = [
 
+                d.id,
 
-            const candidates = [
+                data.rollNo,
 
                 data.registerNo,
+
                 data.registerNumber,
-                data.studentRegisterNo,
-                data.studentRegNo,
-                data.regNo,
-                data.studentId,
-                data.studentID,
-                data.rollNo,
-                data.rollNumber,
-                item.id
 
-            ];
+                data.studentId
 
+            ]
+            .filter(Boolean)
+            .map(String);
 
-            if(
-                candidates.some(
-                    value =>
-                        upper(value)
-                        === upperId
-                )
-            ){
+            if(ids.includes(storedId)){
 
-                return normalizeStudent(
-                    data,
-                    item.id
-                );
+                return {
+                    id:d.id,
+                    ...data
+                };
 
             }
 
@@ -2248,487 +1106,146 @@ async function findStudent(){
     catch(error){
 
         console.error(
-            "STUDENT SCAN:",
+            "Fallback student scan failed:",
             error
         );
 
     }
 
 
-    return null;
-}
-
-
-/* =========================================================
-   DISPLAY STUDENT
-========================================================= */
-
-function displayStudent(){
-
-    if(!currentStudent){
-        return;
-    }
-
-
-    document.getElementById(
-        "studentRegister"
-    ).textContent =
-        currentStudent.registerNo || "-";
-
-
-    document.getElementById(
-        "studentName"
-    ).textContent =
-        currentStudent.name || "-";
-
-
-    document.getElementById(
-        "studentDepartment"
-    ).textContent =
-        currentStudent.department || "-";
-
-
-    document.getElementById(
-        "studentYear"
-    ).textContent =
-        currentStudent.year || "-";
-
-
-    document.getElementById(
-        "studentSection"
-    ).textContent =
-        currentStudent.section || "-";
-
-
-    document.getElementById(
-        "headerName"
-    ).textContent =
-        currentStudent.name || "Student";
-
-
-    document.getElementById(
-        "headerReg"
-    ).textContent =
-        currentStudent.registerNo || "";
+    throw new Error(
+        "Student record not found for: " + storedId
+    );
 
 }
 
 
 /* =========================================================
-   SUBJECT EXTRACTION
+   STUDENT ID
 ========================================================= */
 
-function extractSubjectArray(data){
+function getStudentKey(){
 
-    if(!data){
-        return [];
-    }
+    return (
 
+        currentStudent.registerNo ||
 
-    const keys = [
+        currentStudent.rollNo ||
 
-        "subjects",
-        "assignedSubjects",
-        "subjectAssignments",
-        "assignedSubject",
-        "subjectList",
-        "courses"
+        currentStudent.registerNumber ||
 
-    ];
+        currentStudent.studentId ||
 
+        currentStudent.id ||
 
-    for(
-        const key of keys
-    ){
+        getStoredStudentId()
 
-        if(
-            Array.isArray(
-                data[key]
-            )
-        ){
-
-            return data[key];
-
-        }
-
-    }
-
-
-    for(
-        const key of keys
-    ){
-
-        if(
-            data[key] &&
-            typeof data[key] === "object" &&
-            !Array.isArray(data[key])
-        ){
-
-            return Object.entries(
-                data[key]
-            ).map(
-                ([id,value]) => {
-
-                    if(
-                        value &&
-                        typeof value === "object"
-                    ){
-
-                        return {
-                            id,
-                            ...value
-                        };
-
-                    }
-
-                    return {
-                        id,
-                        subjectName:value
-                    };
-
-                }
-            );
-
-        }
-
-    }
-
-
-    return [];
-}
-
-
-/* =========================================================
-   NORMALIZE SUBJECT
-========================================================= */
-
-function normalizeSubject(item){
-
-    item =
-        item || {};
-
-
-    return {
-
-        ...item,
-
-        id:
-            safe(item.id) ||
-            safe(item.subjectId),
-
-        subjectId:
-            safe(item.subjectId) ||
-            safe(item.id),
-
-        subjectCode:
-            safe(item.subjectCode) ||
-            safe(item.code),
-
-        subjectName:
-            safe(item.subjectName) ||
-            safe(item.name) ||
-            safe(item.subject),
-
-        department:
-            safe(item.department),
-
-        classYear:
-            safe(item.classYear) ||
-            safe(item.year) ||
-            currentStudent.year,
-
-        section:
-            safe(item.section) ||
-            currentStudent.section,
-
-        roomNo:
-            safe(item.roomNo),
-
-        staffId:
-            safe(item.staffId),
-
-        staffName:
-            safe(item.staffName)
-
-    };
+    ).toString().trim();
 
 }
 
 
 /* =========================================================
-   LOAD STUDENT SUBJECTS
+   CHECK ASSIGNMENT FOR CURRENT STUDENT
 ========================================================= */
 
-async function loadStudentSubjects(){
+function assignmentBelongsToStudent(assignment){
 
-    subjectGrid.innerHTML = `
-
-        <div class="loading">
-
-            <div class="spinner"></div>
-
-            Loading your subjects...
-
-        </div>
-
-    `;
+    const studentKey = normalize(
+        currentStudentKey
+    );
 
 
-    const registerNo =
-        currentStudent.registerNo;
+    /*
+       Staff LMS normally stores:
 
+       selectedStudents: [
+          {
+             registerNo: "..."
+          }
+       ]
+    */
 
-    let subjectItems = [];
+    if(Array.isArray(assignment.selectedStudents)){
 
+        const found =
+            assignment.selectedStudents.some(student => {
 
-    /* -----------------------------------------------------
-       DOCUMENT ID = REGISTER NO
-    ----------------------------------------------------- */
+                if(typeof student === "string"){
 
-    try{
-
-        const ref =
-            doc(
-                db,
-                "student_subjects",
-                registerNo
-            );
-
-        const snap =
-            await getDoc(ref);
-
-
-        if(snap.exists()){
-
-            subjectItems =
-                extractSubjectArray(
-                    snap.data()
-                );
-
-        }
-
-    }
-    catch(error){
-
-        console.warn(
-            "SUBJECT DOC:",
-            error
-        );
-
-    }
-
-
-    /* -----------------------------------------------------
-       REGISTER FIELD QUERY
-    ----------------------------------------------------- */
-
-    if(
-        subjectItems.length === 0
-    ){
-
-        const fields = [
-
-            "registerNo",
-            "registerNumber",
-            "studentRegisterNo",
-            "studentRegNo",
-            "regNo",
-            "studentId",
-            "rollNo"
-
-        ];
-
-
-        for(
-            const field of fields
-        ){
-
-            try{
-
-                const q =
-                    query(
-                        collection(
-                            db,
-                            "student_subjects"
-                        ),
-                        where(
-                            field,
-                            "==",
-                            registerNo
-                        )
-                    );
-
-
-                const snap =
-                    await getDocs(q);
-
-
-                if(!snap.empty){
-
-                    subjectItems =
-                        extractSubjectArray(
-                            snap.docs[0].data()
-                        );
-
-
-                    if(
-                        subjectItems.length
-                    ){
-                        break;
-                    }
+                    return normalize(student) === studentKey;
 
                 }
 
-            }
-            catch(error){
-
-                console.warn(
-                    "SUBJECT QUERY:",
-                    field,
-                    error
-                );
-
-            }
-
-        }
-
-    }
-
-
-    /* -----------------------------------------------------
-       LAST RESORT SCAN
-    ----------------------------------------------------- */
-
-    if(
-        subjectItems.length === 0
-    ){
-
-        try{
-
-            const snap =
-                await getDocs(
-                    collection(
-                        db,
-                        "student_subjects"
-                    )
-                );
-
-
-            for(
-                const item of snap.docs
-            ){
-
-                const data =
-                    item.data() || {};
-
+                if(!student || typeof student !== "object"){
+                    return false;
+                }
 
                 const ids = [
 
-                    data.registerNo,
-                    data.registerNumber,
-                    data.studentRegisterNo,
-                    data.studentRegNo,
-                    data.regNo,
-                    data.studentId,
-                    data.rollNo,
-                    item.id
+                    student.registerNo,
+                    student.rollNo,
+                    student.studentId,
+                    student.registerNumber,
+                    student.id
 
-                ];
+                ]
+                .filter(Boolean)
+                .map(normalize);
+
+                return ids.includes(studentKey);
+
+            });
 
 
-                if(
-                    ids.some(
-                        value =>
-                            upper(value)
-                            ===
-                            upper(registerNo)
-                    )
-                ){
-
-                    subjectItems =
-                        extractSubjectArray(
-                            data
-                        );
-
-                    break;
-
-                }
-
-            }
-
+        if(found){
+            return true;
         }
-        catch(error){
 
-            console.error(
-                "SUBJECT SCAN:",
-                error
-            );
+    }
+
+
+    /*
+       Other possible assignment formats.
+    */
+
+    const directIds = [
+
+        assignment.registerNo,
+        assignment.rollNo,
+        assignment.studentRegisterNo,
+        assignment.studentId
+
+    ]
+    .filter(Boolean)
+    .map(normalize);
+
+
+    if(directIds.includes(studentKey)){
+        return true;
+    }
+
+
+    /*
+       Some data may use selectedStudentIds.
+    */
+
+    if(Array.isArray(assignment.selectedStudentIds)){
+
+        if(
+            assignment.selectedStudentIds
+                .map(normalize)
+                .includes(studentKey)
+        ){
+
+            return true;
 
         }
 
     }
 
 
-    allSubjects =
-        subjectItems
-            .map(
-                normalizeSubject
-            )
-            .filter(
-                item =>
-                    item.subjectCode ||
-                    item.subjectName ||
-                    item.subjectId
-            );
-
-
-    /* -----------------------------------------------------
-       REMOVE DUPLICATES
-    ----------------------------------------------------- */
-
-    const unique =
-        new Map();
-
-
-    for(
-        const subject of allSubjects
-    ){
-
-        const key =
-            upper(
-                subject.subjectId
-            ) ||
-            upper(
-                subject.subjectCode
-            ) ||
-            upper(
-                subject.subjectName
-            );
-
-
-        if(!unique.has(key)){
-
-            unique.set(
-                key,
-                subject
-            );
-
-        }
-
-    }
-
-
-    allSubjects =
-        Array.from(
-            unique.values()
-        );
-
-
-    await loadAssignments();
-
-    await loadMaterials();
-
-    renderSubjects();
+    return false;
 
 }
 
@@ -2739,119 +1256,175 @@ async function loadStudentSubjects(){
 
 async function loadAssignments(){
 
-    allAssignments = [];
+    console.log(
+        "Loading lmsAssignments..."
+    );
 
 
-    try{
+    const snap = await getDocs(
+        collection(db,"lmsAssignments")
+    );
 
-        const snap =
-            await getDocs(
-                collection(
-                    db,
-                    "lmsAssignments"
-                )
+
+    const visible = [];
+
+
+    snap.forEach(d => {
+
+        const data = d.data();
+
+
+        if(
+            assignmentBelongsToStudent({
+                id:d.id,
+                ...data
+            })
+        ){
+
+            visible.push({
+
+                id:d.id,
+
+                ...data
+
+            });
+
+        }
+
+    });
+
+
+    /*
+       Latest first.
+    */
+
+    visible.sort((a,b)=>{
+
+        const aTime =
+            getTimestamp(
+                a.updatedAt ||
+                a.createdAt ||
+                a.assignedAt
             );
 
+        const bTime =
+            getTimestamp(
+                b.updatedAt ||
+                b.createdAt ||
+                b.assignedAt
+            );
 
-        snap.forEach(
-            item => {
+        return bTime - aTime;
 
-                allAssignments.push({
-
-                    id:item.id,
-
-                    ...item.data()
-
-                });
-
-            }
-        );
+    });
 
 
-        allAssignments.sort(
-            (a,b) => {
-
-                const aTime =
-                    getDateObject(
-                        a.createdAt
-                    )?.getTime() || 0;
+    allAssignments = visible;
 
 
-                const bTime =
-                    getDateObject(
-                        b.createdAt
-                    )?.getTime() || 0;
-
-
-                return bTime - aTime;
-
-            }
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "ASSIGNMENT LOAD:",
-            error
-        );
-
-        showToast(
-            "Unable to load LMS assignments.",
-            "error"
-        );
-
-    }
+    console.log(
+        "STUDENT LMS ASSIGNMENTS:",
+        allAssignments
+    );
 
 }
 
 
 /* =========================================================
-   LOAD MATERIALS
+   LOAD SUBMISSIONS
 ========================================================= */
 
-async function loadMaterials(){
+async function loadSubmissions(){
 
-    allMaterials = [];
+    allSubmissions = [];
 
 
     /*
-       Materials can be stored in lmsMaterials.
-
-       If your Staff LMS stores materials in another
-       collection, change ONLY the collection name here.
+       First attempt query by studentRegisterNo.
     */
 
     try{
 
-        const snap =
-            await getDocs(
-                collection(
-                    db,
-                    "lmsMaterials"
-                )
-            );
-
-
-        snap.forEach(
-            item => {
-
-                allMaterials.push({
-
-                    id:item.id,
-
-                    ...item.data()
-
-                });
-
-            }
+        const q = query(
+            collection(db,"lmsSubmissions"),
+            where(
+                "studentRegisterNo",
+                "==",
+                currentStudentKey
+            )
         );
+
+
+        const snap = await getDocs(q);
+
+
+        snap.forEach(d => {
+
+            allSubmissions.push({
+
+                id:d.id,
+
+                ...d.data()
+
+            });
+
+        });
+
+
+        return;
 
     }
     catch(error){
 
         console.warn(
-            "MATERIALS COLLECTION:",
+            "Submission query failed:",
+            error
+        );
+
+    }
+
+
+    /*
+       Fallback.
+    */
+
+    try{
+
+        const snap = await getDocs(
+            collection(db,"lmsSubmissions")
+        );
+
+
+        snap.forEach(d => {
+
+            const data = d.data();
+
+            const id = normalize(
+                data.studentRegisterNo ||
+                data.studentId ||
+                data.registerNo
+            );
+
+
+            if(id === normalize(currentStudentKey)){
+
+                allSubmissions.push({
+
+                    id:d.id,
+
+                    ...data
+
+                });
+
+            }
+
+        });
+
+    }
+    catch(error){
+
+        console.error(
+            "Could not load submissions:",
             error
         );
 
@@ -2861,1705 +1434,148 @@ async function loadMaterials(){
 
 
 /* =========================================================
-   SUBJECT MATCH
+   LOAD READ STATUS
 ========================================================= */
 
-function assignmentBelongsToSubject(
-    assignment,
-    subject
-){
+async function loadReadStatus(){
 
-    const assignmentSubjectId =
-        upper(
-            assignment.subjectId
-        );
+    readAssignmentIds = new Set();
 
 
-    const assignmentCode =
-        upper(
-            assignment.subjectCode
-        );
+    try{
 
+        const q = query(
 
-    const assignmentName =
-        lower(
-            assignment.subjectName
-        );
+            collection(db,"lmsReadStatus"),
 
-
-    const subjectId =
-        upper(
-            subject.subjectId
-        );
-
-
-    const subjectCode =
-        upper(
-            subject.subjectCode
-        );
-
-
-    const subjectName =
-        lower(
-            subject.subjectName
-        );
-
-
-    if(
-        assignmentSubjectId &&
-        subjectId &&
-        assignmentSubjectId === subjectId
-    ){
-        return true;
-    }
-
-
-    if(
-        assignmentCode &&
-        subjectCode &&
-        assignmentCode === subjectCode
-    ){
-        return true;
-    }
-
-
-    if(
-        assignmentName &&
-        subjectName &&
-        assignmentName === subjectName
-    ){
-        return true;
-    }
-
-
-    return false;
-}
-
-
-/* =========================================================
-   CRITICAL STUDENT FILTER
-========================================================= */
-
-function assignmentAssignedToCurrentStudent(
-    assignment
-){
-
-    if(!currentStudent){
-        return false;
-    }
-
-
-    const currentRegister =
-        upper(
-            currentStudent.registerNo
-        );
-
-
-    if(!currentRegister){
-        return false;
-    }
-
-
-    /*
-       Staff LMS stores selectedStudents
-       as an array.
-
-       Example:
-
-       selectedStudents: [
-           {
-               registerNo:"212402326",
-               name:"Student A"
-           }
-       ]
-    */
-
-    const selected =
-        Array.isArray(
-            assignment.selectedStudents
-        )
-        ?
-        assignment.selectedStudents
-        :
-        [];
-
-
-    /*
-       VERY IMPORTANT:
-
-       Empty selectedStudents does NOT mean
-       "show to everybody".
-
-       It means this student has NOT been
-       individually assigned.
-    */
-
-    if(
-        selected.length === 0
-    ){
-
-        return false;
-
-    }
-
-
-    return selected.some(
-        student => {
-
-            const registerNo =
-                upper(
-                    typeof student === "object"
-                    ?
-                    (
-                        student.registerNo ||
-                        student.registerNumber ||
-                        student.studentRegisterNo ||
-                        student.studentRegNo ||
-                        student.regNo ||
-                        student.rollNo ||
-                        student.id ||
-                        ""
-                    )
-                    :
-                    student
-                );
-
-
-            return (
-                registerNo ===
-                currentRegister
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   SUBJECT ASSIGNMENT COUNT
-========================================================= */
-
-function getStudentAssignmentsForSubject(
-    subject
-){
-
-    return allAssignments.filter(
-        assignment =>
-
-            assignmentBelongsToSubject(
-                assignment,
-                subject
+            where(
+                "studentRegisterNo",
+                "==",
+                currentStudentKey
             )
 
-            &&
-
-            assignmentAssignedToCurrentStudent(
-                assignment
-            )
-    );
-
-}
+        );
 
 
-/* =========================================================
-   RENDER SUBJECTS
-========================================================= */
-
-function renderSubjects(
-    searchText=""
-){
-
-    const search =
-        lower(searchText);
+        const snap = await getDocs(q);
 
 
-    const filtered =
-        allSubjects.filter(
-            subject => {
+        snap.forEach(d => {
 
-                const text = [
-
-                    subject.subjectCode,
-                    subject.subjectName,
-                    subject.department,
-                    subject.classYear,
-                    subject.section,
-                    subject.staffName
-
-                ]
-                .join(" ")
-                .toLowerCase();
+            const data = d.data();
 
 
-                return (
-                    !search ||
-                    text.includes(search)
+            if(data.assignmentId){
+
+                readAssignmentIds.add(
+                    String(data.assignmentId)
                 );
 
             }
+
+        });
+
+
+        console.log(
+            "READ ITEMS:",
+            [...readAssignmentIds]
         );
 
+    }
+    catch(error){
 
-    if(
-        filtered.length === 0
-    ){
+        /*
+           If Firestore asks for an index or the query
+           cannot be executed, the page still works.
+        */
 
-        subjectGrid.innerHTML = `
-
-            <div class="empty">
-
-                No subjects found.
-
-            </div>
-
-        `;
-
-        return;
+        console.warn(
+            "Read status query failed:",
+            error
+        );
 
     }
-
-
-    subjectGrid.innerHTML = "";
-
-
-    filtered.forEach(
-        subject => {
-
-            const assignments =
-                getStudentAssignmentsForSubject(
-                    subject
-                );
-
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "subject-card";
-
-
-            card.innerHTML = `
-
-                <div class="subject-top">
-
-                    <div class="subject-code">
-
-                        ${escapeHtml(
-                            subject.subjectCode ||
-                            "SUBJECT"
-                        )}
-
-                    </div>
-
-                    <div class="subject-name">
-
-                        ${escapeHtml(
-                            subject.subjectName ||
-                            "Unnamed Subject"
-                        )}
-
-                    </div>
-
-                </div>
-
-
-                <div class="subject-body">
-
-                    <div class="subject-meta">
-
-                        ${
-                            subject.classYear
-                            ?
-                            `
-                            <span class="badge">
-
-                                ${escapeHtml(
-                                    subject.classYear
-                                )}
-
-                            </span>
-                            `
-                            :
-                            ""
-                        }
-
-
-                        ${
-                            subject.section
-                            ?
-                            `
-                            <span class="badge">
-
-                                Section
-                                ${escapeHtml(
-                                    subject.section
-                                )}
-
-                            </span>
-                            `
-                            :
-                            ""
-                        }
-
-
-                        ${
-                            subject.staffName
-                            ?
-                            `
-                            <span class="badge">
-
-                                Faculty:
-                                ${escapeHtml(
-                                    subject.staffName
-                                )}
-
-                            </span>
-                            `
-                            :
-                            ""
-                        }
-
-                    </div>
-
-
-                    <div class="subject-footer">
-
-                        <span class="assignment-count">
-
-                            ${assignments.length}
-                            Class Work
-
-                        </span>
-
-
-                        <button class="open-btn">
-
-                            Open Course
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-
-            card.addEventListener(
-                "click",
-                () => openCourse(subject)
-            );
-
-
-            subjectGrid.appendChild(
-                card
-            );
-
-        }
-    );
 
 }
 
 
 /* =========================================================
-   OPEN COURSE
+   MARK ITEM AS READ
 ========================================================= */
 
-async function openCourse(
-    subject
-){
+async function markAsRead(assignmentId){
 
-    currentCourse =
-        subject;
-
-
-    subjectHome.style.display =
-        "none";
+    if(!assignmentId){
+        return;
+    }
 
 
-    coursePage.style.display =
-        "block";
-
-
-    document.getElementById(
-        "courseCode"
-    ).textContent =
-        subject.subjectCode || "";
-
-
-    document.getElementById(
-        "courseName"
-    ).textContent =
-        subject.subjectName || "";
-
-
-    document.getElementById(
-        "courseInfo"
-    ).textContent = [
-
-        subject.department,
-
-        subject.classYear,
-
-        subject.section,
-
-        subject.staffName
-
-    ]
-    .filter(Boolean)
-    .join(" • ");
-
-
-    activateTab(
-        "assignments"
+    assignmentId = String(
+        assignmentId
     );
 
 
-    await renderAssignments();
+    /*
+       Immediately remove NEW locally.
+    */
 
-    renderMaterials();
-
-}
-
-
-/* =========================================================
-   RENDER ASSIGNMENTS
-========================================================= */
-
-async function renderAssignments(){
-
-    assignmentList.innerHTML = `
-
-        <div class="loading">
-
-            <div class="spinner"></div>
-
-            Loading your class work...
-
-        </div>
-
-    `;
+    readAssignmentIds.add(
+        assignmentId
+    );
 
 
-    const assignments =
-        getStudentAssignmentsForSubject(
-            currentCourse
-        );
+    render();
 
 
-    if(
-        assignments.length === 0
-    ){
+    /*
+       Deterministic document ID.
 
-        assignmentList.innerHTML = `
+       This means:
 
-            <div class="empty">
+       Student A + Assignment X
+       has a different read document
 
-                <h3>
-                    No Class Work
-                </h3>
+       from
 
-                <p style="margin-top:8px">
+       Student B + Assignment X
+    */
 
-                    No assignment has been assigned
-                    to you for this subject yet.
+    const safeStudent =
+        String(currentStudentKey)
+            .replace(/[\/\\?#\[\]]/g,"_");
 
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
+    const safeAssignment =
+        String(assignmentId)
+            .replace(/[\/\\?#\[\]]/g,"_");
 
 
-    assignmentList.innerHTML = "";
-
-
-    for(
-        const assignment of assignments
-    ){
-
-        const submission =
-            await getStudentSubmission(
-                assignment.id
-            );
-
-
-        renderAssignment(
-            assignment,
-            submission
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   GET STUDENT SUBMISSION
-========================================================= */
-
-async function getStudentSubmission(
-    assignmentId
-){
-
-    if(
-        !currentStudent ||
-        !currentStudent.registerNo
-    ){
-
-        return null;
-
-    }
-
-
-    const id =
-        assignmentId +
+    const readDocId =
+        safeStudent +
         "_" +
-        currentStudent.registerNo;
+        safeAssignment;
 
 
     try{
-
-        const snap =
-            await getDoc(
-                doc(
-                    db,
-                    "lmsSubmissions",
-                    id
-                )
-            );
-
-
-        if(snap.exists()){
-
-            return {
-
-                id:snap.id,
-
-                ...snap.data()
-
-            };
-
-        }
-
-    }
-    catch(error){
-
-        console.warn(
-            "SUBMISSION:",
-            error
-        );
-
-    }
-
-
-    return null;
-}
-
-
-/* =========================================================
-   RENDER ASSIGNMENT
-========================================================= */
-
-function renderAssignment(
-    assignment,
-    submission
-){
-
-    const card =
-        document.createElement(
-            "div"
-        );
-
-
-    card.className =
-        "assignment-card";
-
-
-    const completed =
-        submission?.completed === true;
-
-
-    const submitted =
-        !!submission;
-
-
-    let statusText =
-        "Pending";
-
-
-    let statusClass =
-        "pending";
-
-
-    if(completed){
-
-        statusText =
-            "Completed";
-
-        statusClass =
-            "completed";
-
-    }
-    else if(submitted){
-
-        statusText =
-            "Submitted";
-
-        statusClass =
-            "submitted";
-
-    }
-
-
-    const title =
-        assignment.title ||
-        assignment.topic ||
-        "Assignment";
-
-
-    const topic =
-        assignment.topic ||
-        assignment.title ||
-        "";
-
-
-    const description =
-        assignment.description ||
-        assignment.instructions ||
-        assignment.instruction ||
-        "";
-
-
-    const dueDate =
-        assignment.endDate ||
-        assignment.lastSubmissionDate ||
-        assignment.dueDate;
-
-
-    const attachment =
-        assignment.fileUrl ||
-        assignment.attachmentUrl;
-
-
-    card.innerHTML = `
-
-        <div class="assignment-header">
-
-            <div class="assignment-title">
-
-                ${escapeHtml(title)}
-
-            </div>
-
-
-            <div class="status ${statusClass}">
-
-                ${statusText}
-
-            </div>
-
-        </div>
-
-
-        <div class="assignment-body">
-
-            <div class="topic">
-
-                ${escapeHtml(topic)}
-
-            </div>
-
-
-            <div class="description">
-
-                ${escapeHtml(description)}
-
-            </div>
-
-
-            <div class="assignment-details">
-
-                ${
-                    assignment.workType
-                    ?
-                    `
-                    <span class="detail-badge">
-
-                        ${escapeHtml(
-                            assignment.workType
-                        )}
-
-                    </span>
-                    `
-                    :
-                    ""
-                }
-
-
-                ${
-                    dueDate
-                    ?
-                    `
-                    <span class="detail-badge">
-
-                        Due:
-                        ${escapeHtml(
-                            safe(dueDate)
-                        )}
-
-                    </span>
-                    `
-                    :
-                    ""
-                }
-
-
-                ${
-                    assignment.createdAt
-                    ?
-                    `
-                    <span class="detail-badge">
-
-                        Posted:
-                        ${escapeHtml(
-                            formatDate(
-                                assignment.createdAt
-                            )
-                        )}
-
-                    </span>
-                    `
-                    :
-                    ""
-                }
-
-            </div>
-
-
-            ${
-                attachment
-                ?
-                `
-                <div class="attachment">
-
-                    <span>
-
-                        📎
-                        ${escapeHtml(
-                            assignment.fileName ||
-                            "Learning Material"
-                        )}
-
-                    </span>
-
-
-                    <button
-                        class="btn btn-light"
-                        data-open-file
-                    >
-                        Open
-                    </button>
-
-                </div>
-                `
-                :
-                ""
-            }
-
-
-            <div class="assignment-actions">
-
-                <button
-                    class="btn btn-primary"
-                    data-submit
-                >
-
-                    ${
-                        submitted
-                        ?
-                        "View / Update Submission"
-                        :
-                        "Submit Work"
-                    }
-
-                </button>
-
-
-                <button
-                    class="btn btn-purple"
-                    data-chat
-                >
-                    💬 Faculty Chat
-                </button>
-
-
-                ${
-                    completed
-                    ?
-                    `
-                    <button
-                        class="btn btn-success"
-                        disabled
-                    >
-                        ✓ Completed
-                    </button>
-                    `
-                    :
-                    `
-                    <button
-                        class="btn btn-success"
-                        data-complete
-                    >
-                        ✓ Mark as Completed
-                    </button>
-                    `
-                }
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    /* OPEN ATTACHMENT */
-
-    const openFile =
-        card.querySelector(
-            "[data-open-file]"
-        );
-
-
-    if(openFile){
-
-        openFile.addEventListener(
-            "click",
-            event => {
-
-                event.stopPropagation();
-
-                window.open(
-                    attachment,
-                    "_blank",
-                    "noopener"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* SUBMIT */
-
-    card.querySelector(
-        "[data-submit]"
-    ).addEventListener(
-        "click",
-        event => {
-
-            event.stopPropagation();
-
-            openAssignment(
-                assignment,
-                submission
-            );
-
-        }
-    );
-
-
-    /* CHAT */
-
-    card.querySelector(
-        "[data-chat]"
-    ).addEventListener(
-        "click",
-        event => {
-
-            event.stopPropagation();
-
-            openAssignment(
-                assignment,
-                submission,
-                true
-            );
-
-        }
-    );
-
-
-    /* COMPLETE */
-
-    const completeBtn =
-        card.querySelector(
-            "[data-complete]"
-        );
-
-
-    if(completeBtn){
-
-        completeBtn.addEventListener(
-            "click",
-            async event => {
-
-                event.stopPropagation();
-
-                await markCompleted(
-                    assignment,
-                    submission
-                );
-
-            }
-        );
-
-    }
-
-
-    assignmentList.appendChild(
-        card
-    );
-
-}
-
-
-/* =========================================================
-   OPEN ASSIGNMENT
-========================================================= */
-
-async function openAssignment(
-    assignment,
-    submission=null,
-    openChat=false
-){
-
-    currentAssignment =
-        assignment;
-
-
-    currentSubmission =
-        submission;
-
-
-    document.getElementById(
-        "modalTitle"
-    ).textContent =
-        assignment.title ||
-        assignment.topic ||
-        "Assignment";
-
-
-    const attachment =
-        assignment.fileUrl ||
-        assignment.attachmentUrl;
-
-
-    document.getElementById(
-        "assignmentDetails"
-    ).innerHTML = `
-
-        <div class="topic">
-
-            ${escapeHtml(
-                assignment.topic ||
-                assignment.title ||
-                ""
-            )}
-
-        </div>
-
-
-        <div class="description">
-
-            ${escapeHtml(
-                assignment.description ||
-                assignment.instructions ||
-                ""
-            )}
-
-        </div>
-
-
-        ${
-            assignment.portion
-            ?
-            `
-            <div
-                style="
-                    margin-top:12px;
-                    padding:12px;
-                    background:#f5f7f9;
-                    border-radius:5px;
-                "
-            >
-
-                <strong>Portion:</strong>
-
-                <div style="margin-top:5px">
-
-                    ${escapeHtml(
-                        assignment.portion
-                    )}
-
-                </div>
-
-            </div>
-            `
-            :
-            ""
-        }
-
-
-        ${
-            attachment
-            ?
-            `
-            <div
-                style="
-                    margin-top:15px;
-                    padding:12px;
-                    background:#f5f7f9;
-                    border-radius:5px;
-                "
-            >
-
-                📎
-
-                <a
-                    href="${escapeHtml(attachment)}"
-                    target="_blank"
-                    rel="noopener"
-                >
-                    ${escapeHtml(
-                        assignment.fileName ||
-                        "Open attachment"
-                    )}
-                </a>
-
-            </div>
-            `
-            :
-            ""
-        }
-
-    `;
-
-
-    document.getElementById(
-        "submissionComment"
-    ).value =
-        submission?.comment || "";
-
-
-    document.getElementById(
-        "submissionFile"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "submissionFileName"
-    ).textContent =
-        submission?.fileName ||
-        "No file selected";
-
-
-    const existing =
-        document.getElementById(
-            "existingSubmission"
-        );
-
-
-    if(submission){
-
-        existing.innerHTML = `
-
-            <div
-                style="
-                    padding:12px;
-                    background:#eef8f0;
-                    border:1px solid #b7dfbd;
-                    border-radius:5px;
-                "
-            >
-
-                <strong>
-                    Previous submission
-                </strong>
-
-                <div style="margin-top:6px">
-
-                    Submitted:
-                    ${escapeHtml(
-                        formatDate(
-                            submission.submittedAt ||
-                            submission.updatedAt
-                        )
-                    )}
-
-                </div>
-
-
-                ${
-                    submission.fileUrl
-                    ?
-                    `
-                    <div style="margin-top:6px">
-
-                        📎
-
-                        <a
-                            href="${escapeHtml(
-                                submission.fileUrl
-                            )}"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            ${escapeHtml(
-                                submission.fileName ||
-                                "View submitted file"
-                            )}
-                        </a>
-
-                    </div>
-                    `
-                    :
-                    ""
-                }
-
-            </div>
-
-        `;
-
-    }
-    else{
-
-        existing.innerHTML = "";
-
-    }
-
-
-    assignmentModal.classList.add(
-        "show"
-    );
-
-
-    if(openChat){
-
-        assignmentModal.classList.remove(
-            "show"
-        );
-
-        chatModal.classList.add(
-            "show"
-        );
-
-        await loadChatMessages();
-
-    }
-
-}
-
-
-/* =========================================================
-   SUBMISSION FILE
-========================================================= */
-
-document.getElementById(
-    "submissionFile"
-).addEventListener(
-    "change",
-    event => {
-
-        const file =
-            event.target.files[0];
-
-
-        document.getElementById(
-            "submissionFileName"
-        ).textContent =
-            file
-            ?
-            file.name
-            :
-            "No file selected";
-
-    }
-);
-
-
-/* =========================================================
-   SUBMIT ASSIGNMENT
-========================================================= */
-
-document.getElementById(
-    "submitBtn"
-).addEventListener(
-    "click",
-    submitAssignment
-);
-
-
-async function submitAssignment(){
-
-    if(
-        !currentAssignment ||
-        !currentStudent
-    ){
-
-        return;
-
-    }
-
-
-    const button =
-        document.getElementById(
-            "submitBtn"
-        );
-
-
-    const comment =
-        document.getElementById(
-            "submissionComment"
-        )
-        .value
-        .trim();
-
-
-    const file =
-        document.getElementById(
-            "submissionFile"
-        )
-        .files[0];
-
-
-    button.disabled =
-        true;
-
-
-    button.textContent =
-        "Submitting...";
-
-
-    try{
-
-        let fileUrl =
-            currentSubmission?.fileUrl ||
-            "";
-
-        let filePath =
-            currentSubmission?.filePath ||
-            "";
-
-        let fileName =
-            currentSubmission?.fileName ||
-            "";
-
-
-        /* -------------------------------------------------
-           SUPABASE FILE UPLOAD
-        ------------------------------------------------- */
-
-        if(file){
-
-            const safeRegister =
-                safe(
-                    currentStudent.registerNo
-                )
-                .replace(
-                    /[^a-zA-Z0-9_-]/g,
-                    "_"
-                );
-
-
-            const safeAssignmentId =
-                safe(
-                    currentAssignment.id
-                )
-                .replace(
-                    /[^a-zA-Z0-9_-]/g,
-                    "_"
-                );
-
-
-            const safeFileName =
-                file.name
-                    .replace(
-                        /[^a-zA-Z0-9._-]/g,
-                        "_"
-                    );
-
-
-            const path =
-
-                "lmsSubmissions/" +
-                safeRegister +
-                "/" +
-                safeAssignmentId +
-                "/" +
-                Date.now() +
-                "_" +
-                safeFileName;
-
-
-            const progress =
-                document.getElementById(
-                    "uploadProgress"
-                );
-
-
-            const fill =
-                document.getElementById(
-                    "progressFill"
-                );
-
-
-            const text =
-                document.getElementById(
-                    "progressText"
-                );
-
-
-            progress.style.display =
-                "block";
-
-
-            fill.style.width =
-                "20%";
-
-
-            text.textContent =
-                "Uploading...";
-
-
-            const result =
-                await supabase
-                    .storage
-                    .from(
-                        SUPABASE_BUCKET
-                    )
-                    .upload(
-                        path,
-                        file,
-                        {
-                            cacheControl:"3600",
-                            upsert:false,
-                            contentType:
-                                file.type ||
-                                "application/octet-stream"
-                        }
-                    );
-
-
-            if(result.error){
-
-                throw result.error;
-
-            }
-
-
-            fill.style.width =
-                "80%";
-
-
-            const publicResult =
-                supabase
-                    .storage
-                    .from(
-                        SUPABASE_BUCKET
-                    )
-                    .getPublicUrl(
-                        path
-                    );
-
-
-            fileUrl =
-                publicResult
-                    ?.data
-                    ?.publicUrl ||
-                "";
-
-
-            if(!fileUrl){
-
-                throw new Error(
-                    "Could not create file URL."
-                );
-
-            }
-
-
-            filePath =
-                path;
-
-
-            fileName =
-                file.name;
-
-
-            fill.style.width =
-                "100%";
-
-
-            text.textContent =
-                "Upload complete";
-
-        }
-
-
-        /* -------------------------------------------------
-           FIRESTORE SUBMISSION
-        ------------------------------------------------- */
-
-        const submissionId =
-
-            safe(
-                currentAssignment.id
-            ) +
-            "_" +
-            safe(
-                currentStudent.registerNo
-            );
-
-
-        const submissionData = {
-
-            assignmentId:
-                currentAssignment.id,
-
-            studentRegisterNo:
-                currentStudent.registerNo,
-
-            studentName:
-                currentStudent.name,
-
-            studentId:
-                currentStudent.studentId ||
-                currentStudent.studentID ||
-                "",
-
-            subjectId:
-                currentAssignment.subjectId ||
-                currentCourse?.subjectId ||
-                "",
-
-            subjectCode:
-                currentAssignment.subjectCode ||
-                currentCourse?.subjectCode ||
-                "",
-
-            subjectName:
-                currentAssignment.subjectName ||
-                currentCourse?.subjectName ||
-                "",
-
-            staffId:
-                currentAssignment.staffId ||
-                currentCourse?.staffId ||
-                "",
-
-            staffName:
-                currentAssignment.staffName ||
-                currentCourse?.staffName ||
-                "",
-
-            comment,
-
-            commentRequired:
-                !!currentAssignment.commentRequired,
-
-            fileName,
-
-            fileUrl,
-
-            filePath,
-
-            submitted:true,
-
-            updatedAt:
-                serverTimestamp()
-
-        };
-
-
-        if(!currentSubmission){
-
-            submissionData.submittedAt =
-                serverTimestamp();
-
-        }
-
 
         await setDoc(
 
             doc(
                 db,
-                "lmsSubmissions",
-                submissionId
-            ),
-
-            submissionData,
-
-            {
-                merge:true
-            }
-
-        );
-
-
-        currentSubmission =
-            await getStudentSubmission(
-                currentAssignment.id
-            );
-
-
-        showToast(
-            "Assignment submitted successfully.",
-            "success"
-        );
-
-
-        await renderAssignments();
-
-
-        setTimeout(
-            closeAssignmentModal,
-            700
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "SUBMISSION ERROR:",
-            error
-        );
-
-
-        showToast(
-            "Unable to submit: " +
-            (
-                error?.message ||
-                "Unknown error"
-            ),
-            "error",
-            7000
-        );
-
-    }
-    finally{
-
-        button.disabled =
-            false;
-
-
-        button.textContent =
-            currentSubmission
-            ?
-            "Update Submission"
-            :
-            "Submit Assignment";
-
-    }
-
-}
-
-
-/* =========================================================
-   MARK COMPLETED
-========================================================= */
-
-async function markCompleted(
-    assignment,
-    submission=null
-){
-
-    if(
-        !currentStudent ||
-        !assignment
-    ){
-
-        return;
-
-    }
-
-
-    try{
-
-        const submissionId =
-
-            safe(assignment.id) +
-            "_" +
-            safe(currentStudent.registerNo);
-
-
-        await setDoc(
-
-            doc(
-                db,
-                "lmsSubmissions",
-                submissionId
+                "lmsReadStatus",
+                readDocId
             ),
 
             {
-
-                assignmentId:
-                    assignment.id,
 
                 studentRegisterNo:
-                    currentStudent.registerNo,
+                    currentStudentKey,
 
-                studentName:
-                    currentStudent.name,
+                assignmentId:
+                    assignmentId,
 
-                studentId:
-                    currentStudent.studentId ||
-                    currentStudent.studentID ||
-                    "",
+                opened:true,
 
-                subjectId:
-                    assignment.subjectId ||
-                    currentCourse?.subjectId ||
-                    "",
-
-                subjectCode:
-                    assignment.subjectCode ||
-                    currentCourse?.subjectCode ||
-                    "",
-
-                subjectName:
-                    assignment.subjectName ||
-                    currentCourse?.subjectName ||
-                    "",
-
-                staffId:
-                    assignment.staffId ||
-                    currentCourse?.staffId ||
-                    "",
-
-                staffName:
-                    assignment.staffName ||
-                    currentCourse?.staffName ||
-                    "",
-
-                submitted:
-                    submission?.submitted === true,
-
-                completed:true,
-
-                completedAt:
-                    serverTimestamp(),
-
-                updatedAt:
+                openedAt:
                     serverTimestamp()
 
             },
@@ -4570,1013 +1586,1239 @@ async function markCompleted(
 
         );
 
-
-        showToast(
-            "Assignment marked as completed.",
-            "success"
-        );
-
-
-        await renderAssignments();
-
     }
     catch(error){
 
         console.error(
-            "COMPLETE ERROR:",
+            "Could not save read status:",
             error
         );
 
-
-        showToast(
-            "Unable to mark completed: " +
-            error.message,
-            "error"
-        );
-
     }
 
 }
 
 
 /* =========================================================
-   MATERIAL FILTER
+   GET TOPIC
 ========================================================= */
 
-function materialBelongsToSubject(
-    material,
-    subject
-){
+function getTopicName(assignment){
 
-    const materialSubjectId =
-        upper(
-            material.subjectId
-        );
+    const topic =
 
+        assignment.topic ||
 
-    const materialCode =
-        upper(
-            material.subjectCode
-        );
+        assignment.topicName ||
 
+        assignment.unit ||
 
-    const materialName =
-        lower(
-            material.subjectName
-        );
+        assignment.module ||
+
+        assignment.chapter ||
+
+        "General";
 
 
-    const subjectId =
-        upper(
-            subject.subjectId
-        );
-
-
-    const subjectCode =
-        upper(
-            subject.subjectCode
-        );
-
-
-    const subjectName =
-        lower(
-            subject.subjectName
-        );
-
-
-    if(
-        materialSubjectId &&
-        subjectId &&
-        materialSubjectId === subjectId
-    ){
-        return true;
-    }
-
-
-    if(
-        materialCode &&
-        subjectCode &&
-        materialCode === subjectCode
-    ){
-        return true;
-    }
-
-
-    if(
-        materialName &&
-        subjectName &&
-        materialName === subjectName
-    ){
-        return true;
-    }
-
-
-    return false;
+    return String(topic)
+        .trim() || "General";
 
 }
 
 
 /* =========================================================
-   RENDER MATERIALS
+   GET SUBJECT
 ========================================================= */
 
-function renderMaterials(){
+function getSubjectName(assignment){
 
-    if(!currentCourse){
+    return (
 
-        materialsList.innerHTML =
-            "";
+        assignment.subjectName ||
 
-        return;
+        assignment.subject ||
 
-    }
+        assignment.subjectTitle ||
+
+        assignment.subjectCode ||
+
+        "General"
+
+    ).toString().trim();
+
+}
 
 
-    const materials =
-        allMaterials.filter(
-            material =>
-                materialBelongsToSubject(
-                    material,
-                    currentCourse
+/* =========================================================
+   GROUP BY SUBJECT + TOPIC
+========================================================= */
+
+function buildGroups(){
+
+    const map = new Map();
+
+
+    allAssignments.forEach(assignment => {
+
+        const subject =
+            getSubjectName(
+                assignment
+            );
+
+        const topic =
+            getTopicName(
+                assignment
+            );
+
+
+        const key =
+            normalize(subject) +
+            "::" +
+            normalize(topic);
+
+
+        if(!map.has(key)){
+
+            map.set(
+                key,
+                {
+
+                    subject,
+
+                    topic,
+
+                    items:[]
+
+                }
+            );
+
+        }
+
+
+        map.get(key).items.push(
+            assignment
+        );
+
+    });
+
+
+    groupedTopics = [...map.values()];
+
+
+    /*
+       Newest topic first.
+    */
+
+    groupedTopics.sort((a,b)=>{
+
+        const aTime =
+            Math.max(
+                ...a.items.map(item =>
+                    getTimestamp(
+                        item.updatedAt ||
+                        item.createdAt ||
+                        item.assignedAt
+                    )
                 )
+            );
+
+        const bTime =
+            Math.max(
+                ...b.items.map(item =>
+                    getTimestamp(
+                        item.updatedAt ||
+                        item.createdAt ||
+                        item.assignedAt
+                    )
+                )
+            );
+
+        return bTime - aTime;
+
+    });
+
+
+    /*
+       Newest content first INSIDE the topic.
+    */
+
+    groupedTopics.forEach(group => {
+
+        group.items.sort((a,b)=>{
+
+            const aTime =
+                getTimestamp(
+                    a.updatedAt ||
+                    a.createdAt ||
+                    a.assignedAt
+                );
+
+            const bTime =
+                getTimestamp(
+                    b.updatedAt ||
+                    b.createdAt ||
+                    b.assignedAt
+                );
+
+            return bTime - aTime;
+
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   GET SUBMISSION
+========================================================= */
+
+function getSubmission(assignmentId){
+
+    return allSubmissions.find(
+        submission =>
+            String(
+                submission.assignmentId
+            ) === String(assignmentId)
+    );
+
+}
+
+
+/* =========================================================
+   SUBJECT LIST
+========================================================= */
+
+function renderSubjects(){
+
+    const container =
+        document.getElementById(
+            "subjectTabs"
         );
 
 
-    if(
-        materials.length === 0
-    ){
+    const subjects = [
 
-        materialsList.innerHTML = `
+        ...new Set(
+            groupedTopics.map(
+                group => group.subject
+            )
+        )
+
+    ];
+
+
+    let html = `
+
+        <button
+            class="subject-tab ${
+                activeSubject === "ALL"
+                    ? "active"
+                    : ""
+            }"
+            onclick="filterSubject('ALL')">
+
+            All
+
+        </button>
+
+    `;
+
+
+    subjects.forEach(subject => {
+
+        html += `
+
+            <button
+                class="subject-tab ${
+                    normalize(activeSubject) ===
+                    normalize(subject)
+                        ? "active"
+                        : ""
+                }"
+                onclick='filterSubject(${JSON.stringify(subject)})'>
+
+                ${escapeHtml(subject)}
+
+            </button>
+
+        `;
+
+    });
+
+
+    container.innerHTML = html;
+
+}
+
+
+/* =========================================================
+   ITEM HTML
+========================================================= */
+
+function renderItem(item){
+
+    const submission =
+        getSubmission(
+            item.id
+        );
+
+
+    const isRead =
+        readAssignmentIds.has(
+            String(item.id)
+        );
+
+
+    const isCompleted =
+        item.completed === true ||
+        item.status === "completed" ||
+        submission?.completed === true;
+
+
+    const isSubmitted =
+        submission?.submitted === true ||
+        submission?.fileUrl ||
+        submission?.fileName;
+
+
+    const title =
+
+        item.title ||
+
+        item.assignmentTitle ||
+
+        item.name ||
+
+        item.materialTitle ||
+
+        item.fileName ||
+
+        "Learning Material";
+
+
+    const description =
+
+        item.description ||
+
+        item.instructions ||
+
+        item.content ||
+
+        item.details ||
+
+        "";
+
+
+    const staffName =
+
+        item.staffName ||
+
+        item.facultyName ||
+
+        item.assignedStaff ||
+
+        "Faculty";
+
+
+    const date =
+
+        item.updatedAt ||
+
+        item.createdAt ||
+
+        item.assignedAt;
+
+
+    const dueDate =
+
+        item.dueDate ||
+
+        item.deadline ||
+
+        "";
+
+
+    let badges = "";
+
+
+    if(!isRead){
+
+        badges += `
+            <span class="new-badge">
+                NEW
+            </span>
+        `;
+
+    }
+
+
+    if(isSubmitted){
+
+        badges += `
+            <span class="submitted-badge">
+                SUBMITTED
+            </span>
+        `;
+
+    }
+
+
+    if(isCompleted){
+
+        badges += `
+            <span class="completed-badge">
+                COMPLETED
+            </span>
+        `;
+
+    }
+
+
+    const itemId =
+        "item_" +
+        String(item.id)
+            .replace(/[^a-zA-Z0-9_-]/g,"_");
+
+
+    return `
+
+        <div
+            class="lms-item"
+            id="${itemId}">
+
+            <div class="item-top">
+
+                <div class="item-title-area">
+
+                    <div class="item-title">
+
+                        ${escapeHtml(title)}
+
+                        ${badges}
+
+                    </div>
+
+
+                    ${
+                        description
+                            ? `
+                            <div class="item-description">
+
+                                ${escapeHtml(
+                                    description
+                                )}
+
+                            </div>
+                            `
+                            : ""
+                    }
+
+                </div>
+
+
+                <div class="item-date">
+
+                    ${formatDate(date)}
+
+                </div>
+
+            </div>
+
+
+            <div class="item-actions">
+
+                <button
+                    class="btn btn-primary"
+                    onclick='openItem(${JSON.stringify(item.id)})'>
+
+                    Open
+
+                </button>
+
+
+                ${
+                    item.fileUrl
+                        ? `
+                        <button
+                            class="btn btn-secondary"
+                            onclick='openMaterial(${JSON.stringify(item.id)})'>
+
+                            View Material
+
+                        </button>
+                        `
+                        : ""
+                }
+
+
+                ${
+                    submission
+                        ? `
+                        <button
+                            class="btn btn-success"
+                            onclick='viewSubmission(${JSON.stringify(item.id)})'>
+
+                            My Submission
+
+                        </button>
+                        `
+                        : ""
+                }
+
+            </div>
+
+
+            <div class="item-details">
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Faculty:
+                    </span>
+
+                    <span>
+                        ${escapeHtml(staffName)}
+                    </span>
+
+                </div>
+
+
+                ${
+                    item.subjectCode
+                        ? `
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Subject Code:
+                            </span>
+
+                            <span>
+                                ${escapeHtml(
+                                    item.subjectCode
+                                )}
+                            </span>
+
+                        </div>
+                        `
+                        : ""
+                }
+
+
+                ${
+                    dueDate
+                        ? `
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                Due Date:
+                            </span>
+
+                            <span>
+                                ${escapeHtml(
+                                    formatDate(dueDate)
+                                )}
+                            </span>
+
+                        </div>
+                        `
+                        : ""
+                }
+
+
+                ${
+                    item.fileName
+                        ? `
+                        <div class="detail-row">
+
+                            <span class="detail-label">
+                                File:
+                            </span>
+
+                            <span>
+                                ${escapeHtml(
+                                    item.fileName
+                                )}
+                            </span>
+
+                        </div>
+                        `
+                        : ""
+                }
+
+
+                ${
+                    submission?.comment ||
+                    submission?.facultyComment
+                        ? `
+                        <div class="comment-box">
+
+                            <div class="comment-title">
+                                Faculty Comment
+                            </div>
+
+                            <div class="comment-text">
+
+                                ${escapeHtml(
+                                    submission.comment ||
+                                    submission.facultyComment
+                                )}
+
+                            </div>
+
+                        </div>
+                        `
+                        : ""
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   RENDER TOPICS
+========================================================= */
+
+function render(){
+
+    buildGroups();
+
+    renderSubjects();
+
+
+    const container =
+        document.getElementById(
+            "lmsContainer"
+        );
+
+
+    let groups = groupedTopics;
+
+
+    if(activeSubject !== "ALL"){
+
+        groups =
+            groups.filter(
+                group =>
+                    normalize(group.subject) ===
+                    normalize(activeSubject)
+            );
+
+    }
+
+
+    if(!groups.length){
+
+        container.innerHTML = `
 
             <div class="empty">
 
+                <div class="empty-icon">
+                    📚
+                </div>
+
                 <h3>
-                    No Materials
+                    No learning materials
                 </h3>
 
-                <p style="margin-top:8px">
-
-                    No learning materials are available
-                    for this subject yet.
-
+                <p>
+                    No LMS content has been assigned to you yet.
                 </p>
 
             </div>
 
         `;
 
+        updateSummary();
+
         return;
 
     }
 
 
-    materialsList.innerHTML = "";
+    let html = "";
 
 
-    materials.forEach(
-        material => {
+    groups.forEach((group,index)=>{
 
-            const url =
-                material.fileUrl ||
-                material.url ||
-                material.attachmentUrl;
-
-
-            const div =
-                document.createElement(
-                    "div"
-                );
+        const newItems =
+            group.items.filter(
+                item =>
+                    !readAssignmentIds.has(
+                        String(item.id)
+                    )
+            ).length;
 
 
-            div.className =
-                "assignment-card";
+        html += `
 
+            <div
+                class="topic-card ${
+                    index === 0
+                        ? "open"
+                        : ""
+                }">
 
-            div.innerHTML = `
+                <div
+                    class="topic-header"
+                    onclick="toggleTopic(this)">
 
-                <div class="assignment-header">
+                    <div class="topic-left">
 
-                    <div class="assignment-title">
+                        <div class="topic-icon">
+                            📖
+                        </div>
 
-                        ${escapeHtml(
-                            material.title ||
-                            material.name ||
-                            material.fileName ||
-                            "Learning Material"
-                        )}
+                        <div>
 
-                    </div>
+                            <div class="topic-title">
 
-                </div>
+                                ${escapeHtml(
+                                    group.topic
+                                )}
 
+                            </div>
 
-                <div class="assignment-body">
+                            <div class="topic-meta">
 
-                    <div class="description">
+                                ${escapeHtml(
+                                    group.subject
+                                )}
 
-                        ${escapeHtml(
-                            material.description ||
-                            ""
-                        )}
+                                ·
 
-                    </div>
+                                ${group.items.length}
+                                item${
+                                    group.items.length === 1
+                                        ? ""
+                                        : "s"
+                                }
 
+                                ${
+                                    newItems
+                                        ? `
+                                        ·
+                                        ${newItems}
+                                        new
+                                        `
+                                        : ""
+                                }
 
-                    ${
-                        url
-                        ?
-                        `
-                        <div
-                            style="margin-top:15px"
-                        >
-
-                            <a
-                                href="${escapeHtml(url)}"
-                                target="_blank"
-                                rel="noopener"
-                                class="btn btn-primary"
-                                style="
-                                    display:inline-block;
-                                    text-decoration:none;
-                                "
-                            >
-                                📎 Open Material
-                            </a>
+                            </div>
 
                         </div>
-                        `
-                        :
-                        ""
-                    }
+
+                    </div>
+
+
+                    <div class="topic-arrow">
+                        ▼
+                    </div>
 
                 </div>
 
-            `;
+
+                <div class="topic-content">
+
+                    ${group.items
+                        .map(renderItem)
+                        .join("")}
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
 
 
-            materialsList.appendChild(
-                div
-            );
+    container.innerHTML = html;
 
-        }
-    );
+
+    updateSummary();
 
 }
 
 
 /* =========================================================
-   CHAT
+   SUMMARY
 ========================================================= */
 
-document.getElementById(
-    "chatBtn"
-).addEventListener(
-    "click",
-    async () => {
+function updateSummary(){
 
-        assignmentModal.classList.remove(
-            "show"
+    const subjects =
+        new Set(
+            allAssignments.map(
+                getSubjectName
+            )
         );
 
-        chatModal.classList.add(
-            "show"
-        );
 
-        await loadChatMessages();
+    const topics =
+        groupedTopics.length;
 
-    }
-);
+
+    const newItems =
+        allAssignments.filter(
+            item =>
+                !readAssignmentIds.has(
+                    String(item.id)
+                )
+        ).length;
+
+
+    const submitted =
+        allSubmissions.filter(
+            submission =>
+                submission.submitted === true ||
+                submission.fileUrl ||
+                submission.fileName
+        ).length;
+
+
+    document.getElementById(
+        "subjectCount"
+    ).textContent =
+        subjects.size;
+
+
+    document.getElementById(
+        "topicCount"
+    ).textContent =
+        topics;
+
+
+    document.getElementById(
+        "newCount"
+    ).textContent =
+        newItems;
+
+
+    document.getElementById(
+        "submittedCount"
+    ).textContent =
+        submitted;
+
+}
 
 
 /* =========================================================
-   LOAD CHAT
+   FILTER SUBJECT
 ========================================================= */
 
-async function loadChatMessages(){
+window.filterSubject = function(subject){
 
-    const container =
-        document.getElementById(
-            "chatMessages"
+    activeSubject = subject;
+
+    render();
+
+};
+
+
+/* =========================================================
+   TOGGLE TOPIC
+========================================================= */
+
+window.toggleTopic = function(header){
+
+    const card =
+        header.closest(
+            ".topic-card"
         );
 
 
-    container.innerHTML = `
+    card.classList.toggle(
+        "open"
+    );
 
-        <div style="
-            text-align:center;
-            padding:25px;
-            color:#777;
-        ">
+};
 
-            Loading messages...
+
+/* =========================================================
+   OPEN ITEM
+========================================================= */
+
+window.openItem = async function(id){
+
+    const assignment =
+        allAssignments.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if(!assignment){
+        return;
+    }
+
+
+    /*
+       IMPORTANT:
+
+       NEW disappears when the student
+       opens the actual LMS item.
+
+       Merely expanding the topic does NOT
+       mark everything as read.
+    */
+
+    await markAsRead(
+        assignment.id
+    );
+
+
+    const itemId =
+        "item_" +
+        String(assignment.id)
+            .replace(/[^a-zA-Z0-9_-]/g,"_");
+
+
+    const element =
+        document.getElementById(
+            itemId
+        );
+
+
+    if(element){
+
+        element.classList.add(
+            "open"
+        );
+
+        element.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+    }
+
+};
+
+
+/* =========================================================
+   OPEN MATERIAL
+========================================================= */
+
+window.openMaterial = async function(id){
+
+    const assignment =
+        allAssignments.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if(!assignment){
+        return;
+    }
+
+
+    await markAsRead(
+        assignment.id
+    );
+
+
+    const url =
+        assignment.fileUrl ||
+        assignment.downloadURL ||
+        assignment.url;
+
+
+    if(!url){
+
+        showToast(
+            "No material file available."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+
+        assignment.title ||
+
+        assignment.assignmentTitle ||
+
+        assignment.fileName ||
+
+        "Learning Material";
+
+
+    document.getElementById(
+        "modalBody"
+    ).innerHTML = `
+
+        <div class="file-preview">
+
+            <div class="file-name">
+
+                ${escapeHtml(
+                    assignment.fileName ||
+                    "Learning Material"
+                )}
+
+            </div>
+
+            <div class="file-info">
+
+                ${escapeHtml(
+                    getSubjectName(
+                        assignment
+                    )
+                )}
+
+                ${
+                    assignment.topic
+                        ? `
+                        ·
+                        ${escapeHtml(
+                            assignment.topic
+                        )}
+                        `
+                        : ""
+                }
+
+            </div>
+
+
+            <a
+                class="open-file"
+                href="${escapeHtml(url)}"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                Open Material
+
+            </a>
 
         </div>
 
     `;
 
 
-    if(
-        !currentAssignment ||
-        !currentStudent
-    ){
+    document.getElementById(
+        "itemModal"
+    ).classList.add(
+        "show"
+    );
+
+};
+
+
+/* =========================================================
+   VIEW SUBMISSION
+========================================================= */
+
+window.viewSubmission = async function(id){
+
+    const assignment =
+        allAssignments.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if(!assignment){
+        return;
+    }
+
+
+    await markAsRead(
+        assignment.id
+    );
+
+
+    const submission =
+        getSubmission(
+            assignment.id
+        );
+
+
+    if(!submission){
+
+        showToast(
+            "No submission found."
+        );
 
         return;
 
     }
 
 
-    try{
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "My Submission";
 
-        const q =
-            query(
-                collection(
-                    db,
-                    "lmsChats"
-                ),
-                where(
-                    "assignmentId",
-                    "==",
-                    currentAssignment.id
-                )
-            );
 
+    const fileUrl =
+        submission.fileUrl ||
+        submission.downloadURL ||
+        "";
 
-        const snap =
-            await getDocs(q);
 
+    document.getElementById(
+        "modalBody"
+    ).innerHTML = `
 
-        const currentRegister =
-            upper(
-                currentStudent.registerNo
-            );
+        <div class="file-preview">
 
-
-        const messages = [];
-
-
-        snap.forEach(
-            item => {
-
-                const data =
-                    item.data();
-
-
-                /*
-                   CRITICAL:
-
-                   Only this student's messages
-                   are displayed.
-                */
-
-                if(
-                    upper(
-                        data.studentRegisterNo
-                    )
-                    ===
-                    currentRegister
-                ){
-
-                    messages.push({
-
-                        id:item.id,
-
-                        ...data
-
-                    });
-
-                }
-
-            }
-        );
-
-
-        messages.sort(
-            (a,b) => {
-
-                const aTime =
-                    getDateObject(
-                        a.createdAt
-                    )?.getTime() || 0;
-
-
-                const bTime =
-                    getDateObject(
-                        b.createdAt
-                    )?.getTime() || 0;
-
-
-                return aTime - bTime;
-
-            }
-        );
-
-
-        if(
-            messages.length === 0
-        ){
-
-            container.innerHTML = `
-
-                <div style="
-                    text-align:center;
-                    padding:30px;
-                    color:#777;
-                ">
-
-                    No messages yet.
-
-                    <br>
-
-                    Start the conversation
-                    with your faculty.
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        container.innerHTML = "";
-
-
-        messages.forEach(
-            message => {
-
-                const isStudent =
-                    upper(
-                        message.senderType
-                    )
-                    ===
-                    "STUDENT";
-
-
-                const div =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                div.className =
-                    "chat-message " +
-                    (
-                        isStudent
-                        ?
-                        "student"
-                        :
-                        "faculty"
-                    );
-
-
-                div.innerHTML = `
-
-                    <div class="chat-name">
-
-                        ${escapeHtml(
-                            message.senderName ||
-                            (
-                                isStudent
-                                ?
-                                "You"
-                                :
-                                "Faculty"
-                            )
-                        )}
-
-                    </div>
-
-
-                    <div>
-
-                        ${escapeHtml(
-                            message.message ||
-                            ""
-                        )}
-
-                    </div>
-
-
-                    <div class="chat-date">
-
-                        ${escapeHtml(
-                            formatDate(
-                                message.createdAt
-                            )
-                        )}
-
-                    </div>
-
-                `;
-
-
-                container.appendChild(
-                    div
-                );
-
-            }
-        );
-
-
-        container.scrollTop =
-            container.scrollHeight;
-
-    }
-    catch(error){
-
-        console.error(
-            "CHAT ERROR:",
-            error
-        );
-
-
-        container.innerHTML = `
-
-            <div style="
-                padding:20px;
-                color:#c9302c;
-            ">
-
-                Unable to load messages.
-
-                <br><br>
+            <div class="file-name">
 
                 ${escapeHtml(
-                    error.message
+                    submission.fileName ||
+                    "Submitted Work"
                 )}
 
             </div>
 
-        `;
 
-    }
+            <div class="file-info">
 
-}
+                Assignment:
+                ${escapeHtml(
+                    assignment.title ||
+                    assignment.assignmentTitle ||
+                    "LMS Assignment"
+                )}
 
-
-/* =========================================================
-   SEND CHAT
-========================================================= */
-
-document.getElementById(
-    "sendChatBtn"
-).addEventListener(
-    "click",
-    sendChatMessage
-);
+            </div>
 
 
-async function sendChatMessage(){
+            ${
+                submission.comment
+                    ? `
+                    <div class="comment-box">
 
-    if(
-        !currentAssignment ||
-        !currentStudent
-    ){
+                        <div class="comment-title">
+                            Your Comment
+                        </div>
 
-        return;
+                        <div class="comment-text">
 
-    }
+                            ${escapeHtml(
+                                submission.comment
+                            )}
 
+                        </div>
 
-    const input =
-        document.getElementById(
-            "chatInput"
-        );
-
-
-    const message =
-        input.value.trim();
-
-
-    if(!message){
-
-        showToast(
-            "Enter a message.",
-            "warning"
-        );
-
-        return;
-
-    }
-
-
-    const button =
-        document.getElementById(
-            "sendChatBtn"
-        );
-
-
-    button.disabled =
-        true;
-
-
-    try{
-
-        await addDoc(
-
-            collection(
-                db,
-                "lmsChats"
-            ),
-
-            {
-
-                assignmentId:
-                    currentAssignment.id,
-
-                subjectId:
-                    currentAssignment.subjectId ||
-                    currentCourse?.subjectId ||
-                    "",
-
-                subjectCode:
-                    currentAssignment.subjectCode ||
-                    currentCourse?.subjectCode ||
-                    "",
-
-                subjectName:
-                    currentAssignment.subjectName ||
-                    currentCourse?.subjectName ||
-                    "",
-
-                studentRegisterNo:
-                    currentStudent.registerNo,
-
-                studentName:
-                    currentStudent.name,
-
-                senderType:
-                    "STUDENT",
-
-                senderName:
-                    currentStudent.name,
-
-                message,
-
-                createdAt:
-                    serverTimestamp()
-
+                    </div>
+                    `
+                    : ""
             }
 
-        );
 
+            ${
+                submission.facultyComment
+                    ? `
+                    <div class="comment-box">
 
-        input.value =
-            "";
+                        <div class="comment-title">
+                            Faculty Comment
+                        </div>
 
+                        <div class="comment-text">
 
-        await loadChatMessages();
+                            ${escapeHtml(
+                                submission.facultyComment
+                            )}
 
+                        </div>
 
-        showToast(
-            "Message sent.",
-            "success"
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "CHAT SEND:",
-            error
-        );
-
-
-        showToast(
-            "Unable to send message: " +
-            error.message,
-            "error"
-        );
-
-    }
-    finally{
-
-        button.disabled =
-            false;
-
-    }
-
-}
-
-
-/* =========================================================
-   MODAL CLOSE
-========================================================= */
-
-document.getElementById(
-    "closeAssignment"
-).addEventListener(
-    "click",
-    () => {
-
-        assignmentModal.classList.remove(
-            "show"
-        );
-
-    }
-);
-
-
-document.getElementById(
-    "closeChat"
-).addEventListener(
-    "click",
-    () => {
-
-        chatModal.classList.remove(
-            "show"
-        );
-
-    }
-);
-
-
-assignmentModal.addEventListener(
-    "click",
-    event => {
-
-        if(
-            event.target ===
-            assignmentModal
-        ){
-
-            assignmentModal.classList.remove(
-                "show"
-            );
-
-        }
-
-    }
-);
-
-
-chatModal.addEventListener(
-    "click",
-    event => {
-
-        if(
-            event.target ===
-            chatModal
-        ){
-
-            chatModal.classList.remove(
-                "show"
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   TABS
-========================================================= */
-
-document.querySelectorAll(
-    ".course-tab"
-).forEach(
-    button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                activateTab(
-                    button.dataset.tab
-                );
-
+                    </div>
+                    `
+                    : ""
             }
-        );
-
-    }
-);
 
 
-function activateTab(tab){
+            ${
+                fileUrl
+                    ? `
+                    <a
+                        class="open-file"
+                        href="${escapeHtml(fileUrl)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
 
-    document.querySelectorAll(
-        ".course-tab"
-    ).forEach(
-        button => {
+                        Open Submitted File
 
-            button.classList.toggle(
-                "active",
-                button.dataset.tab === tab
-            );
+                    </a>
+                    `
+                    : ""
+            }
 
-        }
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "itemModal"
+    ).classList.add(
+        "show"
     );
 
-
-    document.getElementById(
-        "assignmentsTab"
-    ).style.display =
-        tab === "assignments"
-        ?
-        "block"
-        :
-        "none";
-
-
-    document.getElementById(
-        "materialsTab"
-    ).style.display =
-        tab === "materials"
-        ?
-        "block"
-        :
-        "none";
-
-}
+};
 
 
 /* =========================================================
-   BACK
+   CLOSE MODAL
 ========================================================= */
 
-document.getElementById(
-    "backBtn"
-).addEventListener(
-    "click",
-    () => {
+window.closeModal = function(){
 
-        currentCourse =
-            null;
-
-        coursePage.style.display =
-            "none";
-
-        subjectHome.style.display =
-            "block";
-
-    }
-);
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-document.getElementById(
-    "subjectSearch"
-).addEventListener(
-    "input",
-    event => {
-
-        renderSubjects(
-            event.target.value
-        );
-
-    }
-);
-
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-const sidebar =
     document.getElementById(
-        "sidebar"
+        "itemModal"
+    ).classList.remove(
+        "show"
     );
 
+};
+
 
 document.getElementById(
-    "menuBtn"
+    "itemModal"
 ).addEventListener(
     "click",
-    () => {
+    function(event){
 
-        sidebar.classList.toggle(
-            "closed"
-        );
+        if(event.target === this){
 
-    }
-);
-
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
-
-document.getElementById(
-    "dashboardBtn"
-).addEventListener(
-    "click",
-    () => {
-
-        window.location.href =
-            "student-dashboard.html";
-
-    }
-);
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-document.getElementById(
-    "profileBtn"
-).addEventListener(
-    "click",
-    () => {
-
-        window.location.href =
-            "student-personal-details.html";
-
-    }
-);
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-document.getElementById(
-    "logoutBtn"
-).addEventListener(
-    "click",
-    async () => {
-
-        try{
-
-            await signOut(auth);
-
-        }
-        catch(error){
-
-            console.warn(
-                "AUTH LOGOUT:",
-                error
-            );
+            closeModal();
 
         }
 
-
-        sessionStorage.removeItem(
-            "studentRollNo"
-        );
-
-        sessionStorage.removeItem(
-            "studentRegNo"
-        );
-
-        sessionStorage.removeItem(
-            "studentName"
-        );
-
-        sessionStorage.removeItem(
-            "currentStudentId"
-        );
-
-        localStorage.removeItem(
-            "currentStudentId"
-        );
-
-
-        window.location.href =
-            "student-login.html";
-
     }
 );
 
 
 /* =========================================================
-   INITIALIZE
+   LOAD STUDENT
 ========================================================= */
 
-async function initializeStudentLMS(){
+async function initializeStudent(){
 
     try{
-
-        console.log(
-            "========================================"
-        );
-
-        console.log(
-            "STUDENT LMS INITIALIZING"
-        );
-
-        console.log(
-            "STORED STUDENT:",
-            getStoredStudentId()
-        );
-
 
         currentStudent =
             await findStudent();
 
 
-        if(!currentStudent){
-
-            throw new Error(
-                "Student record not found."
-            );
-
-        }
+        currentStudentKey =
+            getStudentKey();
 
 
         console.log(
@@ -5585,51 +2827,82 @@ async function initializeStudentLMS(){
         );
 
 
-        displayStudent();
-
-
-        await loadStudentSubjects();
-
-
         console.log(
-            "STUDENT LMS READY"
+            "CURRENT STUDENT KEY:",
+            currentStudentKey
         );
+
+
+        document.getElementById(
+            "studentName"
+        ).textContent =
+
+            currentStudent.name ||
+
+            currentStudent.studentName ||
+
+            currentStudent.fullName ||
+
+            "Student";
+
+
+        document.getElementById(
+            "studentRegister"
+        ).textContent =
+
+            currentStudentKey;
+
+
+        document.getElementById(
+            "welcomeText"
+        ).textContent =
+
+            "Here are the learning materials and assignments assigned specifically to you.";
+
+
+        /*
+           Load only after current student
+           has been established.
+        */
+
+        await loadAssignments();
+
+        await loadSubmissions();
+
+        await loadReadStatus();
+
+
+        render();
+
 
     }
     catch(error){
 
         console.error(
-            "STUDENT LMS INITIALIZATION ERROR:",
+            "STUDENT LMS ERROR:",
             error
         );
 
 
-        subjectGrid.innerHTML = `
+        document.getElementById(
+            "lmsContainer"
+        ).innerHTML = `
 
             <div class="empty">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
 
                 <h3>
                     Unable to load Student LMS
                 </h3>
 
-                <p style="
-                    margin-top:10px;
-                    color:#c9302c;
-                ">
-
+                <p>
                     ${escapeHtml(
                         error.message
                     )}
-
                 </p>
-
-                <button
-                    class="btn btn-primary"
-                    style="margin-top:15px"
-                    onclick="location.reload()"
-                >
-                    Try Again
-                </button>
 
             </div>
 
@@ -5640,7 +2913,11 @@ async function initializeStudentLMS(){
 }
 
 
-initializeStudentLMS();
+/* =========================================================
+   START
+========================================================= */
+
+initializeStudent();
 
 </script>
 
